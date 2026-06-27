@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 01 · Fundamentos de Electricidad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --negro:   #0A0A0F;
+      --panel:   #13131F;
+      --card:    #1A1A2E;
+      --voltaje: #FFD600;
+      --rojo:    #E63946;
+      --azul:    #4FC3F7;
+      --verde:   #69F0AE;
+      --blanco:  #F0F0F0;
+      --gris:    #7A7A9A;
+      --borde:   rgba(255,214,0,0.12);
+    }
+
+    html, body {
+      height: 100%; overflow: hidden;
+      background: var(--negro);
+      color: var(--blanco);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── CONTENEDOR PRINCIPAL ── */
+    .pres {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+    }
+
+    /* ── BARRA SUPERIOR ── */
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem;
+      height: 48px;
+      background: rgba(10,10,15,0.95);
+      border-bottom: 1px solid var(--borde);
+      flex-shrink: 0;
+      gap: 1rem;
+    }
+
+    .topbar-left {
+      display: flex; align-items: center; gap: 1rem;
+      min-width: 0;
+    }
+
+    .modulo-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; font-weight: 700;
+      color: var(--negro);
+      background: var(--voltaje);
+      padding: 0.2rem 0.6rem;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .topbar-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem; font-weight: 600;
+      color: var(--gris);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; color: var(--gris);
+      white-space: nowrap;
+    }
+    .slide-counter span { color: var(--voltaje); }
+
+    /* ── ÁREA DE SLIDE ── */
+    .slide-area {
+      flex: 1; overflow: hidden;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: none;
+      padding: 2.5rem 3rem;
+      overflow-y: auto;
+    }
+    .slide.active { display: flex; flex-direction: column; justify-content: center; }
+
+    /* ── BARRA INFERIOR ── */
+    .bottombar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem;
+      height: 56px;
+      background: rgba(10,10,15,0.95);
+      border-top: 1px solid var(--borde);
+      flex-shrink: 0;
+      gap: 1rem;
+    }
+
+    /* Progress dots */
+    .progress-dots {
+      display: flex; gap: 6px; align-items: center;
+      flex-wrap: wrap; flex: 1; justify-content: center;
+    }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .dot.active { background: var(--voltaje); transform: scale(1.4); }
+    .dot.visited { background: rgba(255,214,0,0.35); }
+
+    /* Nav buttons */
+    .nav-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: none; border: 1px solid var(--borde);
+      color: var(--blanco); padding: 0.4rem 1rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; transition: all 0.15s;
+      letter-spacing: 0.05em; white-space: nowrap;
+    }
+    .nav-btn:hover { border-color: var(--voltaje); color: var(--voltaje); }
+    .nav-btn:disabled { opacity: 0.25; cursor: default; }
+    .nav-btn.primary {
+      background: var(--voltaje); border-color: var(--voltaje);
+      color: var(--negro);
+    }
+    .nav-btn.primary:hover { background: #ffe033; }
+
+    /* ── ESTILOS DE CONTENIDO ── */
+
+    /* Eyebrow */
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--voltaje); margin-bottom: 0.75rem;
+    }
+
+    /* Títulos */
+    h1.slide-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(2rem, 6vw, 4.5rem);
+      font-weight: 700; line-height: 1;
+      margin-bottom: 1rem;
+    }
+    h1.slide-title em { font-style: normal; color: var(--voltaje); }
+
+    h2.slide-h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 700; line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    h2.slide-h2 em { font-style: normal; color: var(--voltaje); }
+
+    .slide-body {
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      color: rgba(240,240,240,0.85);
+      line-height: 1.7; font-weight: 300;
+      max-width: 680px;
+    }
+
+    /* Definición grande */
+    .def-big {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      font-weight: 600; color: var(--blanco);
+      line-height: 1.4; margin-bottom: 1.5rem;
+      border-left: 3px solid var(--voltaje);
+      padding-left: 1.25rem;
+    }
+
+    /* Formula */
+    .formula-block {
+      display: inline-flex; align-items: center;
+      background: var(--card);
+      border: 1px solid var(--borde);
+      border-left: 3px solid var(--voltaje);
+      padding: 1rem 2rem;
+      margin: 1.5rem 0;
+      gap: 0.5rem;
+    }
+    .formula {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(1.4rem, 4vw, 2.5rem);
+      font-weight: 700; color: var(--voltaje);
+      letter-spacing: 0.05em;
+    }
+
+    /* Cards en grid */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px; background: var(--borde);
+      border: 1px solid var(--borde);
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 1.5rem;
+    }
+
+    .card-icon {
+      font-size: 2rem; margin-bottom: 0.75rem; display: block; line-height: 1;
+    }
+
+    .card h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .card .symbol {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; color: var(--voltaje);
+      letter-spacing: 0.1em; margin-bottom: 0.5rem; display: block;
+    }
+
+    .card p { font-size: 0.82rem; color: var(--gris); line-height: 1.5; }
+
+    /* Analogía agua */
+    .analogia {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem; align-items: center;
+      margin: 1.5rem 0;
+    }
+
+    .analogia-lado {
+      background: var(--card);
+      border: 1px solid var(--borde);
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .analogia-lado .icono { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+    .analogia-lado .nombre {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; color: var(--gris);
+      text-transform: uppercase; margin-bottom: 0.25rem;
+    }
+    .analogia-lado .valor {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--voltaje);
+    }
+
+    .analogia-igual {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem; color: var(--gris);
+      text-align: center;
+    }
+
+    /* Triángulo VIR */
+    .triangulo-container {
+      display: flex; gap: 3rem; align-items: center;
+      flex-wrap: wrap; margin-top: 1.5rem;
+    }
+
+    .triangulo-svg { flex-shrink: 0; }
+
+    .triangulo-formulas {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+
+    .formula-row {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--card); border: 1px solid var(--borde);
+      padding: 0.75rem 1.25rem;
+    }
+    .formula-row .label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; color: var(--gris);
+      text-transform: uppercase; min-width: 80px;
+    }
+    .formula-row .eq {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem; font-weight: 700; color: var(--voltaje);
+    }
+
+    /* Tabla */
+    .tabla {
+      width: 100%; border-collapse: collapse;
+      margin-top: 1.5rem;
+      font-size: 0.88rem;
+    }
+    .tabla th {
+      background: var(--card);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--voltaje); padding: 0.75rem 1rem;
+      text-align: left; border-bottom: 1px solid var(--borde);
+    }
+    .tabla td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: rgba(240,240,240,0.85);
+    }
+    .tabla tr:hover td { background: rgba(255,214,0,0.03); }
+    .tabla .mono {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--voltaje); font-size: 0.85rem;
+    }
+
+    /* Ejemplo paso a paso */
+    .ejemplo {
+      background: var(--card);
+      border: 1px solid var(--borde);
+      border-left: 3px solid var(--azul);
+      padding: 1.5rem; margin-top: 1.5rem;
+    }
+    .ejemplo-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.15em; color: var(--azul);
+      text-transform: uppercase; margin-bottom: 1rem; display: block;
+    }
+    .ejemplo p { font-size: 0.9rem; color: rgba(240,240,240,0.85); margin-bottom: 0.5rem; }
+    .ejemplo .resultado {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem; color: var(--verde);
+      margin-top: 0.75rem; display: block;
+    }
+
+    /* Alerta / nota */
+    .nota {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      background: rgba(255,214,0,0.05);
+      border: 1px solid rgba(255,214,0,0.2);
+      padding: 1rem 1.25rem; margin-top: 1rem;
+      font-size: 0.85rem; color: rgba(240,240,240,0.8);
+    }
+    .nota-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+    /* Lista técnica */
+    .lista-tecnica {
+      list-style: none; margin-top: 1rem;
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .lista-tecnica li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      font-size: 0.9rem; color: rgba(240,240,240,0.85);
+      padding: 0.6rem 0.75rem;
+      border-left: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .lista-tecnica li:hover { border-left-color: var(--voltaje); }
+    .lista-tecnica .bullet {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--voltaje); font-size: 0.75rem;
+      margin-top: 0.2rem; flex-shrink: 0;
+    }
+
+    /* Magnitud hero */
+    .magnitud-hero {
+      display: flex; align-items: flex-start; gap: 3rem;
+      flex-wrap: wrap; margin-top: 1rem;
+    }
+    .magnitud-num {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(4rem, 12vw, 8rem);
+      font-weight: 700; line-height: 1;
+      color: var(--voltaje); flex-shrink: 0;
+    }
+    .magnitud-info { padding-top: 0.5rem; }
+    .magnitud-info .unidad {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem; color: var(--gris);
+      letter-spacing: 0.15em; margin-bottom: 0.5rem; display: block;
+    }
+    .magnitud-info p { font-size: 0.9rem; color: rgba(240,240,240,0.8); max-width: 400px; }
+
+    /* Slide de portada especial */
+    .slide-cover {
+      justify-content: flex-end !important;
+      padding-bottom: 3rem !important;
+      position: relative;
+    }
+
+    .cover-bg {
+      position: absolute; inset: 0;
+      overflow: hidden; pointer-events: none;
+    }
+
+    .cover-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,214,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,214,0,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .cover-line {
+      position: absolute; top: 35%; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--voltaje) 30%, var(--rojo) 70%, transparent 100%);
+      opacity: 0.6;
+    }
+
+    .cover-content { position: relative; z-index: 1; }
+
+    .cover-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(6rem, 20vw, 14rem);
+      font-weight: 700; line-height: 1;
+      color: rgba(255,214,0,0.06);
+      position: absolute; top: -1rem; right: -1rem;
+      pointer-events: none; user-select: none;
+    }
+
+    /* Slide resumen final */
+    .resumen-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px; background: var(--borde);
+      border: 1px solid var(--borde);
+      margin-top: 1.5rem;
+    }
+    .resumen-item {
+      background: var(--card);
+      padding: 1.25rem 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .resumen-sym {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--voltaje); line-height: 1; flex-shrink: 0;
+      min-width: 2rem;
+    }
+    .resumen-item h4 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem;
+    }
+    .resumen-item p { font-size: 0.8rem; color: var(--gris); }
+
+    .formulas-finales {
+      display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;
+    }
+    .formula-final {
+      background: var(--card);
+      border: 1px solid var(--borde);
+      padding: 1rem 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--voltaje);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .slide { padding: 1.5rem 1.25rem; }
+      .analogia { grid-template-columns: 1fr; }
+      .analogia-igual { transform: rotate(90deg); }
+      .triangulo-container { flex-direction: column; gap: 1.5rem; }
+      .topbar-title { display: none; }
+      .resumen-grid { grid-template-columns: 1fr; }
+      .magnitud-num { font-size: 4rem; }
+      .cover-num { display: none; }
+    }
+
+    /* Keyboard focus */
+    .nav-btn:focus-visible { outline: 2px solid var(--voltaje); outline-offset: 2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="pres">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="modulo-badge">MOD · 01</span>
+      <span class="topbar-title">Fundamentos de Electricidad</span>
+    </div>
+    <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">15</span></span>
+  </div>
+
+  <!-- SLIDES -->
+  <div class="slide-area">
+
+    <!-- SLIDE 1: PORTADA -->
+    <div class="slide slide-cover active" data-index="0">
+      <div class="cover-bg">
+        <div class="cover-grid"></div>
+        <div class="cover-line"></div>
+      </div>
+      <div class="cover-num">01</div>
+      <div class="cover-content">
+        <p class="eyebrow">Circuitos Eléctricos, Electrónicos y de Confortabilidad · FP Electromecánica</p>
+        <h1 class="slide-title">Fundamentos de<br><em>Electricidad</em></h1>
+        <p class="slide-body" style="margin-top:1rem">
+          Magnitudes eléctricas esenciales, Ley de Ohm y Potencia.<br>
+          Todo lo que necesitas para entender cualquier circuito del automóvil.
+        </p>
+        <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--gris)">⚡ Voltaje &nbsp;·&nbsp; Intensidad &nbsp;·&nbsp; Resistencia &nbsp;·&nbsp; Potencia &nbsp;·&nbsp; Ley de Ohm</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: QUÉ ES LA ELECTRICIDAD -->
+    <div class="slide" data-index="1">
+      <p class="eyebrow">Concepto base</p>
+      <h2 class="slide-h2">¿Qué es la <em>electricidad</em>?</h2>
+      <div class="def-big">
+        Es el movimiento ordenado de electrones a través de un material conductor.
+      </div>
+      <p class="slide-body">
+        Todo material está formado por átomos. En los metales como el cobre o el aluminio,
+        los electrones de la capa exterior se mueven con facilidad de un átomo a otro.
+        Cuando aplicamos una fuerza (tensión), ese movimiento se vuelve ordenado: eso es la corriente eléctrica.
+      </p>
+      <ul class="lista-tecnica" style="margin-top:1.25rem">
+        <li><span class="bullet">→</span> Los <strong>conductores</strong> (cobre, aluminio) permiten el paso libre de electrones</li>
+        <li><span class="bullet">→</span> Los <strong>aislantes</strong> (plástico, goma) bloquean ese movimiento</li>
+        <li><span class="bullet">→</span> Los <strong>semiconductores</strong> (silicio) pueden actuar de las dos formas</li>
+      </ul>
+      <div class="nota" style="margin-top:1.5rem">
+        <span class="nota-icon">💡</span>
+        <span>En el automóvil, el cableado de cobre conduce la electricidad. El plástico que lo recubre lo aísla para evitar cortocircuitos.</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: ANALOGÍA DEL AGUA -->
+    <div class="slide" data-index="2">
+      <p class="eyebrow">Analogía para entenderlo</p>
+      <h2 class="slide-h2">La electricidad es como el <em>agua</em></h2>
+      <p class="slide-body">Imagina una instalación de agua. Cada elemento tiene su equivalente eléctrico exacto:</p>
+
+      <div style="margin-top:1.5rem; display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--borde); border:1px solid var(--borde)">
+        <div style="background:var(--card); padding:1rem 1.25rem">
+          <div style="font-family:'Rajdhani',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:var(--azul); text-transform:uppercase; margin-bottom:0.75rem">🚿 Instalación de agua</div>
+          <ul class="lista-tecnica" style="margin-top:0">
+            <li><span class="bullet">→</span> <strong>Presión</strong> del agua</li>
+            <li><span class="bullet">→</span> <strong>Caudal</strong> (litros/segundo)</li>
+            <li><span class="bullet">→</span> <strong>Obstáculo</strong> en la tubería</li>
+            <li><span class="bullet">→</span> <strong>Bomba</strong> de agua</li>
+            <li><span class="bullet">→</span> <strong>Tubería</strong></li>
+          </ul>
+        </div>
+        <div style="background:var(--card); padding:1rem 1.25rem">
+          <div style="font-family:'Rajdhani',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:var(--voltaje); text-transform:uppercase; margin-bottom:0.75rem">⚡ Circuito eléctrico</div>
+          <ul class="lista-tecnica" style="margin-top:0">
+            <li><span class="bullet">→</span> <strong>Voltaje</strong> (V)</li>
+            <li><span class="bullet">→</span> <strong>Intensidad</strong> (A)</li>
+            <li><span class="bullet">→</span> <strong>Resistencia</strong> (Ω)</li>
+            <li><span class="bullet">→</span> <strong>Batería</strong></li>
+            <li><span class="bullet">→</span> <strong>Cable</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div class="nota">
+        <span class="nota-icon">⚠️</span>
+        <span>Esta analogía tiene límites, pero es perfecta para visualizar cómo funcionan las magnitudes eléctricas y sus relaciones.</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: VOLTAJE -->
+    <div class="slide" data-index="3">
+      <p class="eyebrow">Magnitud 1 de 4</p>
+      <h2 class="slide-h2"><em>Voltaje</em> · Tensión</h2>
+      <div class="magnitud-hero">
+        <div class="magnitud-num">V</div>
+        <div class="magnitud-info">
+          <span class="unidad">SÍMBOLO: V &nbsp;·&nbsp; UNIDAD: VOLTIOS (V)</span>
+          <div class="def-big" style="margin-bottom:1rem">
+            Es la <em style="color:var(--voltaje)">fuerza</em> que empuja a los electrones por el circuito.
+          </div>
+          <p style="font-size:0.9rem; color:var(--gris)">🚿 Analogía: la <strong style="color:var(--blanco)">presión</strong> del agua en la tubería</p>
+        </div>
+      </div>
+      <table class="tabla" style="margin-top:1.5rem">
+        <thead>
+          <tr><th>Componente del automóvil</th><th>Tensión típica</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Batería convencional</td><td class="mono">12 V</td></tr>
+          <tr><td>Sistema de carga en marcha</td><td class="mono">13,8 – 14,4 V</td></tr>
+          <tr><td>Batería descargada</td><td class="mono">&lt; 11,8 V</td></tr>
+          <tr><td>Vehículo eléctrico / híbrido</td><td class="mono">400 – 800 V</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SLIDE 5: INTENSIDAD -->
+    <div class="slide" data-index="4">
+      <p class="eyebrow">Magnitud 2 de 4</p>
+      <h2 class="slide-h2"><em>Intensidad</em> · Corriente</h2>
+      <div class="magnitud-hero">
+        <div class="magnitud-num">I</div>
+        <div class="magnitud-info">
+          <span class="unidad">SÍMBOLO: I &nbsp;·&nbsp; UNIDAD: AMPERIOS (A)</span>
+          <div class="def-big" style="margin-bottom:1rem">
+            Es la <em style="color:var(--voltaje)">cantidad</em> de electrones que pasan por un punto cada segundo.
+          </div>
+          <p style="font-size:0.9rem; color:var(--gris)">🚿 Analogía: el <strong style="color:var(--blanco)">caudal</strong> de agua (litros por segundo)</p>
+        </div>
+      </div>
+      <table class="tabla" style="margin-top:1.5rem">
+        <thead>
+          <tr><th>Componente del automóvil</th><th>Intensidad típica</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Piloto LED de posición</td><td class="mono">0,05 A (50 mA)</td></tr>
+          <tr><td>Motor de elevalunas</td><td class="mono">3 – 8 A</td></tr>
+          <tr><td>Faro halógeno H4</td><td class="mono">4 – 5 A</td></tr>
+          <tr><td>Motor de arranque</td><td class="mono">150 – 400 A</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SLIDE 6: RESISTENCIA -->
+    <div class="slide" data-index="5">
+      <p class="eyebrow">Magnitud 3 de 4</p>
+      <h2 class="slide-h2"><em>Resistencia</em></h2>
+      <div class="magnitud-hero">
+        <div class="magnitud-num">R</div>
+        <div class="magnitud-info">
+          <span class="unidad">SÍMBOLO: R &nbsp;·&nbsp; UNIDAD: OHMIOS (Ω)</span>
+          <div class="def-big" style="margin-bottom:1rem">
+            Es la <em style="color:var(--voltaje)">oposición</em> que ofrece un material al paso de la corriente.
+          </div>
+          <p style="font-size:0.9rem; color:var(--gris)">🚿 Analogía: una <strong style="color:var(--blanco)">piedra dentro de la tubería</strong></p>
+        </div>
+      </div>
+      <ul class="lista-tecnica" style="margin-top:1.25rem">
+        <li><span class="bullet">→</span> Cable en buen estado → resistencia muy <strong>baja</strong> → corriente fluye bien</li>
+        <li><span class="bullet">→</span> Cable oxidado o dañado → resistencia <strong>alta</strong> → calor y pérdida de potencia</li>
+        <li><span class="bullet">→</span> Bombilla → usa la resistencia para <strong>producir luz y calor</strong></li>
+        <li><span class="bullet">→</span> Resistencia = 0 Ω → <strong style="color:var(--rojo)">cortocircuito</strong></li>
+        <li><span class="bullet">→</span> Resistencia = ∞ Ω → <strong style="color:var(--rojo)">circuito abierto</strong> (cable cortado)</li>
+      </ul>
+    </div>
+
+    <!-- SLIDE 7: RESUMEN 3 MAGNITUDES -->
+    <div class="slide" data-index="6">
+      <p class="eyebrow">Resumen parcial</p>
+      <h2 class="slide-h2">Las tres magnitudes <em>básicas</em></h2>
+      <div class="cards" style="margin-top:1.5rem">
+        <div class="card">
+          <span class="card-icon">⚡</span>
+          <span class="symbol">V · VOLTIOS</span>
+          <h3>Voltaje</h3>
+          <p>La fuerza que mueve los electrones. La presión del circuito.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">💧</span>
+          <span class="symbol">I · AMPERIOS</span>
+          <h3>Intensidad</h3>
+          <p>Cuántos electrones pasan. El caudal de la corriente.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🧱</span>
+          <span class="symbol">R · OHMIOS</span>
+          <h3>Resistencia</h3>
+          <p>Lo que se opone al paso. El obstáculo en el circuito.</p>
+        </div>
+      </div>
+      <div class="nota" style="margin-top:1.5rem">
+        <span class="nota-icon">🔑</span>
+        <span>Estas tres magnitudes están siempre relacionadas entre sí. Si cambia una, cambian las demás. La Ley de Ohm describe exactamente esa relación.</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: LEY DE OHM -->
+    <div class="slide" data-index="7">
+      <p class="eyebrow">La ley fundamental</p>
+      <h2 class="slide-h2">Ley de <em>Ohm</em></h2>
+      <p class="slide-body">Georg Simon Ohm demostró en 1827 que en un circuito eléctrico, la tensión, la intensidad y la resistencia siempre guardan la misma relación:</p>
+      <div style="text-align:center; margin:2rem 0">
+        <div class="formula-block" style="display:inline-flex">
+          <span class="formula">V = I × R</span>
+        </div>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <h3 style="color:var(--voltaje); margin-bottom:0.5rem">Si sube R…</h3>
+          <p>…y V es constante (batería), la intensidad <strong>baja</strong>.<br>El componente recibe menos corriente.</p>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--voltaje); margin-bottom:0.5rem">Si baja R…</h3>
+          <p>…la intensidad <strong>sube</strong>. En caso extremo (R=0) → cortocircuito → fusible fundido.</p>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--voltaje); margin-bottom:0.5rem">Si sube V…</h3>
+          <p>…con la misma R, la intensidad <strong>sube</strong>. Los componentes se diseñan para una tensión concreta.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: TRIÁNGULO VIR -->
+    <div class="slide" data-index="8">
+      <p class="eyebrow">Herramienta de cálculo</p>
+      <h2 class="slide-h2">El triángulo <em>VIR</em></h2>
+      <p class="slide-body">Tapa la magnitud que quieres calcular. Las otras dos te indican la operación:</p>
+
+      <div class="triangulo-container">
+        <svg class="triangulo-svg" width="180" height="160" viewBox="0 0 180 160">
+          <!-- Triángulo -->
+          <polygon points="90,10 170,150 10,150" fill="none" stroke="rgba(255,214,0,0.3)" stroke-width="1.5"/>
+          <!-- Línea divisoria horizontal -->
+          <line x1="50" y1="103" x2="130" y2="103" stroke="rgba(255,214,0,0.3)" stroke-width="1.5"/>
+          <!-- Línea divisoria vertical -->
+          <line x1="90" y1="103" x2="90" y2="150" stroke="rgba(255,214,0,0.3)" stroke-width="1.5"/>
+          <!-- V arriba -->
+          <text x="90" y="75" text-anchor="middle" font-family="JetBrains Mono" font-size="28" font-weight="700" fill="#FFD600">V</text>
+          <!-- I abajo izq -->
+          <text x="55" y="138" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#4FC3F7">I</text>
+          <!-- R abajo dcha -->
+          <text x="125" y="138" text-anchor="middle" font-family="JetBrains Mono" font-size="22" font-weight="700" fill="#69F0AE">R</text>
+        </svg>
+
+        <div class="triangulo-formulas">
+          <div class="formula-row">
+            <span class="label">Busco V</span>
+            <span class="eq">V = I × R</span>
+          </div>
+          <div class="formula-row">
+            <span class="label">Busco I</span>
+            <span class="eq">I = V ÷ R</span>
+          </div>
+          <div class="formula-row">
+            <span class="label">Busco R</span>
+            <span class="eq">R = V ÷ I</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nota" style="margin-top:1.5rem">
+        <span class="nota-icon">💡</span>
+        <span>Tapa con el dedo la letra que quieres calcular. Las dos letras que quedan visibles te dicen si multiplicas o divides.</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: EJEMPLO LEY DE OHM -->
+    <div class="slide" data-index="9">
+      <p class="eyebrow">Ejemplo práctico</p>
+      <h2 class="slide-h2">Ley de Ohm en el <em>taller</em></h2>
+
+      <div class="ejemplo">
+        <span class="ejemplo-label">📋 Problema</span>
+        <p>Una bombilla de posición tiene una resistencia de <strong>240 Ω</strong>.</p>
+        <p>Está conectada a la batería: <strong>12 V</strong>.</p>
+        <p style="margin-top:0.75rem">¿Cuánta corriente consume?</p>
+      </div>
+
+      <div class="ejemplo" style="border-left-color:var(--verde); margin-top:1rem">
+        <span class="ejemplo-label" style="color:var(--verde)">✅ Resolución</span>
+        <p>Usamos: <strong>I = V ÷ R</strong></p>
+        <p>I = 12 ÷ 240</p>
+        <span class="resultado">I = 0,05 A = 50 mA ✓</span>
+      </div>
+
+      <ul class="lista-tecnica" style="margin-top:1rem">
+        <li><span class="bullet" style="color:var(--verde)">✓</span> Si mides ~50 mA → circuito correcto</li>
+        <li><span class="bullet" style="color:var(--rojo)">✗</span> Si mides mucho más → posible <strong>cortocircuito</strong></li>
+        <li><span class="bullet" style="color:var(--rojo)">✗</span> Si mides cero → <strong>circuito abierto</strong> (bombilla fundida o cable cortado)</li>
+      </ul>
+    </div>
+
+    <!-- SLIDE 11: POTENCIA -->
+    <div class="slide" data-index="10">
+      <p class="eyebrow">Magnitud 4 de 4</p>
+      <h2 class="slide-h2"><em>Potencia</em> eléctrica</h2>
+      <div class="magnitud-hero">
+        <div class="magnitud-num">P</div>
+        <div class="magnitud-info">
+          <span class="unidad">SÍMBOLO: P &nbsp;·&nbsp; UNIDAD: VATIOS (W)</span>
+          <div class="def-big" style="margin-bottom:1rem">
+            Es la <em style="color:var(--voltaje)">energía</em> que consume o produce un componente cada segundo.
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin:1rem 0">
+        <div class="formula-block" style="display:inline-flex">
+          <span class="formula">P = V × I</span>
+        </div>
+      </div>
+      <table class="tabla">
+        <thead>
+          <tr><th>Componente</th><th>Potencia</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Piloto LED</td><td class="mono">5 W</td></tr>
+          <tr><td>Faro halógeno H4 (cruce)</td><td class="mono">55 W</td></tr>
+          <tr><td>Resistencia luneta trasera</td><td class="mono">120 W</td></tr>
+          <tr><td>Motor de arranque</td><td class="mono">1.000 – 2.500 W</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SLIDE 12: TODAS LAS FÓRMULAS -->
+    <div class="slide" data-index="11">
+      <p class="eyebrow">Referencia completa</p>
+      <h2 class="slide-h2">Todas las <em>fórmulas</em></h2>
+      <p class="slide-body">Con cualquier dos magnitudes conocidas, puedes calcular las demás:</p>
+      <table class="tabla" style="margin-top:1.25rem">
+        <thead>
+          <tr><th>Busco</th><th>Fórmula A</th><th>Fórmula B</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="mono">V</span></td>
+            <td><span class="mono">V = I × R</span></td>
+            <td><span class="mono">V = P ÷ I</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">I</span></td>
+            <td><span class="mono">I = V ÷ R</span></td>
+            <td><span class="mono">I = P ÷ V</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">R</span></td>
+            <td><span class="mono">R = V ÷ I</span></td>
+            <td><span class="mono">R = V² ÷ P</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">P</span></td>
+            <td><span class="mono">P = V × I</span></td>
+            <td><span class="mono">P = I² × R</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="nota" style="margin-top:1.25rem">
+        <span class="nota-icon">📌</span>
+        <span>No hace falta memorizar todas. Con V = I×R y P = V×I puedes deducir el resto despejando la incógnita.</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 13: EJEMPLO COMBINADO -->
+    <div class="slide" data-index="12">
+      <p class="eyebrow">Ejercicio completo</p>
+      <h2 class="slide-h2">Ejemplo con <em>Potencia y Ohm</em></h2>
+
+      <div class="ejemplo">
+        <span class="ejemplo-label">📋 Problema</span>
+        <p>Un faro LED de última generación consume <strong>35 W</strong> y está conectado a <strong>12 V</strong>.</p>
+        <p style="margin-top:0.5rem">Calcula: <strong>intensidad</strong> que consume y <strong>resistencia</strong> equivalente.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem">
+        <div class="ejemplo" style="border-left-color:var(--azul); margin-top:0">
+          <span class="ejemplo-label" style="color:var(--azul)">PASO 1 · Intensidad</span>
+          <p>I = P ÷ V</p>
+          <p>I = 35 ÷ 12</p>
+          <span class="resultado">I = 2,9 A</span>
+        </div>
+        <div class="ejemplo" style="border-left-color:var(--verde); margin-top:0">
+          <span class="ejemplo-label" style="color:var(--verde)">PASO 2 · Resistencia</span>
+          <p>R = V ÷ I</p>
+          <p>R = 12 ÷ 2,9</p>
+          <span class="resultado">R = 4,1 Ω</span>
+        </div>
+      </div>
+
+      <div class="nota" style="margin-top:1rem">
+        <span class="nota-icon">🔧</span>
+        <span>En el taller: si mides más de 4 A en ese faro, algo está mal. Si mides menos de 2 A, el faro no recibe suficiente tensión.</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 14: APLICACIÓN AL DIAGNÓSTICO -->
+    <div class="slide" data-index="13">
+      <p class="eyebrow">Aplicación real</p>
+      <h2 class="slide-h2">Electricidad para el <em>diagnóstico</em></h2>
+      <p class="slide-body">Conocer estas magnitudes no es teoría: es la base del diagnóstico eléctrico en el taller.</p>
+
+      <div class="cards" style="margin-top:1.5rem">
+        <div class="card">
+          <span class="card-icon">📏</span>
+          <h3>Mides tensión y resistencia</h3>
+          <p>Calculas la corriente <em>esperada</em>. La comparas con la corriente <em>real</em> que mide el amperímetro.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🌡️</span>
+          <h3>Caída de tensión</h3>
+          <p>Si un cable tiene resistencia alta (oxidado, pelado), la tensión cae antes de llegar al componente.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🔥</span>
+          <h3>Calor = problema</h3>
+          <p>P = I² × R. Si R sube en un conector, se genera calor. Un conector caliente es un conector en mal estado.</p>
+        </div>
+      </div>
+
+      <div class="nota" style="margin-top:1.5rem">
+        <span class="nota-icon">🔑</span>
+        <span><strong>Regla de oro:</strong> Si la resistencia sube → la intensidad baja → el componente no recibe lo que necesita → avería.</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 15: RESUMEN FINAL -->
+    <div class="slide" data-index="14">
+      <p class="eyebrow">Cierre del módulo</p>
+      <h2 class="slide-h2"><em>Resumen</em> · Módulo 01</h2>
+
+      <div class="resumen-grid">
+        <div class="resumen-item">
+          <span class="resumen-sym">V</span>
+          <div>
+            <h4>Voltaje · Voltios</h4>
+            <p>La fuerza que mueve los electrones. Presión del circuito.</p>
+          </div>
+        </div>
+        <div class="resumen-item">
+          <span class="resumen-sym">I</span>
+          <div>
+            <h4>Intensidad · Amperios</h4>
+            <p>Cantidad de electrones por segundo. Caudal del circuito.</p>
+          </div>
+        </div>
+        <div class="resumen-item">
+          <span class="resumen-sym">R</span>
+          <div>
+            <h4>Resistencia · Ohmios</h4>
+            <p>Oposición al paso de corriente. Obstáculo del circuito.</p>
+          </div>
+        </div>
+        <div class="resumen-item">
+          <span class="resumen-sym">P</span>
+          <div>
+            <h4>Potencia · Vatios</h4>
+            <p>Energía consumida por segundo. Capacidad de trabajo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="formulas-finales">
+        <div class="formula-final">V = I × R</div>
+        <div class="formula-final">P = V × I</div>
+        <div class="formula-final">P = I² × R</div>
+      </div>
+
+      <div class="nota" style="margin-top:1.25rem; border-color:rgba(105,240,174,0.3); background:rgba(105,240,174,0.05)">
+        <span class="nota-icon">✅</span>
+        <span>Con estas cuatro magnitudes y dos fórmulas base entiendes el 80% de la electricidad del automóvil.</span>
+      </div>
+    </div>
+
+  </div><!-- /slide-area -->
+
+  <!-- BOTTOMBAR -->
+  <div class="bottombar">
+    <button class="nav-btn" id="btnPrev" disabled onclick="changeSlide(-1)">← Anterior</button>
+    <div class="progress-dots" id="dots"></div>
+    <button class="nav-btn primary" id="btnNext" onclick="changeSlide(1)">Siguiente →</button>
+  </div>
+
+</div><!-- /pres -->
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  let current = 0;
+  const visited = new Set([0]);
+
+  document.getElementById('totalSlides').textContent = totalSlides;
+
+  // Generar dots
+  const dotsContainer = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.title = `Diapositiva ${i + 1}`;
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    visited.add(current);
+    updateUI();
+  }
+
+  function changeSlide(dir) {
+    const next = current + dir;
+    if (next < 0 || next >= totalSlides) return;
+    goTo(next);
+  }
+
+  function updateUI() {
+    document.getElementById('currentSlide').textContent = current + 1;
+
+    document.getElementById('btnPrev').disabled = current === 0;
+    const btnNext = document.getElementById('btnNext');
+    if (current === totalSlides - 1) {
+      btnNext.textContent = '✓ Fin del módulo';
+      btnNext.disabled = true;
+    } else {
+      btnNext.textContent = 'Siguiente →';
+      btnNext.disabled = false;
+    }
+
+    document.querySelectorAll('.dot').forEach((dot, i) => {
+      dot.className = 'dot';
+      if (i === current) dot.classList.add('active');
+      else if (visited.has(i)) dot.classList.add('visited');
+    });
+  }
+
+  // Teclado
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault(); changeSlide(1);
+    }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault(); changeSlide(-1);
+    }
+  });
+
+  // Swipe táctil
+  let touchX = 0;
+  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const diff = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1);
+  });
+
+  updateUI();
+</script>
+</body>
+</html>
