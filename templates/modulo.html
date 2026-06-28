@@ -1,1 +1,218 @@
-e
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{{ module_title }} · {{ course_name }}</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ css_path }}">
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="{{ home_url }}"><span>{{ brand_main }}</span><span> {{ brand_suffix }}</span></a>
+
+  <ul class="nav-links" id="navLinks">
+    {% for item in nav_items %}
+      <li><a href="{{ item.url }}" class="{{ item.active }}">{{ item.label }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <button class="nav-burger" id="burger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+
+  <div class="header-num">{{ module_number }}</div>
+
+  <div class="breadcrumb">
+    {% for crumb in breadcrumb %}
+      {% if crumb.url %}
+        <a href="{{ crumb.url }}">{{ crumb.label }}</a>
+        <span>›</span>
+      {% else %}
+        <span>{{ crumb.label }}</span>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="header-badge">
+    <span class="badge-num">MÓDULO {{ module_number }}</span>
+    <span class="badge-estado">{{ module_status }}</span>
+  </div>
+
+  <h1>{{ module_title_main }} <em>{{ module_title_emphasis }}</em></h1>
+  <p>{{ module_description }}</p>
+
+  <div class="header-meta">
+    {% for meta in header_meta %}
+      <div class="meta-item">{{ meta.icon }} <strong>{{ meta.text }}</strong></div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<!-- CONTENIDO -->
+<div class="main-content">
+
+  <!-- COL MAIN -->
+  <div class="col-main">
+
+    <!-- DESCRIPCIÓN -->
+    <div class="section-block reveal">
+      <div class="block-label">Descripción</div>
+      <h2 class="block-title">{{ section_intro.title }}</h2>
+
+      {% for p in section_intro.paragraphs %}
+        <p class="block-body">{{ p }}</p>
+      {% endfor %}
+    </div>
+
+    <!-- CONTENIDOS -->
+    <div class="section-block reveal">
+      <div class="block-label">Contenidos</div>
+      <h2 class="block-title">{{ section_content.title }}</h2>
+
+      <ul class="contenidos-lista">
+        {% for item in contents %}
+        <li>
+          <span class="ico">{{ item.icon }}</span>
+          <span class="tema">{{ item.topic }}</span>
+          <span class="subtema">{{ item.tag }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- CONCEPTOS -->
+    <div class="section-block reveal">
+      <div class="block-label">Conceptos clave</div>
+      <h2 class="block-title">{{ concepts_title }}</h2>
+
+      <div class="conceptos-grid">
+        {% for c in concepts %}
+        <div class="concepto">
+          <span class="concepto-sym">{{ c.symbol }}</span>
+          <h4>{{ c.title }}</h4>
+          <p>{{ c.description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- FÓRMULAS -->
+    <div class="section-block reveal">
+      <div class="block-label">Fórmulas</div>
+      <h2 class="block-title">{{ formulas_title }}</h2>
+
+      <div class="formulas-lista">
+        {% for f in formulas %}
+        <div class="formula-item">
+          <span class="formula-eq">{{ f.eq }}</span>
+          <span class="formula-desc">{{ f.desc }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="col-sidebar">
+
+    <!-- MATERIAL -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Material del módulo</div>
+
+      <div class="sidebar-card-body">
+
+        <a href="{{ presentation_url }}" class="btn-presentacion">
+          <span class="icon">▶</span>
+          <span class="text">
+            Ver presentación
+            <small>{{ presentation_info }}</small>
+          </span>
+        </a>
+
+        <a href="{{ simulator_url }}" class="btn-simulador">
+          🔧 Abrir simulador del módulo
+        </a>
+
+      </div>
+    </div>
+
+    <!-- MÓDULOS -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Todos los módulos</div>
+
+      <div class="sidebar-card-body" style="padding:0">
+        <ul class="modulos-nav">
+
+          {% for m in modules %}
+          <li class="{{ m.state }}">
+            {% if m.locked %}
+              <span style="opacity:0.4; cursor:default">
+                <span class="mod-num">{{ m.number }}</span>
+                {{ m.name }}
+                <span class="lock">🔒</span>
+              </span>
+            {% elif m.current %}
+              <span>
+                <span class="mod-num">{{ m.number }}</span>
+                {{ m.name }}
+              </span>
+            {% else %}
+              <a href="{{ m.url }}">
+                <span class="mod-num">{{ m.number }}</span>
+                {{ m.name }}
+              </a>
+            {% endif %}
+          </li>
+          {% endfor %}
+
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- NAVEGACIÓN -->
+<div class="mod-nav">
+
+  <div class="mod-nav-item" style="opacity:0.3; cursor:default">
+    <span class="dir">← Módulo anterior</span>
+    <span class="nombre">{{ prev_module }}</span>
+  </div>
+
+  <a class="mod-nav-item next" href="{{ next_module_url }}">
+    <span class="dir">Módulo siguiente →</span>
+    <span class="nombre">{{ next_module }}</span>
+  </a>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">{{ brand_main }}<span>{{ brand_suffix }}</span></div>
+    <p style="margin-top:0.4rem">{{ footer_text }}</p>
+  </div>
+
+  <p style="color:var(--gris); font-size:0.75rem">{{ footer_copy }}</p>
+</footer>
+
+<script src="{{ js_path }}"></script>
+
+</body>
+</html>
