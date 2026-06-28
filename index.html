@@ -3,223 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ElectroAuto FP — Electricidad del Automóvil</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <title>Módulo 05 · Electrónica Digital</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--negro:#0D0D0D;--antracita:#141428;--panel:#1C1C3A;--voltaje:#FFD600;--blanco:#F0F0F0;--rojo:#E63946;--azul:#4FC3F7;--verde:#69F0AE;--gris:#8A8AAA;--borde:rgba(255,214,0,0.15);}
+    html{scroll-behavior:smooth;}
+    body{background:var(--negro);color:var(--blanco);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden;}
 
-    :root {
-      --negro:    #0D0D0D;
-      --antracita:#141428;
-      --panel:    #1C1C3A;
-      --voltaje:  #FFD600;
-      --blanco:   #F0F0F0;
-      --rojo:     #E63946;
-      --gris:     #8A8AAA;
-      --borde:    rgba(255,214,0,0.15);
-    }
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;background:rgba(13,13,13,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--borde);}
+    .nav-logo{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;color:var(--voltaje);text-decoration:none;}
+    .nav-logo span{color:var(--blanco);}
+    .nav-links{display:flex;gap:2rem;list-style:none;}
+    .nav-links a{color:var(--gris);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--voltaje);}
+    .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .nav-burger span{display:block;width:24px;height:2px;background:var(--blanco);}
 
-    html { scroll-behavior: smooth; }
+    .page-header{padding:100px 2rem 3rem;background:var(--antracita);border-bottom:1px solid var(--borde);position:relative;overflow:hidden;}
+    .page-header::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--voltaje),transparent);}
+    .header-num{position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-family:'Rajdhani',sans-serif;font-size:clamp(6rem,15vw,12rem);font-weight:700;color:rgba(255,214,0,0.04);line-height:1;pointer-events:none;user-select:none;}
 
-    body {
-      background: var(--negro);
-      color: var(--blanco);
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    .breadcrumb{font-size:0.78rem;color:var(--gris);margin-bottom:1.5rem;display:flex;gap:0.5rem;align-items:center;}
+    .breadcrumb a{color:var(--gris);text-decoration:none;}
+    .breadcrumb a:hover{color:var(--voltaje);}
+    .breadcrumb span{color:var(--voltaje);}
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem;
-      height: 60px;
-      background: rgba(13,13,13,0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--borde);
-    }
+    .header-badge{display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:1rem;}
+    .badge-num{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;background:var(--voltaje);color:var(--negro);padding:0.2rem 0.6rem;}
+    .badge-estado{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;border:1px solid rgba(105,240,174,0.4);color:var(--verde);padding:0.2rem 0.6rem;}
 
-    .nav-logo {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--voltaje);
-      letter-spacing: 0.05em;
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--blanco); }
+    .page-header h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;line-height:1.05;margin-bottom:1rem;}
+    .page-header h1 em{font-style:normal;color:var(--voltaje);}
+    .page-header p{color:var(--gris);font-size:0.95rem;max-width:580px;}
 
-    .nav-links {
-      display: flex; gap: 2rem; list-style: none;
-    }
-    .nav-links a {
-      color: var(--gris);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--voltaje); }
+    .header-meta{display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap;}
+    .meta-item{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--gris);}
+    .meta-item strong{color:var(--blanco);}
 
-    .nav-burger {
-      display: none;
-      flex-direction: column; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 4px;
-    }
-    .nav-burger span {
-      display: block; width: 24px; height: 2px;
-      background: var(--blanco); transition: 0.3s;
-    }
+    .main-content{display:grid;grid-template-columns:1fr 320px;gap:0;max-width:1200px;margin:0 auto;padding:3rem 2rem 5rem;}
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: flex-start;
-      padding: 100px 2rem 4rem;
-      position: relative; overflow: hidden;
-    }
+    .col-main{padding-right:3rem;}
+    .section-block{margin-bottom:3rem;}
 
-    .hero-canvas {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
-      opacity: 0.18; pointer-events: none;
-    }
+    .block-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--voltaje);margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
+    .block-label::after{content:'';flex:1;height:1px;background:var(--borde);}
 
-    .hero-eyebrow {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      color: var(--voltaje);
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
+    .block-title{font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:0.75rem;}
+    .block-body{font-size:0.9rem;color:rgba(240,240,240,0.8);line-height:1.7;}
 
-    .hero h1 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: clamp(2.8rem, 8vw, 6rem);
-      font-weight: 700;
-      line-height: 1;
-      max-width: 780px;
-      margin-bottom: 1.5rem;
-    }
+    .contenidos-lista{list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-top:1rem;}
+    .contenidos-lista li{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 0.75rem;background:var(--panel);}
+    .contenidos-lista .ico{font-size:1rem;}
+    .contenidos-lista .tema{flex:1;}
+    .contenidos-lista .subtema{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--gris);}
 
-    .hero h1 em { font-style: normal; color: var(--voltaje); }
+    .conceptos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--borde);border:1px solid var(--borde);}
+    .concepto{background:var(--panel);padding:1.25rem;}
+    .concepto-sym{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--voltaje);display:block;margin-bottom:0.4rem;}
+    .concepto h4{font-family:'Rajdhani',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:0.2rem;}
+    .concepto p{font-size:0.78rem;color:var(--gris);}
 
-    .hero-sub {
-      font-size: 1.05rem;
-      color: var(--gris);
-      max-width: 520px;
-      margin-bottom: 2.5rem;
-      font-weight: 300;
-    }
+    .sidebar-card{background:var(--panel);border:1px solid var(--borde);margin-bottom:1.5rem;}
+    .sidebar-card-header{padding:1rem 1.25rem;border-bottom:1px solid var(--borde);font-family:'Rajdhani',sans-serif;font-size:0.75rem;font-weight:700;color:var(--gris);text-transform:uppercase;}
+    .sidebar-card-body{padding:1.25rem;}
 
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-presentacion{display:flex;align-items:center;gap:0.75rem;background:var(--voltaje);color:var(--negro);padding:1rem;text-decoration:none;font-family:'Rajdhani',sans-serif;font-weight:700;}
+    .btn-presentacion:hover{background:#ffe033;}
 
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: var(--voltaje);
-      color: var(--negro);
-      padding: 0.75rem 1.75rem;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-    }
+    .btn-simulador{display:flex;align-items:center;gap:0.75rem;background:transparent;color:var(--blanco);padding:0.85rem 1rem;border:1px solid var(--borde);margin-top:0.75rem;text-decoration:none;}
 
-    .btn-primary:hover { background: #ffe033; transform: translateY(-2px); }
+    .modulos-nav{list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--borde);}
+    .modulos-nav li a,.modulos-nav li span{display:flex;gap:0.75rem;padding:0.65rem;background:var(--panel);color:var(--gris);text-decoration:none;}
+    .modulos-nav li a:hover{color:var(--voltaje);}
+    .modulos-nav li.current span{color:var(--voltaje);border-left:2px solid var(--voltaje);}
+    .mod-num{font-family:'JetBrains Mono',monospace;}
 
-    .btn-outline {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: transparent;
-      color: var(--blanco);
-      padding: 0.75rem 1.75rem;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 600;
-      border: 1px solid rgba(240,240,240,0.3);
-      text-decoration: none;
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-    }
+    .mod-nav{display:grid;grid-template-columns:1fr 1fr;background:var(--borde);}
+    .mod-nav-item{background:var(--antracita);padding:1.5rem;text-decoration:none;color:inherit;}
+    .mod-nav-item:hover{background:var(--panel);}
+    .mod-nav-item .dir{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--gris);}
+    .mod-nav-item .nombre{font-family:'Rajdhani',sans-serif;color:var(--voltaje);font-weight:700;}
 
-    /* ── MÓDULOS ── */
-    #curso { background: var(--antracita); }
+    footer{background:var(--antracita);border-top:1px solid var(--borde);padding:2.5rem 2rem;display:flex;justify-content:space-between;}
+    .footer-logo{font-family:'Rajdhani',sans-serif;color:var(--voltaje);font-weight:700;}
+    .footer-logo span{color:var(--gris);}
 
-    .modulos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5px;
-      background: var(--borde);
-      border: 1px solid var(--borde);
-    }
-
-    .modulo-card {
-      background: var(--panel);
-      padding: 2rem;
-      position: relative;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .modulo-num {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--voltaje);
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .modulo-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .modulo-card h3 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .modulo-card p {
-      font-size: 0.85rem;
-      color: var(--gris);
-    }
-
-    .modulo-arrow {
-      position: absolute;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      color: var(--voltaje);
-    }
-
-    .modulo-tag {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.2rem 0.6rem;
-      font-size: 0.7rem;
-      border: 1px solid var(--borde);
-      color: var(--gris);
-    }
-
-    .modulo-tag.disponible { color: var(--voltaje); }
-
-    footer {
-      background: var(--antracita);
-      border-top: 1px solid var(--borde);
-      padding: 3rem 2rem;
-      text-align: center;
+    @media(max-width:900px){
+      .main-content{grid-template-columns:1fr;}
+      .col-main{padding-right:0;}
     }
   </style>
 </head>
@@ -227,40 +102,147 @@
 <body>
 
 <nav>
-  <a class="nav-logo" href="#"><span>Electro</span>Auto<span> FP</span></a>
+  <a class="nav-logo" href="../../index.html"><span>Electro</span>Auto<span> FP</span></a>
   <ul class="nav-links">
-    <li><a href="#curso">Curso</a></li>
-    <li><a href="#simuladores">Simuladores</a></li>
-    <li><a href="#como-funciona">¿Cómo funciona?</a></li>
-    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="../index.html" class="active">Curso</a></li>
+    <li><a href="../../simuladores/index.html">Simuladores</a></li>
   </ul>
 </nav>
 
-<section class="hero">
-  <h1>Domina la <em>electricidad</em> del automóvil</h1>
-</section>
+<div class="page-header">
+  <div class="header-num">05</div>
 
-<section id="curso">
-  <div class="modulos-grid">
+  <div class="breadcrumb">
+    <a href="../../index.html">Inicio</a><span>›</span>
+    <a href="../index.html">Curso</a><span>›</span>
+    <span>Módulo 05</span>
+  </div>
 
-    <a class="modulo-card" href="curso/modulo-04/index.html">
-      <span class="modulo-num">MÓDULO 04</span>
-      <span class="modulo-icon">⧉</span>
-      <h3>Circuitos eléctricos</h3>
-      <p>Circuitos serie, paralelo y mixtos. Análisis y cálculo aplicado al vehículo.</p>
-      <span class="modulo-tag disponible">Disponible</span>
-    </a>
+  <div class="header-badge">
+    <span class="badge-num">MÓDULO 05</span>
+    <span class="badge-estado">✓ Disponible</span>
+  </div>
 
-    <a class="modulo-card" href="curso/modulo-05/index.html">
-      <span class="modulo-num">MÓDULO 05</span>
-      <span class="modulo-icon">⏻</span>
-      <h3>Electrónica digital</h3>
-      <p>Sistemas digitales, puertas lógicas y señales PWM en el automóvil.</p>
-      <span class="modulo-tag disponible">Disponible</span>
-    </a>
+  <h1>Iniciación a <em>Electrónica Digital</em></h1>
+
+  <p>Introducción a los sistemas digitales del automóvil: lógica binaria, ECU, sensores, multiplexado y control electrónico moderno.</p>
+
+  <div class="header-meta">
+    <div class="meta-item">📊 <strong>16 diapositivas</strong></div>
+    <div class="meta-item">⏱️ <strong>~50 minutos</strong></div>
+    <div class="meta-item">💻 <strong>Sistemas digitales</strong></div>
+  </div>
+</div>
+
+<div class="main-content">
+
+  <div class="col-main">
+
+    <div class="section-block">
+      <div class="block-label">Descripción</div>
+      <h2 class="block-title">¿Qué vas a aprender?</h2>
+      <p class="block-body">
+        Comprenderás cómo funcionan los sistemas electrónicos digitales del automóvil, desde la lógica binaria hasta la gestión de la UCE, pasando por sensores, actuadores y comunicación multiplexada.
+      </p>
+    </div>
+
+    <div class="section-block">
+      <div class="block-label">Contenidos</div>
+      <h2 class="block-title">Temario del módulo</h2>
+
+      <ul class="contenidos-lista">
+        <li><span class="ico">💡</span><span class="tema">Introducción a la electrónica digital en automoción</span><span class="subtema">INTRO</span></li>
+        <li><span class="ico">🔌</span><span class="tema">Sensores y actuadores</span><span class="subtema">BASE</span></li>
+        <li><span class="ico">🧠</span><span class="tema">UCE / ECU y control electrónico</span><span class="subtema">CONTROL</span></li>
+        <li><span class="ico">🔗</span><span class="tema">Multiplexado en vehículos</span><span class="subtema">COM</span></li>
+        <li><span class="ico">0/1</span><span class="tema">Sistema binario</span><span class="subtema">DIGITAL</span></li>
+        <li><span class="ico">AND</span><span class="tema">Puertas lógicas AND, OR, NOT, XOR</span><span class="subtema">LÓGICA</span></li>
+        <li><span class="ico">📊</span><span class="tema">Tablas de verdad y circuitos lógicos</span><span class="subtema">ANÁLISIS</span></li>
+        <li><span class="ico">⚡</span><span class="tema">PWM y control de señales</span><span class="subtema">CONTROL</span></li>
+      </ul>
+    </div>
+
+    <div class="section-block">
+      <div class="block-label">Conceptos clave</div>
+
+      <div class="conceptos-grid">
+
+        <div class="concepto">
+          <span class="concepto-sym">0/1</span>
+          <h4>Lógica binaria</h4>
+          <p>Todo sistema digital trabaja con estados ON/OFF.</p>
+        </div>
+
+        <div class="concepto">
+          <span class="concepto-sym">ECU</span>
+          <h4>Unidad de control</h4>
+          <p>El “cerebro” del vehículo que gestiona señales.</p>
+        </div>
+
+        <div class="concepto">
+          <span class="concepto-sym">BUS</span>
+          <h4>Multiplexado</h4>
+          <p>Comunicación compartida entre módulos electrónicos.</p>
+        </div>
+
+        <div class="concepto">
+          <span class="concepto-sym">PWM</span>
+          <h4>Modulación de señal</h4>
+          <p>Control de potencia mediante pulsos digitales.</p>
+        </div>
+
+      </div>
+    </div>
 
   </div>
-</section>
+
+  <div class="col-sidebar">
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Material del módulo</div>
+      <div class="sidebar-card-body">
+        <a href="presentacion.html" class="btn-presentacion">▶ Ver presentación</a>
+        <a href="../../simuladores/index.html" class="btn-simulador">🔧 Simulador</a>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Módulos</div>
+      <div class="sidebar-card-body" style="padding:0">
+        <ul class="modulos-nav">
+          <li><a href="../modulo-04/index.html"><span class="mod-num">04</span> Circuitos básicos</a></li>
+          <li class="current"><span><span class="mod-num">05</span> Electrónica digital</span></li>
+          <li><a href="../modulo-06/index.html"><span class="mod-num">06</span> Sistema de arranque</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="mod-nav">
+  <a class="mod-nav-item" href="../modulo-04/index.html">
+    <span class="dir">← Anterior</span>
+    <span class="nombre">Circuitos básicos</span>
+  </a>
+
+  <a class="mod-nav-item" href="../modulo-06/index.html">
+    <span class="dir">Siguiente →</span>
+    <span class="nombre">Sistema de arranque</span>
+  </a>
+</div>
+
+<footer>
+  <div class="footer-logo">Electro<span>Auto FP</span></div>
+  <p>© 2025 ElectroAuto FP</p>
+</footer>
+
+<script>
+  const nav=document.querySelector('.nav-links');
+  const burger=document.querySelector('.nav-burger');
+  burger?.addEventListener('click',()=>nav.classList.toggle('open'));
+</script>
 
 </body>
 </html>
