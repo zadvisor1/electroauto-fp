@@ -136,7 +136,7 @@
     .progreso-fill {
       position: absolute; top: 0; left: 0; height: 100%;
       background: var(--voltaje);
-      width: 30%; /* 3 de 10 disponibles */
+      width: 50%; /* 5 de 10 disponibles */
     }
     .progreso-num {
       font-family: 'Rajdhani', sans-serif;
@@ -178,7 +178,6 @@
       font-family: 'Rajdhani', sans-serif;
       font-size: 0.75rem; font-weight: 700;
       color: var(--voltaje); letter-spacing: 0.1em;
-      writing-mode: horizontal-tb;
     }
 
     .modulo-body {
@@ -286,9 +285,7 @@
       .progreso-bar { margin: 1.5rem 1.25rem 0; }
       .modulos-container { padding: 2rem 1.25rem 4rem; }
 
-      .modulo-item {
-        grid-template-columns: 48px 1fr auto;
-      }
+      .modulo-item { grid-template-columns: 48px 1fr auto; }
       .modulo-num-col { min-height: 80px; font-size: 0.65rem; }
       .modulo-body { padding: 1.25rem 1rem; }
       .modulo-body h3 { font-size: 1rem; }
@@ -348,7 +345,7 @@
   <div class="progreso-track">
     <div class="progreso-fill"></div>
   </div>
-  <span class="progreso-num">3 / 10 módulos</span>
+  <span class="progreso-num">5 / 10 módulos</span>
 </div>
 
 <!-- ── LISTA DE MÓDULOS ── -->
@@ -374,8 +371,8 @@
     <a class="modulo-item disponible" href="modulo-02/index.html">
       <div class="modulo-num-col">02</div>
       <div class="modulo-body">
-        <h3>Componentes básicos</h3>
-        <p>Resistencias, condensadores, bobinas, diodos y transistores en el contexto del automóvil.</p>
+        <h3>Generación de electricidad</h3>
+        <p>Batería, alternador, regulador de tensión y nuevas tecnologías de generación.</p>
         <div class="modulo-tags">
           <span class="tag tag-disponible">✓ Disponible</span>
           <span class="tag tag-tipo">Presentación</span>
@@ -388,7 +385,35 @@
     <a class="modulo-item disponible" href="modulo-03/index.html">
       <div class="modulo-num-col">03</div>
       <div class="modulo-body">
-        <h3>Circuitos básicos</h3>
+        <h3>Componentes eléctricos</h3>
+        <p>Resistencias, condensadores, bobinas, diodos y transistores en el contexto del automóvil.</p>
+        <div class="modulo-tags">
+          <span class="tag tag-disponible">✓ Disponible</span>
+          <span class="tag tag-tipo">Presentación</span>
+        </div>
+      </div>
+      <div class="modulo-action"><span class="modulo-arrow">→</span></div>
+    </a>
+
+    <!-- MÓDULO 04 -->
+    <a class="modulo-item disponible" href="modulo-04/index.html">
+      <div class="modulo-num-col">04</div>
+      <div class="modulo-body">
+        <h3>Electrónica digital</h3>
+        <p>Sistemas digitales, puertas lógicas, señales PWM y su aplicación en la electrónica del automóvil.</p>
+        <div class="modulo-tags">
+          <span class="tag tag-disponible">✓ Disponible</span>
+          <span class="tag tag-tipo">Presentación</span>
+        </div>
+      </div>
+      <div class="modulo-action"><span class="modulo-arrow">→</span></div>
+    </a>
+
+    <!-- MÓDULO 05 -->
+    <a class="modulo-item disponible" href="modulo-05/index.html">
+      <div class="modulo-num-col">05</div>
+      <div class="modulo-body">
+        <h3>Circuitos eléctricos</h3>
         <p>Circuitos serie, paralelo y mixtos. Análisis y cálculo aplicado a instalaciones del vehículo.</p>
         <div class="modulo-tags">
           <span class="tag tag-disponible">✓ Disponible</span>
@@ -398,32 +423,6 @@
       </div>
       <div class="modulo-action"><span class="modulo-arrow">→</span></div>
     </a>
-
-    <!-- MÓDULO 04 -->
-    <div class="modulo-item proximo">
-      <div class="modulo-num-col">04</div>
-      <div class="modulo-body">
-        <h3>Electrónica digital</h3>
-        <p>Sistemas digitales, puertas lógicas, señales PWM y su aplicación en la electrónica del automóvil.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-proximo">Próximamente</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-lock">🔒</span></div>
-    </div>
-
-    <!-- MÓDULO 05 -->
-    <div class="modulo-item proximo">
-      <div class="modulo-num-col">05</div>
-      <div class="modulo-body">
-        <h3>Batería</h3>
-        <p>Tipos de baterías, tecnologías AGM y EFB, mantenimiento, prueba de carga y sustitución.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-proximo">Próximamente</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-lock">🔒</span></div>
-    </div>
 
     <!-- MÓDULO 06 -->
     <div class="modulo-item proximo">
