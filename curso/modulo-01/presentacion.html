@@ -49,6 +49,27 @@
       display: flex; align-items: center; gap: 1rem;
       min-width: 0;
     }
+    .home-link,
+    .module-link{
+      color: var(--voltaje);
+      text-decoration: none;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: .95rem;
+      font-weight: 700;
+      transition: color .2s;
+    }
+    .module-link{
+      color: var(--blanco);
+    }
+    .home-link:hover,
+    .module-link:hover{
+      color: white;
+    }
+
+    .separator{
+      color: var(--gris);
+      opacity: .5;
+    }
 
     .modulo-badge {
       font-family: 'JetBrains Mono', monospace;
@@ -479,11 +500,12 @@
   <!-- TOPBAR -->
   <div class="topbar">
     <div class="topbar-left">
-      <span class="modulo-badge">MOD · 01</span>
-      <span class="topbar-title">Fundamentos de Electricidad</span>
-    </div>
-    <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">15</span></span>
-  </div>
+    <a href="../../index.html" class="home-link">🏠 ElectroAuto FP</a>
+    <span class="separator">|</span>
+    <a href="index.html" class="module-link">Módulo 01</a>
+    <span class="separator">|</span>
+    <span class="topbar-title">Presentación</span>
+</div>
 
   <!-- SLIDES -->
   <div class="slide-area">
