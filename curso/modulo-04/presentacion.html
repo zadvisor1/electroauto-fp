@@ -1,1 +1,989 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 04 · Electrónica Digital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary:#0ea5e9; --accent:#f59e0b; --danger:#ef4444;
+      --success:#22c55e; --purple:#8b5cf6; --cyan:#06b6d4;
+      --dark:#0f172a; --darker:#020617; --card:#1e293b; --card-hover:#334155;
+      --text:#f1f5f9; --text-muted:#94a3b8; --border:#334155;
+      --g1:linear-gradient(135deg,#0ea5e9,#6366f1);
+      --g2:linear-gradient(135deg,#f59e0b,#ef4444);
+      --g3:linear-gradient(135deg,#22c55e,#0ea5e9);
+      --g4:linear-gradient(135deg,#8b5cf6,#ec4899);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;overflow:hidden;font-family:'Inter',sans-serif;background:var(--darker);color:var(--text);}
+
+    .topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:200;background:rgba(15,23,42,0.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+    .topbar-left{display:flex;align-items:center;gap:14px;}
+    .menu-btn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+    .menu-btn:hover{background:var(--card);border-color:var(--primary);}
+    .topbar-title{font-size:.95rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .topbar-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+    .prog-text{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-muted);}
+    .prog-bar{width:160px;height:5px;background:var(--card);border-radius:3px;overflow:hidden;}
+    .prog-fill{height:100%;background:var(--g1);border-radius:3px;transition:width .4s ease;}
+    .home-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);border-radius:8px;color:var(--primary);font-size:.78rem;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap;}
+    .home-btn:hover{background:rgba(14,165,233,.2);}
+
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:95;opacity:0;visibility:hidden;transition:all .3s;}
+    .overlay.active{opacity:1;visibility:visible;}
+    .sidebar{position:fixed;left:0;top:52px;width:300px;height:calc(100vh - 52px);background:rgba(15,23,42,.98);backdrop-filter:blur(20px);border-right:1px solid var(--border);z-index:100;overflow-y:auto;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
+    .sidebar.open{transform:translateX(0);}
+    .sb-header{padding:20px;border-bottom:1px solid var(--border);}
+    .sb-header h2{font-size:1rem;font-weight:700;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .sb-header p{font-size:.72rem;color:var(--text-muted);margin-top:3px;}
+    .sb-section{padding:6px 0;}
+    .sb-section-title{padding:10px 20px 6px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);}
+    .sb-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:all .2s;border-left:3px solid transparent;font-size:.82rem;color:var(--text-muted);}
+    .sb-item:hover{background:rgba(255,255,255,.03);color:var(--text);}
+    .sb-item.active{background:rgba(14,165,233,.1);border-left-color:var(--primary);color:var(--primary);}
+    .sb-num{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:600;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:5px;background:rgba(255,255,255,.05);}
+    .sb-item.active .sb-num{background:var(--primary);color:white;}
+
+    .main{position:relative;z-index:1;padding-top:52px;height:100vh;overflow:hidden;}
+    .slide{display:none;height:calc(100vh - 52px);overflow-y:auto;padding:36px 48px;animation:fadeUp .4s ease;}
+    .slide.active{display:block;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+    /* HERO */
+    .hero-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 52px - 72px);text-align:center;padding:40px 0;}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 18px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);border-radius:100px;font-size:.78rem;color:var(--primary);font-weight:500;margin-bottom:28px;}
+    .hero-title{font-size:clamp(2.2rem,5vw,4rem);font-weight:900;line-height:1.1;margin-bottom:20px;}
+    .hero-title .g{background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hero-sub{font-size:1.05rem;color:var(--text-muted);max-width:560px;margin-bottom:40px;line-height:1.6;}
+    .hero-stats{display:flex;gap:40px;margin-bottom:40px;flex-wrap:wrap;justify-content:center;}
+    .stat-val{font-size:2.2rem;font-weight:800;background:var(--g2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .stat-lbl{font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;}
+    .hero-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--g1);color:white;border:none;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;box-shadow:0 10px 40px rgba(14,165,233,.3);transition:all .3s;}
+    .hero-btn:hover{transform:translateY(-2px);}
+
+    /* BLOCK HEADER */
+    .bh{padding:24px 0 20px;margin-bottom:24px;border-bottom:1px solid var(--border);}
+    .blabel{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:100px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;}
+    .b1{background:rgba(14,165,233,.1);color:var(--primary);border:1px solid rgba(14,165,233,.3);}
+    .b2{background:rgba(245,158,11,.1);color:var(--accent);border:1px solid rgba(245,158,11,.3);}
+    .b3{background:rgba(34,197,94,.1);color:var(--success);border:1px solid rgba(34,197,94,.3);}
+    .b4{background:rgba(139,92,246,.1);color:var(--purple);border:1px solid rgba(139,92,246,.3);}
+    .b5{background:rgba(6,182,212,.1);color:var(--cyan);border:1px solid rgba(6,182,212,.3);}
+    .btitle{font-size:2rem;font-weight:800;margin-bottom:10px;line-height:1.1;}
+    .bdesc{font-size:.95rem;color:var(--text-muted);max-width:680px;line-height:1.6;}
+
+    /* LAYOUT */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:18px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;transition:all .3s;}
+    .card:hover{transform:translateY(-3px);border-color:rgba(14,165,233,.3);box-shadow:0 16px 36px rgba(0,0,0,.3);}
+    .card-ico{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:12px;}
+    .i1{background:rgba(14,165,233,.1);} .i2{background:rgba(245,158,11,.1);} .i3{background:rgba(34,197,94,.1);}
+    .i4{background:rgba(139,92,246,.1);} .i5{background:rgba(239,68,68,.1);} .i6{background:rgba(6,182,212,.1);}
+    .card h3{font-size:.95rem;font-weight:700;margin-bottom:6px;}
+    .card p{font-size:.83rem;color:var(--text-muted);line-height:1.55;}
+    .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+    .tag{padding:3px 9px;background:rgba(255,255,255,.05);border-radius:5px;font-size:.68rem;color:var(--text-muted);}
+
+    /* DETAIL */
+    .dbox{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;}
+    .dbox h2{font-size:1.4rem;font-weight:800;margin-bottom:6px;}
+    .dbox .sub{color:var(--text-muted);font-size:.88rem;margin-bottom:22px;}
+    .dsec{margin-bottom:22px;}
+    .dsec h4{font-size:.88rem;font-weight:700;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+    .dsec ul{list-style:none;padding:0;}
+    .dsec ul li{padding:8px 0 8px 22px;position:relative;color:var(--text-muted);font-size:.88rem;line-height:1.6;border-bottom:1px solid rgba(255,255,255,.03);}
+    .dsec ul li:last-child{border-bottom:none;}
+    .dsec ul li::before{content:'▸';position:absolute;left:0;color:var(--primary);font-weight:bold;}
+
+    /* INFO BOX */
+    .info-box{padding:16px 20px;border-radius:10px;margin:16px 0;border-left:4px solid;}
+    .ib-info{background:rgba(14,165,233,.07);border-color:var(--primary);}
+    .ib-warn{background:rgba(245,158,11,.07);border-color:var(--accent);}
+    .ib-success{background:rgba(34,197,94,.07);border-color:var(--success);}
+    .ib-purple{background:rgba(139,92,246,.07);border-color:var(--purple);}
+    .info-box h5{font-size:.82rem;font-weight:700;margin-bottom:5px;}
+    .info-box p{font-size:.85rem;color:var(--text-muted);line-height:1.55;}
+
+    /* FORMULA */
+    .formula-box{background:var(--darker);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;margin:14px 0;}
+    .formula{font-family:'JetBrains Mono',monospace;font-size:1.15rem;color:var(--primary);font-weight:600;}
+    .formula-desc{color:var(--text-muted);font-size:.8rem;margin-top:6px;}
+
+    /* TERMINAL */
+    .terminal{background:#0d1117;border:1px solid #30363d;border-radius:10px;overflow:hidden;margin:14px 0;}
+    .term-hdr{display:flex;align-items:center;gap:7px;padding:9px 14px;background:#161b22;border-bottom:1px solid #30363d;}
+    .dot{width:11px;height:11px;border-radius:50%;}
+    .dr{background:#ff5f56;}.dy{background:#ffbd2e;}.dg{background:#27c93f;}
+    .term-body{padding:16px;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.9;color:#e6edf3;}
+    .tc{color:#7ee787;}.tk{color:#79c0ff;}.to{color:#a5d6ff;}.tw{color:#f59e0b;}
+
+    /* TABLA */
+    .dtable{width:100%;border-collapse:collapse;margin:14px 0;font-size:.85rem;}
+    .dtable th{text-align:left;padding:11px 13px;background:rgba(255,255,255,.03);font-weight:600;color:var(--text);border-bottom:2px solid var(--border);}
+    .dtable td{padding:10px 13px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--text-muted);font-family:'JetBrains Mono',monospace;font-size:.82rem;}
+    .dtable tr:hover td{background:rgba(255,255,255,.02);}
+    .v0{color:#ef4444;font-weight:700;} .v1{color:#22c55e;font-weight:700;}
+
+    /* PUERTA LÓGICA VISUAL */
+    .gate-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:16px;}
+    .gate-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;transition:all .3s;}
+    .gate-card:hover{border-color:rgba(14,165,233,.4);transform:translateY(-2px);}
+    .gate-name{font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:6px;display:block;}
+    .gate-formula{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--accent);margin-bottom:10px;display:block;}
+    .gate-card p{font-size:.78rem;color:var(--text-muted);line-height:1.5;}
+    .gate-sym{font-size:2rem;display:block;margin-bottom:8px;}
+
+    /* PWM VISUAL */
+    .pwm-wrap{background:var(--darker);border:1px solid var(--border);border-radius:12px;padding:24px;margin:16px 0;}
+    .pwm-title{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;}
+    .pwm-bars{display:flex;flex-direction:column;gap:20px;}
+    .pwm-row{display:flex;align-items:center;gap:16px;}
+    .pwm-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text-muted);min-width:80px;}
+    .pwm-signal{flex:1;height:36px;display:flex;align-items:center;position:relative;}
+    .pwm-signal svg{width:100%;height:100%;}
+    .pwm-value{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;min-width:50px;text-align:right;}
+
+    /* QUIZ */
+    .quiz-q{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:12px;}
+    .quiz-q h4{font-size:.92rem;margin-bottom:12px;line-height:1.5;}
+    .quiz-opts{display:flex;flex-direction:column;gap:7px;}
+    .qopt{padding:11px 15px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s;font-size:.85rem;}
+    .qopt:hover{background:rgba(14,165,233,.08);border-color:var(--primary);}
+    .qopt.correct{background:rgba(34,197,94,.15);border-color:var(--success);color:var(--success);cursor:default;}
+    .qopt.wrong{background:rgba(239,68,68,.15);border-color:var(--danger);color:var(--danger);cursor:default;}
+
+    /* NAV */
+    .nav-btns{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid var(--border);}
+    .nbtn{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;background:var(--card);border:1px solid var(--border);border-radius:9px;color:var(--text);font-size:.88rem;font-weight:500;cursor:pointer;transition:all .2s;}
+    .nbtn:hover{background:var(--card-hover);border-color:var(--primary);}
+    .nbtn.primary{background:var(--g1);border:none;color:white;}
+    .nbtn.primary:hover{box-shadow:0 8px 24px rgba(14,165,233,.3);}
+
+    /* BG */
+    .bg-orbs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+    .orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.1;animation:float 22s infinite ease-in-out;}
+    .o1{width:360px;height:360px;background:var(--primary);top:-80px;left:-80px;animation-delay:0s;}
+    .o2{width:260px;height:260px;background:var(--purple);top:50%;right:-40px;animation-delay:-7s;}
+    .o3{width:300px;height:300px;background:var(--cyan);bottom:-80px;left:35%;animation-delay:-14s;}
+    @keyframes float{0%,100%{transform:translate(0,0)scale(1)}33%{transform:translate(35px,-20px)scale(1.04)}66%{transform:translate(-20px,35px)scale(.96)}}
+
+    /* BINARIO INTERACTIVO */
+    .bin-converter{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:18px;}
+    .bin-converter h4{font-size:.9rem;font-weight:700;color:var(--primary);margin-bottom:16px;}
+    .bin-input{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+    .bin-bit{width:44px;height:44px;border:2px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;cursor:pointer;transition:all .2s;user-select:none;}
+    .bin-bit.on{background:rgba(34,197,94,.2);border-color:var(--success);color:var(--success);}
+    .bin-bit.off{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:var(--danger);}
+    .bin-result{font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--accent);text-align:center;padding:12px;background:var(--darker);border-radius:8px;}
+    .bin-labels{display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap;}
+    .bin-lbl{width:44px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text-muted);}
+
+    @media(max-width:768px){
+      .slide{padding:18px 16px;}
+      .two-col{grid-template-columns:1fr;}
+      .sidebar{width:270px;}
+      .topbar-title{display:none;}
+      .prog-bar{width:100px;}
+    }
+    ::-webkit-scrollbar{width:5px;}
+    ::-webkit-scrollbar-track{background:transparent;}
+    ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+  </style>
+</head>
+<body>
+
+<div class="bg-orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="menu-btn" onclick="toggleSidebar()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <span class="topbar-title" id="topTitle">Módulo 04 · Electrónica Digital</span>
+  </div>
+  <div class="topbar-right">
+    <span class="prog-text" id="progText">1 / 11</span>
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:9%"></div></div>
+    <a href="../index.html" class="home-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Módulo</span>
+    </a>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sb-header">
+    <h2>💻 Módulo 04</h2>
+    <p>Electrónica Digital del Automóvil</p>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-title">Navegación</div>
+    <div class="sb-item active" onclick="go(0)" data-i="0"><span class="sb-num">🏠</span>Inicio</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-title">Bloque I — Sistemas de Control</div>
+    <div class="sb-item" onclick="go(1)" data-i="1"><span class="sb-num">2</span>Sensores y actuadores</div>
+    <div class="sb-item" onclick="go(2)" data-i="2"><span class="sb-num">3</span>Unidades de control (UCE/ECU)</div>
+    <div class="sb-item" onclick="go(3)" data-i="3"><span class="sb-num">4</span>Redes de comunicación CAN-Bus</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-title">Bloque II — Código Binario</div>
+    <div class="sb-item" onclick="go(4)" data-i="4"><span class="sb-num">5</span>El código binario</div>
+    <div class="sb-item" onclick="go(5)" data-i="5"><span class="sb-num">6</span>Conversor binario interactivo</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-title">Bloque III — Puertas Lógicas</div>
+    <div class="sb-item" onclick="go(6)" data-i="6"><span class="sb-num">7</span>Puertas OR y AND</div>
+    <div class="sb-item" onclick="go(7)" data-i="7"><span class="sb-num">8</span>Puertas NOT, NOR y NAND</div>
+    <div class="sb-item" onclick="go(8)" data-i="8"><span class="sb-num">9</span>Puerta XOR y circuitos integrados</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-title">Bloque IV — Señal PWM</div>
+    <div class="sb-item" onclick="go(9)" data-i="9"><span class="sb-num">10</span>Señal PWM</div>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-title">Cierre</div>
+    <div class="sb-item" onclick="go(10)" data-i="10"><span class="sb-num">11</span>Autoevaluación</div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main" id="main">
+
+  <!-- SLIDE 0: PORTADA -->
+  <div class="slide active" id="s0">
+    <div class="hero-wrap">
+      <div class="hero-badge">💻 Unidad Didáctica 4</div>
+      <h1 class="hero-title">Electrónica<br><span class="g">Digital</span><br>del Automóvil</h1>
+      <p class="hero-sub">Desde el código binario y las puertas lógicas hasta las redes CAN-Bus y la señal PWM que controlan el vehículo moderno.</p>
+      <div class="hero-stats">
+        <div><div class="stat-val">4</div><div class="stat-lbl">Bloques</div></div>
+        <div><div class="stat-val">11</div><div class="stat-lbl">Temas</div></div>
+        <div><div class="stat-val">6</div><div class="stat-lbl">Puertas lógicas</div></div>
+      </div>
+      <button class="hero-btn" onclick="go(1)">Comenzar ▶</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 1: SENSORES Y ACTUADORES -->
+  <div class="slide" id="s1">
+    <div class="bh">
+      <div class="blabel b1">Bloque I — Sistemas de Control</div>
+      <div class="btitle">Sensores y actuadores</div>
+      <div class="bdesc">La electrónica en el automóvil se basa en un ciclo continuo: el sensor detecta, la UCE decide y el actuador actúa.</div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="dbox" style="margin-bottom:16px">
+          <div class="dsec">
+            <h4>📡 Sensor</h4>
+            <ul>
+              <li>Convierte una <strong>magnitud física</strong> (temperatura, presión, posición, velocidad) en una <strong>señal eléctrica</strong>.</li>
+              <li>Esa señal eléctrica llega a la UCE para ser interpretada.</li>
+              <li>Ejemplos: sensor de temperatura del agua, sensor de oxígeno (lambda), sensor de cigüeñal, sensor MAP de presión de admisión.</li>
+            </ul>
+          </div>
+          <div class="dsec">
+            <h4>⚙️ Actuador</h4>
+            <ul>
+              <li>Convierte una <strong>señal eléctrica de mando</strong> en una <strong>acción física</strong>: movimiento, apertura, calor, luz.</li>
+              <li>Recibe la orden de la UCE y la ejecuta.</li>
+              <li>Ejemplos: inyector, bobina de encendido, electroválvula EGR, ventilador de refrigeración, válvula de ralentí.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="info-box ib-info">
+          <h5>💡 El ciclo de control</h5>
+          <p>Sensor → señal eléctrica → UCE (decide) → señal de mando → Actuador → acción. Este ciclo se repite miles de veces por segundo en los sistemas modernos.</p>
+        </div>
+      </div>
+      <div>
+        <div style="background:var(--darker);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px">Ejemplo ABS</div>
+          <div style="display:flex;flex-direction:column;gap:0;align-items:center;">
+            <div style="background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);border-radius:10px;padding:14px 24px;width:100%;max-width:240px">
+              <div style="font-size:1.2rem;margin-bottom:4px">📡</div>
+              <div style="font-weight:700;font-size:.88rem">Sensor de velocidad</div>
+              <div style="font-size:.75rem;color:var(--text-muted);margin-top:3px">Detecta bloqueo de rueda</div>
+            </div>
+            <div style="font-size:1.5rem;color:var(--text-muted);padding:8px">↓</div>
+            <div style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:10px;padding:14px 24px;width:100%;max-width:240px">
+              <div style="font-size:1.2rem;margin-bottom:4px">🧠</div>
+              <div style="font-weight:700;font-size:.88rem">UCE — ABS</div>
+              <div style="font-size:.75rem;color:var(--text-muted);margin-top:3px">Analiza y decide</div>
+            </div>
+            <div style="font-size:1.5rem;color:var(--text-muted);padding:8px">↓</div>
+            <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:10px;padding:14px 24px;width:100%;max-width:240px">
+              <div style="font-size:1.2rem;margin-bottom:4px">⚙️</div>
+              <div style="font-weight:700;font-size:.88rem">Módulo hidráulico</div>
+              <div style="font-size:.75rem;color:var(--text-muted);margin-top:3px">Reduce presión de freno</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nbtn" onclick="go(0)">← Inicio</button>
+      <button class="nbtn primary" onclick="go(2)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: UCE / ECU -->
+  <div class="slide" id="s2">
+    <div class="bh">
+      <div class="blabel b1">Bloque I — Sistemas de Control</div>
+      <div class="btitle">Unidades de Control Electrónico (UCE / ECU)</div>
+      <div class="bdesc">El cerebro del automóvil moderno. Recibe información de los sensores, la procesa y ordena a los actuadores qué hacer.</div>
+    </div>
+    <div class="two-col">
+      <div class="dbox">
+        <div class="dsec">
+          <h4>🧠 ¿Qué es una UCE?</h4>
+          <ul>
+            <li>Dispositivo electrónico que <strong>recibe señales de sensores</strong>, las procesa según un programa y <strong>envía órdenes a actuadores</strong>.</li>
+            <li>Contiene un <strong>microprocesador</strong>, memorias y circuitos de entrada/salida.</li>
+            <li>Trabaja con <strong>código binario</strong>: interpreta señales eléctricas como 0s y 1s.</li>
+          </ul>
+        </div>
+        <div class="dsec">
+          <h4>📈 Evolución</h4>
+          <ul>
+            <li>Principios: <strong>1 sola UCE</strong> por vehículo (motor).</li>
+            <li>Hoy: <strong>hasta 100 UCEs</strong> en vehículos de alta gama (motor, ABS, airbag, climatización, confort, multimedia…).</li>
+            <li>Cada UCE especializada <strong>se comunica</strong> con las demás mediante redes de datos (CAN-Bus, LIN…).</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="cards" style="grid-template-columns:1fr 1fr;">
+          <div class="card"><div class="card-ico i1">🚗</div><h3>ECU Motor</h3><p>Controla inyección, encendido, EGR, turbo. La más compleja.</p></div>
+          <div class="card"><div class="card-ico i2">🛑</div><h3>ABS / ESP</h3><p>Gestiona frenos y estabilidad. Reacciona en milisegundos.</p></div>
+          <div class="card"><div class="card-ico i3">💨</div><h3>Climatización</h3><p>Temperatura, caudal de aire, compresor A/A.</p></div>
+          <div class="card"><div class="card-ico i4">🪟</div><h3>Carrocería (BCM)</h3><p>Luces, elevalunas, cierre centralizado, alarma.</p></div>
+          <div class="card"><div class="card-ico i5">🔒</div><h3>Airbag</h3><p>Detecta colisión y dispara airbags en microsegundos.</p></div>
+          <div class="card"><div class="card-ico i6">📺</div><h3>Multimedia</h3><p>Navegación, audio, conectividad, pantallas.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nbtn" onclick="go(1)">← Anterior</button>
+      <button class="nbtn primary" onclick="go(3)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: CAN-BUS -->
+  <div class="slide" id="s3">
+    <div class="bh">
+      <div class="blabel b1">Bloque I — Sistemas de Control</div>
+      <div class="btitle">Redes de comunicación — CAN-Bus</div>
+      <div class="bdesc">Para reducir el cableado y permitir que todas las UCEs compartan información, se crearon las redes de datos del automóvil.</div>
+    </div>
+    <div class="two-col">
+      <div class="dbox">
+        <div class="dsec">
+          <h4>❓ ¿Por qué una red de datos?</h4>
+          <ul>
+            <li>Si cada UCE tuviera su propio cable a cada sensor/actuador → <strong>cientos de cables</strong> adicionales.</li>
+            <li>Mayor peso, coste, volumen y probabilidad de avería.</li>
+            <li>Solución: <strong>un bus común</strong> por el que todas las UCEs comparten información.</li>
+          </ul>
+        </div>
+        <div class="dsec">
+          <h4>🔌 CAN-Bus (Controller Area Network)</h4>
+          <ul>
+            <li>Desarrollado por <strong>Bosch</strong> en los años 80.</li>
+            <li>Solo <strong>2 cables</strong> (CAN-H y CAN-L) para toda la red.</li>
+            <li>Velocidades: <strong>CAN Lento</strong> (~125 kbps, confort) y <strong>CAN Rápido</strong> (~500 kbps, motor/ABS).</li>
+            <li>Cada UCE puede leer y escribir en el bus. Si un sensor envía un dato, <strong>todas las UCEs que lo necesiten</strong> lo reciben a la vez.</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="dbox" style="margin-bottom:14px">
+          <h4 style="color:var(--accent);font-size:.88rem;margin-bottom:12px">📡 Otras redes del automóvil</h4>
+          <table class="dtable">
+            <thead><tr><th>Red</th><th>Velocidad</th><th>Uso típico</th></tr></thead>
+            <tbody>
+              <tr><td style="color:var(--primary)">CAN-Bus</td><td>125k–1M bps</td><td>Motor, ABS, airbag</td></tr>
+              <tr><td style="color:var(--success)">LIN-Bus</td><td>~20 kbps</td><td>Elevalunas, espejos, asientos</td></tr>
+              <tr><td style="color:var(--purple)">MOST-Bus</td><td>25–150 Mbps</td><td>Audio, vídeo, multimedia</td></tr>
+              <tr><td style="color:var(--accent)">FlexRay</td><td>10 Mbps</td><td>Dirección, suspensión activa</td></tr>
+              <tr><td style="color:var(--cyan)">Ethernet</td><td>100M–1G bps</td><td>ADAS, cámaras, vehículo autónomo</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="info-box ib-warn">
+          <h5>🔧 En el diagnóstico</h5>
+          <p>Una avería en el CAN-Bus puede generar <strong>decenas de códigos de avería</strong> en distintas UCEs. La clave es medir la resistencia de terminación (120 Ω entre CAN-H y CAN-L con todo desconectado) y la señal con osciloscopio.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nbtn" onclick="go(2)">← Anterior</button>
+      <button class="nbtn primary" onclick="go(4)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: CÓDIGO BINARIO -->
+  <div class="slide" id="s4">
+    <div class="bh">
+      <div class="blabel b2">Bloque II — Código Binario</div>
+      <div class="btitle">El código binario</div>
+      <div class="bdesc">Los ordenadores y UCEs solo entienden dos estados: encendido (1) o apagado (0). Todo el lenguaje digital se construye con estos dos valores.</div>
+    </div>
+    <div class="two-col">
+      <div class="dbox">
+        <div class="dsec">
+          <h4>🔢 ¿Qué es el sistema binario?</h4>
+          <ul>
+            <li>Sistema de <strong>numeración en base 2</strong>: solo usa los dígitos 0 y 1.</li>
+            <li>Cada dígito binario se llama <strong>bit</strong>. Un grupo de 8 bits es un <strong>byte</strong>.</li>
+            <li>En electricidad: <strong>0V ≈ bit 0</strong> y <strong>5V ≈ bit 1</strong> (o 12V según el sistema).</li>
+            <li>El componente que convierte entre tensiones y bits se llama <strong>transceptor</strong>.</li>
+          </ul>
+        </div>
+        <div class="dsec">
+          <h4>📊 Conversión binario → decimal</h4>
+          <ul>
+            <li>Cada posición vale el doble que la anterior (potencias de 2).</li>
+            <li>Posición 0 (derecha) = 2⁰ = 1</li>
+            <li>Posición 1 = 2¹ = 2</li>
+            <li>Posición 2 = 2² = 4</li>
+            <li>Posición 3 = 2³ = 8 … y así sucesivamente.</li>
+          </ul>
+        </div>
+        <div class="formula-box">
+          <div class="formula">1011 = 1×8 + 0×4 + 1×2 + 1×1 = 11</div>
+          <div class="formula-desc">Binario 1011 equivale al decimal 11</div>
+        </div>
+      </div>
+      <div>
+        <div class="terminal">
+          <div class="term-hdr"><div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div><span style="font-size:.72rem;color:#8b949e;margin-left:7px">binario_decimal.dat</span></div>
+          <div class="term-body">
+            <span class="tw">Binario  → Decimal</span><br>
+            <span class="to">0000     →  0</span><br>
+            <span class="to">0001     →  1</span><br>
+            <span class="to">0010     →  2</span><br>
+            <span class="to">0011     →  3</span><br>
+            <span class="to">0100     →  4</span><br>
+            <span class="to">0101     →  5</span><br>
+            <span class="to">0110     →  6</span><br>
+            <span class="to">0111     →  7</span><br>
+            <span class="to">1000     →  8</span><br>
+            <span class="to">1001     →  9</span><br>
+            <span class="to">1010     → 10</span><br>
+            <span class="to">1111     → 15</span><br>
+            <span class="tc">11111111 → 255 (1 byte)</span>
+          </div>
+        </div>
+        <div class="info-box ib-info">
+          <h5>💡 ¿Por qué binario y no decimal?</h5>
+          <p>Un transistor solo tiene dos estados fiables: conduce o no conduce. Es mucho más fácil y robusto distinguir 0V de 5V que distinguir 10 niveles de tensión distintos. Por eso toda la electrónica digital usa binario.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nbtn" onclick="go(3)">← Anterior</button>
+      <button class="nbtn primary" onclick="go(5)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: CONVERSOR BINARIO INTERACTIVO -->
+  <div class="slide" id="s5">
+    <div class="bh">
+      <div class="blabel b2">Bloque II — Código Binario</div>
+      <div class="btitle">Practica la conversión binaria</div>
+      <div class="bdesc">Pulsa los bits para activarlos (1) o desactivarlos (0) y ve el resultado en decimal en tiempo real.</div>
+    </div>
+    <div class="bin-converter">
+      <h4>🎮 Conversor binario interactivo — 8 bits (1 byte)</h4>
+      <div class="bin-labels" id="binLabels"></div>
+      <div class="bin-input" id="binBits"></div>
+      <div class="bin-result" id="binResult">Decimal: 0 &nbsp;|&nbsp; Binario: 00000000</div>
+    </div>
+    <div class="info-box ib-purple" style="margin-top:20px">
+      <h5>🚗 ¿Dónde se usa esto en el coche?</h5>
+      <p>Los códigos de avería OBD2 (DTC) se almacenan en la UCE como valores binarios/hexadecimales. Cuando lees un código como <strong>P0301</strong>, la UCE está transmitiendo un número binario que el escáner traduce al código que ves en pantalla.</p>
+    </div>
+    <div class="two-col" style="margin-top:20px">
+      <div class="terminal">
+        <div class="term-hdr"><div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div><span style="font-size:.72rem;color:#8b949e;margin-left:7px">ejemplos_coches.dat</span></div>
+        <div class="term-body">
+          <span class="tw">Trama CAN-Bus (ejemplo):</span><br>
+          <span class="to">ID:   0111 1001 0000</span><br>
+          <span class="to">Data: 1010 0011 0110 1100</span><br>
+          <span class="tc">= RPM motor: 2350 rpm</span><br><br>
+          <span class="tw">Temperatura agua:</span><br>
+          <span class="to">0101 1010 = 90°C</span>
+        </div>
+      </div>
+      <div class="dbox">
+        <div class="dsec">
+          <h4>⚡ Tensiones digitales en el coche</h4>
+          <ul>
+            <li><strong>Lógica de 5V:</strong> Sensores, ECU clásica. 0V = bit 0, 5V = bit 1.</li>
+            <li><strong>Lógica de 3,3V:</strong> UCEs modernas y microprocesadores actuales.</li>
+            <li><strong>CAN-Bus:</strong> CAN-H ≈ 3,5V, CAN-L ≈ 1,5V cuando hay bit dominante (0).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nbtn" onclick="go(4)">← Anterior</button>
+      <button class="nbtn primary" onclick="go(6)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: PUERTAS OR Y AND -->
+  <div class="slide" id="s6">
+    <div class="bh">
+      <div class="blabel b3">Bloque III — Puertas Lógicas</div>
+      <div class="btitle">Puertas lógicas OR y AND</div>
+      <div class="bdesc">Las puertas lógicas son los circuitos básicos que toman decisiones en binario. Son la base de toda la electrónica digital.</div>
+    </div>
+    <div class="two-col">
+      <!-- OR -->
+      <div>
+        <div class="dbox" style="margin-bottom:16px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--primary)">OR</span>
+            <span style="font-size:.85rem;color:var(--text-muted)">«O» — Sale 1 si <strong>alguna</strong> entrada es 1</span>
+          </div>
+          <div class="formula-box"><div class="formula">Y = A + B</div><div class="formula-desc">Suma lógica — al menos una entrada en 1</div></div>
+          <table class="dtable" style="margin-top:12px">
+            <thead><tr><th>A</th><th>B</th><th>Salida Y</th></tr></thead>
+            <tbody>
+              <tr><td class="v0">0</td><td class="v0">0</td><td class="v0">0</td></tr>
+              <tr><td class="v0">0</td><td class="v1">1</td><td class="v1">1</td></tr>
+              <tr><td class="v1">1</td><td class="v0">0</td><td class="v1">1</td></tr>
+              <tr><td class="v1">1</td><td class="v1">1</td><td class="v1">1</td></tr>
+            </tbody>
+          </table>
+          <div class="info-box ib-info" style="margin-top:12px">
+            <h5>🚗 Ejemplo en el coche</h5>
+            <p>La alarma sonora se activa si la puerta está abierta OR si el capó está abierto. Cualquiera de las dos condiciones dispara la alarma.</p>
+          </div>
+        </div>
+      </div>
+      <!-- AND -->
+      <div>
+        <div class="dbox">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--success)">AND</span>
+            <span style="font-size:.85rem;color:var(--text-muted)">«Y» — Sale 1 solo si <strong>todas</strong> las entradas son 1</span>
+          </div>
+          <div class="formula-box"><div class="formula">Y = A × B</div><div class="formula-desc">Producto lógico — todas las entradas en 1</div></div>
+          <table class="dtable" style="margin-top:12px">
+            <thead><tr><th>A</th><th>B</th><th>Salida Y</th></tr></thead>
+            <tbody>
+              <tr><td class="v0">0</td><td class="v0">0</td><td class="v0">0</td></tr>
+              <tr><td class="v0">0</td><td class="v1">1</td><td class="v0">0</td></tr>
+              <tr><td class="v1">1</td><td class="v0">0</td><td class="v0">0</td></tr>
+              <tr><td class="v1">1</td><td class="v1">1</td><td class="v1">1</td></tr>
+            </tbody>
+          </table>
+          <div class="info-box ib-info" style="margin-top:12px">
+            <h5>🚗 Ejemplo en el coche</h5>
+            <p>El motor arranca solo si el embrague está pisado AND la llave está girada. Las dos condiciones deben cumplirse.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nbtn" onclick="go(5)">← Anterior</button>
+      <button class="nbtn primary" onclick="go(7)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: NOT, NOR, NAND -->
+  <div class="slide" id="s7">
+    <div class="bh">
+      <div class="blabel b3">Bloque III — Puertas Lógicas</div>
+      <div class="btitle">Puertas NOT, NOR y NAND</div>
+      <div class="bdesc">Las puertas negadas invierten el resultado. Son las más usadas en diseño digital porque con NAND y NOR se puede construir cualquier otra puerta.</div>
+    </div>
+    <div class="gate-grid">
+      <div class="gate-card">
+        <span class="gate-sym">🔄</span>
+        <span class="gate-name">NOT</span>
+        <span class="gate-formula">Y = Ā</span>
+        <p>Invierte la entrada. Si entra 0 sale 1. Si entra 1 sale 0. «NO».</p>
+        <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:1.8">
+          <span class="v0">0</span> → <span class="v1">1</span><br>
+          <span class="v1">1</span> → <span class="v0">0</span>
+        </div>
+      </div>
+      <div class="gate-card">
+        <span class="gate-sym">⛔</span>
+        <span class="gate-name">NOR</span>
+        <span class="gate-formula">Y = <span style="text-decoration:overline">A+B</span></span>
+        <p>OR seguida de NOT. Sale 1 solo si <strong>todas</strong> las entradas son 0.</p>
+        <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:1.8">
+          <span class="v0">0</span>+<span class="v0">0</span>=<span class="v1">1</span> · <span class="v0">0</span>+<span class="v1">1</span>=<span class="v0">0</span><br>
+          <span class="v1">1</span>+<span class="v0">0</span>=<span class="v0">0</span> · <span class="v1">1</span>+<span class="v1">1</span>=<span class="v0">0</span>
+        </div>
+      </div>
+      <div class="gate-card">
+        <span class="gate-sym">🚫</span>
+        <span class="gate-name">NAND</span>
+        <span class="gate-formula">Y = <span style="text-decoration:overline">A×B</span></span>
+        <p>AND seguida de NOT. Sale 0 solo si <strong>todas</strong> las entradas son 1.</p>
+        <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:1.8">
+          <span class="v0">0</span>×<span class="v0">0</span>=<span class="v1">1</span> · <span class="v0">0</span>×<span class="v1">1</span>=<span class="v1">1</span><br>
+          <span class="v1">1</span>×<span class="v0">0</span>=<span class="v1">1</span> · <span class="v1">1</span>×<span class="v1">1</span>=<span class="v0">0</span>
+        </div>
+      </div>
+    </div>
+    <div class="info-box ib-purple" style="margin-top:16px">
+      <h5>💡 Universalidad de NAND y NOR</h5>
+      <p>Con solo puertas NAND (o solo NOR) se puede construir <strong>cualquier otra puerta lógica</strong>. Por eso los fabricantes de chips producen principalmente estos tipos: son más económicos al fabricar un solo tipo de puerta.</p>
+    </div>
+    <div class="two-col" style="margin-top:16px">
+      <div class="info-box ib-info">
+        <h5>🚗 NOR en el coche</h5>
+        <p>El sistema de alerta de puerta abierta desactiva la alarma solo si TODAS las puertas están cerradas: si alguna está abierta, la salida sigue activa.</p>
+      </div>
+      <div class="info-box ib-warn">
+        <h5>🚗 NAND en el coche</h5>
+        <p>Un sistema de seguridad activa la protección si NO se cumplen TODAS las condiciones de acceso simultáneamente (tarjeta válida Y código correcto Y huella).</p>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nbtn" onclick="go(6)">← Anterior</button>
+      <button class="nbtn primary" onclick="go(8)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: XOR Y CIRCUITOS INTEGRADOS -->
+  <div class="slide" id="s8">
+    <div class="bh">
+      <div class="blabel b3">Bloque III — Puertas Lógicas</div>
+      <div class="btitle">Puerta XOR y circuitos integrados</div>
+      <div class="bdesc">La puerta XOR detecta diferencias entre entradas. Los circuitos integrados agrupan múltiples puertas en un chip miniaturizado.</div>
+    </div>
+    <div class="two-col">
+      <div class="dbox">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--accent)">XOR</span>
+          <span style="font-size:.85rem;color:var(--text-muted)">«OR Exclusivo» — Sale 1 si las entradas son <strong>distintas</strong></span>
+        </div>
+        <div class="formula-box"><div class="formula">Y = A ⊕ B</div><div class="formula-desc">Sale 1 solo cuando A y B son diferentes</div></div>
+        <table class="dtable" style="margin-top:12px">
+          <thead><tr><th>A</th><th>B</th><th>Salida Y</th><th>¿Por qué?</th></tr></thead>
+          <tbody>
+            <tr><td class="v0">0</td><td class="v0">0</td><td class="v0">0</td><td style="color:var(--text-muted);font-size:.78rem">Iguales → 0</td></tr>
+            <tr><td class="v0">0</td><td class="v1">1</td><td class="v1">1</td><td style="color:var(--text-muted);font-size:.78rem">Distintos → 1</td></tr>
+            <tr><td class="v1">1</td><td class="v0">0</td><td class="v1">1</td><td style="color:var(--text-muted);font-size:.78rem">Distintos → 1</td></tr>
+            <tr><td class="v1">1</td><td class="v1">1</td><td class="v0">0</td><td style="color:var(--text-muted);font-size:.78rem">Iguales → 0</td></tr>
+          </tbody>
+        </table>
+        <div class="info-box ib-info" style="margin-top:12px">
+          <h5>🚗 XOR en automoción</h5>
+          <p>Detección de errores en tramas CAN-Bus: si el bit enviado y el recibido son distintos, XOR produce 1 → error detectado. También en comparadores de señales redundantes (sensores dobles de seguridad).</p>
+        </div>
+      </div>
+      <div>
+        <div class="dbox">
+          <div class="dsec">
+            <h4>💾 Circuitos Integrados (CI)</h4>
+            <ul>
+              <li>Un CI (o chip) contiene <strong>miles o millones de puertas lógicas</strong> en un chip de silicio del tamaño de un sello.</li>
+              <li>Ejemplos clásicos: <strong>74HC08</strong> (4 puertas AND), <strong>74HC32</strong> (4 puertas OR), <strong>74HC04</strong> (6 inversores NOT).</li>
+              <li>Las UCEs del automóvil contienen microcontroladores con <strong>millones de puertas</strong> integradas.</li>
+            </ul>
+          </div>
+          <div class="dsec">
+            <h4>🧩 Diagrama de bloques</h4>
+            <ul>
+              <li>Los circuitos digitales complejos se representan como <strong>bloques funcionales</strong>.</li>
+              <li>Cada bloque tiene entradas, salidas y una función definida.</li>
+              <li>Permite diseñar y entender sistemas complejos sin entrar en el detalle de cada puerta.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="info-box ib-success" style="margin-top:14px">
+          <h5>✅ Resumen puertas lógicas</h5>
+          <p><strong>OR:</strong> alguna → 1 · <strong>AND:</strong> todas → 1 · <strong>NOT:</strong> invierte · <strong>NOR:</strong> ninguna → 1 · <strong>NAND:</strong> no todas → 1 · <strong>XOR:</strong> distintas → 1</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nbtn" onclick="go(7)">← Anterior</button>
+      <button class="nbtn primary" onclick="go(9)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: PWM -->
+  <div class="slide" id="s9">
+    <div class="bh">
+      <div class="blabel b4">Bloque IV — Señal PWM</div>
+      <div class="btitle">Señal PWM — Modulación por Ancho de Pulso</div>
+      <div class="bdesc">Técnica digital para controlar la potencia entregada a un componente variando el tiempo que la señal está en alto, sin cambiar la tensión.</div>
+    </div>
+    <div class="two-col">
+      <div class="dbox">
+        <div class="dsec">
+          <h4>📐 ¿Qué es el ciclo de trabajo (Duty Cycle)?</h4>
+          <ul>
+            <li>La señal PWM es una <strong>onda cuadrada</strong> de frecuencia fija.</li>
+            <li>El <strong>ciclo de trabajo</strong> es el porcentaje de tiempo que la señal está en alto (1) dentro de un período.</li>
+            <li><strong>10% duty cycle:</strong> señal alta 10% del tiempo → poca potencia.</li>
+            <li><strong>50% duty cycle:</strong> señal alta la mitad del tiempo → potencia media.</li>
+            <li><strong>90% duty cycle:</strong> señal alta 90% del tiempo → casi potencia máxima.</li>
+          </ul>
+        </div>
+        <div class="formula-box">
+          <div class="formula">Duty Cycle = (T_on / T_total) × 100%</div>
+          <div class="formula-desc">Tiempo en alto entre el período total, expresado en porcentaje</div>
+        </div>
+        <div class="dsec" style="margin-top:14px">
+          <h4>🚗 Aplicaciones en el automóvil</h4>
+          <ul>
+            <li><strong>Inyectores:</strong> La UCE varía el duty cycle para controlar la cantidad de combustible inyectado.</li>
+            <li><strong>Ventilador de refrigeración:</strong> Control de velocidad sin resistencias (más eficiente).</li>
+            <li><strong>Motor de paso a paso:</strong> Dirección asistida eléctrica.</li>
+            <li><strong>Calefacción por resistencia:</strong> Asientos, volante calefactado.</li>
+            <li><strong>Control de válvulas:</strong> EGR, VANOS, variadores de fase.</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="pwm-wrap">
+          <div class="pwm-title">Visualización señal PWM</div>
+          <div class="pwm-bars">
+            <div class="pwm-row">
+              <span class="pwm-label">10% DC</span>
+              <div class="pwm-signal">
+                <svg viewBox="0 0 300 36" preserveAspectRatio="none">
+                  <rect x="0" y="18" width="300" height="18" fill="rgba(239,68,68,.15)"/>
+                  <rect x="0" y="0" width="30" height="18" fill="rgba(34,197,94,.4)"/>
+                  <rect x="100" y="0" width="30" height="18" fill="rgba(34,197,94,.4)"/>
+                  <rect x="200" y="0" width="30" height="18" fill="rgba(34,197,94,.4)"/>
+                  <path d="M0,18 L0,0 L30,0 L30,18 L100,18 L100,0 L130,0 L130,18 L200,18 L200,0 L230,0 L230,18 L300,18" fill="none" stroke="#22c55e" stroke-width="2"/>
+                </svg>
+              </div>
+              <span class="pwm-value" style="color:#ef4444">10%</span>
+            </div>
+            <div class="pwm-row">
+              <span class="pwm-label">25% DC</span>
+              <div class="pwm-signal">
+                <svg viewBox="0 0 300 36" preserveAspectRatio="none">
+                  <rect x="0" y="18" width="300" height="18" fill="rgba(239,68,68,.15)"/>
+                  <rect x="0" y="0" width="75" height="18" fill="rgba(34,197,94,.4)"/>
+                  <rect x="150" y="0" width="75" height="18" fill="rgba(34,197,94,.4)"/>
+                  <path d="M0,18 L0,0 L75,0 L75,18 L150,18 L150,0 L225,0 L225,18 L300,18" fill="none" stroke="#22c55e" stroke-width="2"/>
+                </svg>
+              </div>
+              <span class="pwm-value" style="color:#f59e0b">25%</span>
+            </div>
+            <div class="pwm-row">
+              <span class="pwm-label">50% DC</span>
+              <div class="pwm-signal">
+                <svg viewBox="0 0 300 36" preserveAspectRatio="none">
+                  <rect x="0" y="18" width="300" height="18" fill="rgba(239,68,68,.15)"/>
+                  <rect x="0" y="0" width="150" height="18" fill="rgba(34,197,94,.4)"/>
+                  <path d="M0,18 L0,0 L150,0 L150,18 L300,18" fill="none" stroke="#22c55e" stroke-width="2"/>
+                </svg>
+              </div>
+              <span class="pwm-value" style="color:#0ea5e9">50%</span>
+            </div>
+            <div class="pwm-row">
+              <span class="pwm-label">75% DC</span>
+              <div class="pwm-signal">
+                <svg viewBox="0 0 300 36" preserveAspectRatio="none">
+                  <rect x="0" y="18" width="300" height="18" fill="rgba(239,68,68,.15)"/>
+                  <rect x="0" y="0" width="225" height="18" fill="rgba(34,197,94,.4)"/>
+                  <path d="M0,18 L0,0 L225,0 L225,18 L300,18" fill="none" stroke="#22c55e" stroke-width="2"/>
+                </svg>
+              </div>
+              <span class="pwm-value" style="color:#8b5cf6">75%</span>
+            </div>
+            <div class="pwm-row">
+              <span class="pwm-label">90% DC</span>
+              <div class="pwm-signal">
+                <svg viewBox="0 0 300 36" preserveAspectRatio="none">
+                  <rect x="0" y="18" width="300" height="18" fill="rgba(239,68,68,.15)"/>
+                  <rect x="0" y="0" width="270" height="18" fill="rgba(34,197,94,.4)"/>
+                  <path d="M0,18 L0,0 L270,0 L270,18 L300,18" fill="none" stroke="#22c55e" stroke-width="2"/>
+                </svg>
+              </div>
+              <span class="pwm-value" style="color:#22c55e">90%</span>
+            </div>
+          </div>
+        </div>
+        <div class="info-box ib-success" style="margin-top:14px">
+          <h5>✅ Ventaja clave del PWM</h5>
+          <p>No hay pérdida de energía como en una resistencia variable. El transistor que genera PWM está <strong>totalmente encendido o apagado</strong>, sin estados intermedios. Eficiencia casi del 100%.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nbtn" onclick="go(8)">← Anterior</button>
+      <button class="nbtn primary" onclick="go(10)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: AUTOEVALUACIÓN -->
+  <div class="slide" id="s10">
+    <div class="bh">
+      <div class="blabel b5">Cierre del Módulo</div>
+      <div class="btitle">Autoevaluación</div>
+      <div class="bdesc">Pon a prueba lo que has aprendido. Solo hay una respuesta correcta en cada pregunta.</div>
+    </div>
+    <div style="max-width:720px;margin:0 auto;">
+      <div class="quiz-q">
+        <h4>❓ 1. ¿Cuál es el sistema numérico que usa la electrónica digital?</h4>
+        <div class="quiz-opts">
+          <div class="qopt" onclick="ans(this,false)">Decimal (base 10)</div>
+          <div class="qopt" onclick="ans(this,true)">Binario (base 2, solo 0 y 1)</div>
+          <div class="qopt" onclick="ans(this,false)">Hexadecimal (base 16)</div>
+        </div>
+      </div>
+      <div class="quiz-q">
+        <h4>❓ 2. ¿Qué ventaja principal tiene el CAN-Bus respecto al cableado tradicional?</h4>
+        <div class="quiz-opts">
+          <div class="qopt" onclick="ans(this,false)">Mayor velocidad de transmisión siempre</div>
+          <div class="qopt" onclick="ans(this,true)">Reduce drásticamente el número de cables, el peso y el coste del vehículo</div>
+          <div class="qopt" onclick="ans(this,false)">Solo sirve para el sistema de audio</div>
+        </div>
+      </div>
+      <div class="quiz-q">
+        <h4>❓ 3. ¿Qué resultado da una puerta AND con entradas A=1 y B=0?</h4>
+        <div class="quiz-opts">
+          <div class="qopt" onclick="ans(this,true)">0 — AND necesita que TODAS las entradas sean 1</div>
+          <div class="qopt" onclick="ans(this,false)">1 — porque al menos una entrada es 1</div>
+          <div class="qopt" onclick="ans(this,false)">Depende de la temperatura del circuito</div>
+        </div>
+      </div>
+      <div class="quiz-q">
+        <h4>❓ 4. Un inyector recibe una señal PWM del 80% de ciclo de trabajo. ¿Qué significa?</h4>
+        <div class="quiz-opts">
+          <div class="qopt" onclick="ans(this,false)">El inyector trabaja al 80% de su tensión máxima</div>
+          <div class="qopt" onclick="ans(this,true)">El inyector está abierto el 80% del tiempo por período → inyecta mucho combustible</div>
+          <div class="qopt" onclick="ans(this,false)">La frecuencia de la señal es de 80 Hz</div>
+        </div>
+      </div>
+      <div class="quiz-q">
+        <h4>❓ 5. ¿Qué hace una puerta NOT?</h4>
+        <div class="quiz-opts">
+          <div class="qopt" onclick="ans(this,false)">Suma dos entradas binarias</div>
+          <div class="qopt" onclick="ans(this,false)">Solo actúa si ninguna entrada es 1</div>
+          <div class="qopt" onclick="ans(this,true)">Invierte la entrada: si entra 0 sale 1, y si entra 1 sale 0</div>
+        </div>
+      </div>
+      <div class="quiz-q">
+        <h4>❓ 6. ¿Cuánto vale el binario 1010 en decimal?</h4>
+        <div class="quiz-opts">
+          <div class="qopt" onclick="ans(this,false)">5</div>
+          <div class="qopt" onclick="ans(this,true)">10 (1×8 + 0×4 + 1×2 + 0×1)</div>
+          <div class="qopt" onclick="ans(this,false)">12</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-btns">
+      <button class="nbtn" onclick="go(9)">← Anterior</button>
+      <button class="nbtn primary" onclick="go(0)">🏠 Volver al inicio</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  let cur = 0;
+  const total = 11;
+  const titles = [
+    'Módulo 04 · Electrónica Digital',
+    '1. Sensores y actuadores',
+    '2. Unidades de control UCE/ECU',
+    '3. Redes CAN-Bus',
+    '4. Código binario',
+    '5. Conversor binario interactivo',
+    '6. Puertas OR y AND',
+    '7. Puertas NOT, NOR y NAND',
+    '8. Puerta XOR y circuitos integrados',
+    '9. Señal PWM',
+    '10. Autoevaluación'
+  ];
+
+  function go(n) {
+    document.getElementById('s'+cur).classList.remove('active');
+    document.querySelector('[data-i="'+cur+'"]').classList.remove('active');
+    cur = n;
+    document.getElementById('s'+cur).classList.add('active');
+    document.querySelector('[data-i="'+cur+'"]').classList.add('active');
+    document.getElementById('topTitle').textContent = titles[cur];
+    document.getElementById('progText').textContent = (cur+1)+' / '+total;
+    document.getElementById('progFill').style.width = ((cur+1)/total*100)+'%';
+    document.getElementById('main').scrollTop = 0;
+    if (window.innerWidth < 900) closeSidebar();
+  }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('active');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('active');
+  }
+
+  function ans(el, correct) {
+    const opts = el.parentElement.querySelectorAll('.qopt');
+    opts.forEach(o => o.style.pointerEvents = 'none');
+    el.classList.add(correct ? 'correct' : 'wrong');
+    if (!correct) opts.forEach(o => { if(o !== el) o.style.opacity = '.4'; });
+  }
+
+  // Conversor binario interactivo
+  const bits = 8;
+  const labelsEl = document.getElementById('binLabels');
+  const bitsEl = document.getElementById('binBits');
+  const resultEl = document.getElementById('binResult');
+  const state = new Array(bits).fill(0);
+  const weights = [128,64,32,16,8,4,2,1];
+
+  weights.forEach((w,i) => {
+    const lbl = document.createElement('div');
+    lbl.className = 'bin-lbl';
+    lbl.textContent = '2^'+(7-i);
+    labelsEl.appendChild(lbl);
+  });
+
+  state.forEach((_,i) => {
+    const bit = document.createElement('div');
+    bit.className = 'bin-bit off';
+    bit.textContent = '0';
+    bit.addEventListener('click', () => {
+      state[i] = state[i] ? 0 : 1;
+      bit.textContent = state[i];
+      bit.className = 'bin-bit ' + (state[i] ? 'on' : 'off');
+      const dec = state.reduce((acc,b,idx) => acc + b * weights[idx], 0);
+      const bin = state.join('');
+      resultEl.textContent = 'Decimal: ' + dec + '   |   Binario: ' + bin;
+    });
+    bitsEl.appendChild(bit);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key==='ArrowRight'||e.key==='ArrowDown') { if(cur<total-1) go(cur+1); }
+    if (e.key==='ArrowLeft'||e.key==='ArrowUp') { if(cur>0) go(cur-1); }
+    if (e.key==='Escape') closeSidebar();
+  });
+
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const d = tx - e.changedTouches[0].clientX;
+    if (Math.abs(d) > 60) { if(d>0 && cur<total-1) go(cur+1); else if(d<0 && cur>0) go(cur-1); }
+  });
+</script>
+</body>
+</html>
 
