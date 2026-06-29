@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 01 · Presentación Interactiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0ea5e9; --accent: #f59e0b;
+            --danger: #ef4444; --success: #22c55e;
+            --dark: #0f172a; --darker: #020617;
+            --card: #1e293b; --card-hover: #334155;
+            --text: #f1f5f9; --text-muted: #94a3b8;
+            --border: #334155;
+            --g1: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--darker); 
+            color: var(--text); 
+            min-height: 100vh; 
+            overflow-x: hidden;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* ══ NAV SUPERIOR ══ */
+        .course-nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 48px;
+            background: linear-gradient(90deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            border-bottom: 1px solid var(--border); z-index: 200;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px;
+        }
+        .course-nav .nav-left { display: flex; align-items: center; gap: 16px; }
+        .course-nav .home-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 16px; background: rgba(14,165,233,0.1);
+            border: 1px solid rgba(14,165,233,0.3); border-radius: 8px;
+            color: var(--primary); font-size: 0.8rem; font-weight: 600;
+            text-decoration: none; transition: all 0.2s;
+        }
+        .course-nav .home-btn:hover { background: rgba(14,165,233,0.2); border-color: var(--primary); transform: translateY(-1px); }
+        .course-nav .breadcrumbs { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-muted); }
+        .course-nav .breadcrumbs a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        .course-nav .breadcrumbs a:hover { color: var(--primary); }
+        .course-nav .breadcrumbs .sep { color: var(--border); }
+        .course-nav .breadcrumbs .current { color: var(--text); font-weight: 600; }
+        .course-nav .nav-right { display: flex; align-items: center; gap: 12px; }
+        .course-nav .unit-badge { padding: 6px 14px; background: var(--g1); border-radius: 6px; font-size: 0.75rem; font-weight: 700; color: white; letter-spacing: 0.5px; }
+
+        /* ══ FONDO CON ORBES ANIMADOS ══ */
+        .bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none; }
+        .bg .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.12; animation: float 20s infinite ease-in-out; }
+        .orb-1 { width: 400px; height: 400px; background: var(--primary); top: -100px; left: -100px; }
+        .orb-2 { width: 300px; height: 300px; background: var(--accent); top: 50%; right: -50px; animation-delay: -5s; }
+        @keyframes float { 0%,100%{transform:translate(0,0)scale(1)} 25%{transform:translate(50px,-30px)scale(1.1)} 50%{transform:translate(-30px,50px)scale(0.9)} }
+
+        /* ══ SIDEBAR (TEMARIO) ══ */
+        .sidebar { position: fixed; left: 0; top: 48px; width: 300px; height: calc(100vh - 48px); background: rgba(15,23,42,0.97); backdrop-filter: blur(20px); border-right: 1px solid var(--border); z-index: 100; overflow-y: auto; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .sidebar.open { transform: translateX(0); }
+        .sidebar-header { padding: 24px; border-bottom: 1px solid var(--border); }
+        .sidebar-header h2 { font-size: 1.1rem; font-weight: 700; background: var(--g1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .sidebar-header p { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+        .nav-section { padding: 8px 0; }
+        .nav-section-title { padding: 12px 24px 8px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); }
+        .nav-item { display: flex; align-items: center; padding: 10px 24px; cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; font-size: 0.85rem; color: var(--text-muted); gap: 12px; }
+        .nav-item:hover { background: rgba(255,255,255,0.03); color: var(--text); }
+        .nav-item.active { background: rgba(14,165,233,0.1); border-left-color: var(--primary); color: var(--primary); }
+        .nav-item .num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 600; min-width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 6px; background: rgba(255,255,255,0.05); }
+        .nav-item.active .num { background: var(--primary); color: white; }
+
+        /* ══ TOP BAR ══ */
+        .top-bar { position: fixed; top: 48px; left: 0; right: 0; height: 64px; background: rgba(15,23,42,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 90; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+        .top-bar .left { display: flex; align-items: center; gap: 16px; }
+        .menu-btn { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border); background: transparent; color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .menu-btn:hover { background: var(--card); border-color: var(--primary); }
+        .top-bar h1 { font-size: 1rem; font-weight: 600; }
+
+        /* ══ CONTENEDOR DE LA PRESENTACIÓN (RESPONSIVE 16:9) ══ */
+        .main-content { position: relative; z-index: 1; padding-top: 112px; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 132px 24px 40px 24px; }
+        .slides-container {
+            width: 100%;
+            max-width: 1100px;
+            position: relative;
+            padding-top: 56.25%; /* Ratio 16:9 */
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .slides-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: none;
+        }
+
+        /* Overlay */
+        .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 95; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .overlay.active { opacity: 1; visibility: visible; }
+
+        @media (max-width: 900px) {
+            .sidebar { width: 280px; }
+            .main-content { padding: 124px 12px 20px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV SUPERIOR -->
+    <nav class="course-nav">
+        <div class="nav-left">
+            <!-- Corregido a ../index.html ya que solo bajamos un nivel de carpeta -->
+            <a href="../index.html" class="home-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Volver al índice
+            </a>
+            <div class="breadcrumbs">
+                <a href="../index.html">Electromecánica</a>
+                <span class="sep">/</span>
+                <span class="current">Tema 1: Electricidad de Maquinaria</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="unit-badge">TEMA 01</div>
+        </div>
+    </nav>
+
+    <!-- FONDO -->
+    <div class="bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- SIDEBAR (ÍNDICE ADAPTADO A TU PRESENTACIÓN) -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>⚡ Tema 01</h2>
+            <p>Circuitos y Magnitudes en Maquinaria Pesada</p>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">Contenido de la Lección</div>
+            <div class="nav-item active" onclick="jumpToSlide(1)"><span class="num">1</span><span>Portada</span></div>
+            <div class="nav-item" onclick="jumpToSlide(2)"><span class="num">2</span><span>El Circuito de Arranque</span></div>
+            <div class="nav-item" onclick="jumpToSlide(3)"><span class="num">3</span><span>Ley de Ohm en el Taller</span></div>
+            <div class="nav-item" onclick="jumpToSlide(4)"><span class="num">4</span><span>Caídas de Tensión Críticas</span></div>
+            <div class="nav-item" onclick="jumpToSlide(5)"><span class="num">5</span><span>Cuestionario Diagnóstico</span></div>
+        </div>
+    </nav>
+
+    <!-- TOP BAR -->
+    <header class="top-bar">
+        <div class="left">
+            <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menú">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <h1 id="top-title">Tema 01: Magnitudes Eléctricas y Diagnosis</h1>
+        </div>
+    </header>
+
+    <!-- PRESENTACIÓN INCRUSTADA -->
+    <main class="main-content">
+        <div class="slides-container">
+            <!-- He añadido "&rm=minimal" al final para ocultar las opciones de descarga de Google -->
+            <iframe 
+                id="slides-frame"
+                src="https://docs.google.com/presentation/d/e/2PACX-1vS_EXAMPLE_ID_AUTOMOCION/embed?start=false&loop=false&delayms=3000&rm=minimal" 
+                allowfullscreen="true">
+            </iframe>
+        </div>
+    </main>
+
+    <script>
+        // Esta dirección base la cambiarás por la tuya de Google Slides cuando pulses "Publicar en la web"
+        const slidesBaseUrl = "https://docs.google.com/presentation/d/e/2PACX-1vS_EXAMPLE_ID_AUTOMOCION/embed?start=false&loop=false&delayms=3000&rm=minimal";
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
+        function jumpToSlide(slideNumber) {
+            const iframe = document.getElementById('slides-frame');
+            
+            // Forzamos al iframe a navegar a la diapositiva exacta mediante el hash parcial pX de Google
+            iframe.src = slidesBaseUrl + "#slide=id.p" + slideNumber;
+
+            // Actualizamos la estética de selección del menú lateral
+            const items = document.querySelectorAll('.nav-item');
+            items.forEach(item => item.classList.remove('active'));
+            
+            event.currentTarget.classList.add('active');
+
+            if (window.innerWidth < 900) {
+                toggleSidebar();
+            }
+        }
+    </script>
+</body>
+</html>
