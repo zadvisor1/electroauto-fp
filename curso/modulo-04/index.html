@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Módulo 04 · Circuitos Eléctricos</title>
+  <title>Módulo 04 · Electrónica Digital</title>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -55,10 +55,11 @@
     .sidebar-card{background:var(--panel);border:1px solid var(--borde);margin-bottom:1.5rem;overflow:hidden;}
     .sidebar-card-header{padding:1rem 1.25rem;border-bottom:1px solid var(--borde);font-family:'Rajdhani',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gris);}
     .sidebar-card-body{padding:1.25rem;}
-    .btn-proximamente{display:flex;align-items:center;gap:0.75rem;background:rgba(138,138,170,0.1);color:var(--gris);padding:1rem 1.25rem;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.05em;width:100%;border:1px solid rgba(138,138,170,0.2);cursor:default;}
-    .btn-proximamente .icon{font-size:1.3rem;flex-shrink:0;}
-    .btn-proximamente .text{flex:1;}
-    .btn-proximamente .text small{display:block;font-size:0.7rem;font-weight:400;opacity:0.7;margin-top:0.1rem;font-family:'Inter',sans-serif;}
+    .btn-presentacion{display:flex;align-items:center;gap:0.75rem;background:var(--voltaje);color:var(--negro);padding:1rem 1.25rem;text-decoration:none;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.05em;width:100%;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));transition:background 0.15s;border:none;cursor:pointer;}
+    .btn-presentacion:hover{background:#ffe033;}
+    .btn-presentacion .icon{font-size:1.3rem;flex-shrink:0;}
+    .btn-presentacion .text{flex:1;}
+    .btn-presentacion .text small{display:block;font-size:0.7rem;font-weight:400;opacity:0.7;margin-top:0.1rem;font-family:'Inter',sans-serif;}
     .modulos-nav{list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--borde);}
     .modulos-nav li a,.modulos-nav li span{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 0.75rem;background:var(--panel);font-size:0.8rem;text-decoration:none;color:var(--gris);transition:all 0.2s;}
     .modulos-nav li a:hover{color:var(--voltaje);background:#22224A;}
@@ -103,11 +104,12 @@
     <span class="badge-num">MÓDULO 04</span>
     <span class="badge-estado">✓ Disponible</span>
   </div>
-  <h1>Circuitos <em>Eléctricos</em></h1>
-  <p>Análisis y cálculo de circuitos serie, paralelo y mixtos aplicados a las instalaciones eléctricas del automóvil.</p>
+  <h1>Electrónica <em>Digital</em></h1>
+  <p>Código binario, puertas lógicas, redes CAN-Bus y señal PWM. La electrónica que controla el automóvil moderno.</p>
   <div class="header-meta">
-    <div class="meta-item">📊 <strong>Presentación próximamente</strong></div>
+    <div class="meta-item">📊 <strong>11 diapositivas</strong></div>
     <div class="meta-item">⏱️ <strong>~50 minutos</strong></div>
+    <div class="meta-item">🎮 <strong>Conversor binario interactivo</strong></div>
     <div class="meta-item">📱 <strong>Funciona en cualquier dispositivo</strong></div>
   </div>
 </div>
@@ -117,30 +119,32 @@
     <div class="section-block reveal">
       <div class="block-label">Descripción</div>
       <h2 class="block-title">¿Qué vas a aprender?</h2>
-      <p class="block-body">En este módulo aprenderás a analizar y calcular los tres tipos de circuitos eléctricos: serie, paralelo y mixto. Entenderás cómo se distribuyen la tensión y la corriente en cada uno, y cómo se aplica esto a los circuitos reales del automóvil.</p>
-      <p class="block-body" style="margin-top:0.75rem">Estos conocimientos son la base para leer e interpretar cualquier esquema eléctrico y para diagnosticar averías con metodología correcta.</p>
+      <p class="block-body">En este módulo descubrirás cómo el automóvil moderno toma decisiones electrónicas: desde el código binario que usan las UCEs hasta las puertas lógicas que procesan señales y las redes CAN-Bus que conectan todos los sistemas del vehículo.</p>
+      <p class="block-body" style="margin-top:0.75rem">También aprenderás qué es la señal PWM y cómo controla inyectores, ventiladores y motores con gran precisión y eficiencia.</p>
     </div>
     <div class="section-block reveal">
       <div class="block-label">Contenidos</div>
       <h2 class="block-title">Temario del módulo</h2>
       <ul class="contenidos-lista">
-        <li><span class="ico">➡️</span><span class="tema">Circuito serie — Resistencia total, tensión y corriente</span><span class="subtema">TIPO 1</span></li>
-        <li><span class="ico">⬆️</span><span class="tema">Circuito paralelo — Resistencia equivalente y distribución de corriente</span><span class="subtema">TIPO 2</span></li>
-        <li><span class="ico">🔀</span><span class="tema">Circuito mixto — Simplificación y análisis paso a paso</span><span class="subtema">TIPO 3</span></li>
-        <li><span class="ico">📉</span><span class="tema">Caída de tensión — Cálculo y detección en el vehículo</span><span class="subtema">DIAGNÓSTICO</span></li>
-        <li><span class="ico">🔋</span><span class="tema">Divisor de tensión — Aplicación en sensores del automóvil</span><span class="subtema">APLICACIÓN</span></li>
-        <li><span class="ico">📊</span><span class="tema">Leyes de Kirchhoff — Corrientes y tensiones en nodos y mallas</span><span class="subtema">AVANZADO</span></li>
-        <li><span class="ico">🔧</span><span class="tema">Medición con polímetro en circuitos reales del vehículo</span><span class="subtema">TALLER</span></li>
+        <li><span class="ico">📡</span><span class="tema">Sensores y actuadores — El ciclo de control electrónico</span><span class="subtema">INTRO</span></li>
+        <li><span class="ico">🧠</span><span class="tema">Unidades de Control Electrónico (UCE/ECU)</span><span class="subtema">SISTEMAS</span></li>
+        <li><span class="ico">🔌</span><span class="tema">Redes de comunicación CAN-Bus, LIN, MOST, Ethernet</span><span class="subtema">REDES</span></li>
+        <li><span class="ico">🔢</span><span class="tema">El código binario — Bits, bytes y conversión decimal</span><span class="subtema">FUNDAMENTOS</span></li>
+        <li><span class="ico">🎮</span><span class="tema">Conversor binario interactivo — Práctica</span><span class="subtema">PRÁCTICA</span></li>
+        <li><span class="ico">⚡</span><span class="tema">Puertas lógicas OR y AND</span><span class="subtema">LÓGICA 1</span></li>
+        <li><span class="ico">🚫</span><span class="tema">Puertas NOT, NOR y NAND</span><span class="subtema">LÓGICA 2</span></li>
+        <li><span class="ico">🔄</span><span class="tema">Puerta XOR y circuitos integrados</span><span class="subtema">LÓGICA 3</span></li>
+        <li><span class="ico">📶</span><span class="tema">Señal PWM — Modulación por ancho de pulso</span><span class="subtema">CONTROL</span></li>
       </ul>
     </div>
     <div class="section-block reveal">
       <div class="block-label">Conceptos clave</div>
       <h2 class="block-title">Lo esencial del módulo</h2>
       <div class="conceptos-grid">
-        <div class="concepto"><span class="concepto-sym">→</span><h4>Serie</h4><p>Misma corriente por todos los componentes. La tensión se reparte. R total = suma de todas.</p></div>
-        <div class="concepto"><span class="concepto-sym">↕</span><h4>Paralelo</h4><p>Misma tensión en todos los componentes. La corriente se reparte. R total es menor que cualquiera.</p></div>
-        <div class="concepto"><span class="concepto-sym">ΔV</span><h4>Caída de tensión</h4><p>Tensión que se pierde en un cable o conector con resistencia alta. Causa averías difíciles de detectar.</p></div>
-        <div class="concepto"><span class="concepto-sym">∑I</span><h4>Kirchhoff</h4><p>La suma de corrientes que entran a un nodo es igual a las que salen. Base del análisis de redes.</p></div>
+        <div class="concepto"><span class="concepto-sym">0/1</span><h4>Código binario</h4><p>Solo dos estados eléctricos: 0V (bit 0) y 5V (bit 1). Base de toda la electrónica digital.</p></div>
+        <div class="concepto"><span class="concepto-sym">AND</span><h4>Puertas lógicas</h4><p>Circuitos que toman decisiones binarias: OR, AND, NOT, NOR, NAND, XOR.</p></div>
+        <div class="concepto"><span class="concepto-sym">CAN</span><h4>CAN-Bus</h4><p>Red de 2 cables que conecta todas las UCEs del vehículo, reduciendo cableado.</p></div>
+        <div class="concepto"><span class="concepto-sym">PWM</span><h4>Señal PWM</h4><p>Controla potencia variando el tiempo en alto de una señal cuadrada, sin pérdidas.</p></div>
       </div>
     </div>
   </div>
@@ -151,7 +155,7 @@
       <div class="sidebar-card-body">
         <a href="presentacion.html" class="btn-presentacion">
           <span class="icon">▶</span>
-          <span class="text">Ver presentación<small>11 slides · Navegable con teclado</small></span>
+          <span class="text">Ver presentación<small>11 slides · Conversor binario interactivo</small></span>
         </a>
       </div>
     </div>
@@ -162,13 +166,13 @@
           <li><a href="../modulo-01/index.html"><span class="mod-num">01</span>Fundamentos de electricidad</a></li>
           <li><a href="../modulo-02/index.html"><span class="mod-num">02</span>Generación de electricidad</a></li>
           <li><a href="../modulo-03/index.html"><span class="mod-num">03</span>Componentes eléctricos</a></li>
-          <li class="current"><span><span class="mod-num">04</span>Circuitos eléctricos</span></li>
-          <li><a href="../modulo-05/index.html"><span class="mod-num">05</span>Electrónica digital</a></li>
-          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">06</span>Sistema de arranque<span class="lock">🔒</span></span></li>
-          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">07</span>Sistema de carga<span class="lock">🔒</span></span></li>
-          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">08</span>Esquemas eléctricos<span class="lock">🔒</span></span></li>
-          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">09</span>Sistemas de iluminación<span class="lock">🔒</span></span></li>
-          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">10</span>Sistemas auxiliares<span class="lock">🔒</span></span></li>
+          <li class="current"><span><span class="mod-num">04</span>Electrónica digital</span></li>
+          <li><a href="../modulo-05/index.html"><span class="mod-num">05</span>Circuitos eléctricos</a></li>
+          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">06</span>Batería<span class="lock">🔒</span></span></li>
+          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">07</span>Sistema de arranque<span class="lock">🔒</span></span></li>
+          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">08</span>Sistema de carga<span class="lock">🔒</span></span></li>
+          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">09</span>Esquemas eléctricos<span class="lock">🔒</span></span></li>
+          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">10</span>Sistemas de iluminación<span class="lock">🔒</span></span></li>
         </ul>
       </div>
     </div>
@@ -177,11 +181,11 @@
 
 <div class="mod-nav">
   <a class="mod-nav-item" href="../modulo-03/index.html"><span class="dir">← Módulo anterior</span><span class="nombre">Componentes eléctricos</span></a>
-  <a class="mod-nav-item next" href="../modulo-05/index.html"><span class="dir">Módulo siguiente →</span><span class="nombre">Electrónica digital</span></a>
+  <a class="mod-nav-item next" href="../modulo-05/index.html"><span class="dir">Módulo siguiente →</span><span class="nombre">Circuitos eléctricos</span></a>
 </div>
 
 <footer>
-  <div><div class="footer-logo">Electro<span>Auto FP</span></div><p style="margin-top:0.4rem">Módulo 04 · Circuitos Eléctricos</p></div>
+  <div><div class="footer-logo">Electro<span>Auto FP</span></div><p style="margin-top:0.4rem">Módulo 04 · Electrónica Digital</p></div>
   <p style="color:var(--gris);font-size:0.75rem">© 2025 ElectroAuto FP</p>
 </footer>
 
