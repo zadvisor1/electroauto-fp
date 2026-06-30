@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 06 · Baterías de Arranque y Tracción</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--negro:#0D0D0D;--antracita:#141428;--panel:#1C1C3A;--voltaje:#FFD600;--blanco:#F0F0F0;--rojo:#E63946;--azul:#4FC3F7;--verde:#69F0AE;--gris:#8A8AAA;--borde:rgba(255,214,0,0.15);}
+    html{scroll-behavior:smooth;}
+    body{background:var(--negro);color:var(--blanco);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden;}
+    
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;background:rgba(13,13,13,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--borde);}
+    .nav-logo{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;color:var(--voltaje);text-decoration:none;}
+    .nav-logo span{color:var(--blanco);}
+    .nav-links{display:flex;gap:2rem;list-style:none;}
+    .nav-links a{color:var(--gris);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--voltaje);}
+    .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .nav-burger span{display:block;width:24px;height:2px;background:var(--blanco);}
+    
+    /* HEADER */
+    .page-header{padding:100px 2rem 3rem;background:var(--antracita);border-bottom:1px solid var(--borde);position:relative;overflow:hidden;}
+    .page-header::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--voltaje),transparent);}
+    .header-num{position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-family:'Rajdhani',sans-serif;font-size:clamp(6rem,15vw,12rem);font-weight:700;color:rgba(255,214,0,0.04);line-height:1;pointer-events:none;user-select:none;}
+    .breadcrumb{font-size:0.78rem;color:var(--gris);margin-bottom:1.5rem;display:flex;gap:0.5rem;align-items:center;}
+    .breadcrumb a{color:var(--gris);text-decoration:none;transition:color 0.2s;}
+    .breadcrumb a:hover{color:var(--voltaje);}
+    .breadcrumb span{color:var(--voltaje);}
+    .header-badge{display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:1rem;}
+    .badge-num{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;background:var(--voltaje);color:var(--negro);padding:0.2rem 0.6rem;letter-spacing:0.05em;}
+    .badge-estado{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;border:1px solid rgba(105,240,174,0.4);color:var(--verde);padding:0.2rem 0.6rem;letter-spacing:0.05em;}
+    .page-header h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;line-height:1.05;margin-bottom:1rem;position:relative;}
+    .page-header h1 em{font-style:normal;color:var(--voltaje);}
+    .page-header p{color:var(--gris);font-size:0.95rem;max-width:580px;font-weight:300;position:relative;}
+    
+    /* META */
+    .header-meta{display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap;}
+    .meta-item{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--gris);}
+    .meta-item strong{color:var(--blanco);font-weight:500;}
+    
+    /* CONTENT STRUCTURE */
+    .main-content{display:grid;grid-template-columns:1fr 320px;gap:0;max-width:1200px;margin:0 auto;padding:3rem 2rem 5rem;align-items:start;}
+    .col-main{padding-right:3rem;}
+    .section-block{margin-bottom:3rem;}
+    .block-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--voltaje);margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
+    .block-label::after{content:'';flex:1;height:1px;background:var(--borde);}
+    .block-title{font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:0.75rem;}
+    .block-body{font-size:0.9rem;color:rgba(240,240,240,0.8);line-height:1.7;font-weight:300;}
+    
+    /* LISTS */
+    .contenidos-lista{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;}
+    .contenidos-lista li{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 0.75rem;background:var(--panel);border:1px solid transparent;font-size:0.88rem;transition:border-color 0.2s;}
+    .contenidos-lista li:hover{border-color:var(--borde);}
+    .contenidos-lista .ico{font-size:1rem;flex-shrink:0;}
+    .contenidos-lista .tema{flex:1;color:rgba(240,240,240,0.85);}
+    .contenidos-lista .subtema{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--gris);}
+    
+    /* CONCEPTS GRID */
+    .conceptos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--borde);border:1px solid var(--borde);margin-top:1rem;}
+    .concepto{background:var(--panel);padding:1.25rem;}
+    .concepto-sym{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--voltaje);display:block;margin-bottom:0.4rem;line-height:1;}
+    .concepto h4{font-family:'Rajdhani',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:0.2rem;}
+    .concepto p{font-size:0.78rem;color:var(--gris);}
+    
+    /* SIDEBAR CARD */
+    .sidebar-card{background:var(--panel);border:1px solid var(--borde);margin-bottom:1.5rem;overflow:hidden;}
+    .sidebar-card-header{padding:1rem 1.25rem;border-bottom:1px solid var(--borde);font-family:'Rajdhani',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gris);}
+    .sidebar-card-body{padding:1.25rem;}
+    
+    /* BUTTON */
+    .btn-presentacion{display:flex;align-items:center;gap:0.75rem;background:var(--voltaje);color:var(--negro);padding:1rem 1.25rem;text-decoration:none;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.05em;width:100%;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));transition:background 0.15s;border:none;cursor:pointer;}
+    .btn-presentacion:hover{background:#ffe033;}
+    .btn-presentacion .icon{font-size:1.3rem;flex-shrink:0;}
+    .btn-presentacion .text{flex:1;}
+    .btn-presentacion .text small{display:block;font-size:0.7rem;font-weight:400;opacity:0.7;margin-top:0.1rem;font-family:'Inter',sans-serif;}
+    
+    /* MODULOS NAV */
+    .modulos-nav{list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--borde);}
+    .modulos-nav li a,.modulos-nav li span{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 0.75rem;background:var(--panel);font-size:0.8rem;text-decoration:none;color:var(--gris);transition:all 0.2s;}
+    .modulos-nav li a:hover{color:var(--voltaje);background:#22224A;}
+    .modulos-nav li.current a,.modulos-nav li.current span{color:var(--voltaje);border-left:2px solid var(--voltaje);background:#1C1C3A;}
+    .mod-num{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:inherit;flex-shrink:0;min-width:28px;}
+    .lock{font-size:0.7rem;margin-left:auto;opacity:0.4;}
+    
+    /* FOOTER NAV */
+    .mod-nav{border-top:1px solid var(--borde);display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--borde);}
+    .mod-nav-item{background:var(--antracita);padding:1.5rem 2rem;text-decoration:none;color:inherit;transition:background 0.2s;display:flex;flex-direction:column;gap:0.25rem;}
+    .mod-nav-item:hover{background:var(--panel);}
+    .mod-nav-item.next{text-align:right;}
+    .mod-nav-item .dir{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--gris);letter-spacing:0.15em;text-transform:uppercase;}
+    .mod-nav-item .nombre{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--voltaje);}
+    
+    footer{background:var(--antracita);border-top:1px solid var(--borde);padding:2.5rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+    .footer-logo{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--voltaje);}
+    .footer-logo span{color:var(--gris);}
+    footer p{font-size:0.8rem;color:var(--gris);}
+    
+    @media(max-width:900px){.main-content{grid-template-columns:1fr;padding:2rem 1.25rem 4rem;}.col-main{padding-right:0;margin-bottom:2rem;}.header-num{display:none;}}
+    @media(max-width:768px){.nav-links{display:none;}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:var(--negro);padding:1.5rem 2rem;border-bottom:1px solid var(--borde);gap:1.2rem;}.nav-burger{display:flex;}.page-header{padding:90px 1.25rem 2.5rem;}.conceptos-grid{grid-template-columns:1fr;}.mod-nav{grid-template-columns:1fr;}footer{flex-direction:column;align-items:flex-start;}}
+    
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s,transform 0.5s;}
+    .reveal.visible{opacity:1;transform:none;}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../../index.html"><span>Electro</span>Auto<span> FP</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../index.html" class="active">Curso</a></li>
+    <li><a href="../../simuladores/index.html">Simuladores</a></li>
+    <li><a href="../../index.html#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-header">
+  <div class="header-num">06</div>
+  <div class="breadcrumb">
+    <a href="../../index.html">Inicio</a><span>›</span>
+    <a href="../index.html">Curso</a><span>›</span>
+    <span>Módulo 06</span>
+  </div>
+  <div class="header-badge">
+    <span class="badge-num">MÓDULO 06</span>
+    <span class="badge-estado">✓ Disponible</span>
+  </div>
+  <h1>Baterías de Accumuladores y <em>Tracción</em></h1>
+  <p>Tecnologías de plomo-ácido, AGM, gel y sistemas de alta tensión (Li-Ion). Mantenimiento, diagnosis y seguridad en vehículos eléctricos y maquinaria.</p>
+  <div class="header-meta">
+    <div class="meta-item">📊 <strong>16 diapositivas</strong></div>
+    <div class="meta-item">⏱️ <strong>~60 minutos</strong></div>
+    <div class="meta-item">🛠️ <strong>Casos de diagnosis real</strong></div>
+    <div class="meta-item">📱 <strong>Funciona en cualquier dispositivo</strong></div>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="col-main">
+    <div class="section-block reveal">
+      <div class="block-label">Descripción</div>
+      <h2 class="block-title">¿Qué vas a aprender?</h2>
+      <p class="block-body">Las baterías son el corazón del sistema eléctrico del vehículo. En este módulo analizarás a fondo tanto los acumuladores convencionales de 12V/24V utilizados para el arranque de motores térmicos, como los complejos bancos de baterías de tracción (Alta Tensión) empleados en la maquinaria híbrida y eléctrica moderna.</p>
+      <p class="block-body" style="margin-top:0.75rem">Aprenderás a interpretar sus parámetros nominales, los procesos químicos internos, los protocolos de desconexión segura (MSD) y los métodos avanzados de diagnosis en el taller mecánico.</p>
+    </div>
+    
+    <div class="section-block reveal">
+      <div class="block-label">Contenidos</div>
+      <h2 class="block-title">Temario del módulo</h2>
+      <ul class="contenidos-lista">
+        <li><span class="ico">🔋</span><span class="tema">Fundamentos químicos del acumulador de plomo-ácido</span><span class="subtema">QUÍMICA</span></li>
+        <li><span class="ico">⚡</span><span class="tema">Parámetros clave: Capacidad (Ah), Capacidad de arranque (CCA) y Tensión (V)</span><span class="subtema">PARÁMETROS</span></li>
+        <li><span class="ico">🛠️</span><span class="tema">Tecnologías de construcción: Baterías con mantenimiento, Selladas, AGM y Gel</span><span class="subtema">TECNOLOGÍA</span></li>
+        <li><span class="ico">📈</span><span class="tema">Asociación de baterías en los sistemas de maquinaria pesada: Serie y Paralelo</span><span class="subtema">ACOPLAMIENTO</span></li>
+        <li><span class="ico">🔍</span><span class="tema">Procesos de degradación: Sulfatación, estratificación y autodescarga</span><span class="subtema">AVERÍAS</span></li>
+        <li><span class="ico">📐</span><span class="tema">Diagnosis con analizador de conductancia y prueba de descarga rápida</span><span class="subtema">COMPROBACIÓN</span></li>
+        <li><span class="ico">🚗</span><span class="tema">Introducción a las baterías de tracción (HV) — Tecnología de Ion-Litio</span><span class="subtema">ALTA TENSIÓN</span></li>
+        <li><span class="ico">🚨</span><span class="tema">Seguridad en AT: Uso de EPIs, herramientas aisladas y desenergización (MSD)</span><span class="subtema">SEGURIDAD</span></li>
+      </ul>
+    </div>
+    
+    <div class="section-block reveal">
+      <div class="block-label">Conceptos clave</div>
+      <h2 class="block-title">Lo esencial del módulo</h2>
+      <div class="conceptos-grid">
+        <div class="concepto"><span class="concepto-sym">CCA</span><h4>Capacidad de Arranque</h4><p>Corriente máxima que la batería puede entregar a -18°C durante 30 segundos. Vital en arranques pesados.</p></div>
+        <div class="concepto"><span class="concepto-sym">AGM</span><h4>Tecnología AGM</h4><p>Baterías con electrolito absorbido en fibra de vidrio. Soportan mejor las vibraciones y los sistemas Start-Stop.</p></div>
+        <div class="concepto"><span class="concepto-sym">24V</span><h4>Conexión en Serie</h4><p>Utilizada en maquinaria pesada para sumar el voltaje de dos baterías de 12V, reduciendo la sección del cableado.</p></div>
+        <div class="concepto"><span class="concepto-sym">MSD</span><h4>Service Disconnect</h4><p>Dispositivo de seguridad mecánico imprescindible para interrumpir el circuito de Alta Tensión antes de manipularlo.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sidebar" style="position:sticky;top:80px;">
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Material del módulo</div>
+      <div class="sidebar-card-body">
+        <a href="presentacion.html" class="btn-presentacion">
+          <span class="icon">▶</span>
+          <span class="text">Ver presentación<small>16 slides · Casos de diagnóstico</small></span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Todos los módulos</div>
+      <div class="sidebar-card-body" style="padding:0">
+        <ul class="modulos-nav">
+          <li><a href="../modulo-01/index.html"><span class="mod-num">01</span>Fundamentos de electricidad</a></li>
+          <li><a href="../modulo-02/index.html"><span class="mod-num">02</span>Generación de electricidad</a></li>
+          <li><a href="../modulo-03/index.html"><span class="mod-num">03</span>Componentes eléctricos</a></li>
+          <li><a href="../modulo-04/index.html"><span class="mod-num">04</span>Electrónica digital</a></li>
+          <li><a href="../modulo-05/index.html"><span class="mod-num">05</span>Circuitos eléctricos</a></li>
+          <li class="current"><span><span class="mod-num">06</span>Baterías y Tracción</span></li>
+          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">07</span>Sistema de arranque<span class="lock">🔒</span></span></li>
+          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">08</span>Sistema de carga<span class="lock">🔒</span></span></li>
+          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">09</span>Esquemas eléctricos<span class="lock">🔒</span></span></li>
+          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">10</span>Sistemas de iluminación<span class="lock">🔒</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mod-nav">
+  <a class="mod-nav-item" href="../modulo-05/index.html"><span class="dir">← Módulo anterior</span><span class="nombre">Circuitos eléctricos</span></a>
+  <span class="mod-nav-item next" style="opacity:0.5; cursor:not-allowed;"><span class="dir">Módulo siguiente →</span><span class="nombre">Sistema de arranque (Bloqueado)</span></span>
+</div>
+
+<footer>
+  <div><div class="footer-logo">Electro<span>Auto FP</span></div><p style="margin-top:0.4rem">Módulo 06 · Baterías de Acumuladores</p></div>
+  <p style="color:var(--gris);font-size:0.75rem">© 2026 ElectroAuto FP</p>
+</footer>
+
+<script>
+  const burger=document.getElementById('burger');
+  const navLinks=document.getElementById('navLinks');
+  burger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.remove('open')));
+  
+  const revealEls=document.querySelectorAll('.reveal');
+  const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.05});
+  revealEls.forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
