@@ -169,16 +169,19 @@
         <div class="slides-container">
             <!-- He añadido "&rm=minimal" al final para ocultar las opciones de descarga de Google -->
             <iframe 
-                id="slides-frame"
-                src="https://docs.google.com/presentation/d/e/2PACX-1vS_EXAMPLE_ID_AUTOMOCION/embed?start=false&loop=false&delayms=3000&rm=minimal" 
-                allowfullscreen="true">
-            </iframe>
+									    id="slides-frame"
+									    src="https://docs.google.com/presentation/d/1zCPx_yF63r4XdaF-oAzootlVe7sRTIGMDUm9TyujDwM/preview?rm=minimal" 
+    									allowfullscreen="true">
+										</iframe>
+
         </div>
     </main>
 
     <script>
         // Esta dirección base la cambiarás por la tuya de Google Slides cuando pulses "Publicar en la web"
-        const slidesBaseUrl = "https://docs.google.com/presentation/d/e/2PACX-1vS_EXAMPLE_ID_AUTOMOCION/embed?start=false&loop=false&delayms=3000&rm=minimal";
+        const slidesBaseUrl = 
+ "https://docs.google.com/presentation/d/1zCPx_yF63r4XdaF-oAzootlVe7sRTIGMDUm9TyujDwM/preview?rm=minimal";
+
 
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('open');
