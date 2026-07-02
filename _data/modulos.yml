@@ -15,28 +15,33 @@
 
 - num: "04"
   slug: "modulo-04"
-  nombre: "Circuitos eléctricos"
+  nombre: "Electrónica digital"
   disponible: true
 
 - num: "05"
   slug: "modulo-05"
-  nombre: "Electrónica digital"
+  nombre: "Introducción a Circuitos eléctricos en automoción"
   disponible: true
 
 - num: "06"
   slug: "modulo-06"
-  nombre: "Sistema de arranque"
+  nombre: "Batería"
   disponible: false
 
 - num: "07"
   slug: "modulo-07"
-  nombre: "Sistema de carga"
+  nombre: "Sistema de arranque"
   disponible: false
 
 - num: "08"
   slug: "modulo-08"
-  nombre: "Esquemas eléctricos"
+  nombre: "Sistema de carga"
   disponible: true
+
+- num: "09"
+  slug: "modulo-09"
+  nombre: "Esquemas eléctricos"
+  disponible: false
 
 - num: "09"
   slug: "modulo-09"
