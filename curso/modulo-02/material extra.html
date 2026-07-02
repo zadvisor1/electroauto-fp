@@ -1,0 +1,97 @@
+---
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material extra · Módulo 01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/curso.css">
+<style>
+.extra-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--borde);border:1px solid var(--borde);margin-top:1rem;}
+.extra-item{background:var(--panel);padding:0;overflow:hidden;text-decoration:none;color:inherit;display:block;transition:background 0.2s;}
+.extra-item:hover{background:#22224A;}
+.extra-thumb{width:100%;aspect-ratio:16/9;background:var(--antracita);display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--voltaje);position:relative;overflow:hidden;}
+.extra-thumb img{width:100%;height:100%;object-fit:cover;}
+.extra-body{padding:1rem 1.1rem;}
+.extra-body h4{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;margin-bottom:0.3rem;}
+.extra-body p{font-size:0.8rem;color:var(--gris);line-height:1.5;}
+.extra-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--voltaje);margin-bottom:0.5rem;}
+.back-link{display:inline-flex;align-items:center;gap:0.4rem;color:var(--gris);text-decoration:none;font-size:0.85rem;margin-bottom:2rem;transition:color 0.2s;}
+.back-link:hover{color:var(--voltaje);}
+.video-embed-card{background:var(--panel);border:1px solid var(--borde);margin-bottom:1rem;overflow:hidden;}
+.video-embed-card iframe{width:100%;aspect-ratio:16/9;border:0;display:block;}
+.video-embed-body{padding:1rem 1.25rem;}
+.video-embed-body h4{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;margin-bottom:0.3rem;}
+.video-embed-body p{font-size:0.82rem;color:var(--gris);line-height:1.5;}
+.video-pending{background:var(--panel);border:1px dashed var(--borde);padding:1.5rem;text-align:center;color:var(--gris);font-size:0.85rem;}
+</style>
+</head>
+<body>
+{% include nav.html %}
+
+<div class="page-header">
+<div class="header-num">01</div>
+<div class="breadcrumb">
+<a href="../../index.html">Inicio</a><span>›</span>
+<a href="../index.html">Curso</a><span>›</span>
+<a href="index.html">Módulo 01</a><span>›</span>
+<span>Material extra</span>
+</div>
+<div class="header-badge">
+<span class="badge-num">MÓDULO 01</span>
+<span class="badge-estado">✓ Disponible</span>
+</div>
+<h1>Material <em>Extra</em></h1>
+<p>Vídeos, simuladores interactivos e imágenes de apoyo para reforzar los conceptos de Fundamentos de Electricidad.</p>
+</div>
+
+<div class="main-content" style="grid-template-columns:1fr;max-width:1100px;">
+<div class="col-main" style="padding-right:0;">
+
+<a href="index.html" class="back-link">← Volver al módulo</a>
+
+<div class="section-block reveal">
+<div class="block-label">Vídeos</div>
+<h2 class="block-title">Contenido audiovisual</h2>
+<div class="video-embed-card">
+<iframe src="https://www.youtube-nocookie.com/embed/_ZICyi2lOd8" title="Ley de Ohm Explicada" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="video-embed-body">
+<h4>Ley de Ohm Explicada</h4>
+<p>Los fundamentos de la teoría de circuitos: cómo se relacionan voltaje, intensidad y resistencia.</p>
+</div>
+</div>
+<div class="video-pending">Próximo vídeo: analogía del circuito eléctrico con agua — pendiente de añadir</div>
+</div>
+
+<div class="section-block reveal">
+<div class="block-label">Simuladores</div>
+<h2 class="block-title">Práctica interactiva</h2>
+<div class="extra-grid">
+<a href="../../simuladores/index.html" class="extra-item">
+<div class="extra-thumb">🔧</div>
+<div class="extra-body">
+<span class="extra-tag">Simulador</span>
+<h4>Simulador de circuito eléctrico básico</h4>
+<p>Ajusta V, I y R en un circuito virtual y observa cómo cambia el resultado.</p>
+</div>
+</a>
+</div>
+</div>
+
+<div class="section-block reveal">
+<div class="block-label">Imágenes</div>
+<h2 class="block-title">Apoyo visual</h2>
+<div class="video-pending">Triángulo de la Ley de Ohm — pendiente de añadir</div>
+<div class="video-pending" style="margin-top:0.75rem">Circuito de la batería con las 4 magnitudes señaladas — pendiente de añadir</div>
+</div>
+
+</div>
+</div>
+
+{% include footer.html current="modulo-01" %}
+<script src="../../assets/js/curso.js"></script>
+</body>
+</html>
