@@ -1,202 +1,88 @@
+---
+---
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Módulo 04 · Electrónica Digital</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    :root{--negro:#0D0D0D;--antracita:#141428;--panel:#1C1C3A;--voltaje:#FFD600;--blanco:#F0F0F0;--rojo:#E63946;--azul:#4FC3F7;--verde:#69F0AE;--gris:#8A8AAA;--borde:rgba(255,214,0,0.15);}
-    html{scroll-behavior:smooth;}
-    body{background:var(--negro);color:var(--blanco);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden;}
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;background:rgba(13,13,13,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--borde);}
-    .nav-logo{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;color:var(--voltaje);text-decoration:none;}
-    .nav-logo span{color:var(--blanco);}
-    .nav-links{display:flex;gap:2rem;list-style:none;}
-    .nav-links a{color:var(--gris);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
-    .nav-links a:hover,.nav-links a.active{color:var(--voltaje);}
-    .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
-    .nav-burger span{display:block;width:24px;height:2px;background:var(--blanco);}
-    .page-header{padding:100px 2rem 3rem;background:var(--antracita);border-bottom:1px solid var(--borde);position:relative;overflow:hidden;}
-    .page-header::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--voltaje),transparent);}
-    .header-num{position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-family:'Rajdhani',sans-serif;font-size:clamp(6rem,15vw,12rem);font-weight:700;color:rgba(255,214,0,0.04);line-height:1;pointer-events:none;user-select:none;}
-    .breadcrumb{font-size:0.78rem;color:var(--gris);margin-bottom:1.5rem;display:flex;gap:0.5rem;align-items:center;}
-    .breadcrumb a{color:var(--gris);text-decoration:none;transition:color 0.2s;}
-    .breadcrumb a:hover{color:var(--voltaje);}
-    .breadcrumb span{color:var(--voltaje);}
-    .header-badge{display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:1rem;}
-    .badge-num{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;background:var(--voltaje);color:var(--negro);padding:0.2rem 0.6rem;letter-spacing:0.05em;}
-    .badge-estado{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;border:1px solid rgba(105,240,174,0.4);color:var(--verde);padding:0.2rem 0.6rem;letter-spacing:0.05em;}
-    .page-header h1{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;line-height:1.05;margin-bottom:1rem;position:relative;}
-    .page-header h1 em{font-style:normal;color:var(--voltaje);}
-    .page-header p{color:var(--gris);font-size:0.95rem;max-width:580px;font-weight:300;position:relative;}
-    .header-meta{display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap;}
-    .meta-item{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--gris);}
-    .meta-item strong{color:var(--blanco);font-weight:500;}
-    .main-content{display:grid;grid-template-columns:1fr 320px;gap:0;max-width:1200px;margin:0 auto;padding:3rem 2rem 5rem;align-items:start;}
-    .col-main{padding-right:3rem;}
-    .section-block{margin-bottom:3rem;}
-    .block-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--voltaje);margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
-    .block-label::after{content:'';flex:1;height:1px;background:var(--borde);}
-    .block-title{font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:0.75rem;}
-    .block-body{font-size:0.9rem;color:rgba(240,240,240,0.8);line-height:1.7;font-weight:300;}
-    .contenidos-lista{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;}
-    .contenidos-lista li{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 0.75rem;background:var(--panel);border:1px solid transparent;font-size:0.88rem;transition:border-color 0.2s;}
-    .contenidos-lista li:hover{border-color:var(--borde);}
-    .contenidos-lista .ico{font-size:1rem;flex-shrink:0;}
-    .contenidos-lista .tema{flex:1;color:rgba(240,240,240,0.85);}
-    .contenidos-lista .subtema{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--gris);}
-    .conceptos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--borde);border:1px solid var(--borde);margin-top:1rem;}
-    .concepto{background:var(--panel);padding:1.25rem;}
-    .concepto-sym{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--voltaje);display:block;margin-bottom:0.4rem;line-height:1;}
-    .concepto h4{font-family:'Rajdhani',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:0.2rem;}
-    .concepto p{font-size:0.78rem;color:var(--gris);}
-    .sidebar-card{background:var(--panel);border:1px solid var(--borde);margin-bottom:1.5rem;overflow:hidden;}
-    .sidebar-card-header{padding:1rem 1.25rem;border-bottom:1px solid var(--borde);font-family:'Rajdhani',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gris);}
-    .sidebar-card-body{padding:1.25rem;}
-    .btn-presentacion{display:flex;align-items:center;gap:0.75rem;background:var(--voltaje);color:var(--negro);padding:1rem 1.25rem;text-decoration:none;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.05em;width:100%;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));transition:background 0.15s;border:none;cursor:pointer;}
-    .btn-presentacion:hover{background:#ffe033;}
-    .btn-presentacion .icon{font-size:1.3rem;flex-shrink:0;}
-    .btn-presentacion .text{flex:1;}
-    .btn-presentacion .text small{display:block;font-size:0.7rem;font-weight:400;opacity:0.7;margin-top:0.1rem;font-family:'Inter',sans-serif;}
-    .modulos-nav{list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--borde);}
-    .modulos-nav li a,.modulos-nav li span{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 0.75rem;background:var(--panel);font-size:0.8rem;text-decoration:none;color:var(--gris);transition:all 0.2s;}
-    .modulos-nav li a:hover{color:var(--voltaje);background:#22224A;}
-    .modulos-nav li.current a,.modulos-nav li.current span{color:var(--voltaje);border-left:2px solid var(--voltaje);}
-    .mod-num{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:inherit;flex-shrink:0;min-width:28px;}
-    .lock{font-size:0.7rem;margin-left:auto;opacity:0.4;}
-    .mod-nav{border-top:1px solid var(--borde);display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--borde);}
-    .mod-nav-item{background:var(--antracita);padding:1.5rem 2rem;text-decoration:none;color:inherit;transition:background 0.2s;display:flex;flex-direction:column;gap:0.25rem;}
-    .mod-nav-item:hover{background:var(--panel);}
-    .mod-nav-item.next{text-align:right;}
-    .mod-nav-item .dir{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--gris);letter-spacing:0.15em;text-transform:uppercase;}
-    .mod-nav-item .nombre{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--voltaje);}
-    footer{background:var(--antracita);border-top:1px solid var(--borde);padding:2.5rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
-    .footer-logo{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--voltaje);}
-    .footer-logo span{color:var(--gris);}
-    footer p{font-size:0.8rem;color:var(--gris);}
-    @media(max-width:900px){.main-content{grid-template-columns:1fr;padding:2rem 1.25rem 4rem;}.col-main{padding-right:0;margin-bottom:2rem;}.header-num{display:none;}}
-    @media(max-width:768px){.nav-links{display:none;}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:var(--negro);padding:1.5rem 2rem;border-bottom:1px solid var(--borde);gap:1.2rem;}.nav-burger{display:flex;}.page-header{padding:90px 1.25rem 2.5rem;}.conceptos-grid{grid-template-columns:1fr;}.mod-nav{grid-template-columns:1fr;}footer{flex-direction:column;align-items:flex-start;}}
-    .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s,transform 0.5s;}
-    .reveal.visible{opacity:1;transform:none;}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 04 · Electrónica Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/curso.css">
 </head>
 <body>
-<nav>
-  <a class="nav-logo" href="../../index.html"><span>Electro</span>Auto<span> FP</span></a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="../index.html" class="active">Curso</a></li>
-    <li><a href="../../simuladores/index.html">Simuladores</a></li>
-    <li><a href="../../index.html#contacto">Contacto</a></li>
-  </ul>
-  <button class="nav-burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
-</nav>
+{% include nav.html %}
 
 <div class="page-header">
-  <div class="header-num">04</div>
-  <div class="breadcrumb">
-    <a href="../../index.html">Inicio</a><span>›</span>
-    <a href="../index.html">Curso</a><span>›</span>
-    <span>Módulo 04</span>
-  </div>
-  <div class="header-badge">
-    <span class="badge-num">MÓDULO 04</span>
-    <span class="badge-estado">✓ Disponible</span>
-  </div>
-  <h1>Electrónica <em>Digital</em></h1>
-  <p>Código binario, puertas lógicas, redes CAN-Bus y señal PWM. La electrónica que controla el automóvil moderno.</p>
-  <div class="header-meta">
-    <div class="meta-item">📊 <strong>11 diapositivas</strong></div>
-    <div class="meta-item">⏱️ <strong>~50 minutos</strong></div>
-    <div class="meta-item">🎮 <strong>Conversor binario interactivo</strong></div>
-    <div class="meta-item">📱 <strong>Funciona en cualquier dispositivo</strong></div>
-  </div>
+<div class="header-num">04</div>
+<div class="breadcrumb">
+<a href="../../index.html">Inicio</a><span>›</span>
+<a href="../index.html">Curso</a><span>›</span>
+<span>Módulo 04</span>
+</div>
+<div class="header-badge">
+<span class="badge-num">MÓDULO 04</span>
+<span class="badge-estado">✓ Disponible</span>
+</div>
+<h1>Electrónica <em>Digital</em></h1>
+<p>Código binario, puertas lógicas, redes CAN-Bus y señal PWM. La electrónica que controla el automóvil moderno.</p>
+<div class="header-meta">
+<div class="meta-item">📊 <strong>{% assign mod = site.data.modulos | where: "slug", "modulo-04" | first %}{{ mod.diapositivas }} diapositivas</strong></div>
+<div class="meta-item">⏱️ <strong>~50 minutos</strong></div>
+<div class="meta-item">🎮 <strong>Conversor binario interactivo</strong></div>
+<div class="meta-item">📱 <strong>Funciona en cualquier dispositivo</strong></div>
+</div>
 </div>
 
 <div class="main-content">
-  <div class="col-main">
-    <div class="section-block reveal">
-      <div class="block-label">Descripción</div>
-      <h2 class="block-title">¿Qué vas a aprender?</h2>
-      <p class="block-body">En este módulo descubrirás cómo el automóvil moderno toma decisiones electrónicas: desde el código binario que usan las UCEs hasta las puertas lógicas que procesan señales y las redes CAN-Bus que conectan todos los sistemas del vehículo.</p>
-      <p class="block-body" style="margin-top:0.75rem">También aprenderás qué es la señal PWM y cómo controla inyectores, ventiladores y motores con gran precisión y eficiencia.</p>
-    </div>
-    <div class="section-block reveal">
-      <div class="block-label">Contenidos</div>
-      <h2 class="block-title">Temario del módulo</h2>
-      <ul class="contenidos-lista">
-        <li><span class="ico">📡</span><span class="tema">Sensores y actuadores — El ciclo de control electrónico</span><span class="subtema">INTRO</span></li>
-        <li><span class="ico">🧠</span><span class="tema">Unidades de Control Electrónico (UCE/ECU)</span><span class="subtema">SISTEMAS</span></li>
-        <li><span class="ico">🔌</span><span class="tema">Redes de comunicación CAN-Bus, LIN, MOST, Ethernet</span><span class="subtema">REDES</span></li>
-        <li><span class="ico">🔢</span><span class="tema">El código binario — Bits, bytes y conversión decimal</span><span class="subtema">FUNDAMENTOS</span></li>
-        <li><span class="ico">🎮</span><span class="tema">Conversor binario interactivo — Práctica</span><span class="subtema">PRÁCTICA</span></li>
-        <li><span class="ico">⚡</span><span class="tema">Puertas lógicas OR y AND</span><span class="subtema">LÓGICA 1</span></li>
-        <li><span class="ico">🚫</span><span class="tema">Puertas NOT, NOR y NAND</span><span class="subtema">LÓGICA 2</span></li>
-        <li><span class="ico">🔄</span><span class="tema">Puerta XOR y circuitos integrados</span><span class="subtema">LÓGICA 3</span></li>
-        <li><span class="ico">📶</span><span class="tema">Señal PWM — Modulación por ancho de pulso</span><span class="subtema">CONTROL</span></li>
-      </ul>
-    </div>
-    <div class="section-block reveal">
-      <div class="block-label">Conceptos clave</div>
-      <h2 class="block-title">Lo esencial del módulo</h2>
-      <div class="conceptos-grid">
-        <div class="concepto"><span class="concepto-sym">0/1</span><h4>Código binario</h4><p>Solo dos estados eléctricos: 0V (bit 0) y 5V (bit 1). Base de toda la electrónica digital.</p></div>
-        <div class="concepto"><span class="concepto-sym">AND</span><h4>Puertas lógicas</h4><p>Circuitos que toman decisiones binarias: OR, AND, NOT, NOR, NAND, XOR.</p></div>
-        <div class="concepto"><span class="concepto-sym">CAN</span><h4>CAN-Bus</h4><p>Red de 2 cables que conecta todas las UCEs del vehículo, reduciendo cableado.</p></div>
-        <div class="concepto"><span class="concepto-sym">PWM</span><h4>Señal PWM</h4><p>Controla potencia variando el tiempo en alto de una señal cuadrada, sin pérdidas.</p></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sidebar" style="position:sticky;top:80px;">
-    <div class="sidebar-card">
-      <div class="sidebar-card-header">Material del módulo</div>
-      <div class="sidebar-card-body">
-        <a href="presentacion.html" class="btn-presentacion">
-          <span class="icon">▶</span>
-          <span class="text">Ver presentación<small>11 slides · Conversor binario interactivo</small></span>
-        </a>
-      </div>
-    </div>
-    <div class="sidebar-card">
-      <div class="sidebar-card-header">Todos los módulos</div>
-      <div class="sidebar-card-body" style="padding:0">
-        <ul class="modulos-nav">
-          <li><a href="../modulo-01/index.html"><span class="mod-num">01</span>Fundamentos de electricidad</a></li>
-          <li><a href="../modulo-02/index.html"><span class="mod-num">02</span>Generación de electricidad</a></li>
-          <li><a href="../modulo-03/index.html"><span class="mod-num">03</span>Componentes eléctricos</a></li>
-          <li class="current"><span><span class="mod-num">04</span>Electrónica digital</span></li>
-          <li><a href="../modulo-05/index.html"><span class="mod-num">05</span>Circuitos eléctricos</a></li>
-          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">06</span>Batería<span class="lock">🔒</span></span></li>
-          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">07</span>Sistema de arranque<span class="lock">🔒</span></span></li>
-          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">08</span>Sistema de carga<span class="lock">🔒</span></span></li>
-          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">09</span>Esquemas eléctricos<span class="lock">🔒</span></span></li>
-          <li><span style="opacity:0.4;cursor:default"><span class="mod-num">10</span>Sistemas de iluminación<span class="lock">🔒</span></span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<div class="col-main">
+<div class="section-block reveal">
+<div class="block-label">Descripción</div>
+<h2 class="block-title">¿Qué vas a aprender?</h2>
+<p class="block-body">En este módulo descubrirás cómo el automóvil moderno toma decisiones electrónicas: desde el código binario que usan las UCEs hasta las puertas lógicas que procesan señales y las redes CAN-Bus que conectan todos los sistemas del vehículo.</p>
+<p class="block-body" style="margin-top:0.75rem">También aprenderás qué es la señal PWM y cómo controla inyectores, ventiladores y motores con gran precisión y eficiencia.</p>
+</div>
+<div class="section-block reveal">
+<div class="block-label">Contenidos</div>
+<h2 class="block-title">Temario del módulo</h2>
+<ul class="contenidos-lista">
+<li><span class="ico">📡</span><span class="tema">Sensores y actuadores — El ciclo de control electrónico</span><span class="subtema">INTRO</span></li>
+<li><span class="ico">🧠</span><span class="tema">Unidades de Control Electrónico (UCE/ECU)</span><span class="subtema">SISTEMAS</span></li>
+<li><span class="ico">🔌</span><span class="tema">Redes de comunicación CAN-Bus, LIN, MOST, Ethernet</span><span class="subtema">REDES</span></li>
+<li><span class="ico">🔢</span><span class="tema">El código binario — Bits, bytes y conversión decimal</span><span class="subtema">FUNDAMENTOS</span></li>
+<li><span class="ico">🎮</span><span class="tema">Conversor binario interactivo — Práctica</span><span class="subtema">PRÁCTICA</span></li>
+<li><span class="ico">⚡</span><span class="tema">Puertas lógicas OR y AND</span><span class="subtema">LÓGICA 1</span></li>
+<li><span class="ico">🚫</span><span class="tema">Puertas NOT, NOR y NAND</span><span class="subtema">LÓGICA 2</span></li>
+<li><span class="ico">🔄</span><span class="tema">Puerta XOR y circuitos integrados</span><span class="subtema">LÓGICA 3</span></li>
+<li><span class="ico">📶</span><span class="tema">Señal PWM — Modulación por ancho de pulso</span><span class="subtema">CONTROL</span></li>
+</ul>
+</div>
+<div class="section-block reveal">
+<div class="block-label">Conceptos clave</div>
+<h2 class="block-title">Lo esencial del módulo</h2>
+<div class="conceptos-grid">
+<div class="concepto"><span class="concepto-sym">0/1</span><h4>Código binario</h4><p>Solo dos estados eléctricos: 0V (bit 0) y 5V (bit 1). Base de toda la electrónica digital.</p></div>
+<div class="concepto"><span class="concepto-sym">AND</span><h4>Puertas lógicas</h4><p>Circuitos que toman decisiones binarias: OR, AND, NOT, NOR, NAND, XOR.</p></div>
+<div class="concepto"><span class="concepto-sym">CAN</span><h4>CAN-Bus</h4><p>Red de 2 cables que conecta todas las UCEs del vehículo, reduciendo cableado.</p></div>
+<div class="concepto"><span class="concepto-sym">PWM</span><h4>Señal PWM</h4><p>Controla potencia variando el tiempo en alto de una señal cuadrada, sin pérdidas.</p></div>
+</div>
+</div>
 </div>
 
-<div class="mod-nav">
-  <a class="mod-nav-item" href="../modulo-03/index.html"><span class="dir">← Módulo anterior</span><span class="nombre">Componentes eléctricos</span></a>
-  <a class="mod-nav-item next" href="../modulo-05/index.html"><span class="dir">Módulo siguiente →</span><span class="nombre">Circuitos eléctricos</span></a>
+<div class="col-sidebar" style="position:sticky;top:80px;">
+{% include sidebar-material.html current="modulo-04" %}
+<div class="sidebar-card">
+<div class="sidebar-card-header">Todos los módulos</div>
+<div class="sidebar-card-body" style="padding:0">
+{% include modulos-nav.html current="modulo-04" %}
+</div>
+</div>
+</div>
 </div>
 
-<footer>
-  <div><div class="footer-logo">Electro<span>Auto FP</span></div><p style="margin-top:0.4rem">Módulo 04 · Electrónica Digital</p></div>
-  <p style="color:var(--gris);font-size:0.75rem">© 2025 ElectroAuto FP</p>
-</footer>
+{% include mod-nav-prevnext.html current="modulo-04" %}
 
-<script>
-  const burger=document.getElementById('burger');
-  const navLinks=document.getElementById('navLinks');
-  burger.addEventListener('click',()=>navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
-  const revealEls=document.querySelectorAll('.reveal');
-  const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.05});
-  revealEls.forEach(el=>observer.observe(el));
-</script>
+{% include footer.html current="modulo-04" %}
+
+<script src="../../assets/js/curso.js"></script>
 </body>
 </html>
