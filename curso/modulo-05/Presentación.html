@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 5 - Introducción a Circuitos Eléctricos en Vehículos</title>
+    <style>
+        :root {
+            --color-primary: #1a5276;
+            --color-secondary: #2874a6;
+            --color-accent: #e74c3c;
+            --color-bg: #f8f9fa;
+            --color-card: #ffffff;
+            --color-text: #2c3e50;
+            --color-text-light: #5d6d7e;
+            --color-border: #d5dbdb;
+            --color-success: #27ae60;
+            --color-warning: #f39c12;
+            --color-info: #3498db;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-hover: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Header */
+        .main-header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: white;
+            padding: 60px 20px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .main-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .main-header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .main-header .tema-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: var(--color-card);
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 15px;
+            color: var(--color-primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            padding: 10px 0;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--color-text-light);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--color-card);
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.3s;
+        }
+
+        .section-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .section-number {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--color-secondary);
+            font-size: 1.2rem;
+            margin: 25px 0 12px;
+            padding-left: 15px;
+            border-left: 4px solid var(--color-info);
+        }
+
+        h4 {
+            color: var(--color-text);
+            font-size: 1.05rem;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 15px 0 15px 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--color-card);
+            font-size: 0.95rem;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+        }
+
+        th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        tbody tr:hover {
+            background: #f1f5f9;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: linear-gradient(135deg, #ebf5fb, #d6eaf8);
+            border-left: 4px solid var(--color-info);
+            padding: 20px 25px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fef9e7, #fcf3cf);
+            border-left: 4px solid var(--color-warning);
+            padding: 20px 25px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .danger-box {
+            background: linear-gradient(135deg, #fdedec, #fadbd8);
+            border-left: 4px solid var(--color-accent);
+            padding: 20px 25px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #eafaf1, #d5f5e3);
+            border-left: 4px solid var(--color-success);
+            padding: 20px 25px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .box-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Code / Formulas */
+        code {
+            background: #f4f4f4;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+            color: var(--color-accent);
+        }
+
+        .circuit-diagram {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        /* Activities */
+        .activity-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .activity-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .activity-icon {
+            background: var(--color-primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .activity-title {
+            font-weight: 700;
+            color: var(--color-primary);
+            font-size: 1.1rem;
+        }
+
+        /* Glossary */
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .glossary-item {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 3px solid var(--color-secondary);
+        }
+
+        .glossary-term {
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+
+        .glossary-def {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        .main-footer {
+            background: var(--color-primary);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+
+        .main-footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .section-card {
+                padding: 20px;
+            }
+
+            .glossary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .nav-container, .main-header {
+                display: none;
+            }
+
+            .section-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Summary table special */
+        .summary-table td:first-child {
+            font-weight: 600;
+            color: var(--color-primary);
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <h1>⚡ Introducción a Circuitos Eléctricos en Vehículos</h1>
+        <p class="subtitle">Fundamentos de esquemas, conexiones y componentes del sistema eléctrico del automóvil</p>
+        <span class="tema-badge">📚 Tema 5 del Curso</span>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-inner">
+            <button class="nav-toggle" onclick="document.querySelector('.nav-menu').classList.toggle('active')">☰</button>
+            <ul class="nav-menu">
+                <li><a href="#sec1">5.1 Fundamentos</a></li>
+                <li><a href="#sec2">5.2 Masa</a></li>
+                <li><a href="#sec3">5.3 Esquemas</a></li>
+                <li><a href="#sec4">5.4 Relés</a></li>
+                <li><a href="#sec5">5.5 Conectores</a></li>
+                <li><a href="#sec6">5.6 Fusibles</a></li>
+                <li><a href="#sec7">5.7 Resumen</a></li>
+                <li><a href="#sec8">5.8 Actividades</a></li>
+                <li><a href="#sec9">5.9 Glosario</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- SECCIÓN 5.1 -->
+        <section class="section-card" id="sec1">
+            <div class="section-header">
+                <div class="section-number">5.1</div>
+                <h2 class="section-title">Fundamentos de los Circuitos Eléctricos</h2>
+            </div>
+
+            <h3>El concepto de circuito eléctrico</h3>
+            <p>Un <strong>circuito eléctrico</strong> es un conjunto de elementos conectados entre sí que permiten el paso de corriente eléctrica desde una fuente de energía hasta los consumidores (receptores). En el automóvil, los circuitos eléctricos son fundamentales para el funcionamiento de todos los sistemas: iluminación, arranque, carga, confort, seguridad, etc.</p>
+
+            <div class="info-box">
+                <div class="box-title">💡 Importante</div>
+                <p>Para reparar averías o sustituir elementos de un circuito eléctrico del automóvil, se necesita conocer su <strong>ubicación exacta</strong>. Esta información nos la facilita el fabricante a través de los <strong>esquemas eléctricos</strong>.</p>
+            </div>
+
+            <h3>Circuito eléctrico elemental</h3>
+            <p>El circuito eléctrico más básico está compuesto por cuatro elementos esenciales:</p>
+
+            <ul>
+                <li><strong>Fuente de alimentación</strong> (batería): proporciona la energía eléctrica al sistema</li>
+                <li><strong>Consumidor</strong> (resistencia, bombilla, motor, etc.): transforma la energía eléctrica en otro tipo de energía (luz, calor, movimiento)</li>
+                <li><strong>Conductores</strong>: cables que unen los diferentes elementos del circuito</li>
+                <li><strong>Interruptor</strong>: permite abrir o cerrar el circuito, controlando el paso de corriente</li>
+            </ul>
+
+            <div class="circuit-diagram">
+    [Batería +] ────────┬──────── [Consumidor] ────────┬────── [Masa]
+                        │                              │
+                   [Interruptor]                  [Masa/Chasis]
+            </div>
+
+            <div class="success-box">
+                <div class="box-title">✅ Principio básico</div>
+                <p>Para que exista corriente eléctrica, el circuito debe estar <strong>cerrado</strong>, es decir, debe existir un camino continuo desde el positivo de la batería, pasando por el consumidor, hasta la masa (negativo).</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5.2 -->
+        <section class="section-card" id="sec2">
+            <div class="section-header">
+                <div class="section-number">5.2</div>
+                <h2 class="section-title">El Concepto de Masa en el Automóvil</h2>
+            </div>
+
+            <h3>¿Qué es la masa?</h3>
+            <p>En los vehículos, la <strong>masa</strong> (también llamada tierra o negativo) es el punto de referencia eléctrica común. A diferencia de otros sistemas eléctricos, en el automóvil se utiliza el propio <strong>chasis del vehículo</strong> como conductor de retorno de la corriente hacia la batería.</p>
+
+            <h3>Símbolos de masa en los esquemas eléctricos</h3>
+            <p>En los esquemas eléctricos encontramos distintas formas de representar la masa:</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Símbolo</th>
+                            <th>Representación</th>
+                            <th>Significado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>⏚</td>
+                            <td>Líneas horizontales decrecientes</td>
+                            <td>Masa general / chasis del vehículo</td>
+                        </tr>
+                        <tr>
+                            <td>⏚̸</td>
+                            <td>Líneas con inclinación</td>
+                            <td>Masa a tierra (conexión física a tierra)</td>
+                        </tr>
+                        <tr>
+                            <td>█</td>
+                            <td>Rectángulo negro</td>
+                            <td>Masa de componente específico</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Ventajas del sistema de masa por chasis</h3>
+            <div class="info-box">
+                <div class="box-title">🔧 Ventajas técnicas</div>
+                <ul>
+                    <li><strong>Reducción de cableado</strong>: no es necesario llevar dos cables hasta cada consumidor; uno va al positivo y el otro se conecta al chasis</li>
+                    <li><strong>Menor peso</strong>: menos cables significa menos peso en el vehículo</li>
+                    <li><strong>Menor coste</strong>: reducción del material necesario</li>
+                    <li><strong>Simplificación del diseño</strong>: facilita la fabricación y el mantenimiento</li>
+                </ul>
+            </div>
+
+            <h3>Puntos de masa en el vehículo</h3>
+            <p>Los puntos de masa son lugares específicos donde se conectan los componentes al chasis. Es importante que estas conexiones estén <strong>limpias y bien apretadas</strong>, ya que una mala conexión de masa puede causar:</p>
+
+            <div class="warning-box">
+                <div class="box-title">⚠️ Problemas por mala conexión de masa</div>
+                <ul>
+                    <li>Caídas de tensión que afectan al funcionamiento de los sistemas</li>
+                    <li>Funcionamiento errático o intermitente de los componentes</li>
+                    <li>Averías difíciles de diagnosticar (fallos "fantasma")</li>
+                    <li>Corrosión en los puntos de conexión</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5.3 -->
+        <section class="section-card" id="sec3">
+            <div class="section-header">
+                <div class="section-number">5.3</div>
+                <h2 class="section-title">Esquemas Eléctricos y Electrónicos en el Automóvil</h2>
+            </div>
+
+            <h3>Importancia de los esquemas eléctricos</h3>
+            <p>Los esquemas eléctricos son documentos técnicos que representan gráficamente los circuitos eléctricos del vehículo. Son indispensables para:</p>
+
+            <ul>
+                <li>Diagnosticar averías de forma precisa</li>
+                <li>Localizar componentes en el vehículo</li>
+                <li>Comprender el funcionamiento de los sistemas</li>
+                <li>Realizar reparaciones correctamente</li>
+                <li>Modificar o ampliar instalaciones</li>
+            </ul>
+
+            <h3>Evolución de los esquemas</h3>
+            <p>Con el aumento del número de componentes e instalaciones en los automóviles actuales, ha sido necesario modificar estos esquemas, dividiéndolos en <strong>distintos planos</strong>. Un vehículo antiguo como el <strong>SEAT 850</strong> tenía un esquema relativamente sencillo que cabía en una sola página, mientras que los vehículos modernos requieren múltiples planos y páginas interconectadas.</p>
+
+            <h3>Estructura general de los esquemas eléctricos</h3>
+            <p>Los esquemas eléctricos de manera general cuentan con la siguiente estructura organizada:</p>
+
+            <div class="info-box">
+                <div class="box-title">📐 Estructura típica de un esquema</div>
+                <ol>
+                    <li><strong>Parte superior</strong>: líneas de positivo, conectadas con cajas de fusibles y relés</li>
+                    <li><strong>Parte central</strong>: consumidores, centralitas, relés, fusibles, sensores, conmutadores y todos los elementos que componen el circuito</li>
+                    <li><strong>Parte inferior</strong>: puntos de masa o uniones con la línea de negativo</li>
+                </ol>
+            </div>
+
+            <h3>Distribución de la alimentación</h3>
+            <p>Los vehículos cuentan con diferentes tipos de alimentación según las necesidades de cada sistema:</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo de alimentación</th>
+                            <th>Descripción</th>
+                            <th>Ejemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Permanente (30)</strong></td>
+                            <td>Disponible siempre, incluso con el contacto quitado</td>
+                            <td>Alarma, reloj, memoria de radio, luz de cortesía</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Contacto (15)</strong></td>
+                            <td>Disponible solo con el contacto puesto</td>
+                            <td>Iluminación del cuadro, ventilador, elevalunas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Arranque (50)</strong></td>
+                            <td>Disponible solo durante el arranque</td>
+                            <td>Motor de arranque</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Auxiliar</strong></td>
+                            <td>Puede accionarse solo cuando el vehículo está en marcha</td>
+                            <td>Aire acondicionado, calefacción auxiliar</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>Esta distribución se gestiona principalmente a través de la <strong>llave de contacto</strong>, que actúa como distribuidor de la alimentación según la posición seleccionada.</p>
+
+            <h3>Elementos que aparecen en los esquemas</h3>
+            <p>En un esquema eléctrico encontramos los siguientes elementos representados con símbolos normalizados:</p>
+
+            <ul>
+                <li><strong>Cajas de fusibles y relés</strong>: puntos de distribución central</li>
+                <li><strong>Componentes electrónicos</strong>: centralitas (ECU), sensores, actuadores</li>
+                <li><strong>Fusibles</strong>: protección contra sobrecorrientes</li>
+                <li><strong>Relés</strong>: interruptores controlados electromagnéticamente</li>
+                <li><strong>Conmutadores</strong>: interruptores de mando (llaves, pulsadores)</li>
+                <li><strong>Consumidores</strong>: bombillas, motores, resistencias calefactoras</li>
+                <li><strong>Conectores</strong>: uniones entre diferentes tramos de cableado</li>
+                <li><strong>Cables</strong>: identificados por su sección (mm²) y color específico</li>
+            </ul>
+
+            <h3>Codificación de cables en los esquemas</h3>
+            <p>Los cables en los esquemas se identifican por dos características principales:</p>
+
+            <div class="info-box">
+                <div class="box-title">🎨 Identificación de cables</div>
+                <ul>
+                    <li><strong>Sección del cable</strong> (en mm²): indica el grosor y la capacidad de conducción de corriente</li>
+                    <li><strong>Color del cable</strong>: código de colores estandarizado para facilitar la identificación en el vehículo</li>
+                </ul>
+            </div>
+
+            <h4>Código de colores común en esquemas eléctricos</h4>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Abreviatura</th>
+                            <th>Color (Español)</th>
+                            <th>Color (Inglés)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>ws</code></td><td>Blanco</td><td>White</td></tr>
+                        <tr><td><code>sw</code></td><td>Negro</td><td>Black</td></tr>
+                        <tr><td><code>ro</code></td><td>Rojo</td><td>Red</td></tr>
+                        <tr><td><code>br</code></td><td>Marrón</td><td>Brown</td></tr>
+                        <tr><td><code>gn</code></td><td>Verde</td><td>Green</td></tr>
+                        <tr><td><code>bl</code></td><td>Azul</td><td>Blue</td></tr>
+                        <tr><td><code>gr</code></td><td>Gris</td><td>Grey</td></tr>
+                        <tr><td><code>li</code></td><td>Lila</td><td>Lilac</td></tr>
+                        <tr><td><code>ge</code></td><td>Amarillo</td><td>Yellow</td></tr>
+                        <tr><td><code>or</code></td><td>Naranja</td><td>Orange</td></tr>
+                        <tr><td><code>rs</code></td><td>Rosa</td><td>Pink</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="warning-box">
+                <div class="box-title">📝 Notación de cables bicolores</div>
+                <p>Cuando un cable tiene dos colores, se indica con una barra: <code>br/li</code> = marrón con línea lila. El primer color es el color base y el segundo es el color de la línea o traza.</p>
+            </div>
+
+            <h3>Fuentes de esquemas eléctricos</h3>
+            <p>Es habitual que los fabricantes de vehículos realicen un cobro a los profesionales que acceden a sus bases de datos para consultar los planos. Por ello, en el mercado existen dos tipos principales de esquemas:</p>
+
+            <ul>
+                <li><strong>Esquemas oficiales del fabricante</strong>: los más precisos y actualizados, pero de pago y generalmente requieren suscripción</li>
+                <li><strong>Esquemas de empresas de soporte técnico</strong>: recopilan información de múltiples marcas, editan sus propios planos y ofrecen suscripciones a talleres multimarca</li>
+            </ul>
+
+            <div class="info-box">
+                <div class="box-title">💡 Consejo profesional</div>
+                <p>Un taller multimarca debería gastar una cantidad considerable de dinero para poder consultar los esquemas oficiales de diferentes fabricantes. Las empresas de soporte técnico solucionan este problema ofreciendo acceso a múltiples marcas mediante una única suscripción.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5.4 -->
+        <section class="section-card" id="sec4">
+            <div class="section-header">
+                <div class="section-number">5.4</div>
+                <h2 class="section-title">Relés en los Circuitos Eléctricos del Automóvil</h2>
+            </div>
+
+            <h3>¿Qué es un relé?</h3>
+            <p>Un <strong>relé</strong> es un interruptor electromagnético que permite controlar un circuito de alta potencia mediante un circuito de baja potencia. Es decir, con una pequeña corriente (por ejemplo, la que pasa por un interruptor del salpicadero) podemos activar un consumidor de gran consumo (como los faros, el motor de arranque o la bomba de combustible).</p>
+
+            <h3>Funcionamiento de un relé</h3>
+            <p>Un relé básico consta de tres partes principales:</p>
+
+            <ol>
+                <li><strong>Bobina</strong>: cuando circula corriente por ella, genera un campo magnético que atrae una armadura móvil</li>
+                <li><strong>Contactos</strong>: se cierran o abren al accionarse la bobina, permitiendo o interrumpiendo el paso de corriente en el circuito de potencia</li>
+                <li><strong>Muelle de retorno</strong>: devuelve los contactos a su posición inicial cuando deja de circular corriente por la bobina</li>
+            </ol>
+
+            <div class="success-box">
+                <div class="box-title">✅ Ventaja del relé</div>
+                <p>Los relés permiten que los interruptores de mando (como los del salpicadero) sean de <strong>baja potencia</strong>, reduciendo su tamaño, coste y desgaste, mientras que el circuito de potencia puede manejar corrientes elevadas.</p>
+            </div>
+
+            <h3>Ubicación de los relés</h3>
+            <p>Los relés se encuentran <strong>agrupados</strong> en las cajas de fusibles y relés, situadas generalmente en:</p>
+
+            <ul>
+                <li>El compartimento del motor</li>
+                <li>El habitáculo (debajo del salpicadero o en los laterales)</li>
+                <li>El maletero (en algunos modelos modernos)</li>
+            </ul>
+
+            <p>Las cajas suelen tener un <strong>portarelés adicional</strong> con numeración para identificar cada relé de forma rápida.</p>
+
+            <h3>Tipos de relés según su función</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Función</th>
+                            <th>Ejemplo de aplicación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Relé de arranque</strong></td>
+                            <td>Controla el motor de arranque</td>
+                            <td>Conecta la batería al motor de arranque</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relé de faros</strong></td>
+                            <td>Controla la alimentación de los faros</td>
+                            <td>Luces largas y cortas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relé de intermitentes</strong></td>
+                            <td>Controla el parpadeo de los intermitentes</td>
+                            <td>Indicadores de dirección</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relé de bomba de combustible</strong></td>
+                            <td>Activa la bomba de combustible</td>
+                            <td>Sistema de inyección</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relé de claxon</strong></td>
+                            <td>Activa el claxon</td>
+                            <td>Bocina del vehículo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5.5 -->
+        <section class="section-card" id="sec5">
+            <div class="section-header">
+                <div class="section-number">5.5</div>
+                <h2 class="section-title">Conectores en los Circuitos Eléctricos del Automóvil</h2>
+            </div>
+
+            <h3>Importancia de los conectores</h3>
+            <p>Los conectores son elementos fundamentales que permiten unir diferentes partes del cableado del vehículo. Facilitan múltiples operaciones:</p>
+
+            <ul>
+                <li>El montaje en fábrica del vehículo</li>
+                <li>Las reparaciones y sustituciones de componentes</li>
+                <li>La desconexión temporal de sistemas para diagnóstico</li>
+                <li>La modularidad del cableado</li>
+            </ul>
+
+            <h3>Tipos de conectores</h3>
+            <p>Los conectores pueden clasificarse según diferentes criterios:</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Número de pines</strong></td>
+                            <td>Desde 2 pines (conectores simples) hasta más de 50 pines (conectores de centralitas)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Color</strong></td>
+                            <td>Los colores identifican el conector y su función (ej. negro, marrón, verde)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Forma</strong></td>
+                            <td>Diseñados con formas específicas para evitar conexiones incorrectas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Desconexión de conectores</h3>
+            <p>Para desconectar un conector correctamente sin dañarlo, se debe seguir el siguiente procedimiento:</p>
+
+            <div class="info-box">
+                <div class="box-title">🔧 Procedimiento de desconexión</div>
+                <ol>
+                    <li><strong>Presionar las pestañas</strong>: los conectores van fijados mediante pestañas que debemos presionar para liberar el mecanismo de retención</li>
+                    <li><strong>Desplazar la regleta</strong>: en algunas cajas de conectores, antes de desconectar debemos desplazar una regleta central que bloquea los conectores en su posición</li>
+                    <li><strong>Tirar suavemente</strong>: una vez liberado el mecanismo, extraer el conector sin forzar</li>
+                </ol>
+            </div>
+
+            <div class="danger-box">
+                <div class="box-title">⛔ ¡Importante!</div>
+                <p><strong>Nunca tirar de los cables</strong> para desconectar un conector, ya que se pueden dañar los terminales, romper los cables o provocar falsos contactos que generen averías difíciles de detectar.</p>
+            </div>
+
+            <h3>Identificación de pines en los conectores</h3>
+            <p>A modo de ejemplo, un conector de 10 pines puede corresponder a diferentes circuitos según el pin:</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pin</th>
+                            <th>Función típica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Pin 1</td><td>Alimentación positiva (+)</td></tr>
+                        <tr><td>Pin 2</td><td>Señal de control</td></tr>
+                        <tr><td>Pin 3</td><td>Masa (-)</td></tr>
+                        <tr><td>Pines 4-10</td><td>Señales específicas del sistema (sensores, actuadores, comunicación)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box">
+                <div class="box-title">📋 Información técnica</div>
+                <p>La información exacta de cada pin se encuentra en los <strong>esquemas eléctricos</strong> del vehículo. Es imprescindible consultar el esquema correspondiente antes de realizar mediciones o reparaciones en un conector.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5.6 -->
+        <section class="section-card" id="sec6">
+            <div class="section-header">
+                <div class="section-number">5.6</div>
+                <h2 class="section-title">Cajas de Fusibles y Relés</h2>
+            </div>
+
+            <h3>Función de la caja de fusibles</h3>
+            <p>La caja de fusibles es el <strong>punto central de distribución y protección</strong> del cableado eléctrico del vehículo. En su interior encontramos:</p>
+
+            <ul>
+                <li><strong>Fusibles</strong>: protegen los circuitos contra sobrecorrientes y cortocircuitos</li>
+                <li><strong>Relés</strong>: controlan la activación de circuitos de alta potencia</li>
+                <li><strong>Conectores</strong>: unen el cableado con los diferentes sistemas del vehículo</li>
+            </ul>
+
+            <h3>Tipos de fusibles</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Características</th>
+                            <th>Uso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Fusible de lámina (ATO/ATC)</strong></td>
+                            <td>El más común, dos patillas planas paralelas</td>
+                            <td>Circuitos generales del vehículo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fusible mini</strong></td>
+                            <td>Más pequeño que el estándar, para espacios reducidos</td>
+                            <td>Vehículos modernos con muchos circuitos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fusible maxi</strong></td>
+                            <td>De mayor tamaño, soporta corrientes elevadas</td>
+                            <td>Circuitos de alta potencia (ventiladores, ABS)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fusible cerámico</strong></td>
+                            <td>Cilíndrico con elemento fusible en el interior</td>
+                            <td>Vehículos clásicos o circuitos específicos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Capacidad de los fusibles</h3>
+            <p>Los fusibles se clasifican por su capacidad en <strong>amperios (A)</strong>. Es fundamental sustituir un fusible estropeado por otro de la <strong>misma capacidad</strong>.</p>
+
+            <div class="danger-box">
+                <div class="box-title">⚠️ Advertencia de seguridad</div>
+                <p><strong>NUNCA</strong> usar un fusible de mayor capacidad del especificado, ya que podría dañar el cableado, los componentes o, en el peor de los casos, <strong>provocar un incendio</strong> en el vehículo.</p>
+            </div>
+
+            <div class="info-box">
+                <div class="box-title">📊 Capacidades típicas</div>
+                <p>Capacidades estándar de fusibles en vehículos: <strong>5A, 7.5A, 10A, 15A, 20A, 25A, 30A</strong>. Cada circuito tiene asignado un fusible de capacidad adecuada a su consumo máximo.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5.7 -->
+        <section class="section-card" id="sec7">
+            <div class="section-header">
+                <div class="section-number">5.7</div>
+                <h2 class="section-title">Resumen de Conceptos Clave</h2>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Concepto</th>
+                            <th>Definición</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Circuito eléctrico</td>
+                            <td>Conjunto de elementos conectados que permiten el paso de corriente desde la fuente hasta los consumidores</td>
+                        </tr>
+                        <tr>
+                            <td>Masa</td>
+                            <td>Punto de referencia eléctrica común, generalmente el chasis del vehículo que actúa como retorno de corriente</td>
+                        </tr>
+                        <tr>
+                            <td>Esquema eléctrico</td>
+                            <td>Representación gráfica de los circuitos eléctricos del vehículo, indispensable para diagnóstico y reparación</td>
+                        </tr>
+                        <tr>
+                            <td>Relé</td>
+                            <td>Interruptor electromagnético que permite controlar circuitos de alta potencia con señales de baja potencia</td>
+                        </tr>
+                        <tr>
+                            <td>Fusible</td>
+                            <td>Dispositivo de protección contra sobrecorrientes que se funde al superar una intensidad determinada</td>
+                        </tr>
+                        <tr>
+                            <td>Conector</td>
+                            <td>Elemento que permite unir y desunir partes del cableado de forma rápida y segura</td>
+                        </tr>
+                        <tr>
+                            <td>Llave de contacto</td>
+                            <td>Distribuye la alimentación según la posición seleccionada (apagado, contacto, arranque)</td>
+                        </tr>
+                        <tr>
+                            <td>Cableado</td>
+                            <td>Conjunto de cables que unen los componentes eléctricos del vehículo, identificados por color y sección</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5.8 -->
+        <section class="section-card" id="sec8">
+            <div class="section-header">
+                <div class="section-number">5.8</div>
+                <h2 class="section-title">Actividades Propuestas</h2>
+            </div>
+
+            <div class="activity-card">
+                <div class="activity-header">
+                    <div class="activity-icon">1</div>
+                    <div class="activity-title">Identificación de símbolos en esquemas</div>
+                </div>
+                <p>Dado un esquema eléctrico sencillo, identifica los siguientes elementos:</p>
+                <ul>
+                    <li>La fuente de alimentación (batería)</li>
+                    <li>Los puntos de masa</li>
+                    <li>Los fusibles de protección</li>
+                    <li>Los relés presentes</li>
+                    <li>Los consumidores del circuito</li>
+                </ul>
+            </div>
+
+            <div class="activity-card">
+                <div class="activity-header">
+                    <div class="activity-icon">2</div>
+                    <div class="activity-title">Interpretación de colores de cables</div>
+                </div>
+                <p>Utilizando el código de colores estudiado, identifica qué significan los siguientes cables:</p>
+                <ul>
+                    <li><code>ro/sw</code> (rojo con línea negra)</li>
+                    <li><code>br/ge</code> (marrón con línea amarilla)</li>
+                    <li><code>gn/bl</code> (verde con línea azul)</li>
+                    <li><code>gr/li</code> (gris con línea lila)</li>
+                </ul>
+            </div>
+
+            <div class="activity-card">
+                <div class="activity-header">
+                    <div class="activity-icon">3</div>
+                    <div class="activity-title">Localización de averías</div>
+                </div>
+                <p>Un vehículo no enciende los faros. Siguiendo el esquema eléctrico, indica los pasos que seguirías para diagnosticar la avería, teniendo en cuenta:</p>
+                <ul>
+                    <li>Comprobación de fusibles</li>
+                    <li>Verificación de relés</li>
+                    <li>Inspección de conectores</li>
+                    <li>Revisión de puntos de masa</li>
+                    <li>Medición de tensiones con multímetro</li>
+                </ul>
+            </div>
+
+            <div class="activity-card">
+                <div class="activity-header">
+                    <div class="activity-icon">4</div>
+                    <div class="activity-title">Diseño de un circuito básico</div>
+                </div>
+                <p>Dibuja el esquema de un circuito eléctrico que encienda una bombilla mediante un interruptor, indicando claramente:</p>
+                <ul>
+                    <li>Conexión al positivo de la batería</li>
+                    <li>Fusible de protección adecuado</li>
+                    <li>Interruptor de mando</li>
+                    <li>Bombilla (consumidor)</li>
+                    <li>Conexión a masa del chasis</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5.9 -->
+        <section class="section-card" id="sec9">
+            <div class="section-header">
+                <div class="section-number">5.9</div>
+                <h2 class="section-title">Glosario de Términos</h2>
+            </div>
+
+            <div class="glossary-grid">
+                <div class="glossary-item">
+                    <div class="glossary-term">Amperio (A)</div>
+                    <div class="glossary-def">Unidad de medida de la intensidad de corriente eléctrica</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Bobina</div>
+                    <div class="glossary-def">Conjunto de espiras de hilo conductor que genera un campo magnético al circular corriente</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Centralita (ECU)</div>
+                    <div class="glossary-def">Unidad de control electrónico que gestiona un sistema del vehículo</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Conmutador</div>
+                    <div class="glossary-def">Interruptor que permite seleccionar entre diferentes posiciones o circuitos</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Consumidor</div>
+                    <div class="glossary-def">Elemento que transforma la energía eléctrica en otro tipo de energía (luz, calor, movimiento)</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Corriente eléctrica</div>
+                    <div class="glossary-def">Flujo de electrones a través de un conductor</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Fusible</div>
+                    <div class="glossary-def">Dispositivo que se funde al superar una intensidad determinada, protegiendo el circuito</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Masa</div>
+                    <div class="glossary-def">Punto de referencia de potencial cero en un circuito eléctrico, generalmente el chasis</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Ohmio (Ω)</div>
+                    <div class="glossary-def">Unidad de medida de la resistencia eléctrica</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Relé</div>
+                    <div class="glossary-def">Interruptor controlado electromagnéticamente que permite manejar grandes corrientes con pequeñas señales</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Resistencia</div>
+                    <div class="glossary-def">Oposición al paso de la corriente eléctrica, medida en ohmios</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Tensión (V)</div>
+                    <div class="glossary-def">Diferencia de potencial eléctrico entre dos puntos de un circuito</div>
+                </div>
+                <div class="glossary-item">
+                    <div class="glossary-term">Voltio (V)</div>
+                    <div class="glossary-def">Unidad de medida de la tensión eléctrica</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <p>📘 Tema 5 — Introducción a Circuitos Eléctricos en Vehículos</p>
+        <p>Documento elaborado a partir de los contenidos de la Unidad 4: Circuitos eléctricos — Esquemas y conexiones</p>
+        <p style="margin-top: 10px; opacity: 0.6;">© Material educativo para el curso de formación en electricidad del automóvil</p>
+    </footer>
+
+    <script>
+        // Highlight active section in navigation
+        const sections = document.querySelectorAll('.section-card');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
