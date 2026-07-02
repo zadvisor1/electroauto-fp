@@ -5,77 +5,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Módulo 08 · Esquemas Eléctricos</title>
+<title>Módulo 05 · Introducción a Circuitos Eléctricos en Automoción</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/css/curso.css">
 </head>
 <body>
 {% include nav.html %}
+
 <div class="page-header">
-<div class="header-num">09</div>
+<div class="header-num">05</div>
 <div class="breadcrumb">
 <a href="../../index.html">Inicio</a><span>›</span>
 <a href="../index.html">Curso</a><span>›</span>
-<span>Módulo 08</span>
+<span>Módulo 05</span>
 </div>
 <div class="header-badge">
-<span class="badge-num">MÓDULO 09</span>
+<span class="badge-num">MÓDULO 05</span>
 <span class="badge-estado">✓ Disponible</span>
 </div>
-<h1>Esquemas <em>Eléctricos</em></h1>
-<p>Lectura e interpretación de esquemas eléctricos del automóvil: simbología, trazado de señales y localización de averías sobre plano.</p>
+<h1>Introducción a <em>Circuitos Eléctricos</em></h1>
+<p>Fundamentos de los circuitos del automóvil: masa, esquemas eléctricos, relés, conectores y cajas de fusibles.</p>
 <div class="header-meta">
-<div class="meta-item">📊 <strong>{% assign mod = site.data.modulos | where: "slug", "modulo-09" | first %}{{ mod.diapositivas }} diapositivas</strong></div>
-<div class="meta-item">⏱️ <strong>~50 minutos</strong></div>
+<div class="meta-item">📊 <strong>{% assign mod = site.data.modulos | where: "slug", "modulo-05" | first %}{{ mod.diapositivas }} diapositivas</strong></div>
+<div class="meta-item">⏱️ <strong>~55 minutos</strong></div>
 <div class="meta-item">📱 <strong>Funciona en cualquier dispositivo</strong></div>
 </div>
 </div>
+
 <div class="main-content">
 <div class="col-main">
 <div class="section-block reveal">
 <div class="block-label">Descripción</div>
 <h2 class="block-title">¿Qué vas a aprender?</h2>
-<p class="block-body">Este módulo enseña a leer un esquema eléctrico del automóvil como lo haría un profesional: identificar componentes por su símbolo, seguir el recorrido de una señal entre varias hojas del esquema, y usar esa lectura para localizar una avería sin desmontar nada a ciegas.</p>
-<p class="block-body" style="margin-top:0.75rem">Es el módulo bisagra entre la teoría de los módulos anteriores y el diagnóstico real en el vehículo.</p>
+<p class="block-body">Este módulo sienta las bases para leer y entender cualquier circuito eléctrico del automóvil: qué elementos lo componen, cómo funciona el sistema de masa por chasis, y cómo se organizan los esquemas eléctricos reales del fabricante.</p>
+<p class="block-body" style="margin-top:0.75rem">También conocerás dos componentes que aparecen en prácticamente todos los circuitos del vehículo — relés y conectores — y cómo se protegen mediante cajas de fusibles.</p>
 </div>
 <div class="section-block reveal">
 <div class="block-label">Contenidos</div>
 <h2 class="block-title">Temario del módulo</h2>
 <ul class="contenidos-lista">
-<li><span class="ico">🔣</span><span class="tema">Simbología normalizada — Componentes, uniones y masas</span><span class="subtema">BASE</span></li>
-<li><span class="ico">📄</span><span class="tema">Estructura de un esquema multi-hoja</span><span class="subtema">LECTURA</span></li>
-<li><span class="ico">🎨</span><span class="tema">Código de colores y numeración de cables</span><span class="subtema">IDENTIFICACIÓN</span></li>
-<li><span class="ico">🔗</span><span class="tema">Conectores y su correspondencia en el esquema</span><span class="subtema">IDENTIFICACIÓN</span></li>
-<li><span class="ico">➡️</span><span class="tema">Trazado de una señal entre varias hojas</span><span class="subtema">TÉCNICA</span></li>
-<li><span class="ico">🧭</span><span class="tema">Puntos de masa y alimentaciones compartidas</span><span class="subtema">TÉCNICA</span></li>
-<li><span class="ico">🔧</span><span class="tema">Diagnóstico guiado por esquema con multímetro</span><span class="subtema">TALLER</span></li>
-<li><span class="ico">🧩</span><span class="tema">Caso práctico: localizar una avería intermitente</span><span class="subtema">TALLER</span></li>
+<li><span class="ico">🔌</span><span class="tema">Fundamentos del circuito eléctrico elemental</span><span class="subtema">5.1</span></li>
+<li><span class="ico">⏚</span><span class="tema">El concepto de masa en el automóvil</span><span class="subtema">5.2</span></li>
+<li><span class="ico">📄</span><span class="tema">Esquemas eléctricos y electrónicos — Estructura y código de colores</span><span class="subtema">5.3</span></li>
+<li><span class="ico">🔀</span><span class="tema">Relés — Funcionamiento y tipos según su aplicación</span><span class="subtema">5.4</span></li>
+<li><span class="ico">🔗</span><span class="tema">Conectores — Tipos y procedimiento de desconexión</span><span class="subtema">5.5</span></li>
+<li><span class="ico">🛡️</span><span class="tema">Cajas de fusibles y relés — Tipos y capacidades</span><span class="subtema">5.6</span></li>
+<li><span class="ico">📋</span><span class="tema">Resumen de conceptos clave</span><span class="subtema">5.7</span></li>
+<li><span class="ico">🔧</span><span class="tema">Actividades: identificación, colores de cable y diagnóstico</span><span class="subtema">TALLER</span></li>
 </ul>
 </div>
 <div class="section-block reveal">
 <div class="block-label">Conceptos clave</div>
 <h2 class="block-title">Lo esencial del módulo</h2>
 <div class="conceptos-grid">
-<div class="concepto"><span class="concepto-sym">⏚</span><h4>Masa</h4><p>Punto de retorno común. Un mal contacto de masa provoca averías difíciles de rastrear.</p></div>
-<div class="concepto"><span class="concepto-sym">⌗</span><h4>Numeración de cable</h4><p>Cada cable tiene un identificador único que se repite igual en todas las hojas del esquema.</p></div>
-<div class="concepto"><span class="concepto-sym">⏦</span><h4>Conector</h4><p>Punto de unión entre mazos. En el esquema se representa con su referencia y nº de pin.</p></div>
-<div class="concepto"><span class="concepto-sym">↷</span><h4>Continuidad de hoja</h4><p>Una señal que sale de una hoja reaparece en otra con el mismo número de referencia.</p></div>
+<div class="concepto"><span class="concepto-sym">⏚</span><h4>Masa por chasis</h4><p>El propio chasis del vehículo actúa como conductor de retorno, reduciendo cableado y peso.</p></div>
+<div class="concepto"><span class="concepto-sym">🔀</span><h4>Relé</h4><p>Interruptor electromagnético: una señal de baja potencia controla un circuito de alta potencia.</p></div>
+<div class="concepto"><span class="concepto-sym">🛡️</span><h4>Fusible</h4><p>Se funde al superar su capacidad en amperios, protegiendo el circuito. Nunca se sustituye por uno de mayor capacidad.</p></div>
+<div class="concepto"><span class="concepto-sym">🔗</span><h4>Conector</h4><p>Une tramos de cableado. Se desconecta liberando la pestaña de retención, nunca tirando del cable.</p></div>
 </div>
 </div>
 </div>
+
 <div class="col-sidebar">
-{% include sidebar-material.html current="modulo-09" %}
+{% include sidebar-material.html current="modulo-05" %}
 <div class="sidebar-card">
 <div class="sidebar-card-header">Todos los módulos</div>
 <div class="sidebar-card-body" style="padding:0">
-{% include modulos-nav.html current="modulo-09" %}
+{% include modulos-nav.html current="modulo-05" %}
 </div>
 </div>
 </div>
 </div>
-{% include mod-nav-prevnext.html current="modulo-09" %}
-{% include footer.html current="modulo-09" %}
+
+{% include mod-nav-prevnext.html current="modulo-05" %}
+
+{% include footer.html current="modulo-05" %}
+
 <script src="../../assets/js/curso.js"></script>
 </body>
 </html>
