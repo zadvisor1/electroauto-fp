@@ -1,0 +1,8 @@
+{% assign mod = site.data.modulos | where: "slug", include.current | first %}
+<footer>
+<div>
+<div class="footer-logo">Electro<span>Auto FP</span></div>
+<p style="margin-top:0.4rem">Módulo {{ mod.num }} · {{ mod.nombre }}</p>
+</div>
+<p style="color:var(--gris); font-size:0.75rem">© 2025 ElectroAuto FP</p>
+</footer>

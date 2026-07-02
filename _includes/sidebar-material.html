@@ -1,0 +1,16 @@
+{% assign mod = site.data.modulos | where: "slug", include.current | first %}
+<div class="sidebar-card">
+<div class="sidebar-card-header">Material del módulo</div>
+<div class="sidebar-card-body">
+<a href="presentacion.html" class="btn-presentacion">
+<span class="icon">▶</span>
+<span class="text">
+Ver presentación
+<small>{{ mod.diapositivas }} diapositivas · Navegable con teclado</small>
+</span>
+</a>
+<a href="../../simuladores/index.html" class="btn-simulador">
+🔧 Abrir simulador del módulo
+</a>
+</div>
+</div>
