@@ -43,12 +43,12 @@
   nombre: "Esquemas eléctricos"
   disponible: false
 
-- num: "09"
-  slug: "modulo-09"
+- num: "10"
+  slug: "modulo-10"
   nombre: "Sistemas de iluminación"
   disponible: false
 
-- num: "10"
-  slug: "modulo-10"
+- num: "11"
+  slug: "modulo-11"
   nombre: "Sistemas auxiliares"
   disponible: false
