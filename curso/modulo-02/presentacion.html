@@ -15,7 +15,6 @@ titulos_slides: [
   "7. Conceptos básicos de magnetismo",
   "8. Campo magnético",
   "9. Clasificación de materiales"
-  # Ponéis los 43 títulos de las diapositivas separados por comas
 ]
 ---
 
@@ -29,7 +28,10 @@ titulos_slides: [
             <div class="stat"><div class="stat-value">{{ page.total_slides }}</div><div class="stat-label">Temas</div></div>
             <div class="stat"><div class="stat-value">5</div><div class="stat-label">Métodos de generación</div></div>
         </div>
-        <button class="hero-btn" onclick="goToSlide(1)">Comenzar aprendizaje<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        <button class="hero-btn" onclick="goToSlide(1)">
+            Comenzar aprendizaje
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
     </div>
 </div>
 
@@ -39,6 +41,7 @@ titulos_slides: [
         <h2 class="block-title">2. Generación termoeléctrica</h2>
         <p class="block-desc">Conversión directa de energía térmica en energía eléctrica mediante el efecto Seebeck.</p>
     </div>
+    
     <div class="two-col">
         <div class="detail-content">
             <div class="detail-section">
@@ -48,18 +51,55 @@ titulos_slides: [
                     <li>Al unir dos metales diferentes y calentar la unión, se genera una <strong>tensión eléctrica</strong>.</li>
                 </ul>
             </div>
-            </div>
+        </div>
         <div>
             <div class="formula-box">
                 <div class="formula">V = S × ΔT</div>
             </div>
-            </div>
+        </div>
     </div>
+    
     <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(0)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-        <button class="nav-btn primary" onclick="goToSlide(2)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        <button class="nav-btn" onclick="goToSlide(0)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior
+        </button>
+        <button class="nav-btn primary" onclick="goToSlide(2)">
+            Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
     </div>
 </div>
 
 <div class="slide" id="slide-2">
-   </div>
+    <div class="block-header">
+        <div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
+        <h2 class="block-title">3. Generación piezoeléctrica</h2>
+        <p class="block-desc">Generación de carga eléctrica mediante la aplicación de presión mecánica en cristales dieléctricos.</p>
+    </div>
+
+    <div class="two-col">
+        <div class="detail-content">
+            <div class="detail-section">
+                <h4>🧱 Cristales Activos</h4>
+                <ul>
+                    <li>Muy común en los sensores de detonación (Knock Sensor) del motor.</li>
+                    <li>Al sufrir una deformación mecánica, reordenan sus cargas internas creando voltaje.</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class="formula-box" style="text-align: center; padding: 2rem; background: rgba(255,255,255,0.02); border-radius: 8px;">
+                <span style="font-size: 3rem;">💥</span>
+                <p style="margin-top: 1rem; color: var(--text-muted);">Presión = Voltaje</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="goToSlide(1)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior
+        </button>
+        <button class="nav-btn primary" onclick="goToSlide(3)">
+            Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+    </div>
+</div>
