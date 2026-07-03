@@ -1,1 +1,139 @@
-b
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title | default: "Plataforma de Estudios" }}</title>
+    
+    <!-- Fuentes globales (las mismas de tus presentaciones para mantener coherencia de marca) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #0a0f1d;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(147, 51, 234, 0.05) 0px, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Barra de navegación superior común */
+        .site-header {
+            background: rgba(10, 15, 29, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        /* Contenedor principal de contenido web */
+        .main-wrapper {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Pie de página común */
+        .site-footer {
+            border-top: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.01);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado de la web -->
+    <header class="site-header">
+        <nav class="nav-container">
+            <div class="brand">
+                <a href="{{ '/' | relative_url }}">
+                    <span>⚡</span> {{ site.title | default: "Aula Virtual" }}
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="{{ '/' | relative_url }}">Inicio</a></li>
+                <li><a href="{{ '/curso/' | relative_url }}">Cursos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Espacio dinámico para el contenido (ej. tu archivo index.html) -->
+    <main class="main-wrapper">
+        {{ content }}
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="site-footer">
+        <p>&copy; {{ site.time | date: '%Y' }} — Plataforma de Formación Técnica. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
