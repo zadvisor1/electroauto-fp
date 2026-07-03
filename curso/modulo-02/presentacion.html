@@ -1,0 +1,65 @@
+---
+layout: presentacion
+id_modulo: "modulo-02"
+numero: "02"
+titulo: "Generación de Electricidad"
+descripcion: "Generación de electricidad en el automóvil"
+total_slides: 43
+titulos_slides: [
+  "Inicio",
+  "2. Generación termoeléctrica",
+  "3. Generación piezoeléctrica",
+  "4. Generación fotoeléctrica",
+  "5. Generación electroquímica",
+  "6. Generación electromagnética",
+  "7. Conceptos básicos de magnetismo",
+  "8. Campo magnético",
+  "9. Clasificación de materiales"
+  # Ponéis los 43 títulos de las diapositivas separados por comas
+]
+---
+
+<div class="slide active" id="slide-0">
+    <div class="hero-slide">
+        <div class="hero-badge"><span>⚡</span> Módulo {{ page.numero }}</div>
+        <h1 class="hero-title">Generación de<br><span class="gradient-text">{{ page.titulo }}</span><br>en el Automóvil</h1>
+        <p class="hero-subtitle">Desde los principios físicos de la generación eléctrica hasta las máquinas generadoras y sensores del vehículo moderno.</p>
+        <div class="hero-stats">
+            <div class="stat"><div class="stat-value">10</div><div class="stat-label">Bloques</div></div>
+            <div class="stat"><div class="stat-value">{{ page.total_slides }}</div><div class="stat-label">Temas</div></div>
+            <div class="stat"><div class="stat-value">5</div><div class="stat-label">Métodos de generación</div></div>
+        </div>
+        <button class="hero-btn" onclick="goToSlide(1)">Comenzar aprendizaje<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+</div>
+
+<div class="slide" id="slide-1">
+    <div class="block-header">
+        <div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
+        <h2 class="block-title">2. Generación termoeléctrica</h2>
+        <p class="block-desc">Conversión directa de energía térmica en energía eléctrica mediante el efecto Seebeck.</p>
+    </div>
+    <div class="two-col">
+        <div class="detail-content">
+            <div class="detail-section">
+                <h4>🌡️ Efecto Seebeck</h4>
+                <ul>
+                    <li>Descubierto por <strong>Thomas Johann Seebeck</strong> en 1821.</li>
+                    <li>Al unir dos metales diferentes y calentar la unión, se genera una <strong>tensión eléctrica</strong>.</li>
+                </ul>
+            </div>
+            </div>
+        <div>
+            <div class="formula-box">
+                <div class="formula">V = S × ΔT</div>
+            </div>
+            </div>
+    </div>
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="goToSlide(0)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+        <button class="nav-btn primary" onclick="goToSlide(2)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+</div>
+
+<div class="slide" id="slide-2">
+   </div>
