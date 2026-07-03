@@ -1,0 +1,24 @@
+{% assign mod = site.data.modulos | where: "slug", include.current | first %}
+<nav class="course-nav">
+<div class="nav-left">
+<a href="../../index.html" class="home-btn">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+Página principal
+</a>
+<div class="breadcrumbs">
+<a href="../index.html">Curso de electricidad</a>
+<span class="sep">/</span>
+<span class="current">Módulo {{ mod.num }} — {{ mod.nombre }}</span>
+</div>
+</div>
+<div class="nav-right">
+<div class="unit-badge">MÓD. {{ mod.num }}</div>
+<div class="nav-links">
+{% for m in site.data.modulos %}
+{% if m.disponible %}
+<a href="../{{ m.slug }}/index.html"{% if m.slug == include.current %} class="active"{% endif %}>M{{ m.num }}</a>
+{% endif %}
+{% endfor %}
+</div>
+</div>
+</nav>
