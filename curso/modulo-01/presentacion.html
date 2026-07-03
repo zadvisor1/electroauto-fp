@@ -1,0 +1,833 @@
+---
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 01 · Fundamentos de Electricidad</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/presentacion.css">
+</head>
+<body>
+{% include presentacion-nav.html current="modulo-01" %}
+{% include presentacion-bg.html %}
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>⚡ Módulo 01</h2>
+            <p>Fundamentos de electricidad en el automóvil</p>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">Navegación</div>
+            <div class="nav-item active" onclick="goToSlide(0)" data-slide="0"><span class="num">🏠</span><span>Inicio</span></div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">Bloque I — ¿Qué es la electricidad?</div>
+            <div class="nav-item" onclick="goToSlide(1)" data-slide="1"><span class="num">2</span><span>¿Qué es la electricidad?</span></div>
+            <div class="nav-item" onclick="goToSlide(2)" data-slide="2"><span class="num">3</span><span>Analogía del agua</span></div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">Bloque II — Magnitudes eléctricas</div>
+            <div class="nav-item" onclick="goToSlide(3)" data-slide="3"><span class="num">4</span><span>Voltaje (V)</span></div>
+            <div class="nav-item" onclick="goToSlide(4)" data-slide="4"><span class="num">5</span><span>Intensidad (I)</span></div>
+            <div class="nav-item" onclick="goToSlide(5)" data-slide="5"><span class="num">6</span><span>Resistencia (R)</span></div>
+            <div class="nav-item" onclick="goToSlide(6)" data-slide="6"><span class="num">7</span><span>Resumen de magnitudes</span></div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">Bloque III — Ley de Ohm</div>
+            <div class="nav-item" onclick="goToSlide(7)" data-slide="7"><span class="num">8</span><span>Ley de Ohm</span></div>
+            <div class="nav-item" onclick="goToSlide(8)" data-slide="8"><span class="num">9</span><span>Triángulo VIR</span></div>
+            <div class="nav-item" onclick="goToSlide(9)" data-slide="9"><span class="num">10</span><span>Ejemplo práctico</span></div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">Bloque IV — Potencia</div>
+            <div class="nav-item" onclick="goToSlide(10)" data-slide="10"><span class="num">11</span><span>Potencia eléctrica (P)</span></div>
+            <div class="nav-item" onclick="goToSlide(11)" data-slide="11"><span class="num">12</span><span>Todas las fórmulas</span></div>
+            <div class="nav-item" onclick="goToSlide(12)" data-slide="12"><span class="num">13</span><span>Ejemplo combinado</span></div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">Bloque V — Aplicación y cierre</div>
+            <div class="nav-item" onclick="goToSlide(13)" data-slide="13"><span class="num">14</span><span>Electricidad para el diagnóstico</span></div>
+            <div class="nav-item" onclick="goToSlide(14)" data-slide="14"><span class="num">15</span><span>Resumen final</span></div>
+            <div class="nav-item" onclick="goToSlide(15)" data-slide="15"><span class="num">16</span><span>Actividades de consolidación</span></div>
+        </div>
+    </nav>
+    <header class="top-bar">
+        <div class="left">
+            <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menú">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <h1 id="top-title">Módulo 01: Fundamentos de Electricidad</h1>
+        </div>
+        <div class="right">
+            <span class="progress-text" id="progress-text">1 / 16</span>
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width: 6.25%"></div></div>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="slide active" id="slide-0">
+            <div class="hero-slide">
+                <div class="hero-badge"><span>⚡</span> Módulo 01</div>
+                <h1 class="hero-title">Fundamentos de<br><span class="gradient-text">Electricidad</span><br>en el Automóvil</h1>
+                <p class="hero-subtitle">Magnitudes eléctricas esenciales, Ley de Ohm y Potencia. Todo lo que necesitas para entender cualquier circuito del automóvil.</p>
+                <div class="hero-stats">
+                    <div class="stat"><div class="stat-value">5</div><div class="stat-label">Bloques</div></div>
+                    <div class="stat"><div class="stat-value">16</div><div class="stat-label">Temas</div></div>
+                    <div class="stat"><div class="stat-value">4</div><div class="stat-label">Magnitudes clave</div></div>
+                </div>
+                <button class="hero-btn" onclick="goToSlide(1)">Comenzar aprendizaje <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-1">
+            <div class="block-header">
+                <div class="block-label b1">Bloque I — ¿Qué es la electricidad?</div>
+                <h2 class="block-title">2. ¿Qué es la electricidad?</h2>
+                <p class="block-desc">El movimiento ordenado de electrones a través de un material conductor.</p>
+            </div>
+            <div class="two-col">
+                <div class="detail-content">
+                    <div class="detail-section">
+                        <h4>⚛️ Concepto fundamental</h4>
+                        <ul>
+                            <li>Todo material está formado por <strong>átomos</strong> con electrones en su capa exterior.</li>
+                            <li>En los metales (cobre, aluminio), los electrones se mueven con <strong>facilidad</strong> de un átomo a otro.</li>
+                            <li>Al aplicar una fuerza (tensión), ese movimiento se vuelve <strong>ordenado</strong>: eso es la corriente eléctrica.</li>
+                            <li>Sin tensión, los electrones se mueven aleatoriamente y no producen trabajo útil.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🔬 Tipos de materiales</h4>
+                        <ul>
+                            <li><strong>Conductores</strong> (cobre, aluminio): permiten el paso libre de electrones.</li>
+                            <li><strong>Aislantes</strong> (plástico, goma): bloquean el movimiento de electrones.</li>
+                            <li><strong>Semiconductores</strong> (silicio, germanio): pueden actuar de las dos formas según condiciones.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="info-box info">
+                        <h5>🚗 En el automóvil</h5>
+                        <p>El cableado de <strong>cobre</strong> conduce la electricidad por todo el vehículo. El <strong>plástico</strong> que lo recubre lo aísla para evitar cortocircuitos. Los <strong>semiconductores</strong> (transistores, diodos) controlan el flujo en la ECU y la electrónica de potencia.</p>
+                    </div>
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+                            <span style="font-size:0.75rem;color:#8b949e;margin-left:8px;">materiales.dat</span>
+                        </div>
+                        <div class="terminal-body">
+<span class="output">Cobre (Cu)       → ρ = 1.68×10⁻⁸ Ω·m  → Conductor ✓</span><br>
+<span class="output">Aluminio (Al)    → ρ = 2.65×10⁻⁸ Ω·m  → Conductor ✓</span><br>
+<span class="output">Silicio (Si)     → ρ = 640 Ω·m         → Semiconductor</span><br>
+<span class="output">PVC (plástico)   → ρ = 10¹³ Ω·m        → Aislante ✓</span><br>
+<span class="output">Goma (caucho)    → ρ = 10¹³ Ω·m        → Aislante ✓</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(0)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(2)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-2">
+            <div class="block-header">
+                <div class="block-label b1">Bloque I — ¿Qué es la electricidad?</div>
+                <h2 class="block-title">3. Analogía del agua</h2>
+                <p class="block-desc">La electricidad se comporta exactamente como el agua en una instalación. Cada elemento tiene su equivalente eléctrico.</p>
+            </div>
+            <div class="detail-content">
+                <h2>Electricidad = Agua en movimiento</h2>
+                <p class="subtitle">Visualizar la electricidad como agua es la forma más eficaz de entender las magnitudes y sus relaciones</p>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px;">
+                    <div class="detail-section">
+                        <h4>🚿 Instalación de agua</h4>
+                        <ul>
+                            <li><strong>Presión del agua</strong> → empuja el agua por la tubería.</li>
+                            <li><strong>Caudal</strong> (litros/segundo) → cantidad de agua que pasa.</li>
+                            <li><strong>Obstáculo en la tubería</strong> → reduce el caudal.</li>
+                            <li><strong>Bomba de agua</strong> → crea la presión.</li>
+                            <li><strong>Tubería</strong> → transporta el agua.</li>
+                            <li><strong>Grifo cerrado</strong> → circuito abierto, sin flujo.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>⚡ Circuito eléctrico equivalente</h4>
+                        <ul>
+                            <li><strong>Voltaje (V)</strong> → empuja los electrones.</li>
+                            <li><strong>Intensidad (A)</strong> → cantidad de electrones que pasan.</li>
+                            <li><strong>Resistencia (Ω)</strong> → reduce la intensidad.</li>
+                            <li><strong>Batería / Alternador</strong> → crea la tensión.</li>
+                            <li><strong>Cable</strong> → transporta la corriente.</li>
+                            <li><strong>Interruptor abierto</strong> → circuito abierto, sin corriente.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="info-box warning" style="margin-top:24px;">
+                    <h5>⚠️ Límites de la analogía</h5>
+                    <p>La analogía es perfecta para visualizar las magnitudes básicas, pero tiene límites: el agua es incompresible, los electrones no. La presión del agua no genera calor al pasar por una tubería limpia, pero la resistencia eléctrica siempre disipa algo de energía en forma de calor (efecto Joule).</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(3)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-3">
+            <div class="block-header">
+                <div class="block-label b2">Bloque II — Magnitudes eléctricas</div>
+                <h2 class="block-title">4. Voltaje · Tensión</h2>
+                <p class="block-desc">La fuerza que empuja a los electrones por el circuito. Sin voltaje, no hay corriente.</p>
+            </div>
+            <div class="two-col">
+                <div class="detail-content">
+                    <div class="detail-section">
+                        <h4>⚡ Definición</h4>
+                        <ul>
+                            <li>Símbolo: <strong>V</strong> · Unidad: <strong>Voltios (V)</strong></li>
+                            <li>Es la <strong>diferencia de potencial</strong> entre dos puntos del circuito.</li>
+                            <li>Análogía: la <strong>presión del agua</strong> en la tubería.</li>
+                            <li>Sin voltaje, los electrones no se mueven de forma ordenada.</li>
+                            <li>Se mide con un <strong>voltímetro</strong> en paralelo con el componente.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🔋 Fuentes de voltaje</h4>
+                        <ul>
+                            <li><strong>Batería:</strong> almacena energía química y la convierte en eléctrica.</li>
+                            <li><strong>Alternador:</strong> genera voltaje por inducción electromagnética.</li>
+                            <li><strong>Batería de HV:</strong> 400-800V en vehículos eléctricos e híbridos.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="data-table" style="margin-top:0">
+                        <table class="data-table">
+                            <thead><tr><th>Componente del automóvil</th><th>Tensión típica</th></tr></thead>
+                            <tbody>
+                                <tr><td>Batería cargada</td><td class="mono">12,6 V</td></tr>
+                                <tr><td>Sistema en marcha (carga)</td><td class="mono">13,8 – 14,4 V</td></tr>
+                                <tr><td>Batería descargada</td><td class="mono">&lt; 11,8 V</td></tr>
+                                <tr><td>Umbral de arranque</td><td class="mono">&gt; 10,5 V</td></tr>
+                                <tr><td>Híbrido / Eléctrico (HV)</td><td class="mono">400 – 800 V</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="info-box info">
+                        <h5>🔧 En el taller</h5>
+                        <p>Mide siempre la tensión de la batería en reposo (sin cargas) y con el motor en marcha. Si en marcha tienes más de 14,4V, el regulador de tensión puede estar averiado. Si tienes menos de 13,5V, el alternador no carga correctamente.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(4)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-4">
+            <div class="block-header">
+                <div class="block-label b2">Bloque II — Magnitudes eléctricas</div>
+                <h2 class="block-title">5. Intensidad · Corriente</h2>
+                <p class="block-desc">Cantidad de electrones que pasan por un punto del circuito cada segundo.</p>
+            </div>
+            <div class="two-col">
+                <div class="detail-content">
+                    <div class="detail-section">
+                        <h4>💧 Definición</h4>
+                        <ul>
+                            <li>Símbolo: <strong>I</strong> · Unidad: <strong>Amperios (A)</strong></li>
+                            <li>Análogía: el <strong>caudal de agua</strong> (litros por segundo).</li>
+                            <li>Mide cuántos electrones pasan por un punto del conductor cada segundo.</li>
+                            <li>Se mide con un <strong>amperímetro</strong> en serie con el circuito.</li>
+                            <li>En diagnóstico, se puede medir con una <strong>pinza amperimétrica</strong> sin cortar el circuito.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>⚠️ Efectos de la intensidad excesiva</h4>
+                        <ul>
+                            <li><strong>Calor:</strong> P = I² × R. Más intensidad → más calor en el conductor.</li>
+                            <li><strong>Fusibles:</strong> se funden para proteger el circuito cuando la intensidad supera un umbral.</li>
+                            <li><strong>Daños:</strong> intensidad excesiva puede fundir cables y provocar incendios.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <table class="data-table">
+                        <thead><tr><th>Componente</th><th>Intensidad típica</th></tr></thead>
+                        <tbody>
+                            <tr><td>Piloto LED de posición</td><td class="mono">0,05 A (50 mA)</td></tr>
+                            <tr><td>Sensor de temperatura</td><td class="mono">0,01 – 0,05 A</td></tr>
+                            <tr><td>Faro halógeno H4 (cruce)</td><td class="mono">4 – 5 A</td></tr>
+                            <tr><td>Motor de elevalunas</td><td class="mono">3 – 8 A</td></tr>
+                            <tr><td>Ventilador de radiador</td><td class="mono">10 – 25 A</td></tr>
+                            <tr><td>Motor de arranque</td><td class="mono">150 – 400 A</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box warning">
+                        <h5>⚠️ Calibre del cable</h5>
+                        <p>Cada cable tiene una sección máxima de intensidad admisible. Un cable de 1,5 mm² admite hasta ~16A. Si pasa más corriente, se calienta y el aislante puede fundirse. El calibre del fusible debe ser siempre inferior al del cable que protege.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(3)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(5)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-5">
+            <div class="block-header">
+                <div class="block-label b2">Bloque II — Magnitudes eléctricas</div>
+                <h2 class="block-title">6. Resistencia</h2>
+                <p class="block-desc">La oposición que ofrece un material al paso de la corriente eléctrica.</p>
+            </div>
+            <div class="two-col">
+                <div class="detail-content">
+                    <div class="detail-section">
+                        <h4>🧱 Definición</h4>
+                        <ul>
+                            <li>Símbolo: <strong>R</strong> · Unidad: <strong>Ohmios (Ω)</strong></li>
+                            <li>Análogía: una <strong>piedra dentro de la tubería</strong> que reduce el caudal.</li>
+                            <li>Depende del material, la sección y la longitud del conductor.</li>
+                            <li>Se mide con el <strong>óhmetro</strong> (polímetro en modo Ω) con el circuito desconectado.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🔍 Casos extremos</h4>
+                        <ul>
+                            <li><strong>R = 0 Ω → Cortocircuito:</strong> corriente máxima, calor intenso, fusible fundido.</li>
+                            <li><strong>R = ∞ Ω → Circuito abierto:</strong> no hay corriente, el componente no funciona.</li>
+                            <li><strong>R alta en conector:</strong> caída de tensión, calor en el conector, avería intermitente.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <table class="data-table">
+                        <thead><tr><th>Componente</th><th>Resistencia típica</th></tr></thead>
+                        <tbody>
+                            <tr><td>Cable en buen estado (1m)</td><td class="mono">~0,01 Ω</td></tr>
+                            <tr><td>Bobina de relé</td><td class="mono">60 – 120 Ω</td></tr>
+                            <tr><td>Sensor de temperatura NTC</td><td class="mono">100 – 10.000 Ω</td></tr>
+                            <tr><td>Sensor inductivo de cigüeñal</td><td class="mono">500 – 1.500 Ω</td></tr>
+                            <tr><td>Primario bobina encendido</td><td class="mono">0,5 – 2 Ω</td></tr>
+                            <tr><td>Secundario bobina encendido</td><td class="mono">5.000 – 15.000 Ω</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box info">
+                        <h5>💡 Resistencia y temperatura</h5>
+                        <p>La resistencia de los metales <strong>aumenta con la temperatura</strong> (coeficiente positivo). Los semiconductores (NTC, termistores) tienen comportamiento inverso: su resistencia <strong>baja</strong> al calentarse. Esto es la base de los sensores de temperatura del motor.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(4)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(6)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-6">
+            <div class="block-header">
+                <div class="block-label b2">Bloque II — Magnitudes eléctricas</div>
+                <h2 class="block-title">7. Las tres magnitudes básicas</h2>
+                <p class="block-desc">Voltaje, Intensidad y Resistencia: la triada fundamental de cualquier circuito eléctrico.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon i1">⚡</div>
+                    <h3>Voltaje · V</h3>
+                    <p>La fuerza que mueve los electrones. La presión del circuito. Sin voltaje, no hay corriente.</p>
+                    <div class="card-topics"><span class="topic-tag">Voltios (V)</span><span class="topic-tag">Batería: 12V</span><span class="topic-tag">Voltímetro</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon i2">💧</div>
+                    <h3>Intensidad · I</h3>
+                    <p>Cuántos electrones pasan por segundo. El caudal de la corriente. Se protege con fusibles.</p>
+                    <div class="card-topics"><span class="topic-tag">Amperios (A)</span><span class="topic-tag">Amperímetro</span><span class="topic-tag">Fusibles</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon i3">🧱</div>
+                    <h3>Resistencia · R</h3>
+                    <p>Lo que se opone al paso. El obstáculo. Puede ser útil (bombilla) o problemático (conector oxidado).</p>
+                    <div class="card-topics"><span class="topic-tag">Ohmios (Ω)</span><span class="topic-tag">Óhmetro</span><span class="topic-tag">Caída de tensión</span></div>
+                </div>
+            </div>
+            <div class="info-box info" style="margin-top:24px;">
+                <h5>🔑 Relación fundamental</h5>
+                <p>Estas tres magnitudes están siempre relacionadas entre sí. Si cambia una, cambian las demás. Esta relación se describe con la <strong>Ley de Ohm</strong>, que veremos a continuación. Es la ley más importante para el diagnóstico eléctrico en el taller.</p>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(5)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(7)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-7">
+            <div class="block-header">
+                <div class="block-label b3">Bloque III — Ley de Ohm</div>
+                <h2 class="block-title">8. Ley de Ohm</h2>
+                <p class="block-desc">La ley fundamental de los circuitos eléctricos. Descubierta por Georg Simon Ohm en 1827.</p>
+            </div>
+            <div class="detail-content">
+                <h2>La relación entre V, I y R</h2>
+                <p class="subtitle">En todo circuito eléctrico, tensión, intensidad y resistencia están siempre relacionadas por esta ecuación</p>
+                <div class="formula-box" style="margin:32px 0;">
+                    <div class="formula">V = I × R</div>
+                    <div class="desc">Tensión (V) = Intensidad (A) × Resistencia (Ω)</div>
+                </div>
+                <div class="two-col" style="margin-top:24px;">
+                    <div class="detail-section">
+                        <h4>📈 Si sube la Resistencia…</h4>
+                        <ul>
+                            <li>…y el Voltaje es constante (batería), la <strong>Intensidad baja</strong>.</li>
+                            <li>El componente recibe menos corriente → funciona peor o no funciona.</li>
+                            <li>Causa frecuente: conector oxidado, cable dañado.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>📉 Si baja la Resistencia a 0…</h4>
+                        <ul>
+                            <li>…la Intensidad tiende a infinito → <strong>cortocircuito</strong>.</li>
+                            <li>El fusible se funde para proteger el circuito.</li>
+                            <li>Si no hay fusible, el cable puede incendiarse.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="info-box success" style="margin-top:24px;">
+                    <h5>✅ Aplicación en diagnóstico</h5>
+                    <p>Si conoces dos de las tres magnitudes, siempre puedes calcular la tercera. Esta es la base del diagnóstico eléctrico: medir lo que puedes y calcular lo que no puedes medir directamente.</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(6)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(8)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-8">
+            <div class="block-header">
+                <div class="block-label b3">Bloque III — Ley de Ohm</div>
+                <h2 class="block-title">9. El triángulo VIR</h2>
+                <p class="block-desc">Herramienta visual para deducir cualquiera de las tres fórmulas de Ohm sin necesidad de memorizarlas.</p>
+            </div>
+            <div class="detail-content">
+                <h2>Tapa la magnitud que quieres calcular</h2>
+                <p class="subtitle">Las otras dos te indican la operación a realizar</p>
+                <div class="triangulo-container">
+                    <svg width="200" height="180" viewBox="0 0 200 180">
+                        <polygon points="100,10 190,165 10,165" fill="none" stroke="rgba(14,165,233,0.3)" stroke-width="2"/>
+                        <line x1="55" y1="115" x2="145" y2="115" stroke="rgba(14,165,233,0.3)" stroke-width="2"/>
+                        <line x1="100" y1="115" x2="100" y2="165" stroke="rgba(14,165,233,0.3)" stroke-width="2"/>
+                        <text x="100" y="85" text-anchor="middle" font-family="JetBrains Mono" font-size="32" font-weight="700" fill="#0ea5e9">V</text>
+                        <text x="62" y="152" text-anchor="middle" font-family="JetBrains Mono" font-size="26" font-weight="700" fill="#f59e0b">I</text>
+                        <text x="138" y="152" text-anchor="middle" font-family="JetBrains Mono" font-size="26" font-weight="700" fill="#22c55e">R</text>
+                        <text x="100" y="12" text-anchor="middle" font-family="Inter" font-size="8" fill="#94a3b8">Voltaje</text>
+                        <text x="30" y="178" text-anchor="middle" font-family="Inter" font-size="8" fill="#94a3b8">Intensidad</text>
+                        <text x="170" y="178" text-anchor="middle" font-family="Inter" font-size="8" fill="#94a3b8">Resistencia</text>
+                    </svg>
+                    <div class="formula-rows">
+                        <div class="formula-row">
+                            <span class="label">Busco V</span>
+                            <span class="eq">V = I × R</span>
+                        </div>
+                        <div class="formula-row">
+                            <span class="label">Busco I</span>
+                            <span class="eq">I = V ÷ R</span>
+                        </div>
+                        <div class="formula-row">
+                            <span class="label">Busco R</span>
+                            <span class="eq">R = V ÷ I</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-box info" style="margin-top:24px;">
+                    <h5>💡 Cómo usar el triángulo</h5>
+                    <p>Tapa con el dedo la letra de la magnitud que quieres calcular. Las dos letras que quedan visibles te dicen la operación: si están <strong>lado a lado</strong> (I y R), las <strong>multiplicas</strong>. Si una está <strong>encima de la otra</strong> (V sobre I, o V sobre R), las <strong>divides</strong>.</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(7)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(9)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-9">
+            <div class="block-header">
+                <div class="block-label b3">Bloque III — Ley de Ohm</div>
+                <h2 class="block-title">10. Ejemplo práctico en el taller</h2>
+                <p class="block-desc">Aplicación real de la Ley de Ohm para verificar el funcionamiento de un componente eléctrico.</p>
+            </div>
+            <div class="two-col">
+                <div class="detail-content">
+                    <h2>Problema</h2>
+                    <p class="subtitle">Una bombilla de posición tiene una resistencia de 240 Ω. Está conectada a 12 V. ¿Cuánta corriente consume?</p>
+                    <div class="detail-section" style="margin-top:24px;">
+                        <h4>📐 Resolución paso a paso</h4>
+                        <ul>
+                            <li>Datos conocidos: <strong>V = 12 V</strong>, <strong>R = 240 Ω</strong></li>
+                            <li>Incógnita: <strong>I = ?</strong></li>
+                            <li>Fórmula: <strong>I = V ÷ R</strong></li>
+                            <li>Sustitución: I = 12 ÷ 240</li>
+                            <li>Resultado: <strong>I = 0,05 A = 50 mA</strong></li>
+                        </ul>
+                    </div>
+                    <div class="formula-box">
+                        <div class="formula">I = 12 V ÷ 240 Ω = 0,05 A</div>
+                        <div class="desc">Si mides 50 mA → circuito correcto ✓</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+                            <span style="font-size:0.75rem;color:#8b949e;margin-left:8px;">diagnóstico_bombilla.log</span>
+                        </div>
+                        <div class="terminal-body">
+<span class="output">Componente: Bombilla posición</span><br>
+<span class="output">Tensión medida: 12.0 V</span><br>
+<span class="output">Resistencia medida: 240 Ω</span><br>
+<span class="output">Corriente esperada: 50 mA</span><br>
+<br>
+<span class="ok">MEDICIÓN OK → 49.8 mA ✓</span><br>
+<br>
+<span class="err">Si mides &gt;&gt; 50 mA → Cortocircuito ✗</span><br>
+<span class="err">Si mides 0 mA → Circuito abierto ✗</span><br>
+<span class="err">Si mides 5 mA → Resistencia alta ✗</span>
+                        </div>
+                    </div>
+                    <div class="info-box warning" style="margin-top:16px;">
+                        <h5>⚠️ Interpretación de resultados</h5>
+                        <p>Una corriente muy inferior a la esperada indica <strong>resistencia parásita</strong> en el circuito (conector oxidado, cable dañado). Una corriente superior indica un <strong>cortocircuito parcial</strong> o un componente averiado de baja resistencia.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(8)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(10)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-10">
+            <div class="block-header">
+                <div class="block-label b4">Bloque IV — Potencia eléctrica</div>
+                <h2 class="block-title">11. Potencia eléctrica</h2>
+                <p class="block-desc">Energía que consume o produce un componente eléctrico por segundo. Símbolo: P · Unidad: Vatios (W).</p>
+            </div>
+            <div class="two-col">
+                <div class="detail-content">
+                    <div class="detail-section">
+                        <h4>⚡ Definición</h4>
+                        <ul>
+                            <li>Símbolo: <strong>P</strong> · Unidad: <strong>Vatios (W)</strong></li>
+                            <li>Indica la <strong>energía consumida o producida</strong> por segundo.</li>
+                            <li>1 Vatio = 1 Julio por segundo.</li>
+                            <li>Un componente con mayor potencia realiza más trabajo (o disipa más calor) por segundo.</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>🔥 Efecto Joule</h4>
+                        <ul>
+                            <li>Toda resistencia disipa energía en forma de <strong>calor</strong>.</li>
+                            <li>P = I² × R: duplicar la intensidad cuadruplica el calor generado.</li>
+                            <li>Base de: resistencias de calefacción, luneta trasera, asientos calefactados.</li>
+                            <li>También causa el calentamiento de conectores en mal estado.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="formula-box">
+                        <div class="formula">P = V × I</div>
+                        <div class="desc">Potencia (W) = Tensión (V) × Intensidad (A)</div>
+                    </div>
+                    <table class="data-table">
+                        <thead><tr><th>Componente</th><th>Potencia</th></tr></thead>
+                        <tbody>
+                            <tr><td>Piloto LED de posición</td><td class="mono">5 W</td></tr>
+                            <tr><td>Faro halógeno H4 (cruce)</td><td class="mono">55 W</td></tr>
+                            <tr><td>Faro halógeno H4 (largo)</td><td class="mono">60 W</td></tr>
+                            <tr><td>Resistencia luneta trasera</td><td class="mono">120 W</td></tr>
+                            <tr><td>Ventilador habitáculo (máx)</td><td class="mono">200 W</td></tr>
+                            <tr><td>Motor de arranque</td><td class="mono">1.000 – 2.500 W</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(9)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(11)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-11">
+            <div class="block-header">
+                <div class="block-label b4">Bloque IV — Potencia eléctrica</div>
+                <h2 class="block-title">12. Todas las fórmulas</h2>
+                <p class="block-desc">Con cualquiera de las dos magnitudes conocidas puedes calcular las demás. Referencia completa.</p>
+            </div>
+            <div class="detail-content">
+                <h2>Tabla de fórmulas V, I, R y P</h2>
+                <p class="subtitle">Solo necesitas recordar V = I × R y P = V × I. El resto se deduce despejando.</p>
+                <table class="data-table" style="margin-top:24px;">
+                    <thead>
+                        <tr><th>Busco</th><th>Fórmula A</th><th>Fórmula B</th><th>Fórmula C</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong style="color:var(--primary)">V (Voltaje)</strong></td><td class="mono">V = I × R</td><td class="mono">V = P ÷ I</td><td class="mono">V = √(P × R)</td></tr>
+                        <tr><td><strong style="color:var(--accent)">I (Intensidad)</strong></td><td class="mono">I = V ÷ R</td><td class="mono">I = P ÷ V</td><td class="mono">I = √(P ÷ R)</td></tr>
+                        <tr><td><strong style="color:var(--success)">R (Resistencia)</strong></td><td class="mono">R = V ÷ I</td><td class="mono">R = V² ÷ P</td><td class="mono">R = P ÷ I²</td></tr>
+                        <tr><td><strong style="color:#8b5cf6">P (Potencia)</strong></td><td class="mono">P = V × I</td><td class="mono">P = I² × R</td><td class="mono">P = V² ÷ R</td></tr>
+                    </tbody>
+                </table>
+                <div class="info-box info" style="margin-top:24px;">
+                    <h5>📌 Truco de memoria</h5>
+                    <p>Solo necesitas recordar <strong>V = I × R</strong> y <strong>P = V × I</strong>. De estas dos expresiones puedes deducir todas las demás en el momento que las necesites, simplemente despejando la incógnita. Es más útil entender el concepto que memorizar 12 fórmulas.</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(10)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(12)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-12">
+            <div class="block-header">
+                <div class="block-label b4">Bloque IV — Potencia eléctrica</div>
+                <h2 class="block-title">13. Ejemplo combinado</h2>
+                <p class="block-desc">Ejercicio completo que combina la Ley de Ohm y la Potencia para analizar un componente real del vehículo.</p>
+            </div>
+            <div class="two-col">
+                <div class="detail-content">
+                    <h2>Problema</h2>
+                    <p class="subtitle">Un faro LED de nueva generación consume 35 W conectado a 12 V. Calcula la intensidad consumida y la resistencia equivalente.</p>
+                    <div class="detail-section" style="margin-top:24px;">
+                        <h4>📐 Paso 1 — Intensidad</h4>
+                        <ul>
+                            <li>Datos: <strong>P = 35 W</strong>, <strong>V = 12 V</strong></li>
+                            <li>Fórmula: <strong>I = P ÷ V</strong></li>
+                            <li>I = 35 ÷ 12 = <strong>2,9 A</strong></li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>📐 Paso 2 — Resistencia</h4>
+                        <ul>
+                            <li>Datos: <strong>V = 12 V</strong>, <strong>I = 2,9 A</strong></li>
+                            <li>Fórmula: <strong>R = V ÷ I</strong></li>
+                            <li>R = 12 ÷ 2,9 = <strong>4,1 Ω</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+                            <span style="font-size:0.75rem;color:#8b949e;margin-left:8px;">faro_led.log</span>
+                        </div>
+                        <div class="terminal-body">
+<span class="output">Componente: Faro LED</span><br>
+<span class="output">Potencia nominal: 35 W</span><br>
+<span class="output">Tensión nominal: 12 V</span><br>
+<br>
+<span class="output">→ Intensidad calculada: 2.9 A</span><br>
+<span class="output">→ Resistencia equivalente: 4.1 Ω</span><br>
+<br>
+<span class="ok">Si mides: 2.9 A → OK ✓</span><br>
+<span class="err">Si mides: &gt; 4 A  → Cortocircuito ✗</span><br>
+<span class="err">Si mides: &lt; 2 A  → Tensión baja ✗</span>
+                        </div>
+                    </div>
+                    <div class="info-box warning" style="margin-top:16px;">
+                        <h5>🔧 Aplicación en el taller</h5>
+                        <p>Calcular la corriente esperada antes de medir es fundamental. Si el valor medido difiere significativamente del calculado, hay un problema en el circuito. Esta metodología — calcular primero, medir después — es la base del diagnóstico profesional.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(11)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(13)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-13">
+            <div class="block-header">
+                <div class="block-label b5">Bloque V — Aplicación y cierre</div>
+                <h2 class="block-title">14. Electricidad para el diagnóstico</h2>
+                <p class="block-desc">Las magnitudes eléctricas son la herramienta diaria del técnico de automoción.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon i1">📏</div>
+                    <h3>Medir y calcular</h3>
+                    <p>Mide dos magnitudes con el polímetro, calcula la tercera con las fórmulas. Compara el valor calculado con el medido: la diferencia indica el problema.</p>
+                    <div class="card-topics"><span class="topic-tag">Polímetro</span><span class="topic-tag">V, I, R</span><span class="topic-tag">Comparar</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon i2">🌡️</div>
+                    <h3>Caída de tensión</h3>
+                    <p>Un cable o conector con resistencia alta provoca una caída de tensión antes de llegar al componente. Este, al recibir menos voltaje, funciona con menos potencia o no funciona.</p>
+                    <div class="card-topics"><span class="topic-tag">Conector oxidado</span><span class="topic-tag">Cable dañado</span><span class="topic-tag">Masa deficiente</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon i3">🔥</div>
+                    <h3>Calor = problema</h3>
+                    <p>P = I² × R. Si la resistencia de un conector sube, se genera calor. Un conector caliente o quemado es señal inconfundible de resistencia parásita elevada.</p>
+                    <div class="card-topics"><span class="topic-tag">Efecto Joule</span><span class="topic-tag">Termómetro IR</span><span class="topic-tag">Inspección visual</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon i4">🛑</div>
+                    <h3>Cortocircuito</h3>
+                    <p>Resistencia próxima a 0Ω → intensidad muy alta → fusible fundido. Busca el circuito que protege ese fusible y mide la resistencia de masa hasta encontrar el cable dañado.</p>
+                    <div class="card-topics"><span class="topic-tag">Fusible fundido</span><span class="topic-tag">R ≈ 0 Ω</span><span class="topic-tag">Buscar masa</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon i5">✂️</div>
+                    <h3>Circuito abierto</h3>
+                    <p>Resistencia infinita → sin corriente → el componente no recibe nada. Busca el punto donde la tensión cae a cero usando el voltímetro punto a punto.</p>
+                    <div class="card-topics"><span class="topic-tag">Cable cortado</span><span class="topic-tag">R = ∞</span><span class="topic-tag">Sin corriente</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon i6">📐</div>
+                    <h3>Metodología</h3>
+                    <p>1. Calcula lo esperado. 2. Mide lo real. 3. Compara. 4. Localiza la diferencia. Esta secuencia aplica en cualquier avería eléctrica, independientemente del sistema.</p>
+                    <div class="card-topics"><span class="topic-tag">Calcular</span><span class="topic-tag">Medir</span><span class="topic-tag">Comparar</span></div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(12)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(14)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-14">
+            <div class="block-header">
+                <div class="block-label b5">Bloque V — Aplicación y cierre</div>
+                <h2 class="block-title">15. Resumen final</h2>
+                <p class="block-desc">Síntesis de todos los contenidos del Módulo 01: magnitudes, Ley de Ohm, Potencia y diagnóstico.</p>
+            </div>
+            <div class="two-col">
+                <div class="detail-content">
+                    <h2 style="color:var(--primary); margin-bottom:20px;">⚡ Magnitudes eléctricas</h2>
+                    <div class="detail-section">
+                        <h4>Las cuatro magnitudes clave</h4>
+                        <ul>
+                            <li><strong>V — Voltaje (Voltios):</strong> la fuerza que mueve los electrones. Fuente: batería, alternador.</li>
+                            <li><strong>I — Intensidad (Amperios):</strong> cantidad de electrones por segundo. Se protege con fusibles.</li>
+                            <li><strong>R — Resistencia (Ohmios):</strong> oposición al paso. Puede ser útil o problemática.</li>
+                            <li><strong>P — Potencia (Vatios):</strong> energía por segundo. Calor en resistencias (efecto Joule).</li>
+                        </ul>
+                    </div>
+                    <div class="detail-section">
+                        <h4>Analogía del agua</h4>
+                        <ul>
+                            <li>Voltaje = Presión · Intensidad = Caudal · Resistencia = Obstáculo · Batería = Bomba</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="detail-content">
+                    <h2 style="color:var(--accent); margin-bottom:20px;">📐 Fórmulas esenciales</h2>
+                    <div class="formula-box" style="margin-bottom:16px;">
+                        <div class="formula">V = I × R</div>
+                        <div class="desc">Ley de Ohm — la ley fundamental</div>
+                    </div>
+                    <div class="formula-box" style="margin-bottom:16px;">
+                        <div class="formula">P = V × I</div>
+                        <div class="desc">Potencia eléctrica</div>
+                    </div>
+                    <div class="formula-box">
+                        <div class="formula">P = I² × R</div>
+                        <div class="desc">Efecto Joule — calor en resistencias</div>
+                    </div>
+                    <div class="info-box success" style="margin-top:16px;">
+                        <h5>✅ Lo más importante</h5>
+                        <p>Con estas cuatro magnitudes y dos fórmulas base entiendes el 80% de la electricidad del automóvil. El resto es aplicación y práctica.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(13)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(15)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            </div>
+        </div>
+        <div class="slide" id="slide-15">
+            <div class="block-header">
+                <div class="block-label b5">Bloque V — Aplicación y cierre</div>
+                <h2 class="block-title">16. Actividades de consolidación</h2>
+                <p class="block-desc">Cuestionario interactivo para verificar los conocimientos del Módulo 01.</p>
+            </div>
+            <div class="quiz-container">
+                <div class="quiz-question">
+                    <h4>❓ Pregunta 1: ¿Cuál es la unidad de medida de la Resistencia eléctrica?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">Amperios (A)</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">Voltios (V)</div>
+                        <div class="quiz-option" onclick="this.classList.add('correct')">Ohmios (Ω)</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">Vatios (W)</div>
+                    </div>
+                </div>
+                <div class="quiz-question">
+                    <h4>❓ Pregunta 2: Una bombilla tiene R = 60 Ω y está conectada a 12 V. ¿Qué corriente consume?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">720 A</div>
+                        <div class="quiz-option" onclick="this.classList.add('correct')">0,2 A (200 mA)</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">5 A</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">0,5 A</div>
+                    </div>
+                </div>
+                <div class="quiz-question">
+                    <h4>❓ Pregunta 3: Un faro consume 4 A a 12 V. ¿Cuál es su potencia?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">3 W</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">16 W</div>
+                        <div class="quiz-option" onclick="this.classList.add('correct')">48 W</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">480 W</div>
+                    </div>
+                </div>
+                <div class="quiz-question">
+                    <h4>❓ Pregunta 4: Un conector está caliente al tacto. ¿Qué indica esto?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">Resistencia muy baja en el conector</div>
+                        <div class="quiz-option" onclick="this.classList.add('correct')">Resistencia parásita elevada (efecto Joule)</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">Tensión demasiado baja</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">Circuito abierto</div>
+                    </div>
+                </div>
+                <div class="quiz-question">
+                    <h4>❓ Pregunta 5: ¿Qué ocurre cuando la resistencia de un circuito es prácticamente 0 Ω?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">No circula corriente</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">La tensión cae a cero</div>
+                        <div class="quiz-option" onclick="this.classList.add('correct')">Cortocircuito: intensidad muy alta, fusible fundido</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">El componente funciona al máximo rendimiento</div>
+                    </div>
+                </div>
+                <div class="quiz-question">
+                    <h4>❓ Pregunta 6: ¿Qué magnitud representa la "presión" en la analogía del agua?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">Intensidad</div>
+                        <div class="quiz-option" onclick="this.classList.add('correct')">Voltaje</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">Resistencia</div>
+                        <div class="quiz-option" onclick="this.classList.add('wrong')">Potencia</div>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goToSlide(14)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+                <button class="nav-btn primary" onclick="goToSlide(0)">🏠 Volver al inicio</button>
+            </div>
+        </div>
+    </main>
+
+<script>
+    let currentSlide = 0;
+    const totalSlides = 16;
+    const defaultTitle = 'Módulo 01: Fundamentos de Electricidad';
+    const slideTitles = [
+            'Inicio',
+            '2. ¿Qué es la electricidad?',
+            '3. Analogía del agua',
+            '4. Voltaje · Tensión',
+            '5. Intensidad · Corriente',
+            '6. Resistencia',
+            '7. Las tres magnitudes básicas',
+            '8. Ley de Ohm',
+            '9. El triángulo VIR',
+            '10. Ejemplo práctico en el taller',
+            '11. Potencia eléctrica',
+            '12. Todas las fórmulas',
+            '13. Ejemplo combinado',
+            '14. Electricidad para el diagnóstico',
+            '15. Resumen final',
+            '16. Actividades de consolidación'
+        ];
+</script>
+<script src="../../assets/js/presentacion.js"></script>
+</body>
+</html>
