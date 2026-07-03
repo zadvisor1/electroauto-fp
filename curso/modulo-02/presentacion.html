@@ -14,7 +14,41 @@ titulos_slides: [
   "6. Generación electromagnética",
   "7. Conceptos básicos de magnetismo",
   "8. Campo magnético",
-  "9. Clasificación de materiales"
+  "9. Clasificación de materiales",
+  "10. Inducción magnética",
+  "11. Campo magnético por corriente",
+  "12. Experimento de Oersted",
+  "13. Espira",
+  "14. Solenoide",
+  "15. Electroimán",
+  "16. Bobinas",
+  "17. Principio de inducción",
+  "18. Condiciones para generar electricidad",
+  "19. Sentido de la corriente inducida",
+  "20. Fuerza electromotriz (f.e.m.)",
+  "21. Corriente alterna",
+  "22. Parámetros de señal alterna",
+  "23. Dinamo",
+  "24. Alternador",
+  "25. Rectificación de corriente",
+  "26. Ley de Faraday",
+  "27. Corriente continua ideal",
+  "28. Relé electromagnético",
+  "29. Válvula solenoide",
+  "30. Generador de impulsos inductivo",
+  "31. Efecto Hall",
+  "32. Funcionamiento del sensor Hall",
+  "33. Materiales detectables",
+  "34. Materiales no detectables",
+  "35. Aplicaciones del sensor Hall",
+  "36. Comparación inductivo vs Hall",
+  "37. Transformador",
+  "38. Relación de transformación",
+  "39. Relación magnetismo-electricidad",
+  "40. Aplicaciones en el automóvil",
+  "41. Diagnóstico de averías",
+  "42. Resumen final",
+  "43. Actividades de consolidación"
 ]
 ---
 
@@ -28,10 +62,7 @@ titulos_slides: [
             <div class="stat"><div class="stat-value">{{ page.total_slides }}</div><div class="stat-label">Temas</div></div>
             <div class="stat"><div class="stat-value">5</div><div class="stat-label">Métodos de generación</div></div>
         </div>
-        <button class="hero-btn" onclick="goToSlide(1)">
-            Comenzar aprendizaje
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
+        <button class="hero-btn" onclick="goToSlide(1)">Comenzar aprendizaje<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
     </div>
 </div>
 
@@ -41,7 +72,6 @@ titulos_slides: [
         <h2 class="block-title">2. Generación termoeléctrica</h2>
         <p class="block-desc">Conversión directa de energía térmica en energía eléctrica mediante el efecto Seebeck.</p>
     </div>
-    
     <div class="two-col">
         <div class="detail-content">
             <div class="detail-section">
@@ -49,23 +79,57 @@ titulos_slides: [
                 <ul>
                     <li>Descubierto por <strong>Thomas Johann Seebeck</strong> en 1821.</li>
                     <li>Al unir dos metales diferentes y calentar la unión, se genera una <strong>tensión eléctrica</strong>.</li>
+                    <li>La tensión generada es proporcional a la <strong>diferencia de temperatura</strong> entre las uniones.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4>🔗 Qué es un termopar</h4>
+                <ul>
+                    <li>Dispositivo formado por la <strong>unión de dos metales diferentes</strong>.</li>
+                    <li><strong>Unión caliente:</strong> Punto de medida (expuesto a la temperatura).</li>
+                    <li><strong>Unión fría:</strong> Punto de referencia (temperatura ambiente conocida).</li>
+                    <li>La diferencia de temperatura genera una <strong>f.e.m. (fuerza electromotriz)</strong> medible.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4>🔩 Materiales empleados</h4>
+                <ul>
+                    <li><strong>Tipo K (Cromel-Alumel):</strong> -200°C a +1260°C. Muy usado en automoción.</li>
+                    <li><strong>Tipo J (Hierro-Constantán):</strong> -210°C a +760°C.</li>
+                    <li><strong>Tipo T (Cobre-Constantán):</strong> -270°C a +400°C.</li>
+                    <li><strong>Tipo N (Nicrosil-Nisil):</strong> Alta estabilidad a altas temperaturas.</li>
                 </ul>
             </div>
         </div>
         <div>
             <div class="formula-box">
                 <div class="formula">V = S × ΔT</div>
+                <div class="desc">Tensión (V) = Coef. Seebeck (S) × ΔTemperatura (°C)</div>
+            </div>
+            <div class="info-box info">
+                <h5>🚗 Aplicaciones en automoción</h5>
+                <p>Sensor de temperatura de gases de escape (EGT), sensor de temperatura del catalizador, monitorización de temperatura en motores diésel, y sistemas de recuperación de energía térmica (TEG).</p>
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+                    <span style="font-size:0.75rem;color:#8b949e;margin-left:8px;">termopar_k.dat</span>
+                </div>
+                <div class="terminal-body">
+<span class="output">Tipo: Cromel-Alumel (K)</span><br>
+<span class="output">Rango: -200°C a +1260°C</span><br>
+<span class="output">Sensibilidad: ~41 μV/°C</span><br>
+<span class="output">T_unión_caliente: 850°C</span><br>
+<span class="output">T_unión_fría: 25°C</span><br>
+<span class="output">ΔT = 825°C</span><br>
+<span class="output">V_generada = 825 × 41μV = 33.8 mV</span>
+                </div>
             </div>
         </div>
     </div>
-    
     <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(0)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior
-        </button>
-        <button class="nav-btn primary" onclick="goToSlide(2)">
-            Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
+        <button class="nav-btn" onclick="goToSlide(0)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+        <button class="nav-btn primary" onclick="goToSlide(2)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
     </div>
 </div>
 
@@ -73,33 +137,47 @@ titulos_slides: [
     <div class="block-header">
         <div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
         <h2 class="block-title">3. Generación piezoeléctrica</h2>
-        <p class="block-desc">Generación de carga eléctrica mediante la aplicación de presión mecánica en cristales dieléctricos.</p>
+        <p class="block-desc">Conversión de energía mecánica (presión/vibración) en energía eléctrica mediante cristales especiales.</p>
     </div>
-
     <div class="two-col">
         <div class="detail-content">
             <div class="detail-section">
-                <h4>🧱 Cristales Activos</h4>
+                <h4>💎 Efecto piezoeléctrico</h4>
                 <ul>
-                    <li>Muy común en los sensores de detonación (Knock Sensor) del motor.</li>
-                    <li>Al sufrir una deformación mecánica, reordenan sus cargas internas creando voltaje.</li>
+                    <li>Descubierto por los hermanos <strong>Curie</strong> en 1880.</li>
+                    <li>Ciertos cristales generan <strong>tensión eléctrica</strong> al deformarse mecánicamente.</li>
+                    <li>El efecto es <strong>reversible</strong>: aplicar tensión produce deformación (efecto inverso).</li>
+                    <li>La tensión generada es proporcional a la <strong>fuerza aplicada</strong>.</li>
+                </ul>
+            </div>
+            <div class="detail-section">
+                <h4>🔬 Materiales piezoeléctricos</h4>
+                <ul>
+                    <li><strong>Cuarzo (SiO₂):</strong> El más conocido. Estable y preciso.</li>
+                    <li><strong>Cerámicas PZT:</strong> Plomo-Zirconio-Titanato. Alta sensibilidad.</li>
+                    <li><strong>Titanato de bario:</strong> Cerámica sintética económica.</li>
+                    <li><strong>Polímeros PVDF:</strong> Flexibles, usados en sensores de impacto.</li>
                 </ul>
             </div>
         </div>
         <div>
-            <div class="formula-box" style="text-align: center; padding: 2rem; background: rgba(255,255,255,0.02); border-radius: 8px;">
-                <span style="font-size: 3rem;">💥</span>
-                <p style="margin-top: 1rem; color: var(--text-muted);">Presión = Voltaje</p>
+            <div class="info-box info">
+                <h5>💡 Efecto piezoeléctrico inverso</h5>
+                <p>Si aplicamos tensión a un cristal piezoeléctrico, este se deforma. Este principio se usa en <strong>inyectores piezoeléctricos</strong> de motores diésel modernos, donde la deformación del cristal abre la válvula del inyector con una precisión milimétrica.</p>
+            </div>
+            <div class="detail-content">
+                <h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones en sensores</h4>
+                <ul>
+                    <li><strong>Sensor de detonación (knock sensor):</strong> Detecta vibraciones anómalas en el motor.</li>
+                    <li><strong>Sensor de presión de combustible:</strong> Mide presión en el rail de inyección.</li>
+                    <li><strong>Sensor de impacto:</strong> Airbags (detecta colisión por vibración).</li>
+                </ul>
             </div>
         </div>
     </div>
-
     <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(1)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior
-        </button>
-        <button class="nav-btn primary" onclick="goToSlide(3)">
-            Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
+        <button class="nav-btn" onclick="goToSlide(1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+        <button class="nav-btn primary" onclick="goToSlide(3)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
     </div>
 </div>
+
