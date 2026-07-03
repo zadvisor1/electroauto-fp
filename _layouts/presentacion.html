@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo {{ page.numero }} · {{ page.titulo }} — Presentación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ... Vuestro CSS intacto ... */
+    </style>
+</head>
+<body>
+    <nav class="course-nav">
+        <div class="nav-left">
+            <a href="../../index.html" class="home-btn" title="Página principal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Página principal
+            </a>
+            <div class="breadcrumbs">
+                <a href="../../curso/index.html">Curso de electricidad</a>
+                <span class="sep">/</span>
+                <span class="current">Módulo {{ page.numero }} — {{ page.titulo }}</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="unit-badge">MÓD. {{ page.numero }}</div>
+            <div class="nav-links">
+                {% include modulos-nav.html current=page.id_modulo %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div><div class="orb orb-4"></div></div>
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>📗 Módulo {{ page.numero }}</h2>
+            <p>{{ page.descripcion }}</p>
+        </div>
+        {% include sidebar-slides.html slug=page.id_modulo %}
+    </nav>
+
+    <header class="top-bar">
+        <div class="left">
+            <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <h1 id="top-title">Módulo {{ page.numero }}: {{ page.titulo }}</h1>
+        </div>
+        <div class="right">
+            <span class="progress-text" id="progress-text">1 / {{ page.total_slides }}</span>
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width: 0%"></div></div>
+        </div>
+    </header>
+
+    <main class="main-content" id="main-content">
+        {{ content }}
+    </main>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = {{ page.total_slides }};
+        
+        // Se autogenera el array de títulos leyendo las secciones desde el Front Matter o vuestros archivos de datos
+        const slideTitles = {{ page.titulos_slides | jsonify }};
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
+        function goToSlide(n) {
+            document.getElementById('slide-' + currentSlide).classList.remove('active');
+            const activeNav = document.querySelector('.nav-item.active');
+            if (activeNav) activeNav.classList.remove('active');
+            currentSlide = n;
+            document.getElementById('slide-' + currentSlide).classList.add('active');
+            const newNav = document.querySelector('.nav-item[data-slide="' + currentSlide + '"]');
+            if (newNav) newNav.classList.add('active');
+            const pct = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progress-fill').style.width = pct + '%';
+            document.getElementById('progress-text').textContent = (currentSlide + 1) + ' / ' + totalSlides;
+            document.getElementById('top-title').textContent = slideTitles[currentSlide] || 'Módulo {{ page.numero }}: {{ page.titulo }}';
+            if (window.innerWidth < 900) {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('overlay').classList.remove('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                if (currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                if (currentSlide > 0) goToSlide(currentSlide - 1);
+            } else if (e.key === 'Escape') {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('overlay').classList.remove('active');
+            }
+        });
+
+        // Inicializar la primera diapositiva de forma correcta
+        window.onload = function() {
+            goToSlide(0);
+        };
+    </script>
+</body>
+</html>
