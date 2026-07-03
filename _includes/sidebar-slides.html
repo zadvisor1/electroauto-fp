@@ -1,0 +1,11 @@
+{% assign current_menu = site.data.presentaciones_menu[include.slug] %}
+{% for seccion in current_menu %}
+<div class="nav-section">
+    <div class="nav-section-title">{{ seccion.bloque }}</div>
+    {% for item in seccion.items %}
+    <div class="nav-item {% if item.index == 0 %}active{% endif %}" onclick="goToSlide({{ item.index }})" data-slide="{{ item.index }}">
+        <span class="num">{{ item.num }}</span><span>{{ item.name }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
