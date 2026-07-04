@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Módulo 02 · Generación de Electricidad</title>
+<title>Módulo 02 · Generación de Electricidad (Parte 1)</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/css/presentacion.css">
 </head>
@@ -13,1350 +13,1144 @@
 {% include presentacion-nav.html current="modulo-02" %}
 {% include presentacion-bg.html %}
 
-    <nav class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2>📗 Módulo 02</h2>
-            <p>Generación de electricidad en el automóvil</p>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-title">Navegación</div>
-            <div class="nav-item active" onclick="goToSlide(0)" data-slide="0"><span class="num">🏠</span><span>Inicio</span></div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-title">Bloque I — Formas de Generación</div>
-            <div class="nav-item" onclick="goToSlide(1)" data-slide="1"><span class="num">2</span><span>Generación termoeléctrica</span></div>
-            <div class="nav-item" onclick="goToSlide(2)" data-slide="2"><span class="num">3</span><span>Generación piezoeléctrica</span></div>
-            <div class="nav-item" onclick="goToSlide(3)" data-slide="3"><span class="num">4</span><span>Generación fotoeléctrica</span></div>
-            <div class="nav-item" onclick="goToSlide(4)" data-slide="4"><span class="num">5</span><span>Generación electroquímica</span></div>
-            <div class="nav-item" onclick="goToSlide(5)" data-slide="5"><span class="num">6</span><span>Generación electromagnética</span></div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-title">Bloque II — Magnetismo</div>
-            <div class="nav-item" onclick="goToSlide(6)" data-slide="6"><span class="num">7</span><span>Conceptos básicos de magnetismo</span></div>
-            <div class="nav-item" onclick="goToSlide(7)" data-slide="7"><span class="num">8</span><span>Campo magnético</span></div>
-            <div class="nav-item" onclick="goToSlide(8)" data-slide="8"><span class="num">9</span><span>Clasificación de materiales</span></div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-title">Bloque III — Electromagnetismo</div>
-            <div class="nav-item" onclick="goToSlide(9)" data-slide="9"><span class="num">10</span><span>Inducción magnética</span></div>
-            <div class="nav-item" onclick="goToSlide(10)" data-slide="10"><span class="num">11</span><span>Campo magnético por corriente</span></div>
-            <div class="nav-item" onclick="goToSlide(11)" data-slide="11"><span class="num">12</span><span>Experimento de Oersted</span></div>
-            <div class="nav-item" onclick="goToSlide(12)" data-slide="12"><span class="num">13</span><span>Espira</span></div>
-            <div class="nav-item" onclick="goToSlide(13)" data-slide="13"><span class="num">14</span><span>Solenoide</span></div>
-            <div class="nav-item" onclick="goToSlide(14)" data-slide="14"><span class="num">15</span><span>Electroimán</span></div>
-            <div class="nav-item" onclick="goToSlide(15)" data-slide="15"><span class="num">16</span><span>Bobinas</span></div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-title">Bloque IV — Inducción Electromagnética</div>
-            <div class="nav-item" onclick="goToSlide(16)" data-slide="16"><span class="num">17</span><span>Principio de inducción</span></div>
-            <div class="nav-item" onclick="goToSlide(17)" data-slide="17"><span class="num">18</span><span>Condiciones para generar electricidad</span></div>
-            <div class="nav-item" onclick="goToSlide(18)" data-slide="18"><span class="num">19</span><span>Sentido de la corriente inducida</span></div>
-            <div class="nav-item" onclick="goToSlide(19)" data-slide="19"><span class="num">20</span><span>Fuerza electromotriz (f.e.m.)</span></div>
-            <div class="nav-item" onclick="goToSlide(20)" data-slide="20"><span class="num">21</span><span>Corriente alterna</span></div>
-            <div class="nav-item" onclick="goToSlide(21)" data-slide="21"><span class="num">22</span><span>Parámetros de señal alterna</span></div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-title">Bloque V — Máquinas Generadoras</div>
-            <div class="nav-item" onclick="goToSlide(22)" data-slide="22"><span class="num">23</span><span>Dinamo</span></div>
-            <div class="nav-item" onclick="goToSlide(23)" data-slide="23"><span class="num">24</span><span>Alternador</span></div>
-            <div class="nav-item" onclick="goToSlide(24)" data-slide="24"><span class="num">25</span><span>Rectificación de corriente</span></div>
-            <div class="nav-item" onclick="goToSlide(25)" data-slide="25"><span class="num">26</span><span>Ley de Faraday</span></div>
-            <div class="nav-item" onclick="goToSlide(26)" data-slide="26"><span class="num">27</span><span>Corriente continua ideal</span></div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-title">Bloque VI — Aplicaciones</div>
-            <div class="nav-item" onclick="goToSlide(27)" data-slide="27"><span class="num">28</span><span>Relé electromagnético</span></div>
-            <div class="nav-item" onclick="goToSlide(28)" data-slide="28"><span class="num">29</span><span>Válvula solenoide</span></div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-title">Bloque VII — Sensores Inductivos</div>
-            <div class="nav-item" onclick="goToSlide(29)" data-slide="29"><span class="num">30</span><span>Generador de impulsos inductivo</span></div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-title">Bloque VIII — Sensores de Efecto Hall</div>
-            <div class="nav-item" onclick="goToSlide(30)" data-slide="30"><span class="num">31</span><span>Efecto Hall</span></div>
-            <div class="nav-item" onclick="goToSlide(31)" data-slide="31"><span class="num">32</span><span>Funcionamiento del sensor Hall</span></div>
-            <div class="nav-item" onclick="goToSlide(32)" data-slide="32"><span class="num">33</span><span>Materiales detectables</span></div>
-            <div class="nav-item" onclick="goToSlide(33)" data-slide="33"><span class="num">34</span><span>Materiales no detectables</span></div>
-            <div class="nav-item" onclick="goToSlide(34)" data-slide="34"><span class="num">35</span><span>Aplicaciones del sensor Hall</span></div>
-            <div class="nav-item" onclick="goToSlide(35)" data-slide="35"><span class="num">36</span><span>Comparación inductivo vs Hall</span></div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-title">Bloque IX — Transformadores</div>
-            <div class="nav-item" onclick="goToSlide(36)" data-slide="36"><span class="num">37</span><span>Transformador</span></div>
-            <div class="nav-item" onclick="goToSlide(37)" data-slide="37"><span class="num">38</span><span>Relación de transformación</span></div>
-        </div>
-        <div class="nav-section">
-            <div class="nav-section-title">Bloque X — Integración</div>
-            <div class="nav-item" onclick="goToSlide(38)" data-slide="38"><span class="num">39</span><span>Relación magnetismo-electricidad</span></div>
-            <div class="nav-item" onclick="goToSlide(39)" data-slide="39"><span class="num">40</span><span>Aplicaciones en el automóvil</span></div>
-            <div class="nav-item" onclick="goToSlide(40)" data-slide="40"><span class="num">41</span><span>Diagnóstico de averías</span></div>
-            <div class="nav-item" onclick="goToSlide(41)" data-slide="41"><span class="num">42</span><span>Resumen final</span></div>
-            <div class="nav-item" onclick="goToSlide(42)" data-slide="42"><span class="num">43</span><span>Actividades de consolidación</span></div>
-        </div>
-    </nav>
+<header class="top-bar">
+<div class="left">
+<button class="menu-btn" onclick="toggleSidebar()" aria-label="Menú">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+</button>
+<h1 id="top-title">Módulo 02: Generación de Electricidad — Parte 1</h1>
+</div>
+<div class="right">
+<span class="progress-text" id="progress-text">1 / 22</span>
+<div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width: 4.5%"></div></div>
+</div>
+</header>
 
-    <header class="top-bar">
-        <div class="left">
-            <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            </button>
-            <h1 id="top-title">Módulo 02: Generación de Electricidad</h1>
-        </div>
-        <div class="right">
-            <span class="progress-text" id="progress-text">1 / 43</span>
-            <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width: 2.3%"></div></div>
-        </div>
-    </header>
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<h2>📗 Módulo 02</h2>
+<p>Generación de electricidad en el automóvil</p>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Navegación</div>
+<div class="nav-item" onclick="navItemClick(1,0)" data-part="1" data-slide="0"<span class="num">🏠</span><span>Inicio</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque I — Formas de Generación</div>
+<div class="nav-item" onclick="navItemClick(1,1)" data-part="1" data-slide="1"><span class="num">2</span><span>Generación termoeléctrica</span></div>
+<div class="nav-item" onclick="navItemClick(1,2)" data-part="1" data-slide="2"><span class="num">3</span><span>Generación piezoeléctrica</span></div>
+<div class="nav-item" onclick="navItemClick(1,3)" data-part="1" data-slide="3"><span class="num">4</span><span>Generación fotoeléctrica</span></div>
+<div class="nav-item" onclick="navItemClick(1,4)" data-part="1" data-slide="4"><span class="num">5</span><span>Generación electroquímica</span></div>
+<div class="nav-item" onclick="navItemClick(1,5)" data-part="1" data-slide="5"><span class="num">6</span><span>Generación electromagnética</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque II — Magnetismo</div>
+<div class="nav-item" onclick="navItemClick(1,6)" data-part="1" data-slide="6"><span class="num">7</span><span>Conceptos básicos de magnetismo</span></div>
+<div class="nav-item" onclick="navItemClick(1,7)" data-part="1" data-slide="7"><span class="num">8</span><span>Campo magnético</span></div>
+<div class="nav-item" onclick="navItemClick(1,8)" data-part="1" data-slide="8"><span class="num">9</span><span>Clasificación de materiales</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque III — Electromagnetismo</div>
+<div class="nav-item" onclick="navItemClick(1,9)" data-part="1" data-slide="9"><span class="num">10</span><span>Inducción magnética</span></div>
+<div class="nav-item" onclick="navItemClick(1,10)" data-part="1" data-slide="10"><span class="num">11</span><span>Campo magnético por corriente</span></div>
+<div class="nav-item" onclick="navItemClick(1,11)" data-part="1" data-slide="11"><span class="num">12</span><span>Experimento de Oersted</span></div>
+<div class="nav-item" onclick="navItemClick(1,12)" data-part="1" data-slide="12"><span class="num">13</span><span>Espira</span></div>
+<div class="nav-item" onclick="navItemClick(1,13)" data-part="1" data-slide="13"><span class="num">14</span><span>Solenoide</span></div>
+<div class="nav-item" onclick="navItemClick(1,14)" data-part="1" data-slide="14"><span class="num">15</span><span>Electroimán</span></div>
+<div class="nav-item" onclick="navItemClick(1,15)" data-part="1" data-slide="15"><span class="num">16</span><span>Bobinas</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque IV — Inducción Electromagnética</div>
+<div class="nav-item" onclick="navItemClick(1,16)" data-part="1" data-slide="16"><span class="num">17</span><span>Principio de inducción</span></div>
+<div class="nav-item" onclick="navItemClick(1,17)" data-part="1" data-slide="17"><span class="num">18</span><span>Condiciones para generar electricidad</span></div>
+<div class="nav-item" onclick="navItemClick(1,18)" data-part="1" data-slide="18"><span class="num">19</span><span>Sentido de la corriente inducida</span></div>
+<div class="nav-item" onclick="navItemClick(1,19)" data-part="1" data-slide="19"><span class="num">20</span><span>Fuerza electromotriz (f.e.m.)</span></div>
+<div class="nav-item" onclick="navItemClick(1,20)" data-part="1" data-slide="20"><span class="num">21</span><span>Corriente alterna</span></div>
+<div class="nav-item" onclick="navItemClick(1,21)" data-part="1" data-slide="21"><span class="num">22</span><span>Parámetros de señal alterna</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque V — Máquinas Generadoras</div>
+<div class="nav-item" onclick="navItemClick(2,1)" data-part="2" data-slide="1"><span class="num">23</span><span>Dinamo</span></div>
+<div class="nav-item" onclick="navItemClick(2,2)" data-part="2" data-slide="2"><span class="num">24</span><span>Alternador</span></div>
+<div class="nav-item" onclick="navItemClick(2,3)" data-part="2" data-slide="3"><span class="num">25</span><span>Rectificación de corriente</span></div>
+<div class="nav-item" onclick="navItemClick(2,4)" data-part="2" data-slide="4"><span class="num">26</span><span>Ley de Faraday</span></div>
+<div class="nav-item" onclick="navItemClick(2,5)" data-part="2" data-slide="5"><span class="num">27</span><span>Corriente continua ideal</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque VI — Aplicaciones</div>
+<div class="nav-item" onclick="navItemClick(2,6)" data-part="2" data-slide="6"><span class="num">28</span><span>Relé electromagnético</span></div>
+<div class="nav-item" onclick="navItemClick(2,7)" data-part="2" data-slide="7"><span class="num">29</span><span>Válvula solenoide</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque VII — Sensores Inductivos</div>
+<div class="nav-item" onclick="navItemClick(2,8)" data-part="2" data-slide="8"><span class="num">30</span><span>Generador de impulsos inductivo</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque VIII — Sensores de Efecto Hall</div>
+<div class="nav-item" onclick="navItemClick(2,9)" data-part="2" data-slide="9"><span class="num">31</span><span>Efecto Hall</span></div>
+<div class="nav-item" onclick="navItemClick(2,10)" data-part="2" data-slide="10"><span class="num">32</span><span>Funcionamiento del sensor Hall</span></div>
+<div class="nav-item" onclick="navItemClick(2,11)" data-part="2" data-slide="11"><span class="num">33</span><span>Materiales detectables</span></div>
+<div class="nav-item" onclick="navItemClick(2,12)" data-part="2" data-slide="12"><span class="num">34</span><span>Materiales no detectables</span></div>
+<div class="nav-item" onclick="navItemClick(2,13)" data-part="2" data-slide="13"><span class="num">35</span><span>Aplicaciones del sensor Hall</span></div>
+<div class="nav-item" onclick="navItemClick(2,14)" data-part="2" data-slide="14"><span class="num">36</span><span>Comparación inductivo vs Hall</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque IX — Transformadores</div>
+<div class="nav-item" onclick="navItemClick(2,15)" data-part="2" data-slide="15"><span class="num">37</span><span>Transformador</span></div>
+<div class="nav-item" onclick="navItemClick(2,16)" data-part="2" data-slide="16"><span class="num">38</span><span>Relación de transformación</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque X — Integración</div>
+<div class="nav-item" onclick="navItemClick(2,17)" data-part="2" data-slide="17"><span class="num">39</span><span>Relación magnetismo-electricidad</span></div>
+<div class="nav-item" onclick="navItemClick(2,18)" data-part="2" data-slide="18"><span class="num">40</span><span>Aplicaciones en el automóvil</span></div>
+<div class="nav-item" onclick="navItemClick(2,19)" data-part="2" data-slide="19"><span class="num">41</span><span>Diagnóstico de averías</span></div>
+<div class="nav-item" onclick="navItemClick(2,20)" data-part="2" data-slide="20"><span class="num">42</span><span>Resumen final</span></div>
+<div class="nav-item" onclick="navItemClick(2,21)" data-part="2" data-slide="21"><span class="num">43</span><span>Actividades de consolidación</span></div>
+</div>
+</nav>
 
-    <main class="main-content" id="main-content">
-        <div class="slide active" id="slide-0">
-            <div class="hero-slide">
-                <div class="hero-badge"><span>⚡</span> Módulo 02</div>
-                <h1 class="hero-title">Generación de<br><span class="gradient-text">Electricidad</span><br>en el Automóvil</h1>
-                <p class="hero-subtitle">Desde los principios físicos de la generación eléctrica hasta las máquinas generadoras y sensores del vehículo moderno.</p>
-                <div class="hero-stats">
-                    <div class="stat"><div class="stat-value">10</div><div class="stat-label">Bloques</div></div>
-                    <div class="stat"><div class="stat-value">43</div><div class="stat-label">Temas</div></div>
-                    <div class="stat"><div class="stat-value">5</div><div class="stat-label">Métodos de generación</div></div>
-                </div>
-                <button class="hero-btn" onclick="goToSlide(1)">Comenzar aprendizaje<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-1">
-            <div class="block-header">
-                <div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
-                <h2 class="block-title">2. Generación termoeléctrica</h2>
-                <p class="block-desc">Conversión directa de energía térmica en energía eléctrica mediante el efecto Seebeck.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>🌡️ Efecto Seebeck</h4>
-                        <ul>
-                            <li>Descubierto por <strong>Thomas Johann Seebeck</strong> en 1821.</li>
-                            <li>Al unir dos metales diferentes y calentar la unión, se genera una <strong>tensión eléctrica</strong>.</li>
-                            <li>La tensión generada es proporcional a la <strong>diferencia de temperatura</strong> entre las uniones.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>🔗 Qué es un termopar</h4>
-                        <ul>
-                            <li>Dispositivo formado por la <strong>unión de dos metales diferentes</strong>.</li>
-                            <li><strong>Unión caliente:</strong> Punto de medida (expuesto a la temperatura).</li>
-                            <li><strong>Unión fría:</strong> Punto de referencia (temperatura ambiente conocida).</li>
-                            <li>La diferencia de temperatura genera una <strong>f.e.m. (fuerza electromotriz)</strong> medible.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>🔩 Materiales empleados</h4>
-                        <ul>
-                            <li><strong>Tipo K (Cromel-Alumel):</strong> -200°C a +1260°C. Muy usado en automoción.</li>
-                            <li><strong>Tipo J (Hierro-Constantán):</strong> -210°C a +760°C.</li>
-                            <li><strong>Tipo T (Cobre-Constantán):</strong> -270°C a +400°C.</li>
-                            <li><strong>Tipo N (Nicrosil-Nisil):</strong> Alta estabilidad a altas temperaturas.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="formula-box">
-                        <div class="formula">V = S × ΔT</div>
-                        <div class="desc">Tensión (V) = Coef. Seebeck (S) × ΔTemperatura (°C)</div>
-                    </div>
-                    <div class="info-box info">
-                        <h5>🚗 Aplicaciones en automoción</h5>
-                        <p>Sensor de temperatura de gases de escape (EGT), sensor de temperatura del catalizador, monitorización de temperatura en motores diésel, y sistemas de recuperación de energía térmica (TEG).</p>
-                    </div>
-                    <div class="terminal">
-                        <div class="terminal-header">
-                            <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-                            <span style="font-size:0.75rem;color:#8b949e;margin-left:8px;">termopar_k.dat</span>
-                        </div>
-                        <div class="terminal-body">
-<span class="output">Tipo: Cromel-Alumel (K)</span><br>
-<span class="output">Rango: -200°C a +1260°C</span><br>
-<span class="output">Sensibilidad: ~41 μV/°C</span><br>
-<span class="output">T_unión_caliente: 850°C</span><br>
-<span class="output">T_unión_fría: 25°C</span><br>
-<span class="output">ΔT = 825°C</span><br>
+<main class="main-content" id="main-content">
+<div class="slide active" id="slide-0">
+<div class="hero-slide">
+<div class="hero-badge"><span>⚡</span> Módulo 02</div>
+<h1 class="hero-title">Generación de<br/><span class="gradient-text">Electricidad</span><br/>en el Automóvil</h1>
+<p class="hero-subtitle">Desde los principios físicos de la generación eléctrica hasta las máquinas generadoras y sensores del vehículo moderno.</p>
+<div class="hero-stats">
+<div class="stat"><div class="stat-value">10</div><div class="stat-label">Bloques</div></div>
+<div class="stat"><div class="stat-value">43</div><div class="stat-label">Temas</div></div>
+<div class="stat"><div class="stat-value">5</div><div class="stat-label">Métodos de generación</div></div>
+</div>
+<button class="hero-btn" onclick="goToSlide(1)">Comenzar aprendizaje<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-1">
+<div class="block-header">
+<div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
+<h2 class="block-title">2. Generación termoeléctrica</h2>
+<p class="block-desc">Conversión directa de energía térmica en energía eléctrica mediante el efecto Seebeck.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🌡️ Efecto Seebeck</h4>
+<ul>
+<li>Descubierto por <strong>Thomas Johann Seebeck</strong> en 1821.</li>
+<li>Al unir dos metales diferentes y calentar la unión, se genera una <strong>tensión eléctrica</strong>.</li>
+<li>La tensión generada es proporcional a la <strong>diferencia de temperatura</strong> entre las uniones.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔗 Qué es un termopar</h4>
+<ul>
+<li>Dispositivo formado por la <strong>unión de dos metales diferentes</strong>.</li>
+<li><strong>Unión caliente:</strong> Punto de medida (expuesto a la temperatura).</li>
+<li><strong>Unión fría:</strong> Punto de referencia (temperatura ambiente conocida).</li>
+<li>La diferencia de temperatura genera una <strong>f.e.m. (fuerza electromotriz)</strong> medible.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔩 Materiales empleados</h4>
+<ul>
+<li><strong>Tipo K (Cromel-Alumel):</strong> -200°C a +1260°C. Muy usado en automoción.</li>
+<li><strong>Tipo J (Hierro-Constantán):</strong> -210°C a +760°C.</li>
+<li><strong>Tipo T (Cobre-Constantán):</strong> -270°C a +400°C.</li>
+<li><strong>Tipo N (Nicrosil-Nisil):</strong> Alta estabilidad a altas temperaturas.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="formula-box">
+<div class="formula">V = S × ΔT</div>
+<div class="desc">Tensión (V) = Coef. Seebeck (S) × ΔTemperatura (°C)</div>
+</div>
+<div class="info-box info">
+<h5>🚗 Aplicaciones en automoción</h5>
+<p>Sensor de temperatura de gases de escape (EGT), sensor de temperatura del catalizador, monitorización de temperatura en motores diésel, y sistemas de recuperación de energía térmica (TEG).</p>
+</div>
+<div class="terminal">
+<div class="terminal-header">
+<div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+<span style="font-size:0.75rem;color:#8b949e;margin-left:8px;">termopar_k.dat</span>
+</div>
+<div class="terminal-body">
+<span class="output">Tipo: Cromel-Alumel (K)</span><br/>
+<span class="output">Rango: -200°C a +1260°C</span><br/>
+<span class="output">Sensibilidad: ~41 μV/°C</span><br/>
+<span class="output">T_unión_caliente: 850°C</span><br/>
+<span class="output">T_unión_fría: 25°C</span><br/>
+<span class="output">ΔT = 825°C</span><br/>
 <span class="output">V_generada = 825 × 41μV = 33.8 mV</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(0)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(2)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-2">
-            <div class="block-header">
-                <div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
-                <h2 class="block-title">3. Generación piezoeléctrica</h2>
-                <p class="block-desc">Conversión de energía mecánica (presión/vibración) en energía eléctrica mediante cristales especiales.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>💎 Efecto piezoeléctrico</h4>
-                        <ul>
-                            <li>Descubierto por los hermanos <strong>Curie</strong> en 1880.</li>
-                            <li>Ciertos cristales generan <strong>tensión eléctrica</strong> al deformarse mecánicamente.</li>
-                            <li>El efecto es <strong>reversible</strong>: aplicar tensión produce deformación (efecto inverso).</li>
-                            <li>La tensión generada es proporcional a la <strong>fuerza aplicada</strong>.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>🔬 Materiales piezoeléctricos</h4>
-                        <ul>
-                            <li><strong>Cuarzo (SiO₂):</strong> El más conocido. Estable y preciso.</li>
-                            <li><strong>Cerámicas PZT:</strong> Plomo-Zirconio-Titanato. Alta sensibilidad.</li>
-                            <li><strong>Titanato de bario:</strong> Cerámica sintética económica.</li>
-                            <li><strong>Polímeros PVDF:</strong> Flexibles, usados en sensores de impacto.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="info-box info">
-                        <h5>💡 Efecto piezoeléctrico inverso</h5>
-                        <p>Si aplicamos tensión a un cristal piezoeléctrico, este se deforma. Este principio se usa en <strong>inyectores piezoeléctricos</strong> de motores diésel modernos, donde la deformación del cristal abre la válvula del inyector con una precisión milimétrica.</p>
-                    </div>
-                    <div class="detail-content">
-                        <h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones en sensores</h4>
-                        <ul>
-                            <li><strong>Sensor de detonación (knock sensor):</strong> Detecta vibraciones anómalas en el motor.</li>
-                            <li><strong>Sensor de presión de combustible:</strong> Mide presión en el rail de inyección.</li>
-                            <li><strong>Sensor de impacto:</strong> Airbags (detecta colisión por vibración).</li>
-                            <li><strong>Inyectores piezoeléctricos:</strong> Control preciso de inyección en motores diésel.</li>
-                            <li><strong>Bujías de encendido:</strong> Generan chispa por compresión mecánica (encendido por compresión).</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(1)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(3)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-3">
-            <div class="block-header">
-                <div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
-                <h2 class="block-title">4. Generación fotoeléctrica</h2>
-                <p class="block-desc">Conversión de energía luminosa (fotones) en energía eléctrica mediante el efecto fotoeléctrico.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>☀️ Efecto fotoeléctrico</h4>
-                        <ul>
-                            <li>Descubierto por <strong>Heinrich Hertz</strong> en 1887; explicado por <strong>Einstein</strong> en 1905 (Premio Nobel).</li>
-                            <li>La luz incidente sobre un material semiconductor libera <strong>electrones</strong>.</li>
-                            <li>Cada fotón con suficiente energía libera un electrón.</li>
-                            <li>La energía del fotón debe superar la <strong>energía de banda prohibida</strong> del material.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>🔆 Células fotovoltaicas</h4>
-                        <ul>
-                            <li>Construidas con <strong>silicio semiconductor</strong> (tipo P y N).</li>
-                            <li>Unión PN que genera una <strong>diferencia de potencial</strong> al recibir luz.</li>
-                            <li>Eficiencia típica: 15-22% en silicio monocristalino.</li>
-                            <li>Se agrupan en módulos para obtener mayor potencia.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="formula-box">
-                        <div class="formula">E = h × f</div>
-                        <div class="desc">Energía fotón (J) = Constante Planck (h) × Frecuencia (Hz)</div>
-                    </div>
-                    <div class="info-box info">
-                        <h5>💡 El silicio como semiconductor</h5>
-                        <p>El silicio tiene una energía de banda de ~1.1 eV, ideal para absorber la mayor parte del espectro solar visible. Las células fotovoltaicas usan una unión PN de silicio dopado para separar los electrones liberados por la luz.</p>
-                    </div>
-                    <div class="detail-content">
-                        <h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones</h4>
-                        <ul>
-                            <li><strong>Paneles solares en vehículos:</strong> Carga auxiliar de batería, ventilación.</li>
-                            <li><strong>Sensores de luz:</strong> Fotodiodos y LDR en sistemas de iluminación automática.</li>
-                            <li><strong>Cargadores solares:</strong> Accesorios para mantenimiento de batería.</li>
-                            <li><strong>Vehículos solares:</strong> Prototipos y competiciones (Solar Challenge).</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(4)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-4">
-            <div class="block-header">
-                <div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
-                <h2 class="block-title">5. Generación electroquímica</h2>
-                <p class="block-desc">Generación de electricidad mediante reacciones químicas que liberan electrones. Base de pilas y baterías.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>⚗️ Reacciones electroquímicas</h4>
-                        <ul>
-                            <li>Conversión de <strong>energía química</strong> en energía eléctrica mediante reacciones de oxidación-reducción.</li>
-                            <li><strong>Ánodo (-):</strong> Dona electrones (oxidación).</li>
-                            <li><strong>Cátodo (+):</strong> Acepta electrones (reducción).</li>
-                            <li><strong>Electrolito:</strong> Medio que permite el movimiento de iones entre ánodo y cátodo.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>🔄 Movimiento de cargas</h4>
-                        <ul>
-                            <li><strong>Iones positivos:</strong> Se mueven hacia el cátodo a través del electrolito.</li>
-                            <li><strong>Iones negativos:</strong> Se mueven hacia el ánodo.</li>
-                            <li><strong>Electrones:</strong> Fluyen por el circuito externo del ánodo al cátodo.</li>
-                            <li>La diferencia de potencial entre ánodo y cátodo es la <strong>tensión de la pila</strong>.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="circuit-diagram">
-                        <div class="circuit-component"><div class="comp-icon" style="border-color:var(--danger);color:var(--danger);">➖</div><div class="comp-label">Ánodo (-)</div></div>
-                        <div class="circuit-arrow">→</div>
-                        <div class="circuit-component"><div class="comp-icon" style="border-color:var(--accent);color:var(--accent);">⚗️</div><div class="comp-label">Electrolito</div></div>
-                        <div class="circuit-arrow">→</div>
-                        <div class="circuit-component"><div class="comp-icon" style="border-color:var(--success);color:var(--success);">➕</div><div class="comp-label">Cátodo (+)</div></div>
-                    </div>
-                    <div class="info-box info">
-                        <h5>🔋 Pilas y baterías</h5>
-                        <p>Una <strong>pila</strong> es una celda electroquímica individual. Una <strong>batería</strong> es un conjunto de celdas conectadas en serie/paralelo. En automoción, las baterías de plomo-ácido tienen 6 celdas de 2.1V cada una, sumando ~12.6V.</p>
-                    </div>
-                    <div class="detail-content">
-                        <h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones en automoción</h4>
-                        <ul>
-                            <li><strong>Batería de plomo-ácido:</strong> Arranque, iluminación, ignición (SLI).</li>
-                            <li><strong>Baterías AGM:</strong> Start-Stop, sistemas híbridos ligeros.</li>
-                            <li><strong>Baterías de ion-litio:</strong> Vehículos híbridos y eléctricos.</li>
-                            <li><strong>Pilas de combustible:</strong> Vehículos de hidrógeno (FCV).</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(3)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(5)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-5">
-            <div class="block-header">
-                <div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
-                <h2 class="block-title">6. Generación electromagnética</h2>
-                <p class="block-desc">El método más importante en automoción: generación de electricidad mediante inducción electromagnética.</p>
-            </div>
-            <div class="detail-content">
-                <h2>Principio de inducción electromagnética</h2>
-                <p class="subtitle">Descubierto por Michael Faraday en 1831. Base del alternador, dinamo y todos los sensores inductivos del vehículo.</p>
-
-                <div class="two-col" style="margin-top:24px;">
-                    <div class="detail-section">
-                        <h4>🧲 Ley de Faraday</h4>
-                        <ul>
-                            <li>Si un <strong>conductor</strong> se mueve dentro de un <strong>campo magnético</strong>, o el campo magnético varía alrededor de un conductor, se induce una <strong>tensión eléctrica</strong> en el conductor.</li>
-                            <li>La tensión inducida es proporcional a la <strong>rapidez de cambio del flujo magnético</strong>.</li>
-                            <li>Más espiras, más campo magnético, o más velocidad = más tensión generada.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>⚡ Condiciones necesarias</h4>
-                        <ul>
-                            <li><strong>Conductor:</strong> Un cable o bobina que pueda transportar corriente.</li>
-                            <li><strong>Campo magnético:</strong> Producido por un imán o electroimán.</li>
-                            <li><strong>Movimiento relativo:</strong> El conductor debe cortar las líneas de fuerza del campo.</li>
-                            <li><strong>Circuito cerrado:</strong> Para que circule corriente inducida.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="formula-box">
-                    <div class="formula">ε = -N × (dΦ/dt)</div>
-                    <div class="desc">f.e.m. inducida = -Número de espiras × (cambio de flujo magnético / tiempo)</div>
-                </div>
-
-                <div class="info-box success">
-                    <h5>🚗 Aplicaciones en automoción</h5>
-                    <p>El alternador del vehículo genera electricidad mediante inducción electromagnética. Un rotor con electroimán gira dentro de un estator con bobinas, generando corriente alterna que luego se rectifica. También es el principio de sensores de cigüeñal, ABS, y generadores de impulsos inductivos.</p>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(4)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(6)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-        <div class="slide" id="slide-6">
-            <div class="block-header">
-                <div class="block-label b2">Bloque II — Magnetismo</div>
-                <h2 class="block-title">7. Conceptos básicos de magnetismo</h2>
-                <p class="block-desc">Fundamentos del magnetismo: imanes, polos, atracción, repulsión y propiedades magnéticas de los materiales.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>🧲 Qué es un imán</h4>
-                        <ul>
-                            <li>Material que produce un <strong>campo magnético</strong> a su alrededor.</li>
-                            <li>Puede ser <strong>natural</strong> (magnetita) o <strong>artificial</strong> (imanes de acero, neodimio).</li>
-                            <li>Los imanes artificiales se crean por frotamiento, contacto o inducción electromagnética.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>🧭 Polos norte y sur</h4>
-                        <ul>
-                            <li>Todo imán tiene dos polos: <strong>norte (N)</strong> y <strong>sur (S)</strong>.</li>
-                            <li>Los polos <strong>iguales se repelen</strong> (N-N, S-S).</li>
-                            <li>Los polos <strong>opuestos se atraen</strong> (N-S).</li>
-                            <li>No existen monopolos magnéticos: si partimos un imán, cada trozo tiene N y S.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="detail-content">
-                        <h4 style="color:var(--accent);margin-bottom:16px;">📋 Propiedades de los imanes</h4>
-                        <ul>
-                            <li><strong>Atracción:</strong> Atraen materiales ferromagnéticos (hierro, níquel, cobalto).</li>
-                            <li><strong>Dirección:</strong> Un imán suspendido libremente se orienta hacia el norte geográfico (brújula).</li>
-                            <li><strong>Inducción:</strong> Un imán puede magnetizar temporalmente un objeto ferromagnético cercano.</li>
-                            <li><strong>Permeabilidad:</strong> Capacidad de un material para concentrar líneas de fuerza magnética.</li>
-                        </ul>
-                    </div>
-                    <div class="info-box info">
-                        <h5>💡 Materiales magnéticos</h5>
-                        <p>No todos los materiales responden al magnetismo. Los <strong>ferromagnéticos</strong> (hierro, níquel, cobalto) se atraen fuertemente. Los <strong>paramagnéticos</strong> (aluminio, platino) se atraen débilmente. Los <strong>diamagnéticos</strong> (cobre, plata, oro) se repelen ligeramente.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(5)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(7)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-7">
-            <div class="block-header">
-                <div class="block-label b2">Bloque II — Magnetismo</div>
-                <h2 class="block-title">8. Campo magnético</h2>
-                <p class="block-desc">Región del espacio donde se manifiestan las fuerzas magnéticas. Representación gráfica e intensidad.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>🌐 Definición</h4>
-                        <ul>
-                            <li>El <strong>campo magnético</strong> es una región del espacio donde una carga en movimiento experimenta una fuerza.</li>
-                            <li>Es un <strong>campo vectorial</strong>: tiene magnitud y dirección en cada punto.</li>
-                            <li>No requiere medio material para propagarse (funciona en el vacío).</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>〰️ Líneas de fuerza</h4>
-                        <ul>
-                            <li>Líneas imaginarias que representan la dirección y sentido del campo.</li>
-                            <li>Salen del <strong>polo norte</strong> y entran por el <strong>polo sur</strong>.</li>
-                            <li>Nunca se cortan entre sí.</li>
-                            <li>Son más densas cerca de los polos (mayor intensidad).</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>📊 Intensidad del campo</h4>
-                        <ul>
-                            <li>Se mide en <strong>Teslas (T)</strong> o <strong>Gauss (G)</strong>. 1 T = 10,000 G.</li>
-                            <li>Campo magnético terrestre: ~50 μT (0.5 G).</li>
-                            <li>Imán de neodimio: ~1.0 - 1.4 T.</li>
-                            <li>Resonancia magnética médica: 1.5 - 3.0 T.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="info-box info">
-                        <h5>🚗 Influencia sobre materiales ferromagnéticos</h5>
-                        <p>En el automóvil, el campo magnético del alternador, bobinas de encendido y electroimanes interactúa con componentes metálicos. Las chapa del vehículo puede concentrar líneas de fuerza, lo que debe considerarse en el diseño de sensores y actuadores.</p>
-                    </div>
-                    <div class="terminal">
-                        <div class="terminal-header">
-                            <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-                            <span style="font-size:0.75rem;color:#8b949e;margin-left:8px;">campo_magnetico.dat</span>
-                        </div>
-                        <div class="terminal-body">
-<span class="output">Campo terrestre:     50 μT</span><br>
-<span class="output">Imán refrigerador:   5 mT</span><br>
-<span class="output">Imán neodimio:       1.2 T</span><br>
-<span class="output">Electroimán coche:   0.5 - 2.0 T</span><br>
-<span class="output">Bobina encendido:    0.1 - 0.5 T</span><br>
+</div>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(0)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(2)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-2">
+<div class="block-header">
+<div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
+<h2 class="block-title">3. Generación piezoeléctrica</h2>
+<p class="block-desc">Conversión de energía mecánica (presión/vibración) en energía eléctrica mediante cristales especiales.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>💎 Efecto piezoeléctrico</h4>
+<ul>
+<li>Descubierto por los hermanos <strong>Curie</strong> en 1880.</li>
+<li>Ciertos cristales generan <strong>tensión eléctrica</strong> al deformarse mecánicamente.</li>
+<li>El efecto es <strong>reversible</strong>: aplicar tensión produce deformación (efecto inverso).</li>
+<li>La tensión generada es proporcional a la <strong>fuerza aplicada</strong>.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔬 Materiales piezoeléctricos</h4>
+<ul>
+<li><strong>Cuarzo (SiO₂):</strong> El más conocido. Estable y preciso.</li>
+<li><strong>Cerámicas PZT:</strong> Plomo-Zirconio-Titanato. Alta sensibilidad.</li>
+<li><strong>Titanato de bario:</strong> Cerámica sintética económica.</li>
+<li><strong>Polímeros PVDF:</strong> Flexibles, usados en sensores de impacto.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="info-box info">
+<h5>💡 Efecto piezoeléctrico inverso</h5>
+<p>Si aplicamos tensión a un cristal piezoeléctrico, este se deforma. Este principio se usa en <strong>inyectores piezoeléctricos</strong> de motores diésel modernos, donde la deformación del cristal abre la válvula del inyector con una precisión milimétrica.</p>
+</div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones en sensores</h4>
+<ul>
+<li><strong>Sensor de detonación (knock sensor):</strong> Detecta vibraciones anómalas en el motor.</li>
+<li><strong>Sensor de presión de combustible:</strong> Mide presión en el rail de inyección.</li>
+<li><strong>Sensor de impacto:</strong> Airbags (detecta colisión por vibración).</li>
+<li><strong>Inyectores piezoeléctricos:</strong> Control preciso de inyección en motores diésel.</li>
+<li><strong>Bujías de encendido:</strong> Generan chispa por compresión mecánica (encendido por compresión).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(1)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(3)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-3">
+<div class="block-header">
+<div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
+<h2 class="block-title">4. Generación fotoeléctrica</h2>
+<p class="block-desc">Conversión de energía luminosa (fotones) en energía eléctrica mediante el efecto fotoeléctrico.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>☀️ Efecto fotoeléctrico</h4>
+<ul>
+<li>Descubierto por <strong>Heinrich Hertz</strong> en 1887; explicado por <strong>Einstein</strong> en 1905 (Premio Nobel).</li>
+<li>La luz incidente sobre un material semiconductor libera <strong>electrones</strong>.</li>
+<li>Cada fotón con suficiente energía libera un electrón.</li>
+<li>La energía del fotón debe superar la <strong>energía de banda prohibida</strong> del material.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔆 Células fotovoltaicas</h4>
+<ul>
+<li>Construidas con <strong>silicio semiconductor</strong> (tipo P y N).</li>
+<li>Unión PN que genera una <strong>diferencia de potencial</strong> al recibir luz.</li>
+<li>Eficiencia típica: 15-22% en silicio monocristalino.</li>
+<li>Se agrupan en módulos para obtener mayor potencia.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="formula-box">
+<div class="formula">E = h × f</div>
+<div class="desc">Energía fotón (J) = Constante Planck (h) × Frecuencia (Hz)</div>
+</div>
+<div class="info-box info">
+<h5>💡 El silicio como semiconductor</h5>
+<p>El silicio tiene una energía de banda de ~1.1 eV, ideal para absorber la mayor parte del espectro solar visible. Las células fotovoltaicas usan una unión PN de silicio dopado para separar los electrones liberados por la luz.</p>
+</div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones</h4>
+<ul>
+<li><strong>Paneles solares en vehículos:</strong> Carga auxiliar de batería, ventilación.</li>
+<li><strong>Sensores de luz:</strong> Fotodiodos y LDR en sistemas de iluminación automática.</li>
+<li><strong>Cargadores solares:</strong> Accesorios para mantenimiento de batería.</li>
+<li><strong>Vehículos solares:</strong> Prototipos y competiciones (Solar Challenge).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(2)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(4)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-4">
+<div class="block-header">
+<div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
+<h2 class="block-title">5. Generación electroquímica</h2>
+<p class="block-desc">Generación de electricidad mediante reacciones químicas que liberan electrones. Base de pilas y baterías.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>⚗️ Reacciones electroquímicas</h4>
+<ul>
+<li>Conversión de <strong>energía química</strong> en energía eléctrica mediante reacciones de oxidación-reducción.</li>
+<li><strong>Ánodo (-):</strong> Dona electrones (oxidación).</li>
+<li><strong>Cátodo (+):</strong> Acepta electrones (reducción).</li>
+<li><strong>Electrolito:</strong> Medio que permite el movimiento de iones entre ánodo y cátodo.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔄 Movimiento de cargas</h4>
+<ul>
+<li><strong>Iones positivos:</strong> Se mueven hacia el cátodo a través del electrolito.</li>
+<li><strong>Iones negativos:</strong> Se mueven hacia el ánodo.</li>
+<li><strong>Electrones:</strong> Fluyen por el circuito externo del ánodo al cátodo.</li>
+<li>La diferencia de potencial entre ánodo y cátodo es la <strong>tensión de la pila</strong>.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="circuit-diagram">
+<div class="circuit-component"><div class="comp-icon" style="border-color:var(--danger);color:var(--danger);">➖</div><div class="comp-label">Ánodo (-)</div></div>
+<div class="circuit-arrow">→</div>
+<div class="circuit-component"><div class="comp-icon" style="border-color:var(--accent);color:var(--accent);">⚗️</div><div class="comp-label">Electrolito</div></div>
+<div class="circuit-arrow">→</div>
+<div class="circuit-component"><div class="comp-icon" style="border-color:var(--success);color:var(--success);">➕</div><div class="comp-label">Cátodo (+)</div></div>
+</div>
+<div class="info-box info">
+<h5>🔋 Pilas y baterías</h5>
+<p>Una <strong>pila</strong> es una celda electroquímica individual. Una <strong>batería</strong> es un conjunto de celdas conectadas en serie/paralelo. En automoción, las baterías de plomo-ácido tienen 6 celdas de 2.1V cada una, sumando ~12.6V.</p>
+</div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones en automoción</h4>
+<ul>
+<li><strong>Batería de plomo-ácido:</strong> Arranque, iluminación, ignición (SLI).</li>
+<li><strong>Baterías AGM:</strong> Start-Stop, sistemas híbridos ligeros.</li>
+<li><strong>Baterías de ion-litio:</strong> Vehículos híbridos y eléctricos.</li>
+<li><strong>Pilas de combustible:</strong> Vehículos de hidrógeno (FCV).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(3)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(5)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-5">
+<div class="block-header">
+<div class="block-label b1">Bloque I — Formas de Generación de Electricidad</div>
+<h2 class="block-title">6. Generación electromagnética</h2>
+<p class="block-desc">El método más importante en automoción: generación de electricidad mediante inducción electromagnética.</p>
+</div>
+<div class="detail-content">
+<h2>Principio de inducción electromagnética</h2>
+<p class="subtitle">Descubierto por Michael Faraday en 1831. Base del alternador, dinamo y todos los sensores inductivos del vehículo.</p>
+<div class="two-col" style="margin-top:24px;">
+<div class="detail-section">
+<h4>🧲 Ley de Faraday</h4>
+<ul>
+<li>Si un <strong>conductor</strong> se mueve dentro de un <strong>campo magnético</strong>, o el campo magnético varía alrededor de un conductor, se induce una <strong>tensión eléctrica</strong> en el conductor.</li>
+<li>La tensión inducida es proporcional a la <strong>rapidez de cambio del flujo magnético</strong>.</li>
+<li>Más espiras, más campo magnético, o más velocidad = más tensión generada.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>⚡ Condiciones necesarias</h4>
+<ul>
+<li><strong>Conductor:</strong> Un cable o bobina que pueda transportar corriente.</li>
+<li><strong>Campo magnético:</strong> Producido por un imán o electroimán.</li>
+<li><strong>Movimiento relativo:</strong> El conductor debe cortar las líneas de fuerza del campo.</li>
+<li><strong>Circuito cerrado:</strong> Para que circule corriente inducida.</li>
+</ul>
+</div>
+</div>
+<div class="formula-box">
+<div class="formula">ε = -N × (dΦ/dt)</div>
+<div class="desc">f.e.m. inducida = -Número de espiras × (cambio de flujo magnético / tiempo)</div>
+</div>
+<div class="info-box success">
+<h5>🚗 Aplicaciones en automoción</h5>
+<p>El alternador del vehículo genera electricidad mediante inducción electromagnética. Un rotor con electroimán gira dentro de un estator con bobinas, generando corriente alterna que luego se rectifica. También es el principio de sensores de cigüeñal, ABS, y generadores de impulsos inductivos.</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(4)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(6)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-6">
+<div class="block-header">
+<div class="block-label b2">Bloque II — Magnetismo</div>
+<h2 class="block-title">7. Conceptos básicos de magnetismo</h2>
+<p class="block-desc">Fundamentos del magnetismo: imanes, polos, atracción, repulsión y propiedades magnéticas de los materiales.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🧲 Qué es un imán</h4>
+<ul>
+<li>Material que produce un <strong>campo magnético</strong> a su alrededor.</li>
+<li>Puede ser <strong>natural</strong> (magnetita) o <strong>artificial</strong> (imanes de acero, neodimio).</li>
+<li>Los imanes artificiales se crean por frotamiento, contacto o inducción electromagnética.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🧭 Polos norte y sur</h4>
+<ul>
+<li>Todo imán tiene dos polos: <strong>norte (N)</strong> y <strong>sur (S)</strong>.</li>
+<li>Los polos <strong>iguales se repelen</strong> (N-N, S-S).</li>
+<li>Los polos <strong>opuestos se atraen</strong> (N-S).</li>
+<li>No existen monopolos magnéticos: si partimos un imán, cada trozo tiene N y S.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">📋 Propiedades de los imanes</h4>
+<ul>
+<li><strong>Atracción:</strong> Atraen materiales ferromagnéticos (hierro, níquel, cobalto).</li>
+<li><strong>Dirección:</strong> Un imán suspendido libremente se orienta hacia el norte geográfico (brújula).</li>
+<li><strong>Inducción:</strong> Un imán puede magnetizar temporalmente un objeto ferromagnético cercano.</li>
+<li><strong>Permeabilidad:</strong> Capacidad de un material para concentrar líneas de fuerza magnética.</li>
+</ul>
+</div>
+<div class="info-box info">
+<h5>💡 Materiales magnéticos</h5>
+<p>No todos los materiales responden al magnetismo. Los <strong>ferromagnéticos</strong> (hierro, níquel, cobalto) se atraen fuertemente. Los <strong>paramagnéticos</strong> (aluminio, platino) se atraen débilmente. Los <strong>diamagnéticos</strong> (cobre, plata, oro) se repelen ligeramente.</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(5)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(7)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-7">
+<div class="block-header">
+<div class="block-label b2">Bloque II — Magnetismo</div>
+<h2 class="block-title">8. Campo magnético</h2>
+<p class="block-desc">Región del espacio donde se manifiestan las fuerzas magnéticas. Representación gráfica e intensidad.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🌐 Definición</h4>
+<ul>
+<li>El <strong>campo magnético</strong> es una región del espacio donde una carga en movimiento experimenta una fuerza.</li>
+<li>Es un <strong>campo vectorial</strong>: tiene magnitud y dirección en cada punto.</li>
+<li>No requiere medio material para propagarse (funciona en el vacío).</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>〰️ Líneas de fuerza</h4>
+<ul>
+<li>Líneas imaginarias que representan la dirección y sentido del campo.</li>
+<li>Salen del <strong>polo norte</strong> y entran por el <strong>polo sur</strong>.</li>
+<li>Nunca se cortan entre sí.</li>
+<li>Son más densas cerca de los polos (mayor intensidad).</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📊 Intensidad del campo</h4>
+<ul>
+<li>Se mide en <strong>Teslas (T)</strong> o <strong>Gauss (G)</strong>. 1 T = 10,000 G.</li>
+<li>Campo magnético terrestre: ~50 μT (0.5 G).</li>
+<li>Imán de neodimio: ~1.0 - 1.4 T.</li>
+<li>Resonancia magnética médica: 1.5 - 3.0 T.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="info-box info">
+<h5>🚗 Influencia sobre materiales ferromagnéticos</h5>
+<p>En el automóvil, el campo magnético del alternador, bobinas de encendido y electroimanes interactúa con componentes metálicos. Las chapa del vehículo puede concentrar líneas de fuerza, lo que debe considerarse en el diseño de sensores y actuadores.</p>
+</div>
+<div class="terminal">
+<div class="terminal-header">
+<div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+<span style="font-size:0.75rem;color:#8b949e;margin-left:8px;">campo_magnetico.dat</span>
+</div>
+<div class="terminal-body">
+<span class="output">Campo terrestre:     50 μT</span><br/>
+<span class="output">Imán refrigerador:   5 mT</span><br/>
+<span class="output">Imán neodimio:       1.2 T</span><br/>
+<span class="output">Electroimán coche:   0.5 - 2.0 T</span><br/>
+<span class="output">Bobina encendido:    0.1 - 0.5 T</span><br/>
 <span class="output">Alternador (rotor):  0.2 - 0.8 T</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(6)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(8)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-8">
-            <div class="block-header">
-                <div class="block-label b2">Bloque II — Magnetismo</div>
-                <h2 class="block-title">9. Clasificación de materiales</h2>
-                <p class="block-desc">Según su respuesta al campo magnético: ferromagnéticos, paramagnéticos y diamagnéticos.</p>
-            </div>
-            <div class="detail-content">
-                <h2>Tipos de materiales según su comportamiento magnético</h2>
-                <p class="subtitle">La respuesta de un material al campo magnético depende de la estructura atómica y de sus electrones desapareados</p>
-                <table class="data-table">
-                    <thead><tr><th>Tipo</th><th>Comportamiento</th><th>Ejemplos</th><th>Aplicación en automoción</th></tr></thead>
-                    <tbody>
-                        <tr>
-                            <td><strong style="color:var(--danger)">Ferromagnéticos</strong></td>
-                            <td>Se atraen fuertemente. Pueden magnetizarse permanentemente. Alta permeabilidad.</td>
-                            <td>Hierro, níquel, cobalto, acero, ferritas</td>
-                            <td>Núcleos de bobinas, imanes de alternador, chasis, electroimanes</td>
-                        </tr>
-                        <tr>
-                            <td><strong style="color:var(--accent)">Paramagnéticos</strong></td>
-                            <td>Se atraen débilmente. No retienen magnetización. Alinean momentos magnéticos parcialmente.</td>
-                            <td>Aluminio, platino, oxígeno, magnesio</td>
-                            <td>Aleaciones ligeras de carrocería (no interfieren con sensores)</td>
-                        </tr>
-                        <tr>
-                            <td><strong style="color:var(--primary)">Diamagnéticos</strong></td>
-                            <td>Se repelen ligeramente. No retienen magnetización. Oponen resistencia al campo.</td>
-                            <td>Cobre, plata, oro, plomo, agua, bismuto</td>
-                            <td>Cables eléctricos (cobre), contactos eléctricos (oro, plata)</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="info-box warning" style="margin-top:24px;">
-                    <h5>⚠️ Importancia en diagnóstico</h5>
-                    <p>Los sensores de efecto Hall detectan materiales ferromagnéticos (dientes de engranaje, imanes). Los sensores inductivos detectan cualquier material conductor que corte líneas de fuerza. Saber qué material estamos detectando es clave para elegir el sensor adecuado.</p>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(7)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(9)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-9">
-            <div class="block-header">
-                <div class="block-label b3">Bloque III — Electromagnetismo</div>
-                <h2 class="block-title">10. Inducción magnética</h2>
-                <p class="block-desc">Cómo un material ferromagnético se magnetiza al entrar en contacto con un campo magnético externo.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>🧲 Imantación temporal</h4>
-                        <ul>
-                            <li>Un material ferromagnético se <strong>magnetiza temporalmente</strong> al acercarlo a un imán.</li>
-                            <li>Al alejar el imán, el material pierde (parcialmente) su magnetización.</li>
-                            <li>El <strong>hierro dulce</strong> se magnetiza y desmagnetiza fácilmente.</li>
-                            <li>Ideal para <strong>núcleos de electroimanes</strong> y transformadores.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>🔒 Imantación permanente</h4>
-                        <ul>
-                            <li>Un material ferromagnético puede retener la magnetización de forma <strong>permanente</strong>.</li>
-                            <li>El <strong>acero</strong> y las aleaciones especiales (alnico, ferrita, neodimio) retienen el magnetismo.</li>
-                            <li>El <strong>magnetismo remanente</strong> es la magnetización que queda tras retirar el campo externo.</li>
-                            <li>Los imanes permanentes del alternador y sensores usan este principio.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="info-box info">
-                        <h5>💡 Hierro dulce vs Acero</h5>
-                        <p>El <strong>hierro dulce</strong> tiene baja retentividad: se magnetiza y desmagnetiza fácilmente. Perfecto para electroimanes que deben activarse/desactivarse rápidamente. El <strong>acero</strong> tiene alta retentividad: una vez magnetizado, mantiene el magnetismo. Ideal para imanes permanentes.</p>
-                    </div>
-                    <div class="detail-content">
-                        <h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones</h4>
-                        <ul>
-                            <li><strong>Núcleo de bobina de encendido:</strong> Hierro dulce para concentrar campo.</li>
-                            <li><strong>Imanes de alternador:</strong> Ferrita o neodimio (imantación permanente).</li>
-                            <li><strong>Núcleo de transformador:</strong> Láminas de hierro dulce (reducen pérdidas).</li>
-                            <li><strong>Imanes de sensores:</strong> Neodimio para campo intenso y estable.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(8)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(10)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-10">
-            <div class="block-header">
-                <div class="block-label b3">Bloque III — Electromagnetismo</div>
-                <h2 class="block-title">11. Campo magnético producido por la corriente</h2>
-                <p class="block-desc">Toda corriente eléctrica genera un campo magnético a su alrededor. Relación fundamental entre electricidad y magnetismo.</p>
-            </div>
-            <div class="detail-content">
-                <h2>Relación entre electricidad y magnetismo</h2>
-                <p class="subtitle">Un descubrimiento que revolucionó la física y la tecnología del siglo XIX</p>
-
-                <div class="two-col" style="margin-top:24px;">
-                    <div class="detail-section">
-                        <h4>⚡ Campo alrededor de un conductor</h4>
-                        <ul>
-                            <li>Un conductor por el que circula corriente genera un <strong>campo magnético circular</strong> a su alrededor.</li>
-                            <li>Las líneas de fuerza son <strong>circunferencias concéntricas</strong> alrededor del conductor.</li>
-                            <li>La <strong>dirección</strong> del campo se determina con la <strong>regla de la mano derecha</strong>.</li>
-                            <li>Mayor intensidad de corriente = campo magnético más intenso.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>📐 Regla de la mano derecha</h4>
-                        <ul>
-                            <li><strong>Pulgar:</strong> Dirección de la corriente (de + a -).</li>
-                            <li><strong>Dedos curvados:</strong> Dirección del campo magnético (sentido horario/antihorario).</li>
-                            <li>Si la corriente sube (↑), el campo es antihorario visto desde arriba.</li>
-                            <li>Si la corriente baja (↓), el campo es horario visto desde arriba.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="info-box info">
-                    <h5>💡 Influencia de la intensidad</h5>
-                    <p>La intensidad del campo magnético es directamente proporcional a la <strong>intensidad de corriente</strong> que circula por el conductor. Duplicar la corriente duplica el campo. Este principio permite controlar electroimanes variando la corriente de su bobina.</p>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(9)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(11)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-11">
-            <div class="block-header">
-                <div class="block-label b3">Bloque III — Electromagnetismo</div>
-                <h2 class="block-title">12. Experimento de Oersted</h2>
-                <p class="block-desc">El experimento que demostró por primera vez la relación entre electricidad y magnetismo (1820).</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>🔬 El descubrimiento</h4>
-                        <ul>
-                            <li><strong>Hans Christian Oersted</strong> observó que una brújula cerca de un conductor con corriente se <strong>desviaba</strong>.</li>
-                            <li>La aguja magnética se orientaba <strong>perpendicularmente</strong> al conductor.</li>
-                            <li>Al invertir la corriente, la aguja giraba en <strong>sentido contrario</strong>.</li>
-                            <li>Al cortar la corriente, la aguja volvía a señalar el norte geográfico.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>📖 Importancia histórica</h4>
-                        <ul>
-                            <li>Demostró que la <strong>electricidad y el magnetismo</strong> son dos manifestaciones de un mismo fenómeno: el <strong>electromagnetismo</strong>.</li>
-                            <li>Abrió el camino para el desarrollo de motores, generadores y toda la electrónica moderna.</li>
-                            <li>Permitió a Faraday descubrir la inducción electromagnética 11 años después.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="info-box info">
-                        <h5>🚗 Relevancia en automoción</h5>
-                        <p>El experimento de Oersted es la base de todos los electroimanes del vehículo: bobinas de encendido, relés, electroválvulas, alternador, motor de arranque. Sin este descubrimiento, el automóvil moderno no existiría.</p>
-                    </div>
-                    <div class="terminal">
-                        <div class="terminal-header">
-                            <div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
-                            <span style="font-size:0.75rem;color:#8b949e;margin-left:8px;">experimento_oersted.log</span>
-                        </div>
-                        <div class="terminal-body">
-<span class="output">Experimento: Oersted (1820)</span><br>
-<span class="output">Conductor: Cable sobre brújula</span><br>
-<span class="output">Estado inicial: I = 0A</span><br>
-<span class="output">→ Aguja apunta al Norte geográfico</span><br>
-<br>
-<span class="output">Aplicar corriente: I = 2A</span><br>
-<span class="output">→ Aguja gira 90° (perpendicular)</span><br>
-<span class="output">→ Campo magnético detectado ✓</span><br>
-<br>
-<span class="output">Invertir corriente: I = -2A</span><br>
-<span class="output">→ Aguña gira -90° (sentido opuesto)</span><br>
+</div>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(6)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(8)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-8">
+<div class="block-header">
+<div class="block-label b2">Bloque II — Magnetismo</div>
+<h2 class="block-title">9. Clasificación de materiales</h2>
+<p class="block-desc">Según su respuesta al campo magnético: ferromagnéticos, paramagnéticos y diamagnéticos.</p>
+</div>
+<div class="detail-content">
+<h2>Tipos de materiales según su comportamiento magnético</h2>
+<p class="subtitle">La respuesta de un material al campo magnético depende de la estructura atómica y de sus electrones desapareados</p>
+<table class="data-table">
+<thead><tr><th>Tipo</th><th>Comportamiento</th><th>Ejemplos</th><th>Aplicación en automoción</th></tr></thead>
+<tbody>
+<tr>
+<td><strong style="color:var(--danger)">Ferromagnéticos</strong></td>
+<td>Se atraen fuertemente. Pueden magnetizarse permanentemente. Alta permeabilidad.</td>
+<td>Hierro, níquel, cobalto, acero, ferritas</td>
+<td>Núcleos de bobinas, imanes de alternador, chasis, electroimanes</td>
+</tr>
+<tr>
+<td><strong style="color:var(--accent)">Paramagnéticos</strong></td>
+<td>Se atraen débilmente. No retienen magnetización. Alinean momentos magnéticos parcialmente.</td>
+<td>Aluminio, platino, oxígeno, magnesio</td>
+<td>Aleaciones ligeras de carrocería (no interfieren con sensores)</td>
+</tr>
+<tr>
+<td><strong style="color:var(--primary)">Diamagnéticos</strong></td>
+<td>Se repelen ligeramente. No retienen magnetización. Oponen resistencia al campo.</td>
+<td>Cobre, plata, oro, plomo, agua, bismuto</td>
+<td>Cables eléctricos (cobre), contactos eléctricos (oro, plata)</td>
+</tr>
+</tbody>
+</table>
+<div class="info-box warning" style="margin-top:24px;">
+<h5>⚠️ Importancia en diagnóstico</h5>
+<p>Los sensores de efecto Hall detectan materiales ferromagnéticos (dientes de engranaje, imanes). Los sensores inductivos detectan cualquier material conductor que corte líneas de fuerza. Saber qué material estamos detectando es clave para elegir el sensor adecuado.</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(7)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(9)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-9">
+<div class="block-header">
+<div class="block-label b3">Bloque III — Electromagnetismo</div>
+<h2 class="block-title">10. Inducción magnética</h2>
+<p class="block-desc">Cómo un material ferromagnético se magnetiza al entrar en contacto con un campo magnético externo.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🧲 Imantación temporal</h4>
+<ul>
+<li>Un material ferromagnético se <strong>magnetiza temporalmente</strong> al acercarlo a un imán.</li>
+<li>Al alejar el imán, el material pierde (parcialmente) su magnetización.</li>
+<li>El <strong>hierro dulce</strong> se magnetiza y desmagnetiza fácilmente.</li>
+<li>Ideal para <strong>núcleos de electroimanes</strong> y transformadores.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔒 Imantación permanente</h4>
+<ul>
+<li>Un material ferromagnético puede retener la magnetización de forma <strong>permanente</strong>.</li>
+<li>El <strong>acero</strong> y las aleaciones especiales (alnico, ferrita, neodimio) retienen el magnetismo.</li>
+<li>El <strong>magnetismo remanente</strong> es la magnetización que queda tras retirar el campo externo.</li>
+<li>Los imanes permanentes del alternador y sensores usan este principio.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="info-box info">
+<h5>💡 Hierro dulce vs Acero</h5>
+<p>El <strong>hierro dulce</strong> tiene baja retentividad: se magnetiza y desmagnetiza fácilmente. Perfecto para electroimanes que deben activarse/desactivarse rápidamente. El <strong>acero</strong> tiene alta retentividad: una vez magnetizado, mantiene el magnetismo. Ideal para imanes permanentes.</p>
+</div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones</h4>
+<ul>
+<li><strong>Núcleo de bobina de encendido:</strong> Hierro dulce para concentrar campo.</li>
+<li><strong>Imanes de alternador:</strong> Ferrita o neodimio (imantación permanente).</li>
+<li><strong>Núcleo de transformador:</strong> Láminas de hierro dulce (reducen pérdidas).</li>
+<li><strong>Imanes de sensores:</strong> Neodimio para campo intenso y estable.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(8)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(10)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-10">
+<div class="block-header">
+<div class="block-label b3">Bloque III — Electromagnetismo</div>
+<h2 class="block-title">11. Campo magnético producido por la corriente</h2>
+<p class="block-desc">Toda corriente eléctrica genera un campo magnético a su alrededor. Relación fundamental entre electricidad y magnetismo.</p>
+</div>
+<div class="detail-content">
+<h2>Relación entre electricidad y magnetismo</h2>
+<p class="subtitle">Un descubrimiento que revolucionó la física y la tecnología del siglo XIX</p>
+<div class="two-col" style="margin-top:24px;">
+<div class="detail-section">
+<h4>⚡ Campo alrededor de un conductor</h4>
+<ul>
+<li>Un conductor por el que circula corriente genera un <strong>campo magnético circular</strong> a su alrededor.</li>
+<li>Las líneas de fuerza son <strong>circunferencias concéntricas</strong> alrededor del conductor.</li>
+<li>La <strong>dirección</strong> del campo se determina con la <strong>regla de la mano derecha</strong>.</li>
+<li>Mayor intensidad de corriente = campo magnético más intenso.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📐 Regla de la mano derecha</h4>
+<ul>
+<li><strong>Pulgar:</strong> Dirección de la corriente (de + a -).</li>
+<li><strong>Dedos curvados:</strong> Dirección del campo magnético (sentido horario/antihorario).</li>
+<li>Si la corriente sube (↑), el campo es antihorario visto desde arriba.</li>
+<li>Si la corriente baja (↓), el campo es horario visto desde arriba.</li>
+</ul>
+</div>
+</div>
+<div class="info-box info">
+<h5>💡 Influencia de la intensidad</h5>
+<p>La intensidad del campo magnético es directamente proporcional a la <strong>intensidad de corriente</strong> que circula por el conductor. Duplicar la corriente duplica el campo. Este principio permite controlar electroimanes variando la corriente de su bobina.</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(9)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(11)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-11">
+<div class="block-header">
+<div class="block-label b3">Bloque III — Electromagnetismo</div>
+<h2 class="block-title">12. Experimento de Oersted</h2>
+<p class="block-desc">El experimento que demostró por primera vez la relación entre electricidad y magnetismo (1820).</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🔬 El descubrimiento</h4>
+<ul>
+<li><strong>Hans Christian Oersted</strong> observó que una brújula cerca de un conductor con corriente se <strong>desviaba</strong>.</li>
+<li>La aguja magnética se orientaba <strong>perpendicularmente</strong> al conductor.</li>
+<li>Al invertir la corriente, la aguja giraba en <strong>sentido contrario</strong>.</li>
+<li>Al cortar la corriente, la aguja volvía a señalar el norte geográfico.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📖 Importancia histórica</h4>
+<ul>
+<li>Demostró que la <strong>electricidad y el magnetismo</strong> son dos manifestaciones de un mismo fenómeno: el <strong>electromagnetismo</strong>.</li>
+<li>Abrió el camino para el desarrollo de motores, generadores y toda la electrónica moderna.</li>
+<li>Permitió a Faraday descubrir la inducción electromagnética 11 años después.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="info-box info">
+<h5>🚗 Relevancia en automoción</h5>
+<p>El experimento de Oersted es la base de todos los electroimanes del vehículo: bobinas de encendido, relés, electroválvulas, alternador, motor de arranque. Sin este descubrimiento, el automóvil moderno no existiría.</p>
+</div>
+<div class="terminal">
+<div class="terminal-header">
+<div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div>
+<span style="font-size:0.75rem;color:#8b949e;margin-left:8px;">experimento_oersted.log</span>
+</div>
+<div class="terminal-body">
+<span class="output">Experimento: Oersted (1820)</span><br/>
+<span class="output">Conductor: Cable sobre brújula</span><br/>
+<span class="output">Estado inicial: I = 0A</span><br/>
+<span class="output">→ Aguja apunta al Norte geográfico</span><br/>
+<br/>
+<span class="output">Aplicar corriente: I = 2A</span><br/>
+<span class="output">→ Aguja gira 90° (perpendicular)</span><br/>
+<span class="output">→ Campo magnético detectado ✓</span><br/>
+<br/>
+<span class="output">Invertir corriente: I = -2A</span><br/>
+<span class="output">→ Aguña gira -90° (sentido opuesto)</span><br/>
 <span class="output">→ Relación electricidad-magnetismo ✓</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(10)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(12)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
+</div>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(10)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(12)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-12">
+<div class="block-header">
+<div class="block-label b3">Bloque III — Electromagnetismo</div>
+<h2 class="block-title">13. Espira</h2>
+<p class="block-desc">Una espira de conductor por la que circula corriente genera un campo magnético con polos definidos.</p>
+</div>
+<div class="detail-content">
+<h2>Campo magnético de una espira</h2>
+<p class="subtitle">La espira es la unidad básica de todo electroimán, bobina y solenoide</p>
+<div class="two-col" style="margin-top:24px;">
+<div class="detail-section">
+<h4>🔄 Campo magnético generado</h4>
+<ul>
+<li>Una espira es un conductor en forma de <strong>anillo o círculo</strong>.</li>
+<li>El campo magnético se concentra en el <strong>centro de la espira</strong>.</li>
+<li>Las líneas de fuerza atraviesan el plano de la espira y forman bucles cerrados.</li>
+<li>La intensidad del campo en el centro es proporcional a la corriente e inversamente proporcional al radio.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🧭 Polaridad y sentido</h4>
+<ul>
+<li>La espira tiene un <strong>polo norte</strong> y un <strong>polo sur</strong> definidos.</li>
+<li><strong>Regla de la mano derecha:</strong> Dedos en sentido de la corriente, pulgar indica el polo norte.</li>
+<li>Si la corriente circula en sentido horario (visto desde arriba), el polo norte está abajo.</li>
+<li>Si la corriente es antihoraria, el polo norte está arriba.</li>
+</ul>
+</div>
+</div>
+<div class="formula-box">
+<div class="formula">B = (μ₀ × I) / (2 × r)</div>
+<div class="desc">Campo en centro de espira = (Permeabilidad del vacío × Intensidad) / (2 × radio)</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(11)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(13)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-13">
+<div class="block-header">
+<div class="block-label b3">Bloque III — Electromagnetismo</div>
+<h2 class="block-title">14. Solenoide</h2>
+<p class="block-desc">Conjunto de espiras enrolladas que multiplica el campo magnético y lo hace uniforme en su interior.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🌀 Formación mediante varias espiras</h4>
+<ul>
+<li>Un solenoide es una <strong>bobina de muchas espiras</strong> enrolladas en un cilindro.</li>
+<li>Cada espira contribuye al campo magnético total.</li>
+<li>El campo de todas las espiras se <strong>suma</strong>, creando un campo mucho más intenso que una sola espira.</li>
+<li>Más espiras = campo más intenso (proporcional al número de espiras).</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📐 Distribución de líneas de fuerza</h4>
+<ul>
+<li>Dentro del solenoide, el campo es <strong>uniforme y paralelo</strong> al eje.</li>
+<li>Fuera del solenoide, las líneas se cierran formando bucles.</li>
+<li>Se comporta como un <strong>imán con polos norte y sur</strong> en sus extremos.</li>
+<li>La intensidad del campo interior es: B = μ₀ × n × I (n = espiras por unidad de longitud).</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="formula-box">
+<div class="formula">B = μ₀ × N × I / L</div>
+<div class="desc">Campo interior = μ₀ × Número de espiras × Intensidad / Longitud del solenoide</div>
+</div>
+<div class="info-box info">
+<h5>💡 ¿Por qué un núcleo ferromagnético?</h5>
+<p>Insertar un núcleo de hierro dentro del solenoide <strong>multiplica el campo magnético</strong> por cientos o miles de veces, porque el hierro concentra las líneas de fuerza. Esto convierte al solenoide en un <strong>electroimán</strong>.</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(12)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(14)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-14">
+<div class="block-header">
+<div class="block-label b3">Bloque III — Electromagnetismo</div>
+<h2 class="block-title">15. Electroimán</h2>
+<p class="block-desc">Solenoide con núcleo ferromagnético que genera un campo magnético intenso y controlable.</p>
+</div>
+<div class="detail-content">
+<h2>Constitución y funcionamiento del electroimán</h2>
+<p class="subtitle">El componente clave de relés, electroválvulas, bobinas de encendido y alternadores</p>
+<div class="two-col" style="margin-top:24px;">
+<div class="detail-section">
+<h4>🏗️ Constitución</h4>
+<ul>
+<li><strong>Bobina:</strong> Conductor aislado enrollado alrededor del núcleo.</li>
+<li><strong>Núcleo ferromagnético:</strong> Hierro dulce o material de alta permeabilidad.</li>
+<li><strong>Armadura móvil:</strong> Pieza ferromagnética que se atrae al activarse.</li>
+<li><strong>Retorno de resorte:</strong> Devuelve la armadura a su posición inicial.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>⚡ Factores que afectan a su fuerza</h4>
+<ul>
+<li><strong>Intensidad eléctrica:</strong> Más corriente = campo más intenso.</li>
+<li><strong>Número de espiras:</strong> Más espiras = campo más intenso.</li>
+<li><strong>Material del núcleo:</strong> Hierro dulce concentra mejor el campo que el aire.</li>
+<li><strong>Longitud del núcleo:</strong> Más corto = campo más concentrado.</li>
+</ul>
+</div>
+</div>
+<div class="info-box info">
+<h5>🚗 Aplicaciones en el automóvil</h5>
+<p>Los electroimanes están en casi todos los sistemas del vehículo: <strong>relés</strong> (control de luces, ventiladores), <strong>electroválvulas</strong> (inyectores, EGR, válvula ralentí), <strong>bobinas de encendido</strong> (generan la chispa), <strong>motor de arranque</strong> (gira el motor), <strong>alternador</strong> (genera electricidad).</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(13)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(15)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-15">
+<div class="block-header">
+<div class="block-label b3">Bloque III — Electromagnetismo</div>
+<h2 class="block-title">16. Bobinas</h2>
+<p class="block-desc">Construcción, aislamiento y aplicaciones de las bobinas en los sistemas del automóvil.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🏗️ Construcción</h4>
+<ul>
+<li><strong>Conductor:</strong> Hilo de cobre esmaltado (aislante de barniz).</li>
+<li><strong>Núcleo:</strong> Hierro dulce, ferrita o aire (según aplicación).</li>
+<li><strong>Capas:</strong> El hilo se enrolla en capas para maximizar el número de espiras.</li>
+<li><strong>Carreta:</strong> Soporte estructural que mantiene la forma de la bobina.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🛡️ Aislamiento</h4>
+<ul>
+<li>Cada vuelta de hilo está aislada del resto con <strong>barniz dieléctrico</strong>.</li>
+<li>Entre capas se coloca papel o cinta aislante.</li>
+<li>La bobina completa se impregna en resina para resistir humedad y vibraciones.</li>
+<li>El calor excesivo degrada el aislamiento: causa de avería frecuente.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones en el automóvil</h4>
+<ul>
+<li><strong>Bobina de encendido:</strong> Genera 20,000-40,000V para la chispa de las bujías.</li>
+<li><strong>Bobina del alternador:</strong> Estator trifásico que genera corriente alterna.</li>
+<li><strong>Bobina del relé:</strong> Electroimán que acciona los contactos.</li>
+<li><strong>Bobina de válvula solenoide:</strong> Abre/cierra válvulas de fluidos.</li>
+<li><strong>Bobina del motor de arranque:</strong> Campo magnético que gira el rotor.</li>
+<li><strong>Transformador de encendido:</strong> Eleva la tensión para CDI.</li>
+</ul>
+</div>
+<div class="info-box warning">
+<h5>⚠️ Avería común: cortocircuito de bobina</h5>
+<p>El calor, la humedad y el tiempo degradan el barniz aislante. Cuando dos vueltas entran en contacto, se produce un <strong>cortocircuito interno</strong> que reduce drásticamente la inductancia. Síntoma: fallo de encendido, motor que no arranca, relé que no actúa.</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(14)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(16)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-16">
+<div class="block-header">
+<div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
+<h2 class="block-title">17. Principio de inducción electromagnética</h2>
+<p class="block-desc">Descubrimiento de Faraday: un campo magnético variable induce una corriente eléctrica en un conductor.</p>
+</div>
+<div class="detail-content">
+<h2>El descubrimiento de Faraday (1831)</h2>
+<p class="subtitle">Una de las leyes fundamentales de la física, base de toda la generación de electricidad moderna</p>
+<div class="two-col" style="margin-top:24px;">
+<div class="detail-section">
+<h4>🧲 Campo magnético variable</h4>
+<ul>
+<li>Faraday descubrió que al <strong>mover un imán</strong> dentro de una bobina, se generaba corriente.</li>
+<li>La corriente solo aparecía cuando el <strong>flujo magnético cambiaba</strong>.</li>
+<li>Si el imán estaba quieto, no había corriente.</li>
+<li>Más rápido el movimiento = más intensidad de corriente.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>⚡ Corriente inducida</h4>
+<ul>
+<li>La corriente generada se llama <strong>corriente inducida</strong>.</li>
+<li>La tensión que la produce es la <strong>fuerza electromotriz inducida (f.e.m.)</strong>.</li>
+<li>El sentido de la corriente inducida se opone al cambio de flujo (<strong>ley de Lenz</strong>).</li>
+<li>El signo negativo en la fórmula de Faraday representa esta oposición.</li>
+</ul>
+</div>
+</div>
+<div class="formula-box">
+<div class="formula">ε = -N × (ΔΦ / Δt)</div>
+<div class="desc">f.e.m. inducida = -Número de espiras × (cambio de flujo magnético / tiempo)</div>
+</div>
+<div class="info-box success">
+<h5>🚗 Relevancia en automoción</h5>
+<p>Este principio es la base del <strong>alternador</strong>: el rotor (electroimán) gira dentro del estator (bobinas), variando continuamente el flujo magnético e induciendo corriente alterna trifásica. También es el principio de los <strong>sensores inductivos</strong> de cigüeñal, ABS y árbol de levas.</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(15)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(17)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-17">
+<div class="block-header">
+<div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
+<h2 class="block-title">18. Condiciones para generar electricidad</h2>
+<p class="block-desc">Tres requisitos indispensables para que se produzca inducción electromagnética.</p>
+</div>
+<div class="cards-grid">
+<div class="card">
+<div class="card-icon i1">🔌</div>
+<h3>1. Existencia de un conductor</h3>
+<p>Se necesita un material conductor (cobre, aluminio) por el que pueda circular la corriente inducida. Puede ser un cable simple o una bobina con múltiples espiras.</p>
+<div class="card-topics"><span class="topic-tag">Cable de cobre</span><span class="topic-tag">Bobina</span><span class="topic-tag">Estator</span></div>
+</div>
+<div class="card">
+<div class="card-icon i2">🧲</div>
+<h3>2. Existencia de un campo magnético</h3>
+<p>Debe haber un campo magnético presente, generado por un imán permanente o un electroimán (como el rotor del alternador).</p>
+<div class="card-topics"><span class="topic-tag">Imán permanente</span><span class="topic-tag">Electroimán</span><span class="topic-tag">Rotor</span></div>
+</div>
+<div class="card">
+<div class="card-icon i3">🔄</div>
+<h3>3. Movimiento relativo</h3>
+<p>El conductor debe <strong>cortar las líneas de fuerza</strong> del campo magnético. Puede ser movimiento del conductor, del campo, o variación de intensidad del campo.</p>
+<div class="card-topics"><span class="topic-tag">Giro</span><span class="topic-tag">Traslación</span><span class="topic-tag">Variación de campo</span></div>
+</div>
+</div>
+<div class="info-box info" style="margin-top:24px;">
+<h5>💡 Corte de líneas de fuerza</h5>
+<p>La inducción solo ocurre cuando hay <strong>movimiento relativo</strong> entre conductor y campo. Si ambos están quietos, no hay cambio de flujo y no se genera corriente. Esto explica por qué el alternador necesita que el motor esté en marcha: el rotor debe girar para cortar las líneas de fuerza del estator.</p>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(16)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(18)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-18">
+<div class="block-header">
+<div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
+<h2 class="block-title">19. Sentido de la corriente inducida</h2>
+<p class="block-desc">La regla de la mano derecha permite determinar la dirección de la corriente generada.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>✋ Regla de la mano derecha</h4>
+<ul>
+<li><strong>Pulgar:</strong> Dirección del <strong>movimiento</strong> del conductor.</li>
+<li><strong>Índice:</strong> Dirección del <strong>campo magnético</strong> (N → S).</li>
+<li><strong>Corazón/medio:</strong> Dirección de la <strong>corriente inducida</strong>.</li>
+<li>Los tres dedos son perpendiculares entre sí, como los ejes X, Y, Z.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📐 Aplicación práctica</h4>
+<ul>
+<li>Si el conductor se mueve hacia <strong>arriba</strong> y el campo va de <strong>izquierda a derecha</strong>...</li>
+<li>...la corriente inducida circulará <strong>hacia fuera</strong> de la pantalla (hacia el observador).</li>
+<li>Si invertimos la dirección del movimiento, la corriente invierte su sentido.</li>
+<li>Si invertimos el campo magnético, la corriente también invierte.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="info-box info">
+<h5>💡 Ley de Lenz</h5>
+<p>La corriente inducida siempre fluye en un sentido tal que <strong>se opone al cambio de flujo</strong> que la produce. Si acercamos un imán norte a una bobina, la corriente inducida creará un polo norte que repele al imán. Si lo alejamos, creará un polo sur que atrae al imán. Esto explica el signo negativo en la fórmula de Faraday.</p>
+</div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicación en sensores</h4>
+<ul>
+<li><strong>Sensor de cigüeñal inductivo:</strong> Los dientes del volante de inercia cortan el campo del sensor. La polaridad de la señal indica la dirección del corte.</li>
+<li><strong>Alternador:</strong> El sentido de la corriente en cada fase del estator depende de la posición del rotor.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(17)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(19)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-19">
+<div class="block-header">
+<div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
+<h2 class="block-title">20. Fuerza electromotriz (f.e.m.)</h2>
+<p class="block-desc">Tensión generada en un conductor al cortar líneas de fuerza de un campo magnético. Variación del voltaje en una espira en rotación.</p>
+</div>
+<div class="detail-content">
+<h2>Generación de f.e.m. en una espira en rotación</h2>
+<p class="subtitle">Al girar una espira dentro de un campo magnético, la tensión generada varía de forma sinusoidal</p>
+<div class="two-col" style="margin-top:24px;">
+<div class="detail-section">
+<h4>🔄 Giro de 360°</h4>
+<ul>
+<li><strong>0°:</strong> La espira es paralela al campo. Velocidad de corte máxima → <strong>f.e.m. máxima</strong>.</li>
+<li><strong>90°:</strong> La espira es perpendicular al campo. No corta líneas → <strong>f.e.m. = 0</strong>.</li>
+<li><strong>180°:</strong> Paralela de nuevo, pero sentido invertido → <strong>f.e.m. máxima negativa</strong>.</li>
+<li><strong>270°:</strong> Perpendicular → <strong>f.e.m. = 0</strong>.</li>
+<li><strong>360°:</strong> Vuelta completa, ciclo repetido.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📊 Representación gráfica</h4>
+<ul>
+<li>La f.e.m. generada sigue una <strong>función senoidal</strong>: V = Vmax × sin(θ).</li>
+<li><strong>Vmax</strong> depende de: campo magnético (B), área de la espira (A), velocidad angular (ω) y número de espiras (N).</li>
+<li>La frecuencia de la señal depende de la <strong>velocidad de giro</strong>.</li>
+</ul>
+</div>
+</div>
+<div class="formula-box">
+<div class="formula">V = N × B × A × ω × sin(ωt)</div>
+<div class="desc">Tensión instantánea = N × Campo × Área × Velocidad angular × sin(ángulo)</div>
+</div>
+<div class="info-box info">
+<h5>💡 ¿Por qué corriente alterna?</h5>
+<p>Al girar una espira dentro de un campo magnético fijo, la dirección del corte de líneas se invierte cada media vuelta. Esto hace que la corriente cambie de sentido, generando <strong>corriente alterna</strong>. Para obtener corriente continua se necesita un mecanismo de rectificación (conmutador o diodos).</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(18)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(20)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-20">
+<div class="block-header">
+<div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
+<h2 class="block-title">21. Corriente alterna</h2>
+<p class="block-desc">Formación de la onda senoidal: semiciclos positivos y negativos que constituyen un ciclo completo.</p>
+</div>
+<div class="detail-content">
+<h2>La onda senoidal de corriente alterna</h2>
+<p class="subtitle">La forma natural de la electricidad generada por inducción electromagnética</p>
+<div class="wave-container">
+<svg height="200" viewbox="0 0 800 200" width="100%">
+<line stroke="#334155" stroke-width="2" x1="50" x2="750" y1="100" y2="100"></line>
+<line stroke="#334155" stroke-width="2" x1="50" x2="50" y1="20" y2="180"></line>
+<path d="M 50,100 Q 150,20 250,100 Q 350,180 450,100 Q 550,20 650,100 Q 750,180 850,100" fill="none" stroke="#0ea5e9" stroke-width="3"></path>
+<circle cx="50" cy="100" fill="#0ea5e9" r="5"></circle>
+<circle cx="150" cy="20" fill="#f59e0b" r="5"></circle>
+<circle cx="250" cy="100" fill="#0ea5e9" r="5"></circle>
+<circle cx="350" cy="180" fill="#ef4444" r="5"></circle>
+<circle cx="450" cy="100" fill="#0ea5e9" r="5"></circle>
+<circle cx="550" cy="20" fill="#f59e0b" r="5"></circle>
+<circle cx="650" cy="100" fill="#0ea5e9" r="5"></circle>
+<text fill="#94a3b8" font-size="12" text-anchor="middle" x="50" y="195">0°</text>
+<text fill="#94a3b8" font-size="12" text-anchor="middle" x="150" y="195">90°</text>
+<text fill="#94a3b8" font-size="12" text-anchor="middle" x="250" y="195">180°</text>
+<text fill="#94a3b8" font-size="12" text-anchor="middle" x="350" y="195">270°</text>
+<text fill="#94a3b8" font-size="12" text-anchor="middle" x="450" y="195">360°</text>
+<text fill="#94a3b8" font-size="12" text-anchor="middle" x="550" y="195">450°</text>
+<text fill="#94a3b8" font-size="12" text-anchor="middle" x="650" y="195">540°</text>
+<text fill="#f59e0b" font-size="11" text-anchor="middle" x="150" y="10">Vmax (+)</text>
+<text fill="#ef4444" font-size="11" text-anchor="middle" x="350" y="15">Vmax (-)</text>
+<text fill="#94a3b8" font-size="11" text-anchor="end" x="20" y="105">V</text>
+<text fill="#94a3b8" font-size="11" x="740" y="115">Tiempo →</text>
+<path d="M 80,70 L 220,70" marker-end="url(#arrow)" stroke="#22c55e" stroke-width="2"></path>
+<text fill="#22c55e" font-size="11" text-anchor="middle" x="150" y="65">Semiciclo (+)</text>
+<path d="M 280,130 L 420,130" marker-end="url(#arrow)" stroke="#ef4444" stroke-width="2"></path>
+<text fill="#ef4444" font-size="11" text-anchor="middle" x="350" y="155">Semiciclo (-)</text>
+<defs><marker id="arrow" markerheight="10" markerunits="strokeWidth" markerwidth="10" orient="auto" refx="9" refy="3"><path d="M0,0 L0,6 L9,3 z" fill="currentColor"></path></marker></defs>
+</svg>
+</div>
+<div class="two-col" style="margin-top:24px;">
+<div class="detail-section">
+<h4>📈 Semiciclo positivo</h4>
+<ul>
+<li>La espira corta las líneas de fuerza en un sentido.</li>
+<li>La corriente fluye en una <strong>dirección</strong> (por ejemplo, de A a B).</li>
+<li>La tensión va de 0 a +Vmax y vuelve a 0.</li>
+<li>Corresponde a 0° → 180° del giro.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📉 Semiciclo negativo</h4>
+<ul>
+<li>La espira corta las líneas en el <strong>sentido contrario</strong>.</li>
+<li>La corriente fluye en dirección <strong>inversa</strong> (de B a A).</li>
+<li>La tensión va de 0 a -Vmax y vuelve a 0.</li>
+<li>Corresponde a 180° → 360° del giro.</li>
+</ul>
+</div>
+</div>
+<div class="info-box info">
+<h5>💡 Ciclo completo</h5>
+<p>Un <strong>ciclo completo</strong> consta de un semiciclo positivo y uno negativo (360° o 2π radianes). La cantidad de ciclos por segundo es la <strong>frecuencia</strong>, medida en Hertz (Hz). En Europa, la red eléctrica es de 50 Hz; en América, 60 Hz. El alternador del coche genera frecuencias que dependen de las revoluciones del motor.</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(19)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(21)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-21">
+<div class="block-header">
+<div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
+<h2 class="block-title">22. Parámetros de una señal alterna</h2>
+<p class="block-desc">Magnitudes que definen una onda senoidal: periodo, frecuencia, amplitud y valor máximo.</p>
+</div>
+<div class="detail-content">
+<h2>Magnitudes de la corriente alterna</h2>
+<p class="subtitle">Conceptos fundamentales para entender el alternador y cualquier generador de CA</p>
+<table class="data-table">
+<thead><tr><th>Parámetro</th><th>Símbolo</th><th>Unidad</th><th>Definición</th><th>Ejemplo alternador coche</th></tr></thead>
+<tbody>
+<tr>
+<td><strong style="color:var(--primary)">Periodo</strong></td>
+<td>T</td>
+<td>segundos (s)</td>
+<td>Tiempo que tarda en completarse un ciclo completo (360°)</td>
+<td>A 3000 rpm: T ≈ 3.3 ms (trifásico)</td>
+</tr>
+<tr>
+<td><strong style="color:var(--accent)">Frecuencia</strong></td>
+<td>f</td>
+<td>Hertz (Hz)</td>
+<td>Número de ciclos por segundo. f = 1/T</td>
+<td>A 3000 rpm: f ≈ 300 Hz (trifásico)</td>
+</tr>
+<tr>
+<td><strong style="color:var(--success)">Amplitud / Valor máximo</strong></td>
+<td>Vmax o Vp</td>
+<td>Voltios (V)</td>
+<td>Valor máximo de tensión alcanzado en el pico de la onda</td>
+<td>Alternador: Vmax ≈ 18-20V (antes de rectificar)</td>
+</tr>
+<tr>
+<td><strong style="color:#8b5cf6">Valor eficaz (RMS)</strong></td>
+<td>Vef</td>
+<td>Voltios (V)</td>
+<td>Valor equivalente en continua que produce el mismo efecto térmico. Vef = Vmax/√2</td>
+<td>Red eléctrica: 230V eficaz = 325V máximo</td>
+</tr>
+</tbody>
+</table>
+<div class="formula-box" style="margin-top:24px;">
+<div class="formula">f = 1 / T      Vef = Vmax / √2      Vmax = Vef × √2</div>
+<div class="desc">Relaciones fundamentales entre los parámetros de una señal alterna senoidal</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(20)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="window.location.href='presentacion-2.html#slide-0'">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+</main>
 
-        <div class="slide" id="slide-12">
-            <div class="block-header">
-                <div class="block-label b3">Bloque III — Electromagnetismo</div>
-                <h2 class="block-title">13. Espira</h2>
-                <p class="block-desc">Una espira de conductor por la que circula corriente genera un campo magnético con polos definidos.</p>
-            </div>
-            <div class="detail-content">
-                <h2>Campo magnético de una espira</h2>
-                <p class="subtitle">La espira es la unidad básica de todo electroimán, bobina y solenoide</p>
-
-                <div class="two-col" style="margin-top:24px;">
-                    <div class="detail-section">
-                        <h4>🔄 Campo magnético generado</h4>
-                        <ul>
-                            <li>Una espira es un conductor en forma de <strong>anillo o círculo</strong>.</li>
-                            <li>El campo magnético se concentra en el <strong>centro de la espira</strong>.</li>
-                            <li>Las líneas de fuerza atraviesan el plano de la espira y forman bucles cerrados.</li>
-                            <li>La intensidad del campo en el centro es proporcional a la corriente e inversamente proporcional al radio.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>🧭 Polaridad y sentido</h4>
-                        <ul>
-                            <li>La espira tiene un <strong>polo norte</strong> y un <strong>polo sur</strong> definidos.</li>
-                            <li><strong>Regla de la mano derecha:</strong> Dedos en sentido de la corriente, pulgar indica el polo norte.</li>
-                            <li>Si la corriente circula en sentido horario (visto desde arriba), el polo norte está abajo.</li>
-                            <li>Si la corriente es antihoraria, el polo norte está arriba.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="formula-box">
-                    <div class="formula">B = (μ₀ × I) / (2 × r)</div>
-                    <div class="desc">Campo en centro de espira = (Permeabilidad del vacío × Intensidad) / (2 × radio)</div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(11)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(13)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-13">
-            <div class="block-header">
-                <div class="block-label b3">Bloque III — Electromagnetismo</div>
-                <h2 class="block-title">14. Solenoide</h2>
-                <p class="block-desc">Conjunto de espiras enrolladas que multiplica el campo magnético y lo hace uniforme en su interior.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>🌀 Formación mediante varias espiras</h4>
-                        <ul>
-                            <li>Un solenoide es una <strong>bobina de muchas espiras</strong> enrolladas en un cilindro.</li>
-                            <li>Cada espira contribuye al campo magnético total.</li>
-                            <li>El campo de todas las espiras se <strong>suma</strong>, creando un campo mucho más intenso que una sola espira.</li>
-                            <li>Más espiras = campo más intenso (proporcional al número de espiras).</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>📐 Distribución de líneas de fuerza</h4>
-                        <ul>
-                            <li>Dentro del solenoide, el campo es <strong>uniforme y paralelo</strong> al eje.</li>
-                            <li>Fuera del solenoide, las líneas se cierran formando bucles.</li>
-                            <li>Se comporta como un <strong>imán con polos norte y sur</strong> en sus extremos.</li>
-                            <li>La intensidad del campo interior es: B = μ₀ × n × I (n = espiras por unidad de longitud).</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="formula-box">
-                        <div class="formula">B = μ₀ × N × I / L</div>
-                        <div class="desc">Campo interior = μ₀ × Número de espiras × Intensidad / Longitud del solenoide</div>
-                    </div>
-                    <div class="info-box info">
-                        <h5>💡 ¿Por qué un núcleo ferromagnético?</h5>
-                        <p>Insertar un núcleo de hierro dentro del solenoide <strong>multiplica el campo magnético</strong> por cientos o miles de veces, porque el hierro concentra las líneas de fuerza. Esto convierte al solenoide en un <strong>electroimán</strong>.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(12)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(14)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-14">
-            <div class="block-header">
-                <div class="block-label b3">Bloque III — Electromagnetismo</div>
-                <h2 class="block-title">15. Electroimán</h2>
-                <p class="block-desc">Solenoide con núcleo ferromagnético que genera un campo magnético intenso y controlable.</p>
-            </div>
-            <div class="detail-content">
-                <h2>Constitución y funcionamiento del electroimán</h2>
-                <p class="subtitle">El componente clave de relés, electroválvulas, bobinas de encendido y alternadores</p>
-
-                <div class="two-col" style="margin-top:24px;">
-                    <div class="detail-section">
-                        <h4>🏗️ Constitución</h4>
-                        <ul>
-                            <li><strong>Bobina:</strong> Conductor aislado enrollado alrededor del núcleo.</li>
-                            <li><strong>Núcleo ferromagnético:</strong> Hierro dulce o material de alta permeabilidad.</li>
-                            <li><strong>Armadura móvil:</strong> Pieza ferromagnética que se atrae al activarse.</li>
-                            <li><strong>Retorno de resorte:</strong> Devuelve la armadura a su posición inicial.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>⚡ Factores que afectan a su fuerza</h4>
-                        <ul>
-                            <li><strong>Intensidad eléctrica:</strong> Más corriente = campo más intenso.</li>
-                            <li><strong>Número de espiras:</strong> Más espiras = campo más intenso.</li>
-                            <li><strong>Material del núcleo:</strong> Hierro dulce concentra mejor el campo que el aire.</li>
-                            <li><strong>Longitud del núcleo:</strong> Más corto = campo más concentrado.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="info-box info">
-                    <h5>🚗 Aplicaciones en el automóvil</h5>
-                    <p>Los electroimanes están en casi todos los sistemas del vehículo: <strong>relés</strong> (control de luces, ventiladores), <strong>electroválvulas</strong> (inyectores, EGR, válvula ralentí), <strong>bobinas de encendido</strong> (generan la chispa), <strong>motor de arranque</strong> (gira el motor), <strong>alternador</strong> (genera electricidad).</p>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(13)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(15)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-15">
-            <div class="block-header">
-                <div class="block-label b3">Bloque III — Electromagnetismo</div>
-                <h2 class="block-title">16. Bobinas</h2>
-                <p class="block-desc">Construcción, aislamiento y aplicaciones de las bobinas en los sistemas del automóvil.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>🏗️ Construcción</h4>
-                        <ul>
-                            <li><strong>Conductor:</strong> Hilo de cobre esmaltado (aislante de barniz).</li>
-                            <li><strong>Núcleo:</strong> Hierro dulce, ferrita o aire (según aplicación).</li>
-                            <li><strong>Capas:</strong> El hilo se enrolla en capas para maximizar el número de espiras.</li>
-                            <li><strong>Carreta:</strong> Soporte estructural que mantiene la forma de la bobina.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>🛡️ Aislamiento</h4>
-                        <ul>
-                            <li>Cada vuelta de hilo está aislada del resto con <strong>barniz dieléctrico</strong>.</li>
-                            <li>Entre capas se coloca papel o cinta aislante.</li>
-                            <li>La bobina completa se impregna en resina para resistir humedad y vibraciones.</li>
-                            <li>El calor excesivo degrada el aislamiento: causa de avería frecuente.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="detail-content">
-                        <h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones en el automóvil</h4>
-                        <ul>
-                            <li><strong>Bobina de encendido:</strong> Genera 20,000-40,000V para la chispa de las bujías.</li>
-                            <li><strong>Bobina del alternador:</strong> Estator trifásico que genera corriente alterna.</li>
-                            <li><strong>Bobina del relé:</strong> Electroimán que acciona los contactos.</li>
-                            <li><strong>Bobina de válvula solenoide:</strong> Abre/cierra válvulas de fluidos.</li>
-                            <li><strong>Bobina del motor de arranque:</strong> Campo magnético que gira el rotor.</li>
-                            <li><strong>Transformador de encendido:</strong> Eleva la tensión para CDI.</li>
-                        </ul>
-                    </div>
-                    <div class="info-box warning">
-                        <h5>⚠️ Avería común: cortocircuito de bobina</h5>
-                        <p>El calor, la humedad y el tiempo degradan el barniz aislante. Cuando dos vueltas entran en contacto, se produce un <strong>cortocircuito interno</strong> que reduce drásticamente la inductancia. Síntoma: fallo de encendido, motor que no arranca, relé que no actúa.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(14)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(16)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-        <div class="slide" id="slide-16">
-            <div class="block-header">
-                <div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
-                <h2 class="block-title">17. Principio de inducción electromagnética</h2>
-                <p class="block-desc">Descubrimiento de Faraday: un campo magnético variable induce una corriente eléctrica en un conductor.</p>
-            </div>
-            <div class="detail-content">
-                <h2>El descubrimiento de Faraday (1831)</h2>
-                <p class="subtitle">Una de las leyes fundamentales de la física, base de toda la generación de electricidad moderna</p>
-
-                <div class="two-col" style="margin-top:24px;">
-                    <div class="detail-section">
-                        <h4>🧲 Campo magnético variable</h4>
-                        <ul>
-                            <li>Faraday descubrió que al <strong>mover un imán</strong> dentro de una bobina, se generaba corriente.</li>
-                            <li>La corriente solo aparecía cuando el <strong>flujo magnético cambiaba</strong>.</li>
-                            <li>Si el imán estaba quieto, no había corriente.</li>
-                            <li>Más rápido el movimiento = más intensidad de corriente.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>⚡ Corriente inducida</h4>
-                        <ul>
-                            <li>La corriente generada se llama <strong>corriente inducida</strong>.</li>
-                            <li>La tensión que la produce es la <strong>fuerza electromotriz inducida (f.e.m.)</strong>.</li>
-                            <li>El sentido de la corriente inducida se opone al cambio de flujo (<strong>ley de Lenz</strong>).</li>
-                            <li>El signo negativo en la fórmula de Faraday representa esta oposición.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="formula-box">
-                    <div class="formula">ε = -N × (ΔΦ / Δt)</div>
-                    <div class="desc">f.e.m. inducida = -Número de espiras × (cambio de flujo magnético / tiempo)</div>
-                </div>
-
-                <div class="info-box success">
-                    <h5>🚗 Relevancia en automoción</h5>
-                    <p>Este principio es la base del <strong>alternador</strong>: el rotor (electroimán) gira dentro del estator (bobinas), variando continuamente el flujo magnético e induciendo corriente alterna trifásica. También es el principio de los <strong>sensores inductivos</strong> de cigüeñal, ABS y árbol de levas.</p>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(15)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(17)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-17">
-            <div class="block-header">
-                <div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
-                <h2 class="block-title">18. Condiciones para generar electricidad</h2>
-                <p class="block-desc">Tres requisitos indispensables para que se produzca inducción electromagnética.</p>
-            </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-icon i1">🔌</div>
-                    <h3>1. Existencia de un conductor</h3>
-                    <p>Se necesita un material conductor (cobre, aluminio) por el que pueda circular la corriente inducida. Puede ser un cable simple o una bobina con múltiples espiras.</p>
-                    <div class="card-topics"><span class="topic-tag">Cable de cobre</span><span class="topic-tag">Bobina</span><span class="topic-tag">Estator</span></div>
-                </div>
-                <div class="card">
-                    <div class="card-icon i2">🧲</div>
-                    <h3>2. Existencia de un campo magnético</h3>
-                    <p>Debe haber un campo magnético presente, generado por un imán permanente o un electroimán (como el rotor del alternador).</p>
-                    <div class="card-topics"><span class="topic-tag">Imán permanente</span><span class="topic-tag">Electroimán</span><span class="topic-tag">Rotor</span></div>
-                </div>
-                <div class="card">
-                    <div class="card-icon i3">🔄</div>
-                    <h3>3. Movimiento relativo</h3>
-                    <p>El conductor debe <strong>cortar las líneas de fuerza</strong> del campo magnético. Puede ser movimiento del conductor, del campo, o variación de intensidad del campo.</p>
-                    <div class="card-topics"><span class="topic-tag">Giro</span><span class="topic-tag">Traslación</span><span class="topic-tag">Variación de campo</span></div>
-                </div>
-            </div>
-            <div class="info-box info" style="margin-top:24px;">
-                <h5>💡 Corte de líneas de fuerza</h5>
-                <p>La inducción solo ocurre cuando hay <strong>movimiento relativo</strong> entre conductor y campo. Si ambos están quietos, no hay cambio de flujo y no se genera corriente. Esto explica por qué el alternador necesita que el motor esté en marcha: el rotor debe girar para cortar las líneas de fuerza del estator.</p>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(16)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(18)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-18">
-            <div class="block-header">
-                <div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
-                <h2 class="block-title">19. Sentido de la corriente inducida</h2>
-                <p class="block-desc">La regla de la mano derecha permite determinar la dirección de la corriente generada.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>✋ Regla de la mano derecha</h4>
-                        <ul>
-                            <li><strong>Pulgar:</strong> Dirección del <strong>movimiento</strong> del conductor.</li>
-                            <li><strong>Índice:</strong> Dirección del <strong>campo magnético</strong> (N → S).</li>
-                            <li><strong>Corazón/medio:</strong> Dirección de la <strong>corriente inducida</strong>.</li>
-                            <li>Los tres dedos son perpendiculares entre sí, como los ejes X, Y, Z.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>📐 Aplicación práctica</h4>
-                        <ul>
-                            <li>Si el conductor se mueve hacia <strong>arriba</strong> y el campo va de <strong>izquierda a derecha</strong>...</li>
-                            <li>...la corriente inducida circulará <strong>hacia fuera</strong> de la pantalla (hacia el observador).</li>
-                            <li>Si invertimos la dirección del movimiento, la corriente invierte su sentido.</li>
-                            <li>Si invertimos el campo magnético, la corriente también invierte.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="info-box info">
-                        <h5>💡 Ley de Lenz</h5>
-                        <p>La corriente inducida siempre fluye en un sentido tal que <strong>se opone al cambio de flujo</strong> que la produce. Si acercamos un imán norte a una bobina, la corriente inducida creará un polo norte que repele al imán. Si lo alejamos, creará un polo sur que atrae al imán. Esto explica el signo negativo en la fórmula de Faraday.</p>
-                    </div>
-                    <div class="detail-content">
-                        <h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicación en sensores</h4>
-                        <ul>
-                            <li><strong>Sensor de cigüeñal inductivo:</strong> Los dientes del volante de inercia cortan el campo del sensor. La polaridad de la señal indica la dirección del corte.</li>
-                            <li><strong>Alternador:</strong> El sentido de la corriente en cada fase del estator depende de la posición del rotor.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(17)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(19)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-19">
-            <div class="block-header">
-                <div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
-                <h2 class="block-title">20. Fuerza electromotriz (f.e.m.)</h2>
-                <p class="block-desc">Tensión generada en un conductor al cortar líneas de fuerza de un campo magnético. Variación del voltaje en una espira en rotación.</p>
-            </div>
-            <div class="detail-content">
-                <h2>Generación de f.e.m. en una espira en rotación</h2>
-                <p class="subtitle">Al girar una espira dentro de un campo magnético, la tensión generada varía de forma sinusoidal</p>
-
-                <div class="two-col" style="margin-top:24px;">
-                    <div class="detail-section">
-                        <h4>🔄 Giro de 360°</h4>
-                        <ul>
-                            <li><strong>0°:</strong> La espira es paralela al campo. Velocidad de corte máxima → <strong>f.e.m. máxima</strong>.</li>
-                            <li><strong>90°:</strong> La espira es perpendicular al campo. No corta líneas → <strong>f.e.m. = 0</strong>.</li>
-                            <li><strong>180°:</strong> Paralela de nuevo, pero sentido invertido → <strong>f.e.m. máxima negativa</strong>.</li>
-                            <li><strong>270°:</strong> Perpendicular → <strong>f.e.m. = 0</strong>.</li>
-                            <li><strong>360°:</strong> Vuelta completa, ciclo repetido.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>📊 Representación gráfica</h4>
-                        <ul>
-                            <li>La f.e.m. generada sigue una <strong>función senoidal</strong>: V = Vmax × sin(θ).</li>
-                            <li><strong>Vmax</strong> depende de: campo magnético (B), área de la espira (A), velocidad angular (ω) y número de espiras (N).</li>
-                            <li>La frecuencia de la señal depende de la <strong>velocidad de giro</strong>.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="formula-box">
-                    <div class="formula">V = N × B × A × ω × sin(ωt)</div>
-                    <div class="desc">Tensión instantánea = N × Campo × Área × Velocidad angular × sin(ángulo)</div>
-                </div>
-
-                <div class="info-box info">
-                    <h5>💡 ¿Por qué corriente alterna?</h5>
-                    <p>Al girar una espira dentro de un campo magnético fijo, la dirección del corte de líneas se invierte cada media vuelta. Esto hace que la corriente cambie de sentido, generando <strong>corriente alterna</strong>. Para obtener corriente continua se necesita un mecanismo de rectificación (conmutador o diodos).</p>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(18)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(20)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-20">
-            <div class="block-header">
-                <div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
-                <h2 class="block-title">21. Corriente alterna</h2>
-                <p class="block-desc">Formación de la onda senoidal: semiciclos positivos y negativos que constituyen un ciclo completo.</p>
-            </div>
-            <div class="detail-content">
-                <h2>La onda senoidal de corriente alterna</h2>
-                <p class="subtitle">La forma natural de la electricidad generada por inducción electromagnética</p>
-
-                <div class="wave-container">
-                    <svg viewBox="0 0 800 200" width="100%" height="200">
-                        <line x1="50" y1="100" x2="750" y2="100" stroke="#334155" stroke-width="2"/>
-                        <line x1="50" y1="20" x2="50" y2="180" stroke="#334155" stroke-width="2"/>
-                        <path d="M 50,100 Q 150,20 250,100 Q 350,180 450,100 Q 550,20 650,100 Q 750,180 850,100" fill="none" stroke="#0ea5e9" stroke-width="3"/>
-                        <circle cx="50" cy="100" r="5" fill="#0ea5e9"/>
-                        <circle cx="150" cy="20" r="5" fill="#f59e0b"/>
-                        <circle cx="250" cy="100" r="5" fill="#0ea5e9"/>
-                        <circle cx="350" cy="180" r="5" fill="#ef4444"/>
-                        <circle cx="450" cy="100" r="5" fill="#0ea5e9"/>
-                        <circle cx="550" cy="20" r="5" fill="#f59e0b"/>
-                        <circle cx="650" cy="100" r="5" fill="#0ea5e9"/>
-                        <text x="50" y="195" fill="#94a3b8" font-size="12" text-anchor="middle">0°</text>
-                        <text x="150" y="195" fill="#94a3b8" font-size="12" text-anchor="middle">90°</text>
-                        <text x="250" y="195" fill="#94a3b8" font-size="12" text-anchor="middle">180°</text>
-                        <text x="350" y="195" fill="#94a3b8" font-size="12" text-anchor="middle">270°</text>
-                        <text x="450" y="195" fill="#94a3b8" font-size="12" text-anchor="middle">360°</text>
-                        <text x="550" y="195" fill="#94a3b8" font-size="12" text-anchor="middle">450°</text>
-                        <text x="650" y="195" fill="#94a3b8" font-size="12" text-anchor="middle">540°</text>
-                        <text x="150" y="10" fill="#f59e0b" font-size="11" text-anchor="middle">Vmax (+)</text>
-                        <text x="350" y="15" fill="#ef4444" font-size="11" text-anchor="middle">Vmax (-)</text>
-                        <text x="20" y="105" fill="#94a3b8" font-size="11" text-anchor="end">V</text>
-                        <text x="740" y="115" fill="#94a3b8" font-size="11">Tiempo →</text>
-                        <path d="M 80,70 L 220,70" stroke="#22c55e" stroke-width="2" marker-end="url(#arrow)"/>
-                        <text x="150" y="65" fill="#22c55e" font-size="11" text-anchor="middle">Semiciclo (+)</text>
-                        <path d="M 280,130 L 420,130" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)"/>
-                        <text x="350" y="155" fill="#ef4444" font-size="11" text-anchor="middle">Semiciclo (-)</text>
-                        <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="currentColor"/></marker></defs>
-                    </svg>
-                </div>
-
-                <div class="two-col" style="margin-top:24px;">
-                    <div class="detail-section">
-                        <h4>📈 Semiciclo positivo</h4>
-                        <ul>
-                            <li>La espira corta las líneas de fuerza en un sentido.</li>
-                            <li>La corriente fluye en una <strong>dirección</strong> (por ejemplo, de A a B).</li>
-                            <li>La tensión va de 0 a +Vmax y vuelve a 0.</li>
-                            <li>Corresponde a 0° → 180° del giro.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>📉 Semiciclo negativo</h4>
-                        <ul>
-                            <li>La espira corta las líneas en el <strong>sentido contrario</strong>.</li>
-                            <li>La corriente fluye en dirección <strong>inversa</strong> (de B a A).</li>
-                            <li>La tensión va de 0 a -Vmax y vuelve a 0.</li>
-                            <li>Corresponde a 180° → 360° del giro.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="info-box info">
-                    <h5>💡 Ciclo completo</h5>
-                    <p>Un <strong>ciclo completo</strong> consta de un semiciclo positivo y uno negativo (360° o 2π radianes). La cantidad de ciclos por segundo es la <strong>frecuencia</strong>, medida en Hertz (Hz). En Europa, la red eléctrica es de 50 Hz; en América, 60 Hz. El alternador del coche genera frecuencias que dependen de las revoluciones del motor.</p>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(19)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(21)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-21">
-            <div class="block-header">
-                <div class="block-label b4">Bloque IV — Inducción Electromagnética</div>
-                <h2 class="block-title">22. Parámetros de una señal alterna</h2>
-                <p class="block-desc">Magnitudes que definen una onda senoidal: periodo, frecuencia, amplitud y valor máximo.</p>
-            </div>
-            <div class="detail-content">
-                <h2>Magnitudes de la corriente alterna</h2>
-                <p class="subtitle">Conceptos fundamentales para entender el alternador y cualquier generador de CA</p>
-
-                <table class="data-table">
-                    <thead><tr><th>Parámetro</th><th>Símbolo</th><th>Unidad</th><th>Definición</th><th>Ejemplo alternador coche</th></tr></thead>
-                    <tbody>
-                        <tr>
-                            <td><strong style="color:var(--primary)">Periodo</strong></td>
-                            <td>T</td>
-                            <td>segundos (s)</td>
-                            <td>Tiempo que tarda en completarse un ciclo completo (360°)</td>
-                            <td>A 3000 rpm: T ≈ 3.3 ms (trifásico)</td>
-                        </tr>
-                        <tr>
-                            <td><strong style="color:var(--accent)">Frecuencia</strong></td>
-                            <td>f</td>
-                            <td>Hertz (Hz)</td>
-                            <td>Número de ciclos por segundo. f = 1/T</td>
-                            <td>A 3000 rpm: f ≈ 300 Hz (trifásico)</td>
-                        </tr>
-                        <tr>
-                            <td><strong style="color:var(--success)">Amplitud / Valor máximo</strong></td>
-                            <td>Vmax o Vp</td>
-                            <td>Voltios (V)</td>
-                            <td>Valor máximo de tensión alcanzado en el pico de la onda</td>
-                            <td>Alternador: Vmax ≈ 18-20V (antes de rectificar)</td>
-                        </tr>
-                        <tr>
-                            <td><strong style="color:#8b5cf6">Valor eficaz (RMS)</strong></td>
-                            <td>Vef</td>
-                            <td>Voltios (V)</td>
-                            <td>Valor equivalente en continua que produce el mismo efecto térmico. Vef = Vmax/√2</td>
-                            <td>Red eléctrica: 230V eficaz = 325V máximo</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="formula-box" style="margin-top:24px;">
-                    <div class="formula">f = 1 / T &nbsp;&nbsp;&nbsp;&nbsp; Vef = Vmax / √2 &nbsp;&nbsp;&nbsp;&nbsp; Vmax = Vef × √2</div>
-                    <div class="desc">Relaciones fundamentales entre los parámetros de una señal alterna senoidal</div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(20)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(22)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-        <div class="slide" id="slide-22">
-            <div class="block-header">
-                <div class="block-label b5">Bloque V — Máquinas Eléctricas Generadoras</div>
-                <h2 class="block-title">23. Dinamo</h2>
-                <p class="block-desc">Máquina generadora de corriente continua mediante rectificación mecánica. Predecesora del alternador.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>⚙️ Principio de funcionamiento</h4>
-                        <ul>
-                            <li>El rotor (inducido) gira dentro de un campo magnético fijo (estator).</li>
-                            <li>La rotación genera <strong>corriente alterna</strong> en las bobinas del rotor.</li>
-                            <li>Un <strong>conmutador</strong> (anillo partido) invierte el sentido cada media vuelta.</li>
-                            <li>El resultado es <strong>corriente continua pulsante</strong> en el circuito externo.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>🔧 Componentes clave</h4>
-                        <ul>
-                            <li><strong>Estator:</strong> Imanes permanentes o electroimanes que crean el campo.</li>
-                            <li><strong>Rotor (inducido):</strong> Bobinas que giran dentro del campo.</li>
-                            <li><strong>Conmutador:</strong> Anillo partido que rectifica mecánicamente la CA.</li>
-                            <li><strong>Escobillas:</strong> Contactos deslizantes de carbón que recogen la corriente del conmutador.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="info-box warning">
-                        <h5>⚠️ Ventajas e inconvenientes</h5>
-                        <p><strong>Ventajas:</strong> Genera CC directamente sin electrónica. <strong>Inconvenientes:</strong> Desgaste de escobillas y conmutador, mantenimiento frecuente, baja eficiencia a altas revoluciones, limitada potencia. Por eso fue reemplazada por el alternador en los años 60-70.</p>
-                    </div>
-                    <div class="detail-content">
-                        <h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones históricas</h4>
-                        <ul>
-                            <li>Usada en vehículos hasta mediados del siglo XX.</li>
-                            <li>Alimentaba luces, bocina y encendido en coches antiguos.</li>
-                            <li>Todavía se usa en <strong>bicicletas con dinamo</strong> (iluminación).</li>
-                            <li>Algunos equipos industriales de CC usan dinamos modernos.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(21)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(23)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-23">
-            <div class="block-header">
-                <div class="block-label b5">Bloque V — Máquinas Eléctricas Generadoras</div>
-                <h2 class="block-title">24. Alternador</h2>
-                <p class="block-desc">Máquina generadora de corriente alterna que, mediante rectificación electrónica, alimenta el sistema eléctrico del vehículo.</p>
-            </div>
-            <div class="detail-content">
-                <h2>El alternador del automóvil</h2>
-                <p class="subtitle">El componente que genera electricidad mientras el motor está en marcha</p>
-
-                <div class="two-col" style="margin-top:24px;">
-                    <div class="detail-section">
-                        <h4>⚙️ Principio de funcionamiento</h4>
-                        <ul>
-                            <li>El <strong>rotor</strong> (electroimán) gira dentro del <strong>estator</strong> (bobinas trifásicas).</li>
-                            <li>El rotor recibe corriente de excitación por las <strong>anillos rozantes</strong> y escobillas.</li>
-                            <li>La rotación del campo magnético induce <strong>corriente alterna trifásica</strong> en el estator.</li>
-                            <li>Un <strong>puente de diodos</strong> rectifica la CA en CC para cargar la batería.</li>
-                            <li>El <strong>regulador de tensión</strong> controla la corriente de excitación para mantener ~14V.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>📊 Comparación con la dinamo</h4>
-                        <table class="data-table">
-                            <thead><tr><th>Característica</th><th>Dinamo</th><th>Alternador</th></tr></thead>
-                            <tbody>
-                                <tr><td>Corriente generada</td><td>Continua (CC)</td><td>Alterna (CA) → rectificada</td></tr>
-                                <tr><td>Rectificación</td><td>Mecánica (conmutador)</td><td>Electrónica (diodos)</td></tr>
-                                <tr><td>Eficiencia</td><td>Baja</td><td>Alta</td></tr>
-                                <tr><td>Mantenimiento</td><td>Frecuente (escobillas)</td><td>Mínimo</td></tr>
-                                <tr><td>Potencia</td><td>Limitada</td><td>Alta (hasta 250A+)</td></tr>
-                                <tr><td>Rendimiento a bajas rpm</td><td>Bueno</td><td>Mejor con regulador</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="info-box success">
-                    <h5>🚗 Aplicaciones actuales</h5>
-                    <p>El alternador es el <strong>generador principal</strong> del vehículo. Produce entre 13.8V y 14.4V para cargar la batería y alimentar todos los sistemas eléctricos (luces, ECU, climatización, multimedia, etc.). Los alternadores modernos pueden generar más de 250A en vehículos con Start-Stop y sistemas híbridos ligeros.</p>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(22)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(24)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-24">
-            <div class="block-header">
-                <div class="block-label b5">Bloque V — Máquinas Eléctricas Generadoras</div>
-                <h2 class="block-title">25. Rectificación de corriente</h2>
-                <p class="block-desc">Conversión de corriente alterna en corriente continua. Mecánica vs electrónica.</p>
-            </div>
-            <div class="two-col">
-                <div class="detail-content">
-                    <div class="detail-section">
-                        <h4>🔧 Rectificación mecánica</h4>
-                        <ul>
-                            <li>Usada en <strong>dinamos</strong>: conmutador (anillo partido) + escobillas.</li>
-                            <li>Invierte el sentido de la corriente cada media vuelta del rotor.</li>
-                            <li>Produce CC pulsante con mucho <strong>rizado</strong> (ondulación).</li>
-                            <li>Desgaste mecánico: escobillas y conmutador se desgastan con el tiempo.</li>
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h4>💻 Rectificación electrónica</h4>
-                        <ul>
-                            <li>Usada en <strong>alternadores</strong>: puente de diodos (6 diodos para trifásica).</li>
-                            <li>Los diodos permiten el paso de corriente en un solo sentido.</li>
-                            <li>Produce CC más <strong>estable</strong> con menos rizado.</li>
-                            <li>Sin partes móviles: <strong>sin desgaste mecánico</strong>, mayor fiabilidad.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="circuit-diagram">
-                        <div class="circuit-component"><div class="comp-icon" style="border-color:var(--primary);color:var(--primary);">〰️</div><div class="comp-label">CA (3 fases)</div></div>
-                        <div class="circuit-arrow">→</div>
-                        <div class="circuit-component"><div class="comp-icon" style="border-color:var(--accent);color:var(--accent);">◆</div><div class="comp-label">6 Diodos</div></div>
-                        <div class="circuit-arrow">→</div>
-                        <div class="circuit-component"><div class="comp-icon" style="border-color:var(--success);color:var(--success);">➖➕</div><div class="comp-label">CC (14V)</div></div>
-                    </div>
-                    <div class="info-box info">
-                        <h5>💡 Papel de los diodos</h5>
-                        <p>En un alternador trifásico, se usan <strong>6 diodos</strong> (2 por fase) configurados en un puente de Graetz. Cada diodo conduce durante 120° del ciclo, asegurando que siempre haya corriente positiva en la salida. El resultado es una CC con un rizado del ~4.2%, fácilmente filtrable por la batería.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn" onclick="goToSlide(23)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
-                <button class="nav-btn primary" onclick="goToSlide(25)">Siguiente<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-25">
-            <div class="block-header">
-                <div class="block-label b5">Bloque V — Máquinas Eléctricas Generadoras</div>
-                <h2 class="block-title">26. Ley de Faraday</h2>
-                <p class="block-desc">Variables que determinan la tensión generada en un alternador o cualquier máquina generadora.</p>
-            </div>
-            <div class="detail-content">
-                <h2>Factores que determinan la tensión generada</h2>
-                <p class="subtitle">La ley de Faraday explica cómo diseñar alternadores más potentes</p>
-
-                <div class="formula-box">
-                    <div class="formula">ε = N × B × A × ω × sin(ωt)</div>
-                    <div class="desc">f.e.m. = Espiras × Campo magnético × Área × Velocidad angular × sin(ángulo)</div>
-                </div>
-
-                <div class="cards-grid" style="margin-top:24px;">
-                    <div class="card">
-                        <div class="card-icon i1">🧲</div>
-                        <h3>Intensidad del campo magnético (B)</h3>
-                        <p>Mayor campo magnético del rotor = más tensión inducida. Se logra con imanes más potentes o mayor corriente de excitación.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon i2">🔢</div>
-                        <h3>Número de conductores (N)</h3>
-                        <p>Más espiras en el estator = más tensión. Los alternadores modernos usan estatores con cientos de espiras.</p>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon i3">⚡</div>
-                        <h3>Velocidad de giro (ω)</h3>
-                        <p>A mayor velocidad del rotor, más rápido corta las líneas de fuerza = más tensión. Por eso el alternador produce más a altas rpm.</p>
-                    </div>
-                </div>
-
-                <div class="info-box info" style="margin-top:24px;">
-                    <h5>🚗 Aplicaciones en alternadores</h5>
-                    <p>Para aumentar la potencia de un alternador sin aumentar su tamaño, los fabricantes usan <strong>imanes de neodimio</strong> (mayor B), <strong>estatores con más espiras</strong> (mayor N) y <strong>rotores con más polos</strong> (mayor frecuencia a la misma rpm). El regulador de tensión ajusta la corriente de excitación para mantener 14V constantes independientemente de la ve
+<script>
+    let currentSlide = 0;
+    const totalSlides = 22;
+    const defaultTitle = 'Módulo 02: Generación de Electricidad — Parte 1';
+    const slideTitles = ["Inicio", "2. Generación termoeléctrica", "3. Generación piezoeléctrica", "4. Generación fotoeléctrica", "5. Generación electroquímica", "6. Generación electromagnética", "7. Conceptos básicos de magnetismo", "8. Campo magnético", "9. Clasificación de materiales", "10. Inducción magnética", "11. Campo magnético por corriente", "12. Experimento de Oersted", "13. Espira", "14. Solenoide", "15. Electroimán", "16. Bobinas", "17. Principio de inducción", "18. Condiciones para generar electricidad", "19. Sentido de la corriente inducida", "20. Fuerza electromotriz", "21. Corriente alterna", "22. Parámetros de señal alterna"];
+    const CURRENT_PART = 1;
+    const PART_FILES = { 1: "presentacion.html", 2: "presentacion-2.html" };
+</script>
+<script src="../../assets/js/presentacion.js"></script>
+</body>
+</html>
