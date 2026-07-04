@@ -9,7 +9,9 @@ function goToSlide(n) {
     if (activeNav) activeNav.classList.remove('active');
     currentSlide = n;
     document.getElementById('slide-' + currentSlide).classList.add('active');
-    const newNav = document.querySelector('.nav-item[data-slide="' + currentSlide + '"]');
+    const newNav = (typeof CURRENT_PART !== 'undefined')
+        ? document.querySelector('.nav-item[data-part="' + CURRENT_PART + '"][data-slide="' + currentSlide + '"]')
+        : document.querySelector('.nav-item[data-slide="' + currentSlide + '"]');
     if (newNav) newNav.classList.add('active');
     const pct = ((currentSlide + 1) / totalSlides) * 100;
     document.getElementById('progress-fill').style.width = pct + '%';
@@ -51,5 +53,29 @@ document.addEventListener('touchend', e => {
     if (Math.abs(delta) > 60) {
         if (delta > 0 && currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
         else if (delta < 0 && currentSlide > 0) goToSlide(currentSlide - 1);
+    }
+});
+
+// ── NAVEGACIÓN ENTRE PARTES (para módulos divididos en varios archivos) ──
+// Cada página que use este mecanismo debe definir antes de cargar este script:
+//   const CURRENT_PART = 1;                      // número de esta parte
+//   const PART_FILES = { 1: "presentacion.html", 2: "presentacion-2.html" };
+// Los ítems del sidebar de un módulo dividido llaman a:
+//   onclick="navItemClick(2, 5)"   → parte 2, diapositiva local nº5 de esa parte
+function navItemClick(part, localSlideIndex) {
+    if (typeof CURRENT_PART === 'undefined' || part === CURRENT_PART) {
+        goToSlide(localSlideIndex);
+    } else {
+        const target = (typeof PART_FILES !== 'undefined' && PART_FILES[part]) ? PART_FILES[part] : null;
+        if (target) window.location.href = target + '#slide-' + localSlideIndex;
+    }
+}
+
+// Al cargar una parte, si la URL trae #slide-N (venimos de otra parte), saltar directo a esa diapositiva
+window.addEventListener('DOMContentLoaded', () => {
+    const match = window.location.hash.match(/^#slide-(\d+)$/);
+    if (match) {
+        const n = parseInt(match[1], 10);
+        if (n >= 0 && n < totalSlides) goToSlide(n);
     }
 });
