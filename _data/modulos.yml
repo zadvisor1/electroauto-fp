@@ -11,6 +11,7 @@
   disponible: true
   diapositivas: 14
   material_extra: true
+  presentacion_partes: 2
 
 - num: "03"
   slug: "modulo-03"
@@ -25,6 +26,7 @@
   disponible: true
   diapositivas: 11
   material_extra: true
+  presentacion_partes: 3
 
 - num: "05"
   slug: "modulo-05"
