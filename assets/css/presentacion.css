@@ -206,6 +206,35 @@ body { font-family: 'Inter', sans-serif; background: var(--darker); color: var(-
 .circuit-component .comp-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 .circuit-arrow { font-size: 1.5rem; color: var(--text-muted); padding: 0 8px; }
 
+/* Variantes de color de borde superior en tarjetas (c1-c6), usadas en módulos con más de 5 tarjetas por fila */
+.card.c1::before { background: var(--g1); }
+.card.c2::before { background: var(--g2); }
+.card.c3::before { background: var(--g3); }
+.card.c4::before { background: var(--g4); }
+.card.c5::before { background: var(--g5); }
+.card.c6::before { background: linear-gradient(135deg,#f97316,#eab308); }
+
+/* Grid de componentes (resistencias variables, tipos de sensores, etc.) */
+.comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-top: 18px; }
+.comp-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; transition: all 0.3s; }
+.comp-card:hover { border-color: rgba(14,165,233,0.4); transform: translateY(-2px); }
+.comp-sym { font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; display: block; }
+.comp-card h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+.comp-card p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; }
+
+/* Tabla con muestra de color (código de colores de fusibles, resistencias, cables) */
+.color-table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+.color-table td, .color-table th { padding: 9px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.color-table th { font-weight: 700; color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.color-dot { display: inline-block; width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); vertical-align: middle; margin-right: 8px; }
+
+/* Diagrama comparativo tipo transistor NPN/PNP */
+.transistor-wrap { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
+.trans-box { flex: 1; min-width: 200px; background: var(--darker); border: 1px solid var(--border); border-radius: 10px; padding: 18px; text-align: center; }
+.trans-box .label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; display: block; }
+.trans-box .sym { font-size: 2.5rem; display: block; margin-bottom: 8px; }
+.trans-box p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
 @media (max-width: 900px) {
     .two-col { grid-template-columns: 1fr; }
     .cards-grid { grid-template-columns: 1fr; }
