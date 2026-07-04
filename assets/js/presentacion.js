@@ -32,3 +32,24 @@ document.addEventListener('keydown', function(e) {
         document.getElementById('overlay').classList.remove('active');
     }
 });
+
+// Respuesta de quiz: marca la opción elegida como correcta/incorrecta y bloquea el resto
+function ans(el, correct) {
+    const opts = el.parentElement.querySelectorAll('.quiz-option');
+    opts.forEach(o => o.style.pointerEvents = 'none');
+    el.classList.add(correct ? 'correct' : 'wrong');
+    if (!correct) {
+        opts.forEach(o => { if (o !== el) o.style.opacity = '0.4'; });
+    }
+}
+
+// Navegación por gesto táctil (swipe izquierda/derecha) en móvil
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+    const delta = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 60) {
+        if (delta > 0 && currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+        else if (delta < 0 && currentSlide > 0) goToSlide(currentSlide - 1);
+    }
+});
