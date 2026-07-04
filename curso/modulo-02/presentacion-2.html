@@ -1,0 +1,1099 @@
+---
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 02 · Generación de Electricidad (Parte 2)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/presentacion.css">
+</head>
+<body>
+{% include presentacion-nav.html current="modulo-02" %}
+{% include presentacion-bg.html %}
+
+<header class="top-bar">
+<div class="left">
+<button class="menu-btn" onclick="toggleSidebar()" aria-label="Menú">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+</button>
+<h1 id="top-title">Módulo 02: Generación de Electricidad — Parte 2</h1>
+</div>
+<div class="right">
+<span class="progress-text" id="progress-text">1 / 22</span>
+<div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width: 4.5%"></div></div>
+</div>
+</header>
+
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<h2>📗 Módulo 02</h2>
+<p>Generación de electricidad en el automóvil</p>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Navegación</div>
+<div class="nav-item" onclick="navItemClick(1,0)" data-part="1" data-slide="0"><span class="num">🏠</span><span>Inicio</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque I — Formas de Generación</div>
+<div class="nav-item" onclick="navItemClick(1,1)" data-part="1" data-slide="1"><span class="num">2</span><span>Generación termoeléctrica</span></div>
+<div class="nav-item" onclick="navItemClick(1,2)" data-part="1" data-slide="2"><span class="num">3</span><span>Generación piezoeléctrica</span></div>
+<div class="nav-item" onclick="navItemClick(1,3)" data-part="1" data-slide="3"><span class="num">4</span><span>Generación fotoeléctrica</span></div>
+<div class="nav-item" onclick="navItemClick(1,4)" data-part="1" data-slide="4"><span class="num">5</span><span>Generación electroquímica</span></div>
+<div class="nav-item" onclick="navItemClick(1,5)" data-part="1" data-slide="5"><span class="num">6</span><span>Generación electromagnética</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque II — Magnetismo</div>
+<div class="nav-item" onclick="navItemClick(1,6)" data-part="1" data-slide="6"><span class="num">7</span><span>Conceptos básicos de magnetismo</span></div>
+<div class="nav-item" onclick="navItemClick(1,7)" data-part="1" data-slide="7"><span class="num">8</span><span>Campo magnético</span></div>
+<div class="nav-item" onclick="navItemClick(1,8)" data-part="1" data-slide="8"><span class="num">9</span><span>Clasificación de materiales</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque III — Electromagnetismo</div>
+<div class="nav-item" onclick="navItemClick(1,9)" data-part="1" data-slide="9"><span class="num">10</span><span>Inducción magnética</span></div>
+<div class="nav-item" onclick="navItemClick(1,10)" data-part="1" data-slide="10"><span class="num">11</span><span>Campo magnético por corriente</span></div>
+<div class="nav-item" onclick="navItemClick(1,11)" data-part="1" data-slide="11"><span class="num">12</span><span>Experimento de Oersted</span></div>
+<div class="nav-item" onclick="navItemClick(1,12)" data-part="1" data-slide="12"><span class="num">13</span><span>Espira</span></div>
+<div class="nav-item" onclick="navItemClick(1,13)" data-part="1" data-slide="13"><span class="num">14</span><span>Solenoide</span></div>
+<div class="nav-item" onclick="navItemClick(1,14)" data-part="1" data-slide="14"><span class="num">15</span><span>Electroimán</span></div>
+<div class="nav-item" onclick="navItemClick(1,15)" data-part="1" data-slide="15"><span class="num">16</span><span>Bobinas</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque IV — Inducción Electromagnética</div>
+<div class="nav-item" onclick="navItemClick(1,16)" data-part="1" data-slide="16"><span class="num">17</span><span>Principio de inducción</span></div>
+<div class="nav-item" onclick="navItemClick(1,17)" data-part="1" data-slide="17"><span class="num">18</span><span>Condiciones para generar electricidad</span></div>
+<div class="nav-item" onclick="navItemClick(1,18)" data-part="1" data-slide="18"><span class="num">19</span><span>Sentido de la corriente inducida</span></div>
+<div class="nav-item" onclick="navItemClick(1,19)" data-part="1" data-slide="19"><span class="num">20</span><span>Fuerza electromotriz (f.e.m.)</span></div>
+<div class="nav-item" onclick="navItemClick(1,20)" data-part="1" data-slide="20"><span class="num">21</span><span>Corriente alterna</span></div>
+<div class="nav-item" onclick="navItemClick(1,21)" data-part="1" data-slide="21"><span class="num">22</span><span>Parámetros de señal alterna</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque V — Máquinas Generadoras</div>
+<div class="nav-item" onclick="navItemClick(2,1)" data-part="2" data-slide="1"><span class="num">23</span><span>Dinamo</span></div>
+<div class="nav-item" onclick="navItemClick(2,2)" data-part="2" data-slide="2"><span class="num">24</span><span>Alternador</span></div>
+<div class="nav-item" onclick="navItemClick(2,3)" data-part="2" data-slide="3"><span class="num">25</span><span>Rectificación de corriente</span></div>
+<div class="nav-item" onclick="navItemClick(2,4)" data-part="2" data-slide="4"><span class="num">26</span><span>Ley de Faraday</span></div>
+<div class="nav-item" onclick="navItemClick(2,5)" data-part="2" data-slide="5"><span class="num">27</span><span>Corriente continua ideal</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque VI — Aplicaciones</div>
+<div class="nav-item" onclick="navItemClick(2,6)" data-part="2" data-slide="6"><span class="num">28</span><span>Relé electromagnético</span></div>
+<div class="nav-item" onclick="navItemClick(2,7)" data-part="2" data-slide="7"><span class="num">29</span><span>Válvula solenoide</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque VII — Sensores Inductivos</div>
+<div class="nav-item" onclick="navItemClick(2,8)" data-part="2" data-slide="8"><span class="num">30</span><span>Generador de impulsos inductivo</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque VIII — Sensores de Efecto Hall</div>
+<div class="nav-item" onclick="navItemClick(2,9)" data-part="2" data-slide="9"><span class="num">31</span><span>Efecto Hall</span></div>
+<div class="nav-item" onclick="navItemClick(2,10)" data-part="2" data-slide="10"><span class="num">32</span><span>Funcionamiento del sensor Hall</span></div>
+<div class="nav-item" onclick="navItemClick(2,11)" data-part="2" data-slide="11"><span class="num">33</span><span>Materiales detectables</span></div>
+<div class="nav-item" onclick="navItemClick(2,12)" data-part="2" data-slide="12"><span class="num">34</span><span>Materiales no detectables</span></div>
+<div class="nav-item" onclick="navItemClick(2,13)" data-part="2" data-slide="13"><span class="num">35</span><span>Aplicaciones del sensor Hall</span></div>
+<div class="nav-item" onclick="navItemClick(2,14)" data-part="2" data-slide="14"><span class="num">36</span><span>Comparación inductivo vs Hall</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque IX — Transformadores</div>
+<div class="nav-item" onclick="navItemClick(2,15)" data-part="2" data-slide="15"><span class="num">37</span><span>Transformador</span></div>
+<div class="nav-item" onclick="navItemClick(2,16)" data-part="2" data-slide="16"><span class="num">38</span><span>Relación de transformación</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque X — Integración</div>
+<div class="nav-item" onclick="navItemClick(2,17)" data-part="2" data-slide="17"><span class="num">39</span><span>Relación magnetismo-electricidad</span></div>
+<div class="nav-item" onclick="navItemClick(2,18)" data-part="2" data-slide="18"><span class="num">40</span><span>Aplicaciones en el automóvil</span></div>
+<div class="nav-item" onclick="navItemClick(2,19)" data-part="2" data-slide="19"><span class="num">41</span><span>Diagnóstico de averías</span></div>
+<div class="nav-item" onclick="navItemClick(2,20)" data-part="2" data-slide="20"><span class="num">42</span><span>Resumen final</span></div>
+<div class="nav-item" onclick="navItemClick(2,21)" data-part="2" data-slide="21"><span class="num">43</span><span>Actividades de consolidación</span></div>
+</div>
+</nav>
+
+<main class="main-content" id="main-content">
+<div class="slide" id="slide-0">
+<div class="hero-slide">
+<div class="part-badge">Parte 2 de 2</div>
+<div class="hero-badge">⚡ Módulo 02</div>
+<h1 class="hero-title">Generación de <span class="gradient-text">Electricidad</span><br>— Continuación —</h1>
+<p class="hero-subtitle">Máquinas generadoras, aplicaciones del electromagnetismo, sensores inductivos y de efecto Hall, transformadores, y el resumen final del módulo.</p>
+<div class="hero-stats">
+<div class="stat"><div class="stat-value">6</div><div class="stat-label">Bloques (V-X)</div></div>
+<div class="stat"><div class="stat-value">21</div><div class="stat-label">Temas</div></div>
+</div>
+<button class="hero-btn" onclick="goToSlide(1)">Continuar aprendizaje <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+<p style="margin-top:24px;"><a href="presentacion.html" style="color:var(--text-muted);font-size:0.85rem;text-decoration:none;">← Volver a la Parte 1</a></p>
+</div>
+</div>
+<div class="slide" id="slide-1">
+<div class="block-header">
+<div class="block-label b5">Bloque V — Máquinas Eléctricas Generadoras</div>
+<h2 class="block-title">23. Dinamo</h2>
+<p class="block-desc">Máquina generadora de corriente continua mediante rectificación mecánica. Predecesora del alternador.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>⚙️ Principio de funcionamiento</h4>
+<ul>
+<li>El rotor (inducido) gira dentro de un campo magnético fijo (estator).</li>
+<li>La rotación genera <strong>corriente alterna</strong> en las bobinas del rotor.</li>
+<li>Un <strong>conmutador</strong> (anillo partido) invierte el sentido cada media vuelta.</li>
+<li>El resultado es <strong>corriente continua pulsante</strong> en el circuito externo.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔧 Componentes clave</h4>
+<ul>
+<li><strong>Estator:</strong> Imanes permanentes o electroimanes que crean el campo.</li>
+<li><strong>Rotor (inducido):</strong> Bobinas que giran dentro del campo.</li>
+<li><strong>Conmutador:</strong> Anillo partido que rectifica mecánicamente la CA.</li>
+<li><strong>Escobillas:</strong> Contactos deslizantes de carbón que recogen la corriente del conmutador.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="info-box warning">
+<h5>⚠️ Ventajas e inconvenientes</h5>
+<p><strong>Ventajas:</strong> Genera CC directamente sin electrónica. <strong>Inconvenientes:</strong> Desgaste de escobillas y conmutador, mantenimiento frecuente, baja eficiencia a altas revoluciones, limitada potencia. Por eso fue reemplazada por el alternador en los años 60-70.</p>
+</div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones históricas</h4>
+<ul>
+<li>Usada en vehículos hasta mediados del siglo XX.</li>
+<li>Alimentaba luces, bocina y encendido en coches antiguos.</li>
+<li>Todavía se usa en <strong>bicicletas con dinamo</strong> (iluminación).</li>
+<li>Algunos equipos industriales de CC usan dinamos modernos.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="window.location.href='presentacion.html#slide-21'"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(2)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-2">
+<div class="block-header">
+<div class="block-label b5">Bloque V — Máquinas Eléctricas Generadoras</div>
+<h2 class="block-title">24. Alternador</h2>
+<p class="block-desc">Máquina generadora de corriente alterna que, mediante rectificación electrónica, alimenta el sistema eléctrico del vehículo.</p>
+</div>
+<div class="detail-content">
+<h2>El alternador del automóvil</h2>
+<p class="subtitle">El componente que genera electricidad mientras el motor está en marcha</p>
+<div class="two-col" style="margin-top:24px;">
+<div class="detail-section">
+<h4>⚙️ Principio de funcionamiento</h4>
+<ul>
+<li>El <strong>rotor</strong> (electroimán) gira dentro del <strong>estator</strong> (bobinas trifásicas).</li>
+<li>El rotor recibe corriente de excitación por las <strong>anillos rozantes</strong> y escobillas.</li>
+<li>La rotación del campo magnético induce <strong>corriente alterna trifásica</strong> en el estator.</li>
+<li>Un <strong>puente de diodos</strong> rectifica la CA en CC para cargar la batería.</li>
+<li>El <strong>regulador de tensión</strong> controla la corriente de excitación para mantener ~14V.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📊 Comparación con la dinamo</h4>
+<table class="data-table">
+<thead><tr><th>Característica</th><th>Dinamo</th><th>Alternador</th></tr></thead>
+<tbody>
+<tr><td>Corriente generada</td><td>Continua (CC)</td><td>Alterna (CA) → rectificada</td></tr>
+<tr><td>Rectificación</td><td>Mecánica (conmutador)</td><td>Electrónica (diodos)</td></tr>
+<tr><td>Eficiencia</td><td>Baja</td><td>Alta</td></tr>
+<tr><td>Mantenimiento</td><td>Frecuente (escobillas)</td><td>Mínimo</td></tr>
+<tr><td>Potencia</td><td>Limitada</td><td>Alta (hasta 250A+)</td></tr>
+<tr><td>Rendimiento a bajas rpm</td><td>Bueno</td><td>Mejor con regulador</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="info-box success">
+<h5>🚗 Aplicaciones actuales</h5>
+<p>El alternador es el <strong>generador principal</strong> del vehículo. Produce entre 13.8V y 14.4V para cargar la batería y alimentar todos los sistemas eléctricos (luces, ECU, climatización, multimedia, etc.). Los alternadores modernos pueden generar más de 250A en vehículos con Start-Stop y sistemas híbridos ligeros.</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(1)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(3)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-3">
+<div class="block-header">
+<div class="block-label b5">Bloque V — Máquinas Eléctricas Generadoras</div>
+<h2 class="block-title">25. Rectificación de corriente</h2>
+<p class="block-desc">Conversión de corriente alterna en corriente continua. Mecánica vs electrónica.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🔧 Rectificación mecánica</h4>
+<ul>
+<li>Usada en <strong>dinamos</strong>: conmutador (anillo partido) + escobillas.</li>
+<li>Invierte el sentido de la corriente cada media vuelta del rotor.</li>
+<li>Produce CC pulsante con mucho <strong>rizado</strong> (ondulación).</li>
+<li>Desgaste mecánico: escobillas y conmutador se desgastan con el tiempo.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>💻 Rectificación electrónica</h4>
+<ul>
+<li>Usada en <strong>alternadores</strong>: puente de diodos (6 diodos para trifásica).</li>
+<li>Los diodos permiten el paso de corriente en un solo sentido.</li>
+<li>Produce CC más <strong>estable</strong> con menos rizado.</li>
+<li>Sin partes móviles: <strong>sin desgaste mecánico</strong>, mayor fiabilidad.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="circuit-diagram">
+<div class="circuit-component"><div class="comp-icon" style="border-color:var(--primary);color:var(--primary);">〰️</div><div class="comp-label">CA (3 fases)</div></div>
+<div class="circuit-arrow">→</div>
+<div class="circuit-component"><div class="comp-icon" style="border-color:var(--accent);color:var(--accent);">◆</div><div class="comp-label">6 Diodos</div></div>
+<div class="circuit-arrow">→</div>
+<div class="circuit-component"><div class="comp-icon" style="border-color:var(--success);color:var(--success);">➖➕</div><div class="comp-label">CC (14V)</div></div>
+</div>
+<div class="info-box info">
+<h5>💡 Papel de los diodos</h5>
+<p>En un alternador trifásico, se usan <strong>6 diodos</strong> (2 por fase) configurados en un puente de Graetz. Cada diodo conduce durante 120° del ciclo, asegurando que siempre haya corriente positiva en la salida. El resultado es una CC con un rizado del ~4.2%, fácilmente filtrable por la batería.</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(2)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(4)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-4">
+<div class="block-header">
+<div class="block-label b5">Bloque V — Máquinas Eléctricas Generadoras</div>
+<h2 class="block-title">26. Ley de Faraday</h2>
+<p class="block-desc">Variables que determinan la tensión generada en un alternador o cualquier máquina generadora.</p>
+</div>
+<div class="detail-content">
+<h2>Factores que determinan la tensión generada</h2>
+<p class="subtitle">La ley de Faraday explica cómo diseñar alternadores más potentes</p>
+<div class="formula-box">
+<div class="formula">ε = N × B × A × ω × sin(ωt)</div>
+<div class="desc">f.e.m. = Espiras × Campo magnético × Área × Velocidad angular × sin(ángulo)</div>
+</div>
+<div class="cards-grid" style="margin-top:24px;">
+<div class="card">
+<div class="card-icon i1">🧲</div>
+<h3>Intensidad del campo magnético (B)</h3>
+<p>Mayor campo magnético del rotor = más tensión inducida. Se logra con imanes más potentes o mayor corriente de excitación.</p>
+</div>
+<div class="card">
+<div class="card-icon i2">🔢</div>
+<h3>Número de conductores (N)</h3>
+<p>Más espiras en el estator = más tensión. Los alternadores modernos usan estatores con cientos de espiras.</p>
+</div>
+<div class="card">
+<div class="card-icon i3">⚡</div>
+<h3>Velocidad de giro (ω)</h3>
+<p>A mayor velocidad del rotor, más rápido corta las líneas de fuerza = más tensión. Por eso el alternador produce más a altas rpm.</p>
+</div>
+</div>
+<div class="info-box info" style="margin-top:24px;">
+<h5>🚗 Aplicaciones en alternadores</h5>
+<p>Para aumentar la potencia de un alternador sin aumentar su tamaño, los fabricantes usan <strong>imanes de neodimio</strong> (mayor B), <strong>estatores con más espiras</strong> (mayor N) y <strong>rotores con más polos</strong> (mayor frecuencia a la misma rpm). El regulador de tensión ajusta la corriente de excitación para mantener 14V constantes independientemente de la velocidad del motor.</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(3)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(5)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-5">
+<div class="block-header">
+<div class="block-label b5">Bloque V — Máquinas Eléctricas Generadoras</div>
+<h2 class="block-title">27. Corriente continua ideal</h2>
+<p class="block-desc">Características de la CC y diferencias fundamentales con respecto a la corriente alterna.</p>
+</div>
+<div class="detail-content">
+<h2>Corriente continua (CC) vs Corriente alterna (CA)</h2>
+<p class="subtitle">El vehículo necesita CC, pero el alternador genera CA. La rectificación convierte una en otra.</p>
+<table class="data-table">
+<thead><tr><th>Característica</th><th>Corriente Continua (CC)</th><th>Corriente Alterna (CA)</th></tr></thead>
+<tbody>
+<tr><td><strong>Dirección</strong></td><td>Siempre en el mismo sentido (+ → -)</td><td>Cambia de sentido periódicamente</td></tr>
+<tr><td><strong>Tensión</strong></td><td>Constante (ej: 12V, 14V)</td><td>Variable sinusoidalmente</td></tr>
+<tr><td><strong>Polaridad</strong></td><td>Fija: positivo y negativo definidos</td><td>Se invierte en cada ciclo</td></tr>
+<tr><td><strong>Frecuencia</strong></td><td>0 Hz (no tiene)</td><td>50 Hz, 60 Hz, o variable</td></tr>
+<tr><td><strong>Generación</strong></td><td>Baterías, dinamos, rectificadores</td><td>Alternadores, red eléctrica</td></tr>
+<tr><td><strong>Transporte</strong></td><td>Pérdidas altas en largas distancias</td><td>Ideal para transporte (transformadores)</td></tr>
+<tr><td><strong>Almacenamiento</strong></td><td>Fácil (baterías, condensadores)</td><td>Difícil (no se almacena directamente)</td></tr>
+<tr><td><strong>Uso en coche</strong></td><td>Batería, ECU, luces, sensores</td><td>Alternador (antes de rectificar)</td></tr>
+</tbody>
+</table>
+<div class="info-box success" style="margin-top:24px;">
+<h5>🚗 ¿Por qué el coche usa CC?</h5>
+<p>La <strong>batería</strong> solo puede almacenar energía en forma de corriente continua (reacciones electroquímicas). Todos los sistemas electrónicos del vehículo (ECU, sensores, actuadores) funcionan con CC. Por eso el alternador, aunque genera CA internamente, debe <strong>rectificarla</strong> a CC antes de entregarla al sistema eléctrico del coche.</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(4)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(6)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-6">
+<div class="block-header">
+<div class="block-label b6">Bloque VI — Aplicaciones del Electromagnetismo</div>
+<h2 class="block-title">28. Relé electromagnético</h2>
+<p class="block-desc">Interruptor controlado por un electroimán. Permite que una pequeña corriente controle una gran corriente.</p>
+</div>
+<div class="detail-content">
+<h2>Funcionamiento paso a paso del relé</h2>
+<p class="subtitle">Un componente omnipresente en el automóvil: desde las luces hasta la ECU</p>
+<div class="two-col" style="margin-top:24px;">
+<div class="detail-section">
+<h4>🏗️ Constitución</h4>
+<ul>
+<li><strong>Bobina:</strong> Electroimán que recibe la señal de control.</li>
+<li><strong>Núcleo:</strong> Hierro dulce que concentra el campo magnético.</li>
+<li><strong>Armadura móvil:</strong> Lámina ferromagnética que se atrae al activarse la bobina.</li>
+<li><strong>Contactos:</strong> Se cierran o abren al moverse la armadura.</li>
+<li><strong>Resorte:</strong> Devuelve la armadura a su posición cuando la bobina se desactiva.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>⚡ Funcionamiento paso a paso</h4>
+<ul>
+<li><strong>1. Reposo:</strong> Sin corriente en la bobina, el resorte mantiene los contactos en posición inicial.</li>
+<li><strong>2. Activación:</strong> Al circular corriente por la bobina, se genera un campo magnético.</li>
+<li><strong>3. Atracción:</strong> El campo atrae la armadura móvil hacia el núcleo.</li>
+<li><strong>4. Conmutación:</strong> La armadura mueve los contactos, cerrando o abriendo el circuito de potencia.</li>
+<li><strong>5. Desactivación:</strong> Al cortar la corriente, el resorte devuelve todo a la posición inicial.</li>
+</ul>
+</div>
+</div>
+<div class="info-box info">
+<h5>🚗 Aplicaciones en el automóvil</h5>
+<p>Los relés se encuentran en: <strong>caja de fusibles y relés</strong> (luces, ventilador, bomba de combustible, arranque), <strong>ECU</strong> (relés internos para control de actuadores), <strong>centralitas de confort</strong> (elevalunas, cierre centralizado), <strong>sistema de aire acondicionado</strong> (compresor, ventiladores).</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(5)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(7)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-7">
+<div class="block-header">
+<div class="block-label b6">Bloque VI — Aplicaciones del Electromagnetismo</div>
+<h2 class="block-title">29. Válvula solenoide / Electroválvula</h2>
+<p class="block-desc">Conversión de energía eléctrica en movimiento lineal para controlar el paso de fluidos.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>⚙️ Funcionamiento</h4>
+<ul>
+<li>Un <strong>solenoide</strong> (bobina con núcleo móvil) genera un campo magnético al recibir corriente.</li>
+<li>El campo atrae el <strong>núcleo móvil</strong> (armadura) hacia el interior de la bobina.</li>
+<li>El movimiento del núcleo acciona un <strong>obturador</strong> que abre o cierra el paso de fluido.</li>
+<li>Al cortar la corriente, un <strong>resorte</strong> devuelve el núcleo a su posición.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔧 Tipos de electroválvulas</h4>
+<ul>
+<li><strong>Normalmente cerrada (NC):</strong> Sin corriente, el paso está cerrado.</li>
+<li><strong>Normalmente abierta (NO):</strong> Sin corriente, el paso está abierto.</li>
+<li><strong>Proporcional:</strong> La apertura es proporcional a la corriente (control preciso).</li>
+<li><strong>Piloto:</strong> Usan la presión del fluido para accionar la válvula principal.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="info-box info">
+<h5>💡 Conversión de energía</h5>
+<p>La válvula solenoide realiza una triple conversión: <strong>eléctrica → magnética → mecánica → hidráulica/neumática</strong>. La corriente genera un campo magnético que mueve una pieza mecánica que controla un fluido. Es uno de los actuadores más versátiles del automóvil.</p>
+</div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones en automoción</h4>
+<ul>
+<li><strong>Inyectores de combustible:</strong> Controlan el paso de gasolina o gasóleo al cilindro.</li>
+<li><strong>Válvula EGR:</strong> Regula la recirculación de gases de escape.</li>
+<li><strong>Válvula de ralentí (IAC):</strong> Controla el aire en marcha en vacío.</li>
+<li><strong>Válvula de purga del canister:</strong> Evapora vapores de combustible.</li>
+<li><strong>Válvulas de cambio automático:</strong> Controlan el flujo de aceite hidráulico.</li>
+<li><strong>Válvulas de suspensión neumática:</strong> Regulan la presión de aire.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(6)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(8)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-8">
+<div class="block-header">
+<div class="block-label b7">Bloque VII — Sensores Electromagnéticos</div>
+<h2 class="block-title">30. Generador de impulsos inductivo</h2>
+<p class="block-desc">Sensor que genera una señal eléctrica al variar el flujo magnético por el paso de un objeto metálico.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>⚡ Funcionamiento</h4>
+<ul>
+<li>Consta de una <strong>bobina</strong> con núcleo de imán permanente.</li>
+<li>El imán genera un <strong>campo magnético fijo</strong> que atraviesa la bobina.</li>
+<li>Cuando un <strong>diente metálico</strong> (del volante de inercia) pasa cerca, distorsiona el campo.</li>
+<li>La variación del flujo magnético induce una <strong>tensión en la bobina</strong>.</li>
+<li>La señal es <strong>alterna</strong>: un semiciclo positivo y otro negativo por cada diente.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📊 Señal alterna generada</h4>
+<ul>
+<li>La amplitud de la señal <strong>aumenta con la velocidad</strong> del motor.</li>
+<li>A bajas rpm la señal es débil; a altas rpm es fuerte.</li>
+<li>La frecuencia de la señal es proporcional a la <strong>velocidad de rotación</strong>.</li>
+<li>La forma de onda es aproximadamente <strong>senoidal</strong>.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="info-box info">
+<h5>💡 Detección de revoluciones y posición</h5>
+<p>Contando los impulsos por unidad de tiempo, la ECU calcula las <strong>rpm</strong> del motor. Si el volante de inercia tiene un diente faltante (o un diente adicional), la ECU detecta la <strong>posición del cigüeñal</strong> (PMI: Punto Muerto Inferior o superior).</p>
+</div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">🚗 Aplicaciones</h4>
+<ul>
+<li><strong>Sensor de cigüeñal:</strong> Velocidad y posición del motor.</li>
+<li><strong>Sensor de árbol de levas:</strong> Sincronización de válvulas.</li>
+<li><strong>Sensor ABS:</strong> Velocidad de cada rueda (anillo reluctor).</li>
+<li><strong>Sensor de velocidad:</strong> Caja de cambios, velocímetro.</li>
+</ul>
+</div>
+<div class="info-box warning">
+<h5>⚠️ Limitaciones</h5>
+<p>No funciona bien a <strong>velocidades muy bajas</strong> (señal débil). Requiere un objeto <strong>ferromagnético</strong> para distorsionar el campo. La distancia de detección es limitada (0.5-2 mm). La señal es analógica y requiere acondicionamiento.</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(7)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(9)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-9">
+<div class="block-header">
+<div class="block-label b8">Bloque VIII — Sensores de Efecto Hall</div>
+<h2 class="block-title">31. Efecto Hall</h2>
+<p class="block-desc">Fenómeno físico por el cual un campo magnético perpendicular a un semiconductor genera una tensión transversal.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🔬 Descubrimiento y principio</h4>
+<ul>
+<li>Descubierto por <strong>Edwin Hall</strong> en 1879.</li>
+<li>Al circular corriente por un semiconductor en presencia de un <strong>campo magnético perpendicular</strong>...</li>
+<li>...los electrones se desvían lateralmente por la <strong>fuerza de Lorentz</strong>.</li>
+<li>Esta desviación crea una <strong>tensión transversal</strong> (Voltaje Hall) medible entre los lados del semiconductor.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>⚡ Voltaje Hall</h4>
+<ul>
+<li>El voltaje Hall es <strong>proporcional</strong> a: intensidad de corriente, campo magnético y inversamente proporcional al espesor del material.</li>
+<li>Materiales semiconductores: <strong>arseniuro de indio (InAs)</strong>, <strong>arseniuro de galio (GaAs)</strong>, silicio dopado.</li>
+<li>El voltaje es muy pequeño (mV), por lo que requiere <strong>amplificación electrónica</strong>.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="formula-box">
+<div class="formula">VH = (I × B) / (n × e × d)</div>
+<div class="desc">Voltaje Hall = (Corriente × Campo) / (Densidad portadores × Carga electrón × Espesor)</div>
+</div>
+<div class="info-box info">
+<h5>💡 ¿Por qué semiconductor y no metal?</h5>
+<p>En los metales, la densidad de portadores de carga (n) es muy alta, por lo que el voltaje Hall es insignificante. En los <strong>semiconductores</strong>, la densidad de portadores es mucho menor, produciendo un voltaje Hall medible y útil para sensores.</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(8)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(10)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-10">
+<div class="block-header">
+<div class="block-label b8">Bloque VIII — Sensores de Efecto Hall</div>
+<h2 class="block-title">32. Funcionamiento del sensor Hall</h2>
+<p class="block-desc">Sensor que detecta la presencia o ausencia de un campo magnético y genera una señal digital.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🔌 Alimentación</h4>
+<ul>
+<li>El sensor requiere <strong>alimentación eléctrica</strong> (típicamente 5V o 12V).</li>
+<li>A diferencia del sensor inductivo, el Hall <strong>no genera su propia señal</strong>: necesita energía externa.</li>
+<li>La corriente de alimentación circula por el semiconductor (elemento Hall).</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📡 Generación de señal</h4>
+<ul>
+<li><strong>Sin campo magnético:</strong> El voltaje Hall es cero. La electrónica interna genera un nivel bajo (0V).</li>
+<li><strong>Con campo magnético:</strong> Aparece voltaje Hall. La electrónica interna lo amplifica y genera un nivel alto (5V o Vcc).</li>
+<li>La señal de salida es <strong>digital</strong>: solo dos estados (alto/bajo).</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">💻 Electrónica interna</h4>
+<ul>
+<li><strong>Elemento Hall:</strong> Semiconductor que genera el voltaje transversal.</li>
+<li><strong>Amplificador:</strong> Aumenta la señal de mV a niveles útiles.</li>
+<li><strong>Comparador:</strong> Decide si el campo magnético supera el umbral.</li>
+<li><strong>Salida digital:</strong> Transistor de salida (colector abierto o push-pull).</li>
+<li><strong>Protección:</strong> Diodos contra sobretensiones e inversión de polaridad.</li>
+</ul>
+</div>
+<div class="info-box success">
+<h5>✅ Ventajas del sensor Hall</h5>
+<p>Funciona a <strong>cualquier velocidad</strong> (incluso 0 rpm), la señal es <strong>digital y limpia</strong> (no requiere acondicionamiento complejo), no tiene <strong>partes móviles</strong> (contactoless), y puede detectar tanto <strong>imanes</strong> como <strong>materiales ferromagnéticos</strong> (con imán de bias).</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(9)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(11)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-11">
+<div class="block-header">
+<div class="block-label b8">Bloque VIII — Sensores de Efecto Hall</div>
+<h2 class="block-title">33. Materiales detectables</h2>
+<p class="block-desc">Objetos y materiales que un sensor Hall puede detectar en el automóvil.</p>
+</div>
+<div class="detail-content">
+<h2>Lo que un sensor Hall puede detectar</h2>
+<p class="subtitle">El sensor Hall responde a campos magnéticos, por lo que detecta objetos que generan o alteran campos magnéticos</p>
+<div class="cards-grid" style="margin-top:24px;">
+<div class="card">
+<div class="card-icon i1">🧲</div>
+<h3>Imanes permanentes</h3>
+<p>El sensor detecta directamente el campo magnético de un imán que pasa cerca. Usado en sensores de posición de levas, pedales y palanca de cambios.</p>
+<div class="card-topics"><span class="topic-tag">Neodimio</span><span class="topic-tag">Ferrita</span><span class="topic-tag">Alnico</span></div>
+</div>
+<div class="card">
+<div class="card-icon i2">⚡</div>
+<h3>Corrientes eléctricas</h3>
+<p>Toda corriente eléctrica genera un campo magnético a su alrededor. Un sensor Hall puede medir corriente sin contacto físico (sensor de corriente sin derivación).</p>
+<div class="card-topics"><span class="topic-tag">Sensor de corriente</span><span class="topic-tag">No invasivo</span></div>
+</div>
+<div class="card">
+<div class="card-icon i3">🔩</div>
+<h3>Materiales ferromagnéticos</h3>
+<p>Con un imán de bias (imán fijo cerca del sensor), los dientes ferromagnéticos del volante de inercia alteran el campo, siendo detectados por el sensor Hall.</p>
+<div class="card-topics"><span class="topic-tag">Hierro</span><span class="topic-tag">Acero</span><span class="topic-tag">Níquel</span></div>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(10)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(12)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-12">
+<div class="block-header">
+<div class="block-label b8">Bloque VIII — Sensores de Efecto Hall</div>
+<h2 class="block-title">34. Materiales no detectables</h2>
+<p class="block-desc">Materiales que no generan ni alteran campos magnéticos y por tanto no son detectados por sensores Hall.</p>
+</div>
+<div class="detail-content">
+<h2>Materiales transparentes al campo magnético</h2>
+<p class="subtitle">El sensor Hall solo responde a campos magnéticos. Materiales no magnéticos pasan desapercibidos</p>
+<table class="data-table">
+<thead><tr><th>Material</th><th>Tipo magnético</th><th>¿Detectable por Hall?</th><th>Notas</th></tr></thead>
+<tbody>
+<tr><td><strong>Plásticos</strong></td><td>Diamagnético (muy débil)</td><td>❌ No</td><td>Usados en carcasas de sensores sin interferir</td></tr>
+<tr><td><strong>Madera</strong></td><td>Diamagnético</td><td>❌ No</td><td>No afecta al campo magnético</td></tr>
+<tr><td><strong>Vidrio</strong></td><td>Diamagnético</td><td>❌ No</td><td>Transparente al campo magnético</td></tr>
+<tr><td><strong>Cobre</strong></td><td>Diamagnético</td><td>❌ No (como material)</td><td>Sí detecta la corriente que circula por él</td></tr>
+<tr><td><strong>Aluminio</strong></td><td>Paramagnético (muy débil)</td><td>❌ No</td><td>Usado en carrocería; no interfere con sensores</td></tr>
+<tr><td><strong>Oro</strong></td><td>Diamagnético</td><td>❌ No</td><td>Usado en contactos eléctricos</td></tr>
+<tr><td><strong>Agua / Aire</strong></td><td>Diamagnéticos</td><td>❌ No</td><td>El sensor funciona en ambientes húmedos</td></tr>
+</tbody>
+</table>
+<div class="info-box info" style="margin-top:24px;">
+<h5>💡 Implicaciones en diseño</h5>
+<p>El hecho de que el sensor Hall ignore materiales no magnéticos es una gran ventaja: puede montarse <strong>detrás de plástico</strong>, protegido de la humedad y la suciedad, sin afectar su funcionamiento. Los sensores de ABS van protegidos por una carcasa plástica que no altera la detección del anillo reluctor metálico.</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(11)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(13)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-13">
+<div class="block-header">
+<div class="block-label b8">Bloque VIII — Sensores de Efecto Hall</div>
+<h2 class="block-title">35. Aplicaciones del sensor Hall</h2>
+<p class="block-desc">Uso de sensores Hall en los sistemas del vehículo moderno.</p>
+</div>
+<div class="cards-grid">
+<div class="card">
+<div class="card-icon i1">⚙️</div>
+<h3>Sensor de cigüeñal</h3>
+<p>Detecta la posición y velocidad del cigüeñal mediante un anillo reluctor con dientes. Señal digital precisa para sincronización de encendido e inyección.</p>
+</div>
+<div class="card">
+<div class="card-icon i2">📐</div>
+<h3>Sensor de árbol de levas</h3>
+<p>Identifica el ciclo del motor (admisión/compresión vs escape/expansión) mediante un imán en el árbol de levas. Esencial para inyección secuencial.</p>
+</div>
+<div class="card">
+<div class="card-icon i3">🛑</div>
+<h3>Sensor ABS</h3>
+<p>Mide la velocidad de cada rueda detectando los dientes de un anillo reluctor. Permite al módulo ABS detectar bloqueos y actuar sobre los frenos.</p>
+</div>
+<div class="card">
+<div class="card-icon i4">🌡️</div>
+<h3>Sensor de temperatura (indirecto)</h3>
+<p>Algunos sensores de temperatura usan el efecto Hall para medir corrientes de excitación en termistores o para compensación térmica.</p>
+</div>
+<div class="card">
+<div class="card-icon i5">🚗</div>
+<h3>Posición de pedales y palanca</h3>
+<p>Sensores Hall detectan la posición del pedal del acelerador (APP), freno, embrague y palanca de cambios mediante imanes móviles.</p>
+</div>
+<div class="card">
+<div class="card-icon i6">⚡</div>
+<h3>Sensor de corriente de batería</h3>
+<p>Mide la corriente que entra o sale de la batería sin interrumpir el circuito. Usado en sistemas Start-Stop y gestión de energía (BMS).</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(12)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(14)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-14">
+<div class="block-header">
+<div class="block-label b8">Bloque VIII — Sensores de Efecto Hall</div>
+<h2 class="block-title">36. Comparación: Sensor inductivo vs Sensor Hall</h2>
+<p class="block-desc">Diferencias clave entre los dos tipos de sensores más usados para detectar posición y velocidad en el automóvil.</p>
+</div>
+<div class="detail-content">
+<table class="data-table">
+<thead><tr><th>Característica</th><th>Sensor Inductivo</th><th>Sensor Hall</th></tr></thead>
+<tbody>
+<tr><td><strong>Principio</strong></td><td>Inducción electromagnética (Faraday)</td><td>Efecto Hall (desviación de electrones)</td></tr>
+<tr><td><strong>Alimentación</strong></td><td>No necesita (genera su propia señal)</td><td>Sí necesita (5V o 12V)</td></tr>
+<tr><td><strong>Tipo de señal</strong></td><td>Analógica (senoidal, amplitud variable)</td><td>Digital (cuadrada, amplitud fija)</td></tr>
+<tr><td><strong>Bajas revoluciones</strong></td><td>Señal débil o nula</td><td>Funciona perfectamente</td></tr>
+<tr><td><strong>Detección a 0 rpm</strong></td><td>No</td><td>Sí</td></tr>
+<tr><td><strong>Precisión</strong></td><td>Alta (detecta flancos de dientes)</td><td>Muy alta (flancos digitales nítidos)</td></tr>
+<tr><td><strong>Distancia de detección</strong></td><td>0.5 - 2 mm</td><td>0.5 - 3 mm</td></tr>
+<tr><td><strong>Material detectado</strong></td><td>Ferromagnético obligatorio</td><td>Imanes o ferromagnéticos (con bias)</td></tr>
+<tr><td><strong>Interferencias</strong></td><td>Sensible a ruido electromagnético</td><td>Inmune a la mayoría de interferencias</td></tr>
+<tr><td><strong>Coste</strong></td><td>Bajo</td><td>Medio-alto</td></tr>
+<tr><td><strong>Aplicación típica</strong></td><td>Sensor de cigüeñal antiguo, ABS</td><td>Sensor de cigüeñal moderno, levas, pedales</td></tr>
+</tbody>
+</table>
+<div class="info-box info" style="margin-top:24px;">
+<h5>💡 Tendencia actual</h5>
+<p>En vehículos modernos, los sensores <strong>Hall están reemplazando a los inductivos</strong> en la mayoría de aplicaciones debido a su mayor fiabilidad, señal digital limpia y funcionamiento a cualquier velocidad. Los sensores inductivos se mantienen en aplicaciones de bajo coste o donde no hay alimentación disponible.</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(13)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(15)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-15">
+<div class="block-header">
+<div class="block-label b9">Bloque IX — Transformadores</div>
+<h2 class="block-title">37. Transformador</h2>
+<p class="block-desc">Dispositivo que transfiere energía eléctrica entre dos circuitos mediante inducción electromagnética mutua.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🏗️ Constitución</h4>
+<ul>
+<li><strong>Bobina primaria:</strong> Recibe la tensión de entrada (CA).</li>
+<li><strong>Bobina secundaria:</strong> Entrega la tensión de salida (CA).</li>
+<li><strong>Núcleo magnético:</strong> Hierro dulce o ferrita que concentra el flujo magnético entre ambas bobinas.</li>
+<li>Las bobinas están <strong>aisladas eléctricamente</strong> pero acopladas magnéticamente.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>⚡ Principio de funcionamiento</h4>
+<ul>
+<li>La corriente alterna en la primaria genera un <strong>campo magnético variable</strong> en el núcleo.</li>
+<li>El campo variable atraviesa la secundaria, induciendo una <strong>tensión en la secundaria</strong>.</li>
+<li>La energía se transfiere <strong>sin contacto eléctrico</strong> (solo magnético).</li>
+<li>Funciona <strong>únicamente con corriente alterna</strong> (el campo debe variar).</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="circuit-diagram">
+<div class="circuit-component"><div class="comp-icon" style="border-color:var(--primary);color:var(--primary);">〰️</div><div class="comp-label">CA Entrada</div></div>
+<div class="circuit-arrow">→</div>
+<div class="circuit-component"><div class="comp-icon" style="border-color:var(--accent);color:var(--accent);">⭕</div><div class="comp-label">Primaria</div></div>
+<div class="circuit-arrow">→</div>
+<div class="circuit-component"><div class="comp-icon" style="border-color:var(--danger);color:var(--danger);">🧲</div><div class="comp-label">Núcleo</div></div>
+<div class="circuit-arrow">→</div>
+<div class="circuit-component"><div class="comp-icon" style="border-color:var(--success);color:var(--success);">⭕</div><div class="comp-label">Secundaria</div></div>
+<div class="circuit-arrow">→</div>
+<div class="circuit-component"><div class="comp-icon" style="border-color:var(--primary);color:var(--primary);">〰️</div><div class="comp-label">CA Salida</div></div>
+</div>
+<div class="info-box info">
+<h5>💡 Inducción electromagnética mutua</h5>
+<p>El campo magnético del primario "abraza" al secundario. Cuando el campo cambia (porque la corriente es alterna), se induce una tensión en el secundario. Si el secundario tiene más espiras que el primario, la tensión aumenta (transformador elevador). Si tiene menos, la tensión disminuye (transformador reductor).</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(14)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(16)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-16">
+<div class="block-header">
+<div class="block-label b9">Bloque IX — Transformadores</div>
+<h2 class="block-title">38. Relación de transformación</h2>
+<p class="block-desc">Relación entre el número de espiras y las tensiones de entrada y salida del transformador.</p>
+</div>
+<div class="detail-content">
+<h2>Fórmula de transformación</h2>
+<p class="subtitle">La relación de espiras determina si el transformador eleva o reduce la tensión</p>
+<div class="formula-box">
+<div class="formula">Vp / Vs = Np / Ns</div>
+<div class="desc">Tensión primaria / Tensión secundaria = Nº espiras primaria / Nº espiras secundaria</div>
+</div>
+<div class="formula-box">
+<div class="formula">Vp × Ip = Vs × Is</div>
+<div class="desc">Potencia primaria = Potencia secundaria (idealmente, sin pérdidas)</div>
+</div>
+<div class="two-col" style="margin-top:24px;">
+<div class="detail-section">
+<h4>📈 Transformador elevador</h4>
+<ul>
+<li><strong>Ns &gt; Np</strong> (más espiras en secundaria).</li>
+<li>La tensión de salida es <strong>mayor</strong> que la de entrada (Vs &gt; Vp).</li>
+<li>La corriente de salida es <strong>menor</strong> que la de entrada (Is &lt; Ip).</li>
+<li>Ejemplo: Transformador de encendido (12V → 20,000V).</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📉 Transformador reductor</h4>
+<ul>
+<li><strong>Ns &lt; Np</strong> (menos espiras en secundaria).</li>
+<li>La tensión de salida es <strong>menor</strong> que la de entrada (Vs &lt; Vp).</li>
+<li>La corriente de salida es <strong>mayor</strong> que la de entrada (Is &gt; Ip).</li>
+<li>Ejemplo: Transformador de soldadura, cargadores de batería.</li>
+</ul>
+</div>
+</div>
+<div class="info-box info" style="margin-top:24px;">
+<h5>🚗 Aplicaciones en automoción</h5>
+<p><strong>Bobina de encendido:</strong> Transformador elevador que convierte 12V en 20,000-40,000V para la chispa. <strong>Transformadores de aislamiento:</strong> En cargadores y equipos de diagnóstico. <strong>Transformadores de pulso:</strong> En sistemas de inyección y encendido electrónico (CDI).</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(15)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(17)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-17">
+<div class="block-header">
+<div class="block-label b10">Bloque X — Integración y Aplicaciones</div>
+<h2 class="block-title">39. Relación entre magnetismo y electricidad</h2>
+<p class="block-desc">Los dos fenómenos son dos caras de la misma moneda: el electromagnetismo.</p>
+</div>
+<div class="detail-content">
+<h2>Electricidad ↔ Magnetismo: una relación bidireccional</h2>
+<p class="subtitle">James Clerk Maxwell unificó ambos fenómenos en las ecuaciones de Maxwell (1865)</p>
+<div class="two-col" style="margin-top:24px;">
+<div class="detail-section">
+<h4>⚡ Corriente eléctrica crea campo magnético</h4>
+<ul>
+<li><strong>Experimento de Oersted (1820):</strong> Una corriente desvía una brújula.</li>
+<li>Todo conductor con corriente genera un <strong>campo magnético circular</strong> a su alrededor.</li>
+<li>Una bobina (solenoide) con corriente se comporta como un <strong>imán</strong>.</li>
+<li>Aplicaciones: electroimanes, relés, motores, bobinas de encendido.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🧲 Campo magnético variable genera corriente</h4>
+<ul>
+<li><strong>Ley de Faraday (1831):</strong> Un campo magnético variable induce corriente.</li>
+<li>Mover un imán dentro de una bobina genera <strong>tensión eléctrica</strong>.</li>
+<li>Girar una bobina dentro de un campo genera <strong>corriente alterna</strong>.</li>
+<li>Aplicaciones: alternador, dinamo, sensores inductivos, transformadores.</li>
+</ul>
+</div>
+</div>
+<div class="info-box success" style="margin-top:24px;">
+<h5>💡 Simetría fundamental</h5>
+<p>La electricidad y el magnetismo no son fenómenos separados: son <strong>manifestaciones de una misma fuerza</strong> (electromagnética). Un cambio en uno produce un efecto en el otro. Esta simetría es la base de toda la tecnología eléctrica y electrónica del automóvil moderno: desde el alternador hasta el motor eléctrico, pasando por sensores y actuadores.</p>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(16)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(18)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-18">
+<div class="block-header">
+<div class="block-label b10">Bloque X — Integración y Aplicaciones</div>
+<h2 class="block-title">40. Aplicaciones en el automóvil</h2>
+<p class="block-desc">Resumen de todos los sistemas del vehículo que utilizan los principios estudiados en esta unidad.</p>
+</div>
+<div class="cards-grid">
+<div class="card">
+<div class="card-icon i1">⚡</div>
+<h3>Alternador</h3>
+<p>Genera electricidad mediante inducción electromagnética. Rotor con electroimán gira dentro de estator trifásico. Rectificación electrónica con diodos.</p>
+<div class="card-topics"><span class="topic-tag">Inducción</span><span class="topic-tag">Rectificación</span><span class="topic-tag">Regulación</span></div>
+</div>
+<div class="card">
+<div class="card-icon i2">🔌</div>
+<h3>Relés</h3>
+<p>Electroimán que acciona contactos mecánicos. Permite controlar grandes corrientes con señales pequeñas.</p>
+<div class="card-topics"><span class="topic-tag">Electroimán</span><span class="topic-tag">Conmutación</span><span class="topic-tag">Protección</span></div>
+</div>
+<div class="card">
+<div class="card-icon i3">🔧</div>
+<h3>Electroválvulas</h3>
+<p>Solenoide que convierte energía eléctrica en movimiento lineal para controlar fluidos. Inyectores, EGR, válvula ralentí.</p>
+<div class="card-topics"><span class="topic-tag">Solenoide</span><span class="topic-tag">Hidráulica</span><span class="topic-tag">Control</span></div>
+</div>
+<div class="card">
+<div class="card-icon i4">📡</div>
+<h3>Sensores inductivos</h3>
+<p>Generan señal por variación de flujo magnético. Cigüeñal, árbol de levas, ABS, velocidad de ruedas.</p>
+<div class="card-topics"><span class="topic-tag">Inducción</span><span class="topic-tag">Analógico</span><span class="topic-tag">Sin alimentación</span></div>
+</div>
+<div class="card">
+<div class="card-icon i5">🔷</div>
+<h3>Sensores Hall</h3>
+<p>Detectan campos magnéticos mediante efecto Hall. Cigüeñal moderno, levas, pedales, ABS, posición.</p>
+<div class="card-topics"><span class="topic-tag">Digital</span><span class="topic-tag">Precisión</span><span class="topic-tag">Bajas rpm</span></div>
+</div>
+<div class="card">
+<div class="card-icon i6">🔥</div>
+<h3>Transformadores de encendido</h3>
+<p>Bobina de encendido: transformador elevador que convierte 12V en 20,000-40,000V para la chispa.</p>
+<div class="card-topics"><span class="topic-tag">Elevador</span><span class="topic-tag">Chispa</span><span class="topic-tag">Inducción</span></div>
+</div>
+<div class="card">
+<div class="card-icon i1">🎛️</div>
+<h3>Actuadores electromagnéticos</h3>
+<p>Motor de arranque, motor de elevalunas, motor de limpiaparabrisas, ventiladores. Todos usan electromagnetismo.</p>
+<div class="card-topics"><span class="topic-tag">Motor</span><span class="topic-tag">Fuerza</span><span class="topic-tag">Rotación</span></div>
+</div>
+<div class="card">
+<div class="card-icon i2">🔋</div>
+<h3>Batería</h3>
+<p>Generación electroquímica. Reacciones de oxidación-reducción que liberan electrones. Almacenamiento de energía.</p>
+<div class="card-topics"><span class="topic-tag">Electroquímica</span><span class="topic-tag">Almacenamiento</span><span class="topic-tag">CC</span></div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(17)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(19)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-19">
+<div class="block-header">
+<div class="block-label b10">Bloque X — Integración y Aplicaciones</div>
+<h2 class="block-title">41. Diagnóstico de averías</h2>
+<p class="block-desc">Métodos de comprobación de bobinas, relés, sensores inductivos, sensores Hall y alternadores.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🔧 Comprobación de bobinas</h4>
+<ul>
+<li><strong>Resistencia del primario:</strong> 0.5 - 2 Ω (polímetro en Ω).</li>
+<li><strong>Resistencia del secundario:</strong> 5 - 15 kΩ (polímetro en kΩ).</li>
+<li><strong>Prueba de chispa:</strong> Conectar bujía a masa y arrancar. Debe saltar chispa azul fuerte.</li>
+<li><strong>Avería común:</strong> Cortocircuito interno (resistencia anormalmente baja).</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔌 Verificación de relés</h4>
+<ul>
+<li><strong>Bobina:</strong> Medir resistencia (60 - 120 Ω típico).</li>
+<li><strong>Contactos:</strong> En reposo, 87a-30 debe conducir; 87-30 debe estar abierto.</li>
+<li><strong>Prueba de activación:</strong> Aplicar 12V a 85-86, escuchar "clic" y verificar cierre de 87-30.</li>
+<li><strong>Avería común:</strong> Contactos quemados (resistencia alta en cerrado), bobina abierta.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="detail-content">
+<h4 style="color:var(--accent);margin-bottom:16px;">📡 Diagnóstico de sensores</h4>
+<ul>
+<li><strong>Sensor inductivo:</strong> Medir resistencia de la bobina (500 - 1500 Ω). Con osciloscopio: señal senoidal que aumenta con rpm.</li>
+<li><strong>Sensor Hall:</strong> Verificar alimentación (5V o 12V) y masa. Con osciloscopio: señal cuadrada de amplitud fija.</li>
+<li><strong>Alternador:</strong> Tensión de carga con motor en marcha: 13.8 - 14.4V. Corriente de excitación en rotor. Diodos del puente rectificador.</li>
+</ul>
+</div>
+<div class="info-box warning">
+<h5>⚠️ Precauciones</h5>
+<p>Al medir bobinas de encendido, usar polímetro en la escala correcta. Nunca medir resistencia con el componente energizado. Los sensores Hall requieren alimentación para funcionar: sin ella, no generan señal. El alternador puede generar picos de tensión peligrosos al desconectar la batería con el motor en marcha.</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(18)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(20)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-20">
+<div class="block-header">
+<div class="block-label b10">Bloque X — Integración y Aplicaciones</div>
+<h2 class="block-title">42. Resumen final</h2>
+<p class="block-desc">Síntesis de todos los contenidos de la Unidad 2: generación, magnetismo, electromagnetismo, inducción, máquinas, sensores y aplicaciones.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<h2 style="color:var(--primary);margin-bottom:20px;">⚡ Generación de electricidad</h2>
+<div class="detail-section">
+<h4>5 métodos de generación</h4>
+<ul>
+<li><strong>Termoeléctrica:</strong> Efecto Seebeck, termopares, diferencia de temperatura.</li>
+<li><strong>Piezoeléctrica:</strong> Cristales que generan tensión al deformarse.</li>
+<li><strong>Fotoeléctrica:</strong> Células fotovoltaicas, efecto fotoeléctrico.</li>
+<li><strong>Electroquímica:</strong> Pilas y baterías, reacciones redox.</li>
+<li><strong>Electromagnética:</strong> Inducción, alternador, dinamo.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>Magnetismo y electromagnetismo</h4>
+<ul>
+<li>Imanes, polos, campo magnético, líneas de fuerza.</li>
+<li>Materiales: ferromagnéticos, paramagnéticos, diamagnéticos.</li>
+<li>Inducción magnética: imantación temporal y permanente.</li>
+<li>Experimento de Oersted: corriente genera campo magnético.</li>
+<li>Espira, solenoide, electroimán, bobinas.</li>
+</ul>
+</div>
+</div>
+<div class="detail-content">
+<h2 style="color:var(--accent);margin-bottom:20px;">🔧 Máquinas, sensores y aplicaciones</h2>
+<div class="detail-section">
+<h4>Inducción electromagnética</h4>
+<ul>
+<li>Ley de Faraday: campo variable induce corriente.</li>
+<li>Condiciones: conductor + campo + movimiento relativo.</li>
+<li>Corriente alterna: onda senoidal, periodo, frecuencia, amplitud.</li>
+<li>Regla de la mano derecha: sentido de la corriente inducida.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>Máquinas generadoras</h4>
+<ul>
+<li><strong>Dinamo:</strong> CC por rectificación mecánica (conmutador).</li>
+<li><strong>Alternador:</strong> CA rectificada electrónicamente (diodos).</li>
+<li><strong>Transformador:</strong> Transfiere energía por inducción mutua.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>Sensores</h4>
+<ul>
+<li><strong>Inductivo:</strong> Genera señal analógica por variación de flujo. Sin alimentación.</li>
+<li><strong>Hall:</strong> Genera señal digital por efecto Hall. Requiere alimentación.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(19)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(21)">Siguiente<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+</div>
+</div>
+<div class="slide" id="slide-21">
+<div class="block-header">
+<div class="block-label b10">Bloque X — Integración y Aplicaciones</div>
+<h2 class="block-title">43. Actividades de consolidación</h2>
+<p class="block-desc">Cuestionario interactivo para repasar los conocimientos de la Unidad 2.</p>
+</div>
+<div class="quiz-container">
+<div class="quiz-question">
+<h4>❓ Pregunta 1: ¿Qué efecto permite generar electricidad a partir de una diferencia de temperatura?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="this.classList.add('wrong')">Efecto Hall</div>
+<div class="quiz-option" onclick="this.classList.add('correct')">Efecto Seebeck</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Efecto Joule</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Efecto fotoeléctrico</div>
+</div>
+</div>
+<div class="quiz-question">
+<h4>❓ Pregunta 2: ¿Qué ley describe la inducción electromagnética?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="this.classList.add('wrong')">Ley de Ohm</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Ley de Coulomb</div>
+<div class="quiz-option" onclick="this.classList.add('correct')">Ley de Faraday</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Ley de Ampère</div>
+</div>
+</div>
+<div class="quiz-question">
+<h4>❓ Pregunta 3: ¿Qué componente rectifica la corriente alterna del alternador a continua?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="this.classList.add('wrong')">Conmutador</div>
+<div class="quiz-option" onclick="this.classList.add('correct')">Puente de diodos</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Regulador de tensión</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Estator</div>
+</div>
+</div>
+<div class="quiz-question">
+<h4>❓ Pregunta 4: ¿Qué sensor requiere alimentación eléctrica para funcionar?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="this.classList.add('wrong')">Sensor inductivo</div>
+<div class="quiz-option" onclick="this.classList.add('correct')">Sensor Hall</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Sensor de oxígeno</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Sensor de presión</div>
+</div>
+</div>
+<div class="quiz-question">
+<h4>❓ Pregunta 5: ¿Qué material es ferromagnético?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="this.classList.add('wrong')">Cobre</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Aluminio</div>
+<div class="quiz-option" onclick="this.classList.add('correct')">Hierro</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Plástico</div>
+</div>
+</div>
+<div class="quiz-question">
+<h4>❓ Pregunta 6: ¿Qué máquina genera corriente continua mediante rectificación mecánica?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="this.classList.add('correct')">Dinamo</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Alternador</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Transformador</div>
+<div class="quiz-option" onclick="this.classList.add('wrong')">Motor</div>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(20)"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="15 18 9 12 15 6"></polyline></svg>Anterior</button>
+<button class="nav-btn primary" onclick="window.location.href='presentacion.html'">🏠 Volver al inicio</button>
+</div>
+</div>
+</main>
+
+<script>
+    let currentSlide = 0;
+    const totalSlides = 22;
+    const defaultTitle = 'Módulo 02: Generación de Electricidad — Parte 2';
+    const slideTitles = ["Módulo 02 · Parte 2", "23. Dinamo", "24. Alternador", "25. Rectificación de corriente", "26. Ley de Faraday", "27. Corriente continua ideal", "28. Relé electromagnético", "29. Válvula solenoide", "30. Generador de impulsos inductivo", "31. Efecto Hall", "32. Funcionamiento del sensor Hall", "33. Materiales detectables", "34. Materiales no detectables", "35. Aplicaciones del sensor Hall", "36. Comparación inductivo vs Hall", "37. Transformador", "38. Relación de transformación", "39. Relación magnetismo-electricidad", "40. Aplicaciones en el automóvil", "41. Diagnóstico de averías", "42. Resumen final", "43. Actividades de consolidación"];
+    const CURRENT_PART = 2;
+    const PART_FILES = { 1: "presentacion.html", 2: "presentacion-2.html" };
+</script>
+<script src="../../assets/js/presentacion.js"></script>
+</body>
+</html>
