@@ -228,25 +228,4 @@ body { font-family: 'Inter', sans-serif; background: var(--darker); color: var(-
 .color-table th { font-weight: 700; color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; }
 .color-dot { display: inline-block; width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); vertical-align: middle; margin-right: 8px; }
 
-/* Diagrama comparativo tipo transistor NPN/PNP */
-.transistor-wrap { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
-.trans-box { flex: 1; min-width: 200px; background: var(--darker); border: 1px solid var(--border); border-radius: 10px; padding: 18px; text-align: center; }
-.trans-box .label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; display: block; }
-.trans-box .sym { font-size: 2.5rem; display: block; margin-bottom: 8px; }
-.trans-box p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
-
-@media (max-width: 900px) {
-    .two-col { grid-template-columns: 1fr; }
-    .cards-grid { grid-template-columns: 1fr; }
-    .sidebar { width: 280px; }
-    .slide { padding: 24px; }
-    .hero-stats { gap: 24px; }
-    .course-nav .nav-links { display: none; }
-    .main-content { padding-top: 112px; }
-    .top-bar { top: 48px; }
-    .sidebar { top: 48px; height: calc(100vh - 48px); }
-    .triangulo-container { flex-direction: column; }
-}
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+/* Diagrama comparativo tipo 
