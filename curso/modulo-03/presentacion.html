@@ -1,964 +1,708 @@
+---
+---
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Módulo 03 · Componentes Eléctricos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary:#0ea5e9; --primary-dark:#0284c7; --accent:#f59e0b;
-      --danger:#ef4444; --success:#22c55e; --purple:#8b5cf6;
-      --dark:#0f172a; --darker:#020617; --card:#1e293b; --card-hover:#334155;
-      --text:#f1f5f9; --text-muted:#94a3b8; --border:#334155;
-      --g1:linear-gradient(135deg,#0ea5e9,#6366f1);
-      --g2:linear-gradient(135deg,#f59e0b,#ef4444);
-      --g3:linear-gradient(135deg,#22c55e,#0ea5e9);
-      --g4:linear-gradient(135deg,#8b5cf6,#ec4899);
-      --g5:linear-gradient(135deg,#06b6d4,#3b82f6);
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html,body{height:100%;overflow:hidden;font-family:'Inter',sans-serif;background:var(--darker);color:var(--text);}
-
-    /* ── TOPBAR ── */
-    .topbar{
-      position:fixed;top:0;left:0;right:0;height:52px;z-index:200;
-      background:rgba(15,23,42,0.97);border-bottom:1px solid var(--border);
-      display:flex;align-items:center;justify-content:space-between;padding:0 20px;
-    }
-    .topbar-left{display:flex;align-items:center;gap:14px;}
-    .menu-btn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
-    .menu-btn:hover{background:var(--card);border-color:var(--primary);}
-    .topbar-title{font-size:.95rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .topbar-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
-    .prog-text{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--text-muted);}
-    .prog-bar{width:160px;height:5px;background:var(--card);border-radius:3px;overflow:hidden;}
-    .prog-fill{height:100%;background:var(--g1);border-radius:3px;transition:width .4s ease;}
-    .home-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);border-radius:8px;color:var(--primary);font-size:.78rem;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap;}
-    .home-btn:hover{background:rgba(14,165,233,.2);border-color:var(--primary);}
-
-    /* ── SIDEBAR ── */
-    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:95;opacity:0;visibility:hidden;transition:all .3s;}
-    .overlay.active{opacity:1;visibility:visible;}
-    .sidebar{position:fixed;left:0;top:52px;width:300px;height:calc(100vh - 52px);background:rgba(15,23,42,.98);backdrop-filter:blur(20px);border-right:1px solid var(--border);z-index:100;overflow-y:auto;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
-    .sidebar.open{transform:translateX(0);}
-    .sb-header{padding:20px;border-bottom:1px solid var(--border);}
-    .sb-header h2{font-size:1rem;font-weight:700;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-    .sb-header p{font-size:.72rem;color:var(--text-muted);margin-top:3px;}
-    .sb-section{padding:6px 0;}
-    .sb-section-title{padding:10px 20px 6px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);}
-    .sb-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:all .2s;border-left:3px solid transparent;font-size:.82rem;color:var(--text-muted);}
-    .sb-item:hover{background:rgba(255,255,255,.03);color:var(--text);}
-    .sb-item.active{background:rgba(14,165,233,.1);border-left-color:var(--primary);color:var(--primary);}
-    .sb-num{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:600;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:5px;background:rgba(255,255,255,.05);}
-    .sb-item.active .sb-num{background:var(--primary);color:white;}
-
-    /* ── SLIDES ── */
-    .main{position:relative;z-index:1;padding-top:52px;height:100vh;overflow:hidden;}
-    .slide{display:none;height:calc(100vh - 52px);overflow-y:auto;padding:36px 48px;animation:fadeUp .4s ease;}
-    .slide.active{display:block;}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-    /* ── HERO ── */
-    .hero-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 52px - 72px);text-align:center;padding:40px 0;}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 18px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.3);border-radius:100px;font-size:.78rem;color:var(--primary);font-weight:500;margin-bottom:28px;}
-    .hero-title{font-size:clamp(2.2rem,5vw,4rem);font-weight:900;line-height:1.1;margin-bottom:20px;}
-    .hero-title .g{background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-    .hero-sub{font-size:1.1rem;color:var(--text-muted);max-width:560px;margin-bottom:40px;line-height:1.6;}
-    .hero-stats{display:flex;gap:40px;margin-bottom:40px;flex-wrap:wrap;justify-content:center;}
-    .stat-val{font-size:2.2rem;font-weight:800;background:var(--g2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-    .stat-lbl{font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;}
-    .hero-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--g1);color:white;border:none;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;box-shadow:0 10px 40px rgba(14,165,233,.3);transition:all .3s;}
-    .hero-btn:hover{transform:translateY(-2px);box-shadow:0 20px 50px rgba(14,165,233,.4);}
-
-    /* ── BLOCK HEADER ── */
-    .bh{padding:28px 0 24px;margin-bottom:28px;border-bottom:1px solid var(--border);}
-    .blabel{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:100px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;}
-    .b1{background:rgba(14,165,233,.1);color:var(--primary);border:1px solid rgba(14,165,233,.3);}
-    .b2{background:rgba(245,158,11,.1);color:var(--accent);border:1px solid rgba(245,158,11,.3);}
-    .b3{background:rgba(34,197,94,.1);color:var(--success);border:1px solid rgba(34,197,94,.3);}
-    .b4{background:rgba(139,92,246,.1);color:var(--purple);border:1px solid rgba(139,92,246,.3);}
-    .b5{background:rgba(239,68,68,.1);color:var(--danger);border:1px solid rgba(239,68,68,.3);}
-    .b6{background:rgba(6,182,212,.1);color:#06b6d4;border:1px solid rgba(6,182,212,.3);}
-    .btitle{font-size:2rem;font-weight:800;margin-bottom:10px;line-height:1.1;}
-    .bdesc{font-size:1rem;color:var(--text-muted);max-width:680px;line-height:1.6;}
-
-    /* ── GRID CARDS ── */
-    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:20px;}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:all .3s;cursor:default;position:relative;overflow:hidden;}
-    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .3s;}
-    .card:hover{transform:translateY(-3px);border-color:rgba(14,165,233,.3);box-shadow:0 16px 36px rgba(0,0,0,.3);}
-    .card:hover::before{opacity:1;}
-    .c1::before{background:var(--g1);} .c2::before{background:var(--g2);} .c3::before{background:var(--g3);}
-    .c4::before{background:var(--g4);} .c5::before{background:var(--g5);} .c6::before{background:linear-gradient(135deg,#f97316,#eab308);}
-    .card-ico{width:46px;height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:14px;}
-    .i1{background:rgba(14,165,233,.1);} .i2{background:rgba(245,158,11,.1);} .i3{background:rgba(239,68,68,.1);}
-    .i4{background:rgba(139,92,246,.1);} .i5{background:rgba(34,197,94,.1);} .i6{background:rgba(6,182,212,.1);}
-    .card h3{font-size:1rem;font-weight:700;margin-bottom:7px;}
-    .card p{font-size:.85rem;color:var(--text-muted);line-height:1.55;}
-    .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;}
-    .tag{padding:3px 9px;background:rgba(255,255,255,.05);border-radius:5px;font-size:.68rem;color:var(--text-muted);}
-
-    /* ── TWO COL ── */
-    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
-
-    /* ── DETAIL BOX ── */
-    .dbox{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;}
-    .dbox h2{font-size:1.5rem;font-weight:800;margin-bottom:6px;}
-    .dbox .sub{color:var(--text-muted);font-size:.9rem;margin-bottom:26px;}
-    .dsec{margin-bottom:24px;}
-    .dsec h4{font-size:.9rem;font-weight:700;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
-    .dsec ul{list-style:none;padding:0;}
-    .dsec ul li{padding:9px 0 9px 24px;position:relative;color:var(--text-muted);font-size:.9rem;line-height:1.6;border-bottom:1px solid rgba(255,255,255,.03);}
-    .dsec ul li:last-child{border-bottom:none;}
-    .dsec ul li::before{content:'▸';position:absolute;left:0;color:var(--primary);font-weight:bold;}
-
-    /* ── INFO BOXES ── */
-    .info-box{padding:18px 22px;border-radius:10px;margin:18px 0;border-left:4px solid;}
-    .ib-info{background:rgba(14,165,233,.07);border-color:var(--primary);}
-    .ib-warn{background:rgba(245,158,11,.07);border-color:var(--accent);}
-    .ib-danger{background:rgba(239,68,68,.07);border-color:var(--danger);}
-    .ib-success{background:rgba(34,197,94,.07);border-color:var(--success);}
-    .info-box h5{font-size:.82rem;font-weight:700;margin-bottom:5px;}
-    .info-box p{font-size:.87rem;color:var(--text-muted);line-height:1.55;}
-
-    /* ── TABLE ── */
-    .dtable{width:100%;border-collapse:collapse;margin:18px 0;font-size:.88rem;}
-    .dtable th{text-align:left;padding:12px 14px;background:rgba(255,255,255,.03);font-weight:600;color:var(--text);border-bottom:2px solid var(--border);}
-    .dtable td{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--text-muted);}
-    .dtable tr:hover td{background:rgba(255,255,255,.02);}
-
-    /* ── FORMULA ── */
-    .formula-box{background:var(--darker);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center;margin:14px 0;}
-    .formula{font-family:'JetBrains Mono',monospace;font-size:1.2rem;color:var(--primary);font-weight:600;}
-    .formula-desc{color:var(--text-muted);font-size:.82rem;margin-top:6px;}
-
-    /* ── TERMINAL ── */
-    .terminal{background:#0d1117;border:1px solid #30363d;border-radius:10px;overflow:hidden;margin:16px 0;}
-    .term-hdr{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#161b22;border-bottom:1px solid #30363d;}
-    .dot{width:11px;height:11px;border-radius:50%;}
-    .dr{background:#ff5f56;} .dy{background:#ffbd2e;} .dg{background:#27c93f;}
-    .term-body{padding:18px;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.8;color:#e6edf3;}
-    .tc{color:#7ee787;} .tk{color:#79c0ff;} .to{color:#a5d6ff;}
-
-    /* ── QUIZ ── */
-    .quiz-q{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:24px;margin-bottom:14px;}
-    .quiz-q h4{font-size:.95rem;margin-bottom:14px;line-height:1.5;}
-    .quiz-opts{display:flex;flex-direction:column;gap:8px;}
-    .qopt{padding:12px 16px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s;font-size:.87rem;}
-    .qopt:hover{background:rgba(14,165,233,.08);border-color:var(--primary);}
-    .qopt.correct{background:rgba(34,197,94,.15);border-color:var(--success);color:var(--success);cursor:default;}
-    .qopt.wrong{background:rgba(239,68,68,.15);border-color:var(--danger);color:var(--danger);cursor:default;}
-
-    /* ── NAV BUTTONS ── */
-    .nav-btns{display:flex;justify-content:space-between;margin-top:36px;padding-top:22px;border-top:1px solid var(--border);}
-    .nbtn{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;background:var(--card);border:1px solid var(--border);border-radius:9px;color:var(--text);font-size:.88rem;font-weight:500;cursor:pointer;transition:all .2s;}
-    .nbtn:hover{background:var(--card-hover);border-color:var(--primary);}
-    .nbtn.primary{background:var(--g1);border:none;color:white;}
-    .nbtn.primary:hover{box-shadow:0 10px 30px rgba(14,165,233,.3);}
-
-    /* ── BG ORBS ── */
-    .bg-orbs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
-    .orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.1;animation:float 20s infinite ease-in-out;}
-    .o1{width:380px;height:380px;background:var(--primary);top:-80px;left:-80px;animation-delay:0s;}
-    .o2{width:280px;height:280px;background:var(--accent);top:50%;right:-40px;animation-delay:-6s;}
-    .o3{width:320px;height:320px;background:var(--success);bottom:-80px;left:30%;animation-delay:-12s;}
-    @keyframes float{0%,100%{transform:translate(0,0)scale(1)}33%{transform:translate(40px,-25px)scale(1.05)}66%{transform:translate(-25px,40px)scale(.95)}}
-
-    /* ── COMPONENT VISUAL ── */
-    .comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:18px;}
-    .comp-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;transition:all .3s;}
-    .comp-card:hover{border-color:rgba(14,165,233,.4);transform:translateY(-2px);}
-    .comp-sym{font-family:'JetBrains Mono',monospace;font-size:1.8rem;font-weight:700;margin-bottom:8px;display:block;}
-    .comp-card h4{font-size:.88rem;font-weight:700;margin-bottom:4px;}
-    .comp-card p{font-size:.75rem;color:var(--text-muted);line-height:1.4;}
-
-    /* ── COLOR TABLE (fusibles) ── */
-    .color-table{width:100%;border-collapse:collapse;margin:14px 0;}
-    .color-table td,.color-table th{padding:9px 14px;text-align:left;border-bottom:1px solid var(--border);font-size:.85rem;}
-    .color-table th{font-weight:700;color:var(--text-muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;}
-    .color-dot{display:inline-block;width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,.2);vertical-align:middle;margin-right:8px;}
-
-    /* ── TRANSISTOR DIAGRAM ── */
-    .transistor-wrap{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px;}
-    .trans-box{flex:1;min-width:200px;background:var(--darker);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center;}
-    .trans-box .label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:block;}
-    .trans-box .sym{font-size:2.5rem;display:block;margin-bottom:8px;}
-    .trans-box p{font-size:.8rem;color:var(--text-muted);line-height:1.5;}
-
-    @media(max-width:768px){
-      .slide{padding:20px 18px;}
-      .two-col{grid-template-columns:1fr;}
-      .hero-stats{gap:20px;}
-      .sidebar{width:270px;}
-      .topbar-title{display:none;}
-      .prog-bar{width:100px;}
-      .home-btn span{display:none;}
-    }
-    ::-webkit-scrollbar{width:5px;}
-    ::-webkit-scrollbar-track{background:transparent;}
-    ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 03 · Componentes Eléctricos</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/presentacion.css">
 </head>
 <body>
+{% include presentacion-nav.html current="modulo-03" %}
+{% include presentacion-bg.html %}
 
-<div class="bg-orbs">
-  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<header class="top-bar">
+<div class="left">
+<button class="menu-btn" onclick="toggleSidebar()" aria-label="Menú">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+</button>
+<h1 id="top-title">Módulo 03: Componentes Eléctricos</h1>
 </div>
-
-<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
-
-<!-- TOPBAR -->
-<header class="topbar">
-  <div class="topbar-left">
-    <button class="menu-btn" onclick="toggleSidebar()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
-    <span class="topbar-title" id="topTitle">Módulo 03 · Componentes Eléctricos</span>
-  </div>
-  <div class="topbar-right">
-    <span class="prog-text" id="progText">1 / 12</span>
-    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:8%"></div></div>
-    <a href="../index.html" class="home-btn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <span>Módulo</span>
-    </a>
-  </div>
+<div class="right">
+<span class="progress-text" id="progress-text">1 / 12</span>
+<div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width: 8.3%"></div></div>
+</div>
 </header>
 
-<!-- SIDEBAR -->
 <nav class="sidebar" id="sidebar">
-  <div class="sb-header">
-    <h2>📗 Módulo 03</h2>
-    <p>Componentes Eléctricos y Electrónicos</p>
-  </div>
-  <div class="sb-section">
-    <div class="sb-section-title">Navegación</div>
-    <div class="sb-item active" onclick="go(0)" data-i="0"><span class="sb-num">🏠</span>Inicio</div>
-  </div>
-  <div class="sb-section">
-    <div class="sb-section-title">Bloque I — Conductores</div>
-    <div class="sb-item" onclick="go(1)" data-i="1"><span class="sb-num">2</span>Cables y conductores</div>
-    <div class="sb-item" onclick="go(2)" data-i="2"><span class="sb-num">3</span>Conectores y terminales</div>
-  </div>
-  <div class="sb-section">
-    <div class="sb-section-title">Bloque II — Control y Protección</div>
-    <div class="sb-item" onclick="go(3)" data-i="3"><span class="sb-num">4</span>Elementos de control</div>
-    <div class="sb-item" onclick="go(4)" data-i="4"><span class="sb-num">5</span>Fusibles y protecciones</div>
-  </div>
-  <div class="sb-section">
-    <div class="sb-section-title">Bloque III — Componentes Electrónicos</div>
-    <div class="sb-item" onclick="go(5)" data-i="5"><span class="sb-num">6</span>Resistencias fijas</div>
-    <div class="sb-item" onclick="go(6)" data-i="6"><span class="sb-num">7</span>Resistencias variables</div>
-    <div class="sb-item" onclick="go(7)" data-i="7"><span class="sb-num">8</span>Relé electromagnético</div>
-  </div>
-  <div class="sb-section">
-    <div class="sb-section-title">Bloque IV — Semiconductores</div>
-    <div class="sb-item" onclick="go(8)" data-i="8"><span class="sb-num">9</span>Diodos</div>
-    <div class="sb-item" onclick="go(9)" data-i="9"><span class="sb-num">10</span>Transistores</div>
-    <div class="sb-item" onclick="go(10)" data-i="10"><span class="sb-num">11</span>Tiristores</div>
-  </div>
-  <div class="sb-section">
-    <div class="sb-section-title">Cierre</div>
-    <div class="sb-item" onclick="go(11)" data-i="11"><span class="sb-num">12</span>Repaso y autoevaluación</div>
-  </div>
+<div class="sidebar-header">
+<h2>📗 Módulo 03</h2>
+<p>Componentes Eléctricos y Electrónicos</p>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Navegación</div>
+<div class="nav-item active" onclick="goToSlide(0)" data-slide="0"><span class="num">🏠</span><span>Inicio</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque I — Conductores</div>
+<div class="nav-item" onclick="goToSlide(1)" data-slide="1"><span class="num">2</span><span>Cables y conductores</span></div>
+<div class="nav-item" onclick="goToSlide(2)" data-slide="2"><span class="num">3</span><span>Conectores y terminales</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque II — Control y Protección</div>
+<div class="nav-item" onclick="goToSlide(3)" data-slide="3"><span class="num">4</span><span>Elementos de control</span></div>
+<div class="nav-item" onclick="goToSlide(4)" data-slide="4"><span class="num">5</span><span>Fusibles y protecciones</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque III — Componentes Electrónicos</div>
+<div class="nav-item" onclick="goToSlide(5)" data-slide="5"><span class="num">6</span><span>Resistencias fijas</span></div>
+<div class="nav-item" onclick="goToSlide(6)" data-slide="6"><span class="num">7</span><span>Resistencias variables</span></div>
+<div class="nav-item" onclick="goToSlide(7)" data-slide="7"><span class="num">8</span><span>Relé electromagnético</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Bloque IV — Semiconductores</div>
+<div class="nav-item" onclick="goToSlide(8)" data-slide="8"><span class="num">9</span><span>Diodos</span></div>
+<div class="nav-item" onclick="goToSlide(9)" data-slide="9"><span class="num">10</span><span>Transistores</span></div>
+<div class="nav-item" onclick="goToSlide(10)" data-slide="10"><span class="num">11</span><span>Tiristores</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Cierre</div>
+<div class="nav-item" onclick="goToSlide(11)" data-slide="11"><span class="num">12</span><span>Repaso y autoevaluación</span></div>
+</div>
 </nav>
 
-<!-- MAIN -->
-<main class="main" id="main">
+<main class="main-content" id="main-content">
 
-  <!-- SLIDE 0: PORTADA -->
-  <div class="slide active" id="s0">
-    <div class="hero-wrap">
-      <div class="hero-badge">⚡ Unidad Didáctica 3</div>
-      <h1 class="hero-title">Componentes<br><span class="g">Eléctricos y Electrónicos</span><br>del Automóvil</h1>
-      <p class="hero-sub">Desde los cables y fusibles hasta los semiconductores que controlan todos los sistemas del vehículo moderno.</p>
-      <div class="hero-stats">
-        <div><div class="stat-val">4</div><div class="stat-lbl">Bloques</div></div>
-        <div><div class="stat-val">12</div><div class="stat-lbl">Temas</div></div>
-        <div><div class="stat-val">15+</div><div class="stat-lbl">Componentes</div></div>
-      </div>
-      <button class="hero-btn" onclick="go(1)">Comenzar ▶</button>
-    </div>
-  </div>
+<div class="slide active" id="slide-0">
+<div class="hero-slide">
+<div class="hero-badge">⚡ Unidad Didáctica 3</div>
+<h1 class="hero-title">Componentes<br><span class="gradient-text">Eléctricos y Electrónicos</span><br>del Automóvil</h1>
+<p class="hero-subtitle">Desde los cables y fusibles hasta los semiconductores que controlan todos los sistemas del vehículo moderno.</p>
+<div class="hero-stats">
+<div class="stat"><div class="stat-value">4</div><div class="stat-label">Bloques</div></div>
+<div class="stat"><div class="stat-value">12</div><div class="stat-label">Temas</div></div>
+<div class="stat"><div class="stat-value">15+</div><div class="stat-label">Componentes</div></div>
+</div>
+<button class="hero-btn" onclick="goToSlide(1)">Comenzar ▶</button>
+</div>
+</div>
 
-  <!-- SLIDE 1: CABLES Y CONDUCTORES -->
-  <div class="slide" id="s1">
-    <div class="bh">
-      <div class="blabel b1">Bloque I — Conductores</div>
-      <div class="btitle">Cables y conductores eléctricos</div>
-      <div class="bdesc">El cable es el elemento que transporta la electricidad por todo el vehículo. Conocerlo bien es la base del diagnóstico eléctrico.</div>
-    </div>
-    <div class="two-col">
-      <div class="dbox">
-        <div class="dsec">
-          <h4>🔌 ¿Qué es un cable eléctrico?</h4>
-          <ul>
-            <li>Formado por un <strong>núcleo conductor</strong> (cobre o aluminio) y una <strong>cubierta aislante</strong> de plástico flexible.</li>
-            <li>Se identifica por su <strong>color</strong> (para trazar circuitos) y su <strong>sección</strong> en mm² (para saber cuánta corriente puede transportar).</li>
-            <li>A mayor sección → puede pasar <strong>más corriente</strong> sin calentarse.</li>
-          </ul>
-        </div>
-        <div class="dsec">
-          <h4>📏 Resistencia del conductor</h4>
-          <ul>
-            <li>Todo cable tiene una pequeña resistencia eléctrica. Si el cable es muy largo o muy fino, esa resistencia <strong>provoca caída de tensión</strong>.</li>
-            <li>Un conector oxidado o un cable dañado tiene <strong>resistencia alta</strong> → el componente no recibe suficiente tensión → avería.</li>
-          </ul>
-        </div>
-        <div class="formula-box">
-          <div class="formula">R = ρ × L / S</div>
-          <div class="formula-desc">Resistividad × Longitud / Sección. A más sección → menos resistencia</div>
-        </div>
-      </div>
-      <div>
-        <div class="dbox" style="margin-bottom:16px">
-          <h4 style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px">Tabla orientativa — 12V</h4>
-          <table class="dtable">
-            <thead><tr><th>Sección (mm²)</th><th>Intensidad máx.</th><th>Uso típico</th></tr></thead>
-            <tbody>
-              <tr><td>0,5</td><td>~8 A</td><td>Señales, sensores</td></tr>
-              <tr><td>1,0</td><td>~16 A</td><td>Iluminación</td></tr>
-              <tr><td>1,5</td><td>~20 A</td><td>Luces, bocina</td></tr>
-              <tr><td>2,5</td><td>~25 A</td><td>Ventiladores</td></tr>
-              <tr><td>4,0</td><td>~35 A</td><td>Calefacción luneta</td></tr>
-              <tr><td>16,0+</td><td>100+ A</td><td>Cable de batería</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="info-box ib-warn">
-          <h5>⚠️ Regla de oro del diagnóstico</h5>
-          <p>Si un componente no funciona bien pero tiene 12V, comprueba la <strong>masa</strong>. Una masa con mala conexión es la avería más frecuente y la más difícil de encontrar.</p>
-        </div>
-      </div>
-    </div>
-    <div class="nav-btns">
-      <button class="nbtn" onclick="go(0)">← Inicio</button>
-      <button class="nbtn primary" onclick="go(2)">Siguiente →</button>
-    </div>
-  </div>
+<div class="slide" id="slide-1">
+<div class="block-header">
+<div class="block-label b1">Bloque I — Conductores</div>
+<h2 class="block-title">2. Cables y conductores eléctricos</h2>
+<p class="block-desc">El cable es el elemento que transporta la electricidad por todo el vehículo. Conocerlo bien es la base del diagnóstico eléctrico.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🔌 ¿Qué es un cable eléctrico?</h4>
+<ul>
+<li>Formado por un <strong>núcleo conductor</strong> (cobre o aluminio) y una <strong>cubierta aislante</strong> de plástico flexible.</li>
+<li>Se identifica por su <strong>color</strong> (para trazar circuitos) y su <strong>sección</strong> en mm² (para saber cuánta corriente puede transportar).</li>
+<li>A mayor sección → puede pasar <strong>más corriente</strong> sin calentarse.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>📏 Resistencia del conductor</h4>
+<ul>
+<li>Todo cable tiene una pequeña resistencia eléctrica. Si el cable es muy largo o muy fino, esa resistencia <strong>provoca caída de tensión</strong>.</li>
+<li>Un conector oxidado o un cable dañado tiene <strong>resistencia alta</strong> → el componente no recibe suficiente tensión → avería.</li>
+</ul>
+</div>
+<div class="formula-box">
+<div class="formula">R = ρ × L / S</div>
+<div class="desc">Resistividad × Longitud / Sección. A más sección → menos resistencia</div>
+</div>
+</div>
+<div>
+<div class="detail-content" style="margin-bottom:16px">
+<h4 style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px">Tabla orientativa — 12V</h4>
+<table class="data-table">
+<thead><tr><th>Sección (mm²)</th><th>Intensidad máx.</th><th>Uso típico</th></tr></thead>
+<tbody>
+<tr><td>0,5</td><td>~8 A</td><td>Señales, sensores</td></tr>
+<tr><td>1,0</td><td>~16 A</td><td>Iluminación</td></tr>
+<tr><td>1,5</td><td>~20 A</td><td>Luces, bocina</td></tr>
+<tr><td>2,5</td><td>~25 A</td><td>Ventiladores</td></tr>
+<tr><td>4,0</td><td>~35 A</td><td>Calefacción luneta</td></tr>
+<tr><td>16,0+</td><td>100+ A</td><td>Cable de batería</td></tr>
+</tbody>
+</table>
+</div>
+<div class="info-box warning">
+<h5>⚠️ Regla de oro del diagnóstico</h5>
+<p>Si un componente no funciona bien pero tiene 12V, comprueba la <strong>masa</strong>. Una masa con mala conexión es la avería más frecuente y la más difícil de encontrar.</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(0)">← Inicio</button>
+<button class="nav-btn primary" onclick="goToSlide(2)">Siguiente →</button>
+</div>
+</div>
 
-  <!-- SLIDE 2: CONECTORES Y TERMINALES -->
-  <div class="slide" id="s2">
-    <div class="bh">
-      <div class="blabel b1">Bloque I — Conductores</div>
-      <div class="btitle">Conectores y terminales</div>
-      <div class="bdesc">Los puntos de unión entre cables son los puntos más críticos del circuito. Aquí es donde aparece la mayoría de las averías.</div>
-    </div>
-    <div class="cards">
-      <div class="card c1">
-        <div class="card-ico i1">🔌</div>
-        <h3>Conector</h3>
-        <p>Unión <strong>desmontable</strong> entre dos partes del circuito. Debe garantizar buen contacto eléctrico, resistencia a la humedad y al calor, y facilidad de conexión/desconexión.</p>
-        <div class="tags"><span class="tag">Desmontable</span><span class="tag">Varios pines</span><span class="tag">Color identificativo</span></div>
-      </div>
-      <div class="card c2">
-        <div class="card-ico i2">🔧</div>
-        <h3>Terminal eléctrico</h3>
-        <p>Pieza metálica al final del cable que facilita su conexión. Fabricados en <strong>latón, aluminio o cobre</strong>. El más común en automoción es el "faston" (conector rápido plano).</p>
-        <div class="tags"><span class="tag">Faston</span><span class="tag">Latón</span><span class="tag">Crimpado</span></div>
-      </div>
-      <div class="card c3">
-        <div class="card-ico i3">⚡</div>
-        <h3>Resistencia de contacto</h3>
-        <p>Todo conector tiene una pequeña resistencia. Si se oxida o afloja, esa resistencia aumenta → <strong>caída de tensión</strong> y calentamiento. Principal causa de averías intermitentes.</p>
-        <div class="tags"><span class="tag">Oxidación</span><span class="tag">Intermitente</span><span class="tag">Calor</span></div>
-      </div>
-      <div class="card c4">
-        <div class="card-ico i4">🛡️</div>
-        <h3>Requisitos del conector</h3>
-        <p>Buen contacto eléctrico · Impermeabilidad (sellado) · Aislamiento entre pines · Resistencia al calor · Facilidad de conexión y bloqueo seguro.</p>
-        <div class="tags"><span class="tag">IP67</span><span class="tag">Sellado</span><span class="tag">Bloqueo</span></div>
-      </div>
-    </div>
-    <div class="info-box ib-info" style="margin-top:20px">
-      <h5>💡 Diagnóstico de conectores</h5>
-      <p>Con el polímetro en modo voltaje, mide la <strong>caída de tensión</strong> a través del conector con el circuito en carga. Más de 0,2V en un conector indica problema. Con el ohmímetro (sin tensión), un buen contacto debe medir menos de 0,5 Ω.</p>
-    </div>
-    <div class="nav-btns">
-      <button class="nbtn" onclick="go(1)">← Anterior</button>
-      <button class="nbtn primary" onclick="go(3)">Siguiente →</button>
-    </div>
-  </div>
+<div class="slide" id="slide-2">
+<div class="block-header">
+<div class="block-label b1">Bloque I — Conductores</div>
+<h2 class="block-title">3. Conectores y terminales</h2>
+<p class="block-desc">Los puntos de unión entre cables son los puntos más críticos del circuito. Aquí es donde aparece la mayoría de las averías.</p>
+</div>
+<div class="cards-grid">
+<div class="card c1">
+<div class="card-icon i1">🔌</div>
+<h3>Conector</h3>
+<p>Unión <strong>desmontable</strong> entre dos partes del circuito. Debe garantizar buen contacto eléctrico, resistencia a la humedad y al calor, y facilidad de conexión/desconexión.</p>
+<div class="card-topics"><span class="topic-tag">Desmontable</span><span class="topic-tag">Varios pines</span><span class="topic-tag">Color identificativo</span></div>
+</div>
+<div class="card c2">
+<div class="card-icon i2">🔧</div>
+<h3>Terminal eléctrico</h3>
+<p>Pieza metálica al final del cable que facilita su conexión. Fabricados en <strong>latón, aluminio o cobre</strong>. El más común en automoción es el "faston" (conector rápido plano).</p>
+<div class="card-topics"><span class="topic-tag">Faston</span><span class="topic-tag">Latón</span><span class="topic-tag">Crimpado</span></div>
+</div>
+<div class="card c3">
+<div class="card-icon i3">⚡</div>
+<h3>Resistencia de contacto</h3>
+<p>Todo conector tiene una pequeña resistencia. Si se oxida o afloja, esa resistencia aumenta → <strong>caída de tensión</strong> y calentamiento. Principal causa de averías intermitentes.</p>
+<div class="card-topics"><span class="topic-tag">Oxidación</span><span class="topic-tag">Intermitente</span><span class="topic-tag">Calor</span></div>
+</div>
+<div class="card c4">
+<div class="card-icon i4">🛡️</div>
+<h3>Requisitos del conector</h3>
+<p>Buen contacto eléctrico · Impermeabilidad (sellado) · Aislamiento entre pines · Resistencia al calor · Facilidad de conexión y bloqueo seguro.</p>
+<div class="card-topics"><span class="topic-tag">IP67</span><span class="topic-tag">Sellado</span><span class="topic-tag">Bloqueo</span></div>
+</div>
+</div>
+<div class="info-box info" style="margin-top:20px">
+<h5>💡 Diagnóstico de conectores</h5>
+<p>Con el polímetro en modo voltaje, mide la <strong>caída de tensión</strong> a través del conector con el circuito en carga. Más de 0,2V en un conector indica problema. Con el ohmímetro (sin tensión), un buen contacto debe medir menos de 0,5 Ω.</p>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(1)">← Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(3)">Siguiente →</button>
+</div>
+</div>
 
-  <!-- SLIDE 3: ELEMENTOS DE CONTROL -->
-  <div class="slide" id="s3">
-    <div class="bh">
-      <div class="blabel b2">Bloque II — Control y Protección</div>
-      <div class="btitle">Elementos de control</div>
-      <div class="bdesc">Controlan el funcionamiento de los circuitos de forma manual o automática según condiciones externas.</div>
-    </div>
-    <div class="cards">
-      <div class="card c1">
-        <div class="card-ico i1">🔘</div>
-        <h3>Interruptor</h3>
-        <p>Permite <strong>abrir y cerrar</strong> un circuito a voluntad. Cuando está cerrado, la corriente fluye. Cuando está abierto, la corriente se interrumpe. Dos posiciones estables.</p>
-        <div class="tags"><span class="tag">Biestable</span><span class="tag">On/Off</span></div>
-      </div>
-      <div class="card c2">
-        <div class="card-ico i2">⏺️</div>
-        <h3>Pulsador</h3>
-        <p>Solo actúa <strong>mientras se mantiene accionado</strong>. Al soltar, vuelve a su posición. Puede ser <strong>NA</strong> (normalmente abierto) o <strong>NC</strong> (normalmente cerrado).</p>
-        <div class="tags"><span class="tag">NA / NC</span><span class="tag">Momentáneo</span></div>
-      </div>
-      <div class="card c3">
-        <div class="card-ico i3">🔀</div>
-        <h3>Conmutador</h3>
-        <p>Interruptor con más funciones: al cerrar un circuito, <strong>abre otro simultáneamente</strong>. Ejemplo: cambio luces largas/cortas, selector de ventilador.</p>
-        <div class="tags"><span class="tag">Doble función</span><span class="tag">Selector</span></div>
-      </div>
-      <div class="card c4">
-        <div class="card-ico i4">🌡️</div>
-        <h3>Interruptor térmico (Termocontacto)</h3>
-        <p>Abre o cierra el circuito según la <strong>temperatura</strong>. Bimetal que se deforma con el calor. Usado en ventilador de refrigeración: se activa al llegar a la temperatura de diseño.</p>
-        <div class="tags"><span class="tag">Bimetal</span><span class="tag">Temperatura</span><span class="tag">Ventilador</span></div>
-      </div>
-      <div class="card c5">
-        <div class="card-ico i5">💨</div>
-        <h3>Interruptor presostático (Manocontacto)</h3>
-        <p>Abre o cierra según la <strong>presión</strong> del fluido. Usado en el circuito de aire acondicionado para proteger el compresor si la presión del refrigerante es incorrecta.</p>
-        <div class="tags"><span class="tag">Presión</span><span class="tag">A/A</span><span class="tag">Protección</span></div>
-      </div>
-      <div class="card c6">
-        <div class="card-ico i6">💡</div>
-        <h3>Interruptor de luz (Reed)</h3>
-        <p>Activado por campo magnético. Sin contacto físico. Muy fiable y duradero. Usado en sensores de posición, nivel de combustible y alarmas.</p>
-        <div class="tags"><span class="tag">Sin contacto</span><span class="tag">Magnético</span></div>
-      </div>
-    </div>
-    <div class="nav-btns">
-      <button class="nbtn" onclick="go(2)">← Anterior</button>
-      <button class="nbtn primary" onclick="go(4)">Siguiente →</button>
-    </div>
-  </div>
+<div class="slide" id="slide-3">
+<div class="block-header">
+<div class="block-label b2">Bloque II — Control y Protección</div>
+<h2 class="block-title">4. Elementos de control</h2>
+<p class="block-desc">Controlan el funcionamiento de los circuitos de forma manual o automática según condiciones externas.</p>
+</div>
+<div class="cards-grid">
+<div class="card c1">
+<div class="card-icon i1">🔘</div>
+<h3>Interruptor</h3>
+<p>Permite <strong>abrir y cerrar</strong> un circuito a voluntad. Cuando está cerrado, la corriente fluye. Cuando está abierto, la corriente se interrumpe. Dos posiciones estables.</p>
+<div class="card-topics"><span class="topic-tag">Biestable</span><span class="topic-tag">On/Off</span></div>
+</div>
+<div class="card c2">
+<div class="card-icon i2">⏺️</div>
+<h3>Pulsador</h3>
+<p>Solo actúa <strong>mientras se mantiene accionado</strong>. Al soltar, vuelve a su posición. Puede ser <strong>NA</strong> (normalmente abierto) o <strong>NC</strong> (normalmente cerrado).</p>
+<div class="card-topics"><span class="topic-tag">NA / NC</span><span class="topic-tag">Momentáneo</span></div>
+</div>
+<div class="card c3">
+<div class="card-icon i3">🔀</div>
+<h3>Conmutador</h3>
+<p>Interruptor con más funciones: al cerrar un circuito, <strong>abre otro simultáneamente</strong>. Ejemplo: cambio luces largas/cortas, selector de ventilador.</p>
+<div class="card-topics"><span class="topic-tag">Doble función</span><span class="topic-tag">Selector</span></div>
+</div>
+<div class="card c4">
+<div class="card-icon i4">🌡️</div>
+<h3>Interruptor térmico (Termocontacto)</h3>
+<p>Abre o cierra el circuito según la <strong>temperatura</strong>. Bimetal que se deforma con el calor. Usado en ventilador de refrigeración: se activa al llegar a la temperatura de diseño.</p>
+<div class="card-topics"><span class="topic-tag">Bimetal</span><span class="topic-tag">Temperatura</span><span class="topic-tag">Ventilador</span></div>
+</div>
+<div class="card c5">
+<div class="card-icon i5">💨</div>
+<h3>Interruptor presostático (Manocontacto)</h3>
+<p>Abre o cierra según la <strong>presión</strong> del fluido. Usado en el circuito de aire acondicionado para proteger el compresor si la presión del refrigerante es incorrecta.</p>
+<div class="card-topics"><span class="topic-tag">Presión</span><span class="topic-tag">A/A</span><span class="topic-tag">Protección</span></div>
+</div>
+<div class="card c6">
+<div class="card-icon i6">💡</div>
+<h3>Interruptor de luz (Reed)</h3>
+<p>Activado por campo magnético. Sin contacto físico. Muy fiable y duradero. Usado en sensores de posición, nivel de combustible y alarmas.</p>
+<div class="card-topics"><span class="topic-tag">Sin contacto</span><span class="topic-tag">Magnético</span></div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(2)">← Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(4)">Siguiente →</button>
+</div>
+</div>
 
-  <!-- SLIDE 4: FUSIBLES Y PROTECCIONES -->
-  <div class="slide" id="s4">
-    <div class="bh">
-      <div class="blabel b2">Bloque II — Control y Protección</div>
-      <div class="btitle">Fusibles y elementos de protección</div>
-      <div class="bdesc">Protegen el circuito ante sobreintensidades que podrían causar incendios o daños irreparables.</div>
-    </div>
-    <div class="two-col">
-      <div>
-        <div class="dbox" style="margin-bottom:16px">
-          <div class="dsec">
-            <h4>🛡️ ¿Cómo funciona un fusible?</h4>
-            <ul>
-              <li>Contiene un <strong>filamento o lámina</strong> de aleación de bajo punto de fusión.</li>
-              <li>Por <strong>efecto Joule</strong>: si la intensidad supera el valor calibrado, el filamento se calienta y se funde, cortando el circuito.</li>
-              <li>Efecto Joule: la corriente al pasar por una resistencia genera calor: <strong>P = I² × R</strong></li>
-              <li>Una vez fundido, el fusible hay que <strong>sustituirlo</strong> (no se puede reparar).</li>
-            </ul>
-          </div>
-          <div class="dsec">
-            <h4>🔄 Disyuntor (fusible rearmable)</h4>
-            <ul>
-              <li>Usa un <strong>bimetal</strong> que al calentarse abre el contacto.</li>
-              <li>Al enfriarse, se puede volver a cerrar (rearmar).</li>
-              <li>Ventaja: no hay que sustituirlo. Desventaja: puede ser fuente de averías intermitentes.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="info-box ib-danger">
-          <h5>⚠️ Error crítico en taller</h5>
-          <p>Nunca pongas un fusible de <strong>mayor amperaje</strong> del especificado. El cable puede fundirse y provocar un incendio. Si un fusible se funde siempre, hay una avería que encontrar, no un fusible que cambiar.</p>
-        </div>
-      </div>
-      <div class="dbox">
-        <h2 style="font-size:1.1rem;margin-bottom:16px">Fusibles de lámina · Colores y calibres</h2>
-        <table class="color-table">
-          <thead><tr><th>Color</th><th>Intensidad</th><th>Uso frecuente</th></tr></thead>
-          <tbody>
-            <tr><td><span class="color-dot" style="background:#888"></span>Gris</td><td>2 A</td><td>Señales débiles</td></tr>
-            <tr><td><span class="color-dot" style="background:#a0522d"></span>Marrón</td><td>5 A</td><td>Luces piloto</td></tr>
-            <tr><td><span class="color-dot" style="background:#cc0000"></span>Rojo</td><td>10 A</td><td>Alumbrado</td></tr>
-            <tr><td><span class="color-dot" style="background:#3333cc"></span>Azul</td><td>15 A</td><td>Luces</td></tr>
-            <tr><td><span class="color-dot" style="background:#ffcc00"></span>Amarillo</td><td>20 A</td><td>Ventilador, A/A</td></tr>
-            <tr><td><span class="color-dot" style="background:#ffffff;border:1px solid #555"></span>Blanco</td><td>25 A</td><td>Elevalunas</td></tr>
-            <tr><td><span class="color-dot" style="background:#22cc22"></span>Verde</td><td>30 A</td><td>Bomba combustible</td></tr>
-            <tr><td><span class="color-dot" style="background:#ff6600"></span>Naranja</td><td>40 A</td><td>Calefacción</td></tr>
-            <tr><td><span class="color-dot" style="background:#cc44cc"></span>Violeta</td><td>50 A</td><td>Arranque, carga</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="nav-btns">
-      <button class="nbtn" onclick="go(3)">← Anterior</button>
-      <button class="nbtn primary" onclick="go(5)">Siguiente →</button>
-    </div>
-  </div>
+<div class="slide" id="slide-4">
+<div class="block-header">
+<div class="block-label b2">Bloque II — Control y Protección</div>
+<h2 class="block-title">5. Fusibles y elementos de protección</h2>
+<p class="block-desc">Protegen el circuito ante sobreintensidades que podrían causar incendios o daños irreparables.</p>
+</div>
+<div class="two-col">
+<div>
+<div class="detail-content" style="margin-bottom:16px">
+<div class="detail-section">
+<h4>🛡️ ¿Cómo funciona un fusible?</h4>
+<ul>
+<li>Contiene un <strong>filamento o lámina</strong> de aleación de bajo punto de fusión.</li>
+<li>Por <strong>efecto Joule</strong>: si la intensidad supera el valor calibrado, el filamento se calienta y se funde, cortando el circuito.</li>
+<li>Efecto Joule: la corriente al pasar por una resistencia genera calor: <strong>P = I² × R</strong></li>
+<li>Una vez fundido, el fusible hay que <strong>sustituirlo</strong> (no se puede reparar).</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔄 Disyuntor (fusible rearmable)</h4>
+<ul>
+<li>Usa un <strong>bimetal</strong> que al calentarse abre el contacto.</li>
+<li>Al enfriarse, se puede volver a cerrar (rearmar).</li>
+<li>Ventaja: no hay que sustituirlo. Desventaja: puede ser fuente de averías intermitentes.</li>
+</ul>
+</div>
+</div>
+<div class="info-box danger">
+<h5>⚠️ Error crítico en taller</h5>
+<p>Nunca pongas un fusible de <strong>mayor amperaje</strong> del especificado. El cable puede fundirse y provocar un incendio. Si un fusible se funde siempre, hay una avería que encontrar, no un fusible que cambiar.</p>
+</div>
+</div>
+<div class="detail-content">
+<h2 style="font-size:1.1rem;margin-bottom:16px">Fusibles de lámina · Colores y calibres</h2>
+<table class="color-table">
+<thead><tr><th>Color</th><th>Intensidad</th><th>Uso frecuente</th></tr></thead>
+<tbody>
+<tr><td><span class="color-dot" style="background:#888"></span>Gris</td><td>2 A</td><td>Señales débiles</td></tr>
+<tr><td><span class="color-dot" style="background:#a0522d"></span>Marrón</td><td>5 A</td><td>Luces piloto</td></tr>
+<tr><td><span class="color-dot" style="background:#cc0000"></span>Rojo</td><td>10 A</td><td>Alumbrado</td></tr>
+<tr><td><span class="color-dot" style="background:#3333cc"></span>Azul</td><td>15 A</td><td>Luces</td></tr>
+<tr><td><span class="color-dot" style="background:#ffcc00"></span>Amarillo</td><td>20 A</td><td>Ventilador, A/A</td></tr>
+<tr><td><span class="color-dot" style="background:#ffffff;border:1px solid #555"></span>Blanco</td><td>25 A</td><td>Elevalunas</td></tr>
+<tr><td><span class="color-dot" style="background:#22cc22"></span>Verde</td><td>30 A</td><td>Bomba combustible</td></tr>
+<tr><td><span class="color-dot" style="background:#ff6600"></span>Naranja</td><td>40 A</td><td>Calefacción</td></tr>
+<tr><td><span class="color-dot" style="background:#cc44cc"></span>Violeta</td><td>50 A</td><td>Arranque, carga</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(3)">← Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(5)">Siguiente →</button>
+</div>
+</div>
 
-  <!-- SLIDE 5: RESISTENCIAS FIJAS -->
-  <div class="slide" id="s5">
-    <div class="bh">
-      <div class="blabel b3">Bloque III — Componentes Electrónicos</div>
-      <div class="btitle">Resistencias fijas</div>
-      <div class="bdesc">El componente electrónico más básico. Limita la corriente y divide la tensión en los circuitos.</div>
-    </div>
-    <div class="two-col">
-      <div class="dbox">
-        <div class="dsec">
-          <h4>🔴 ¿Qué hace una resistencia?</h4>
-          <ul>
-            <li><strong>Limita la corriente</strong> que circula por el circuito.</li>
-            <li><strong>Divide la tensión</strong> en circuitos serie (divisor de tensión).</li>
-            <li>Convierte energía eléctrica en <strong>calor</strong> (efecto Joule).</li>
-            <li>Se mide en <strong>Ohmios (Ω)</strong>. Símbolo: R.</li>
-          </ul>
-        </div>
-        <div class="dsec">
-          <h4>🎨 Código de colores</h4>
-          <ul>
-            <li>El valor se indica con <strong>franjas de colores</strong> serigrafiadas sobre el cuerpo.</li>
-            <li>Cada color representa un dígito y un multiplicador.</li>
-            <li>La última franja indica la <strong>tolerancia</strong> (oro ±5%, plata ±10%).</li>
-          </ul>
-        </div>
-        <div class="terminal">
-          <div class="term-hdr"><div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div><span style="font-size:.72rem;color:#8b949e;margin-left:7px">codigo_colores.dat</span></div>
-          <div class="term-body">
-            <span class="to">Negro   = 0</span><br>
-            <span class="to">Marrón  = 1</span><br>
-            <span class="to">Rojo    = 2</span><br>
-            <span class="to">Naranja = 3</span><br>
-            <span class="to">Amarillo= 4</span><br>
-            <span class="to">Verde   = 5</span><br>
-            <span class="to">Azul    = 6</span><br>
-            <span class="to">Violeta = 7</span><br>
-            <span class="to">Gris    = 8</span><br>
-            <span class="to">Blanco  = 9</span>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="info-box ib-info" style="margin-bottom:16px">
-          <h5>💡 Ejemplo: leer una resistencia de 4 bandas</h5>
-          <p>Rojo(2) – Violeta(7) – Naranja(×1000) – Oro(±5%) = <strong>27.000 Ω = 27 kΩ ±5%</strong></p>
-        </div>
-        <div class="dbox">
-          <div class="dsec">
-            <h4>🚗 En el automóvil</h4>
-            <ul>
-              <li><strong>Limitación de corriente LED:</strong> evita que el diodo se destruya.</li>
-              <li><strong>Divisores de tensión:</strong> adaptan señales de sensores a la ECU.</li>
-              <li><strong>Pull-up / Pull-down:</strong> definen el nivel lógico en entradas digitales.</li>
-              <li><strong>Calefacción:</strong> resistencias calefactoras en luneta, espejos y asientos.</li>
-              <li><strong>Tablero de instrumentos:</strong> regulan la intensidad de iluminación.</li>
-            </ul>
-          </div>
-          <div class="formula-box">
-            <div class="formula">V = I × R &nbsp;&nbsp; P = I² × R</div>
-            <div class="formula-desc">La tensión en los extremos y la potencia disipada como calor</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="nav-btns">
-      <button class="nbtn" onclick="go(4)">← Anterior</button>
-      <button class="nbtn primary" onclick="go(6)">Siguiente →</button>
-    </div>
-  </div>
+<div class="slide" id="slide-5">
+<div class="block-header">
+<div class="block-label b3">Bloque III — Componentes Electrónicos</div>
+<h2 class="block-title">6. Resistencias fijas</h2>
+<p class="block-desc">El componente electrónico más básico. Limita la corriente y divide la tensión en los circuitos.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🔴 ¿Qué hace una resistencia?</h4>
+<ul>
+<li><strong>Limita la corriente</strong> que circula por el circuito.</li>
+<li><strong>Divide la tensión</strong> en circuitos serie (divisor de tensión).</li>
+<li>Convierte energía eléctrica en <strong>calor</strong> (efecto Joule).</li>
+<li>Se mide en <strong>Ohmios (Ω)</strong>. Símbolo: R.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🎨 Código de colores</h4>
+<ul>
+<li>El valor se indica con <strong>franjas de colores</strong> serigrafiadas sobre el cuerpo.</li>
+<li>Cada color representa un dígito y un multiplicador.</li>
+<li>La última franja indica la <strong>tolerancia</strong> (oro ±5%, plata ±10%).</li>
+</ul>
+</div>
+<div class="terminal">
+<div class="terminal-header"><div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div><span style="font-size:.72rem;color:#8b949e;margin-left:7px">codigo_colores.dat</span></div>
+<div class="terminal-body">
+<span class="output">Negro   = 0</span><br>
+<span class="output">Marrón  = 1</span><br>
+<span class="output">Rojo    = 2</span><br>
+<span class="output">Naranja = 3</span><br>
+<span class="output">Amarillo= 4</span><br>
+<span class="output">Verde   = 5</span><br>
+<span class="output">Azul    = 6</span><br>
+<span class="output">Violeta = 7</span><br>
+<span class="output">Gris    = 8</span><br>
+<span class="output">Blanco  = 9</span>
+</div>
+</div>
+</div>
+<div>
+<div class="info-box info" style="margin-bottom:16px">
+<h5>💡 Ejemplo: leer una resistencia de 4 bandas</h5>
+<p>Rojo(2) – Violeta(7) – Naranja(×1000) – Oro(±5%) = <strong>27.000 Ω = 27 kΩ ±5%</strong></p>
+</div>
+<div class="detail-content">
+<div class="detail-section">
+<h4>🚗 En el automóvil</h4>
+<ul>
+<li><strong>Limitación de corriente LED:</strong> evita que el diodo se destruya.</li>
+<li><strong>Divisores de tensión:</strong> adaptan señales de sensores a la ECU.</li>
+<li><strong>Pull-up / Pull-down:</strong> definen el nivel lógico en entradas digitales.</li>
+<li><strong>Calefacción:</strong> resistencias calefactoras en luneta, espejos y asientos.</li>
+<li><strong>Tablero de instrumentos:</strong> regulan la intensidad de iluminación.</li>
+</ul>
+</div>
+<div class="formula-box">
+<div class="formula">V = I × R &nbsp;&nbsp; P = I² × R</div>
+<div class="desc">La tensión en los extremos y la potencia disipada como calor</div>
+</div>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(4)">← Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(6)">Siguiente →</button>
+</div>
+</div>
 
-  <!-- SLIDE 6: RESISTENCIAS VARIABLES -->
-  <div class="slide" id="s6">
-    <div class="bh">
-      <div class="blabel b3">Bloque III — Componentes Electrónicos</div>
-      <div class="btitle">Resistencias variables</div>
-      <div class="bdesc">Su valor de resistencia cambia según una magnitud física: posición, temperatura, luz o tensión.</div>
-    </div>
-    <div class="comp-grid">
-      <div class="comp-card">
-        <span class="comp-sym" style="color:#0ea5e9">⚙️</span>
-        <h4>Potenciómetro</h4>
-        <p>Varía <strong>manualmente</strong>. Tiene un cursor deslizante o rotativo. Úsalo en serie (divisor de tensión) o en paralelo (regulador de corriente). Ejemplo: sensor de posición del acelerador.</p>
-      </div>
-      <div class="comp-card">
-        <span class="comp-sym" style="color:#f59e0b">☀️</span>
-        <h4>Fotorresistencia (LDR)</h4>
-        <p>Varía según la <strong>luz</strong>. A más luz → menos resistencia → más corriente. Usada en sistemas de iluminación automática del vehículo y sensor crepuscular.</p>
-      </div>
-      <div class="comp-card">
-        <span class="comp-sym" style="color:#ef4444">🌡️</span>
-        <h4>Termistor NTC</h4>
-        <p><strong>Temperatura sube → resistencia baja.</strong> Muy usado en sensores de temperatura de agua y aire de admisión. Señal proporcional que la ECU interpreta.</p>
-      </div>
-      <div class="comp-card">
-        <span class="comp-sym" style="color:#22c55e">🔥</span>
-        <h4>Termistor PTC</h4>
-        <p><strong>Temperatura sube → resistencia sube.</strong> Usado como protección térmica: al calentarse demasiado, corta la corriente automáticamente. También en calefacción de espejos.</p>
-      </div>
-      <div class="comp-card">
-        <span class="comp-sym" style="color:#8b5cf6">⚡</span>
-        <h4>Varistor (VDR)</h4>
-        <p><strong>Tensión sube → resistencia baja.</strong> Protege circuitos sensibles de picos de tensión (relámpagos, conmutaciones). Se coloca en paralelo con el componente a proteger.</p>
-      </div>
-      <div class="comp-card">
-        <span class="comp-sym" style="color:#06b6d4">📡</span>
-        <h4>Sensor de posición (APP)</h4>
-        <p>Potenciómetro doble en el pedal del acelerador. Informa a la ECU de la posición del pedal con <strong>señal de 0 a 5V</strong>. Doble para seguridad (redundancia).</p>
-      </div>
-    </div>
-    <div class="info-box ib-success" style="margin-top:18px">
-      <h5>✅ Clave para el diagnóstico</h5>
-      <p>Muchos sensores del automóvil son simplemente <strong>resistencias variables</strong>. Con un polímetro mides su resistencia en frío/caliente, con luz/sin luz, y la comparas con los valores del fabricante. Si no coincide → sensor defectuoso.</p>
-    </div>
-    <div class="nav-btns">
-      <button class="nbtn" onclick="go(5)">← Anterior</button>
-      <button class="nbtn primary" onclick="go(7)">Siguiente →</button>
-    </div>
-  </div>
+<div class="slide" id="slide-6">
+<div class="block-header">
+<div class="block-label b3">Bloque III — Componentes Electrónicos</div>
+<h2 class="block-title">7. Resistencias variables</h2>
+<p class="block-desc">Su valor de resistencia cambia según una magnitud física: posición, temperatura, luz o tensión.</p>
+</div>
+<div class="comp-grid">
+<div class="comp-card">
+<span class="comp-sym" style="color:#0ea5e9">⚙️</span>
+<h4>Potenciómetro</h4>
+<p>Varía <strong>manualmente</strong>. Tiene un cursor deslizante o rotativo. Úsalo en serie (divisor de tensión) o en paralelo (regulador de corriente). Ejemplo: sensor de posición del acelerador.</p>
+</div>
+<div class="comp-card">
+<span class="comp-sym" style="color:#f59e0b">☀️</span>
+<h4>Fotorresistencia (LDR)</h4>
+<p>Varía según la <strong>luz</strong>. A más luz → menos resistencia → más corriente. Usada en sistemas de iluminación automática del vehículo y sensor crepuscular.</p>
+</div>
+<div class="comp-card">
+<span class="comp-sym" style="color:#ef4444">🌡️</span>
+<h4>Termistor NTC</h4>
+<p><strong>Temperatura sube → resistencia baja.</strong> Muy usado en sensores de temperatura de agua y aire de admisión. Señal proporcional que la ECU interpreta.</p>
+</div>
+<div class="comp-card">
+<span class="comp-sym" style="color:#22c55e">🔥</span>
+<h4>Termistor PTC</h4>
+<p><strong>Temperatura sube → resistencia sube.</strong> Usado como protección térmica: al calentarse demasiado, corta la corriente automáticamente. También en calefacción de espejos.</p>
+</div>
+<div class="comp-card">
+<span class="comp-sym" style="color:#8b5cf6">⚡</span>
+<h4>Varistor (VDR)</h4>
+<p><strong>Tensión sube → resistencia baja.</strong> Protege circuitos sensibles de picos de tensión (relámpagos, conmutaciones). Se coloca en paralelo con el componente a proteger.</p>
+</div>
+<div class="comp-card">
+<span class="comp-sym" style="color:#06b6d4">📡</span>
+<h4>Sensor de posición (APP)</h4>
+<p>Potenciómetro doble en el pedal del acelerador. Informa a la ECU de la posición del pedal con <strong>señal de 0 a 5V</strong>. Doble para seguridad (redundancia).</p>
+</div>
+</div>
+<div class="info-box success" style="margin-top:18px">
+<h5>✅ Clave para el diagnóstico</h5>
+<p>Muchos sensores del automóvil son simplemente <strong>resistencias variables</strong>. Con un polímetro mides su resistencia en frío/caliente, con luz/sin luz, y la comparas con los valores del fabricante. Si no coincide → sensor defectuoso.</p>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(5)">← Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(7)">Siguiente →</button>
+</div>
+</div>
 
-  <!-- SLIDE 7: RELÉ -->
-  <div class="slide" id="s7">
-    <div class="bh">
-      <div class="blabel b3">Bloque III — Componentes Electrónicos</div>
-      <div class="btitle">El relé electromagnético</div>
-      <div class="bdesc">Interruptor electromagnético que permite controlar una corriente elevada con una señal pequeña. Es a la vez elemento de control y de protección.</div>
-    </div>
-    <div class="two-col">
-      <div class="dbox">
-        <div class="dsec">
-          <h4>🏗️ Constitución</h4>
-          <ul>
-            <li><strong>Bobina (85-86):</strong> Electroimán que recibe la señal de mando (~12V, baja corriente).</li>
-            <li><strong>Núcleo ferromagnético:</strong> Concentra el campo magnético.</li>
-            <li><strong>Armadura móvil:</strong> Lámina que se atrae al activarse la bobina.</li>
-            <li><strong>Contactos (30-87-87a):</strong> El circuito de potencia que se conmuta.</li>
-            <li><strong>Resorte:</strong> Devuelve la armadura a reposo al desactivarse.</li>
-          </ul>
-        </div>
-        <div class="dsec">
-          <h4>⚡ Pines del relé estándar ISO</h4>
-          <ul>
-            <li><strong>Pin 85:</strong> Masa de la bobina</li>
-            <li><strong>Pin 86:</strong> Positivo de la bobina (señal de mando)</li>
-            <li><strong>Pin 30:</strong> Entrada de potencia (+12V)</li>
-            <li><strong>Pin 87:</strong> Salida en reposo cerrada (NC)</li>
-            <li><strong>Pin 87a:</strong> Salida que cierra al activarse (NA)</li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <div class="dbox" style="margin-bottom:14px">
-          <h4 style="color:var(--accent);margin-bottom:12px;font-size:.9rem">🚗 ¿Por qué se usa el relé?</h4>
-          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
-            <li style="font-size:.85rem;color:var(--text-muted);padding:8px;background:rgba(255,255,255,.03);border-radius:7px">⚡ El interruptor del conductor maneja <strong>poca corriente</strong> → sin desgaste ni chispas</li>
-            <li style="font-size:.85rem;color:var(--text-muted);padding:8px;background:rgba(255,255,255,.03);border-radius:7px">🔋 El relé maneja <strong>gran corriente</strong> (ventilador, bomba, faros)</li>
-            <li style="font-size:.85rem;color:var(--text-muted);padding:8px;background:rgba(255,255,255,.03);border-radius:7px">📍 El relé se sitúa <strong>cerca del consumidor</strong> → cables cortos y gruesos</li>
-            <li style="font-size:.85rem;color:var(--text-muted);padding:8px;background:rgba(255,255,255,.03);border-radius:7px">🛡️ Protege la ECU de corrientes elevadas</li>
-          </ul>
-        </div>
-        <div class="info-box ib-info">
-          <h5>🔧 Verificación del relé</h5>
-          <p>Resistencia bobina (85-86): <strong>60–120 Ω</strong> típico. Aplicar 12V a 85-86 → escuchar "clic" y comprobar cierre de 30-87a con polímetro. Contactos buenos: &lt;0,5 Ω.</p>
-        </div>
-      </div>
-    </div>
-    <div class="nav-btns">
-      <button class="nbtn" onclick="go(6)">← Anterior</button>
-      <button class="nbtn primary" onclick="go(8)">Siguiente →</button>
-    </div>
-  </div>
+<div class="slide" id="slide-7">
+<div class="block-header">
+<div class="block-label b3">Bloque III — Componentes Electrónicos</div>
+<h2 class="block-title">8. El relé electromagnético</h2>
+<p class="block-desc">Interruptor electromagnético que permite controlar una corriente elevada con una señal pequeña. Es a la vez elemento de control y de protección.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🏗️ Constitución</h4>
+<ul>
+<li><strong>Bobina (85-86):</strong> Electroimán que recibe la señal de mando (~12V, baja corriente).</li>
+<li><strong>Núcleo ferromagnético:</strong> Concentra el campo magnético.</li>
+<li><strong>Armadura móvil:</strong> Lámina que se atrae al activarse la bobina.</li>
+<li><strong>Contactos (30-87-87a):</strong> El circuito de potencia que se conmuta.</li>
+<li><strong>Resorte:</strong> Devuelve la armadura a reposo al desactivarse.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>⚡ Pines del relé estándar ISO</h4>
+<ul>
+<li><strong>Pin 85:</strong> Masa de la bobina</li>
+<li><strong>Pin 86:</strong> Positivo de la bobina (señal de mando)</li>
+<li><strong>Pin 30:</strong> Entrada de potencia (+12V)</li>
+<li><strong>Pin 87:</strong> Salida en reposo cerrada (NC)</li>
+<li><strong>Pin 87a:</strong> Salida que cierra al activarse (NA)</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="detail-content" style="margin-bottom:14px">
+<h4 style="color:var(--accent);margin-bottom:12px;font-size:.9rem">🚗 ¿Por qué se usa el relé?</h4>
+<ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
+<li style="font-size:.85rem;color:var(--text-muted);padding:8px;background:rgba(255,255,255,.03);border-radius:7px">⚡ El interruptor del conductor maneja <strong>poca corriente</strong> → sin desgaste ni chispas</li>
+<li style="font-size:.85rem;color:var(--text-muted);padding:8px;background:rgba(255,255,255,.03);border-radius:7px">🔋 El relé maneja <strong>gran corriente</strong> (ventilador, bomba, faros)</li>
+<li style="font-size:.85rem;color:var(--text-muted);padding:8px;background:rgba(255,255,255,.03);border-radius:7px">📍 El relé se sitúa <strong>cerca del consumidor</strong> → cables cortos y gruesos</li>
+<li style="font-size:.85rem;color:var(--text-muted);padding:8px;background:rgba(255,255,255,.03);border-radius:7px">🛡️ Protege la ECU de corrientes elevadas</li>
+</ul>
+</div>
+<div class="info-box info">
+<h5>🔧 Verificación del relé</h5>
+<p>Resistencia bobina (85-86): <strong>60–120 Ω</strong> típico. Aplicar 12V a 85-86 → escuchar "clic" y comprobar cierre de 30-87a con polímetro. Contactos buenos: &lt;0,5 Ω.</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(6)">← Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(8)">Siguiente →</button>
+</div>
+</div>
 
-  <!-- SLIDE 8: DIODOS -->
-  <div class="slide" id="s8">
-    <div class="bh">
-      <div class="blabel b4">Bloque IV — Semiconductores</div>
-      <div class="btitle">Diodos semiconductores</div>
-      <div class="bdesc">El diodo permite el paso de corriente en un solo sentido. Es el componente semiconductor más sencillo y uno de los más usados en automoción.</div>
-    </div>
-    <div class="two-col">
-      <div class="dbox">
-        <div class="dsec">
-          <h4>🔬 ¿Qué es un semiconductor?</h4>
-          <ul>
-            <li>Material entre conductor y aislante: <strong>silicio (Si)</strong> dopado.</li>
-            <li><strong>Tipo N:</strong> dopado con impurezas que aportan electrones libres (cargas -). Se mueven hacia el +.</li>
-            <li><strong>Tipo P:</strong> dopado con impurezas que crean "huecos" (cargas +). Los huecos se mueven hacia el -.</li>
-            <li>Un diodo es la <strong>unión P-N</strong>: zona P y zona N en contacto.</li>
-          </ul>
-        </div>
-        <div class="dsec">
-          <h4>↕️ Polarización</h4>
-          <ul>
-            <li><strong>Directa (conduce):</strong> Ánodo(+) al positivo, cátodo(-) al negativo. La corriente fluye. Caída de ~0,6V en silicio.</li>
-            <li><strong>Inversa (bloquea):</strong> Ánodo al negativo → la corriente no pasa. El diodo actúa como aislante.</li>
-            <li>El cátodo se identifica con una <strong>franja o banda</strong> en el cuerpo.</li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <div class="cards" style="grid-template-columns:1fr 1fr;">
-          <div class="card c1">
-            <div class="card-ico i1">🔄</div>
-            <h3>Diodo rectificador</h3>
-            <p>Convierte CA en CC. 6 diodos en puente rectifican la CA trifásica del alternador.</p>
-          </div>
-          <div class="card c2">
-            <div class="card-ico i2">⚡</div>
-            <h3>Diodo Zener</h3>
-            <p>Trabaja en polarización inversa. A partir de la <strong>tensión Zener</strong>, conduce. Regula tensiones.</p>
-          </div>
-          <div class="card c3">
-            <div class="card-ico i3">💡</div>
-            <h3>LED</h3>
-            <p>Al conducir, emite <strong>luz</strong>. 2V / 20mA típico. Larga vida, sin filamento. Iluminación, cuadro.</p>
-          </div>
-          <div class="card c4">
-            <div class="card-ico i4">☀️</div>
-            <h3>Fotodiodo</h3>
-            <p>Conduce al recibir <strong>luz</strong>. Más luz → más corriente inversa. Sensores ópticos.</p>
-          </div>
-        </div>
-        <div class="info-box ib-warn" style="margin-top:14px">
-          <h5>⚠️ Comprobación con polímetro</h5>
-          <p>Modo diodo: en directa debe marcar ~0,5–0,7V. En inversa debe marcar OL (circuito abierto). Si en ambos sentidos mide 0 → cortocircuito. Si en ambos OL → circuito abierto.</p>
-        </div>
-      </div>
-    </div>
-    <div class="nav-btns">
-      <button class="nbtn" onclick="go(7)">← Anterior</button>
-      <button class="nbtn primary" onclick="go(9)">Siguiente →</button>
-    </div>
-  </div>
+<div class="slide" id="slide-8">
+<div class="block-header">
+<div class="block-label b4">Bloque IV — Semiconductores</div>
+<h2 class="block-title">9. Diodos semiconductores</h2>
+<p class="block-desc">El diodo permite el paso de corriente en un solo sentido. Es el componente semiconductor más sencillo y uno de los más usados en automoción.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🔬 ¿Qué es un semiconductor?</h4>
+<ul>
+<li>Material entre conductor y aislante: <strong>silicio (Si)</strong> dopado.</li>
+<li><strong>Tipo N:</strong> dopado con impurezas que aportan electrones libres (cargas -). Se mueven hacia el +.</li>
+<li><strong>Tipo P:</strong> dopado con impurezas que crean "huecos" (cargas +). Los huecos se mueven hacia el -.</li>
+<li>Un diodo es la <strong>unión P-N</strong>: zona P y zona N en contacto.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>↕️ Polarización</h4>
+<ul>
+<li><strong>Directa (conduce):</strong> Ánodo(+) al positivo, cátodo(-) al negativo. La corriente fluye. Caída de ~0,6V en silicio.</li>
+<li><strong>Inversa (bloquea):</strong> Ánodo al negativo → la corriente no pasa. El diodo actúa como aislante.</li>
+<li>El cátodo se identifica con una <strong>franja o banda</strong> en el cuerpo.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="cards-grid" style="grid-template-columns:1fr 1fr;">
+<div class="card c1">
+<div class="card-icon i1">🔄</div>
+<h3>Diodo rectificador</h3>
+<p>Convierte CA en CC. 6 diodos en puente rectifican la CA trifásica del alternador.</p>
+</div>
+<div class="card c2">
+<div class="card-icon i2">⚡</div>
+<h3>Diodo Zener</h3>
+<p>Trabaja en polarización inversa. A partir de la <strong>tensión Zener</strong>, conduce. Regula tensiones.</p>
+</div>
+<div class="card c3">
+<div class="card-icon i3">💡</div>
+<h3>LED</h3>
+<p>Al conducir, emite <strong>luz</strong>. 2V / 20mA típico. Larga vida, sin filamento. Iluminación, cuadro.</p>
+</div>
+<div class="card c4">
+<div class="card-icon i4">☀️</div>
+<h3>Fotodiodo</h3>
+<p>Conduce al recibir <strong>luz</strong>. Más luz → más corriente inversa. Sensores ópticos.</p>
+</div>
+</div>
+<div class="info-box warning" style="margin-top:14px">
+<h5>⚠️ Comprobación con polímetro</h5>
+<p>Modo diodo: en directa debe marcar ~0,5–0,7V. En inversa debe marcar OL (circuito abierto). Si en ambos sentidos mide 0 → cortocircuito. Si en ambos OL → circuito abierto.</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(7)">← Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(9)">Siguiente →</button>
+</div>
+</div>
 
-  <!-- SLIDE 9: TRANSISTORES -->
-  <div class="slide" id="s9">
-    <div class="bh">
-      <div class="blabel b4">Bloque IV — Semiconductores</div>
-      <div class="btitle">Transistores</div>
-      <div class="bdesc">Tres capas semiconductoras que actúan como interruptor electrónico o amplificador de señal. La base del control electrónico moderno.</div>
-    </div>
-    <div class="two-col">
-      <div class="dbox">
-        <div class="dsec">
-          <h4>🏗️ Estructura y terminales</h4>
-          <ul>
-            <li>Tres regiones semiconductoras: <strong>Base (B)</strong>, <strong>Emisor (E)</strong> y <strong>Colector (C)</strong>.</li>
-            <li><strong>Base-Emisor:</strong> Circuito de <em>mando</em> (pequeña corriente/tensión).</li>
-            <li><strong>Colector-Emisor:</strong> Circuito de <em>potencia</em> (gran corriente).</li>
-            <li>Una pequeña corriente en la base controla una gran corriente en el colector.</li>
-          </ul>
-        </div>
-        <div class="dsec">
-          <h4>🔀 Tipos NPN y PNP</h4>
-          <ul>
-            <li><strong>NPN:</strong> Conduce si tensión de Base &gt; Emisor. El transistor conecta a <strong>masa</strong> (colector al consumidor, emisor a masa).</li>
-            <li><strong>PNP:</strong> Conduce si tensión de Base &lt; Emisor. El transistor conecta al <strong>positivo</strong> (emisor al +, colector al consumidor).</li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <div class="transistor-wrap">
-          <div class="trans-box">
-            <span class="label">NPN</span>
-            <span class="sym">🔌</span>
-            <p style="font-size:.78rem;color:var(--text-muted)">+ → Consumidor → Colector → Emisor → Masa<br><strong style="color:var(--success)">Base activa al recibir +</strong></p>
-          </div>
-          <div class="trans-box">
-            <span class="label">PNP</span>
-            <span class="sym">🔋</span>
-            <p style="font-size:.78rem;color:var(--text-muted)">+ → Emisor → Colector → Consumidor → Masa<br><strong style="color:var(--accent)">Base activa al recibir −</strong></p>
-          </div>
-        </div>
-        <div class="dbox" style="margin-top:14px">
-          <div class="dsec">
-            <h4>🚗 Usos en automoción</h4>
-            <ul>
-              <li><strong>Como interruptor:</strong> Activa inyectores, bobinas, electroválvulas. Sin contactos mecánicos → más rápido y fiable que el relé para señales rápidas.</li>
-              <li><strong>Como amplificador:</strong> Amplifica señales débiles de sensores antes de enviarlas a la ECU.</li>
-              <li><strong>Par Darlington:</strong> Dos transistores en cascada para mayor amplificación. Exterior igual que un transistor simple.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="nav-btns">
-      <button class="nbtn" onclick="go(8)">← Anterior</button>
-      <button class="nbtn primary" onclick="go(10)">Siguiente →</button>
-    </div>
-  </div>
+<div class="slide" id="slide-9">
+<div class="block-header">
+<div class="block-label b4">Bloque IV — Semiconductores</div>
+<h2 class="block-title">10. Transistores</h2>
+<p class="block-desc">Tres capas semiconductoras que actúan como interruptor electrónico o amplificador de señal. La base del control electrónico moderno.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🏗️ Estructura y terminales</h4>
+<ul>
+<li>Tres regiones semiconductoras: <strong>Base (B)</strong>, <strong>Emisor (E)</strong> y <strong>Colector (C)</strong>.</li>
+<li><strong>Base-Emisor:</strong> Circuito de <em>mando</em> (pequeña corriente/tensión).</li>
+<li><strong>Colector-Emisor:</strong> Circuito de <em>potencia</em> (gran corriente).</li>
+<li>Una pequeña corriente en la base controla una gran corriente en el colector.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔀 Tipos NPN y PNP</h4>
+<ul>
+<li><strong>NPN:</strong> Conduce si tensión de Base &gt; Emisor. El transistor conecta a <strong>masa</strong> (colector al consumidor, emisor a masa).</li>
+<li><strong>PNP:</strong> Conduce si tensión de Base &lt; Emisor. El transistor conecta al <strong>positivo</strong> (emisor al +, colector al consumidor).</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="transistor-wrap">
+<div class="trans-box">
+<span class="label">NPN</span>
+<span class="sym">🔌</span>
+<p style="font-size:.78rem;color:var(--text-muted)">+ → Consumidor → Colector → Emisor → Masa<br><strong style="color:var(--success)">Base activa al recibir +</strong></p>
+</div>
+<div class="trans-box">
+<span class="label">PNP</span>
+<span class="sym">🔋</span>
+<p style="font-size:.78rem;color:var(--text-muted)">+ → Emisor → Colector → Consumidor → Masa<br><strong style="color:var(--accent)">Base activa al recibir −</strong></p>
+</div>
+</div>
+<div class="detail-content" style="margin-top:14px">
+<div class="detail-section">
+<h4>🚗 Usos en automoción</h4>
+<ul>
+<li><strong>Como interruptor:</strong> Activa inyectores, bobinas, electroválvulas. Sin contactos mecánicos → más rápido y fiable que el relé para señales rápidas.</li>
+<li><strong>Como amplificador:</strong> Amplifica señales débiles de sensores antes de enviarlas a la ECU.</li>
+<li><strong>Par Darlington:</strong> Dos transistores en cascada para mayor amplificación. Exterior igual que un transistor simple.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(8)">← Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(10)">Siguiente →</button>
+</div>
+</div>
 
-  <!-- SLIDE 10: TIRISTORES -->
-  <div class="slide" id="s10">
-    <div class="bh">
-      <div class="blabel b4">Bloque IV — Semiconductores</div>
-      <div class="btitle">Tiristores</div>
-      <div class="bdesc">Interruptor electrónico controlable que, una vez activado, permanece conduciendo aunque se retire la señal de mando.</div>
-    </div>
-    <div class="two-col">
-      <div class="dbox">
-        <div class="dsec">
-          <h4>🏗️ Composición</h4>
-          <ul>
-            <li>Cuatro capas semiconductoras (P-N-P-N) con tres terminales: <strong>Ánodo (A)</strong>, <strong>Cátodo (K)</strong> y <strong>Puerta/Gate (G)</strong>.</li>
-            <li>Es como dos transistores encadenados que se mantienen activos mutuamente.</li>
-          </ul>
-        </div>
-        <div class="dsec">
-          <h4>⚡ Funcionamiento</h4>
-          <ul>
-            <li>En reposo: <strong>no conduce</strong> (bloqueado).</li>
-            <li>Al aplicar un <strong>impulso</strong> en la Puerta (G): pasa a conducir → estado "cebado".</li>
-            <li>Una vez cebado, <strong>sigue conduciendo aunque se retire el impulso</strong> de la puerta.</li>
-            <li>Para pararlo hay que <strong>cortar la corriente directa</strong> (Ánodo-Cátodo).</li>
-          </ul>
-        </div>
-        <div class="dsec">
-          <h4>🔁 Diferencia clave con el transistor</h4>
-          <ul>
-            <li><strong>Transistor:</strong> Al quitar la señal de base → se desactiva inmediatamente.</li>
-            <li><strong>Tiristor:</strong> Al quitar el impulso de puerta → <strong>sigue activo</strong>. Solo se para cortando la alimentación.</li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <div class="info-box ib-info">
-          <h5>💡 Analogía sencilla</h5>
-          <p>El tiristor es como un interruptor que se enciende con un pulso corto y <strong>permanece encendido</strong> hasta que se corta la corriente. Como un pestillo: lo empujas una vez y queda enganchado.</p>
-        </div>
-        <div class="dbox" style="margin-top:14px">
-          <div class="dsec">
-            <h4>🚗 Aplicaciones en automoción</h4>
-            <ul>
-              <li><strong>Sistemas de encendido CDI:</strong> Control de la descarga del condensador a la bobina.</li>
-              <li><strong>Reguladores de tensión antiguos:</strong> Control de la carga del alternador.</li>
-              <li><strong>Convertidores DC/DC:</strong> En sistemas de 48V para híbridos ligeros.</li>
-              <li><strong>Protección contra sobretensiones:</strong> Al superar un umbral, conduce y protege el circuito.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="info-box ib-warn">
-          <h5>⚠️ Variantes modernas</h5>
-          <p>Los tiristores modernos (IGBT, MOSFET de potencia) permiten desconexión por la puerta, superando la limitación clásica. Son los semiconductores de potencia de los inversores en vehículos eléctricos.</p>
-        </div>
-      </div>
-    </div>
-    <div class="nav-btns">
-      <button class="nbtn" onclick="go(9)">← Anterior</button>
-      <button class="nbtn primary" onclick="go(11)">Siguiente →</button>
-    </div>
-  </div>
+<div class="slide" id="slide-10">
+<div class="block-header">
+<div class="block-label b4">Bloque IV — Semiconductores</div>
+<h2 class="block-title">11. Tiristores</h2>
+<p class="block-desc">Interruptor electrónico controlable que, una vez activado, permanece conduciendo aunque se retire la señal de mando.</p>
+</div>
+<div class="two-col">
+<div class="detail-content">
+<div class="detail-section">
+<h4>🏗️ Composición</h4>
+<ul>
+<li>Cuatro capas semiconductoras (P-N-P-N) con tres terminales: <strong>Ánodo (A)</strong>, <strong>Cátodo (K)</strong> y <strong>Puerta/Gate (G)</strong>.</li>
+<li>Es como dos transistores encadenados que se mantienen activos mutuamente.</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>⚡ Funcionamiento</h4>
+<ul>
+<li>En reposo: <strong>no conduce</strong> (bloqueado).</li>
+<li>Al aplicar un <strong>impulso</strong> en la Puerta (G): pasa a conducir → estado "cebado".</li>
+<li>Una vez cebado, <strong>sigue conduciendo aunque se retire el impulso</strong> de la puerta.</li>
+<li>Para pararlo hay que <strong>cortar la corriente directa</strong> (Ánodo-Cátodo).</li>
+</ul>
+</div>
+<div class="detail-section">
+<h4>🔁 Diferencia clave con el transistor</h4>
+<ul>
+<li><strong>Transistor:</strong> Al quitar la señal de base → se desactiva inmediatamente.</li>
+<li><strong>Tiristor:</strong> Al quitar el impulso de puerta → <strong>sigue activo</strong>. Solo se para cortando la alimentación.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="info-box info">
+<h5>💡 Analogía sencilla</h5>
+<p>El tiristor es como un interruptor que se enciende con un pulso corto y <strong>permanece encendido</strong> hasta que se corta la corriente. Como un pestillo: lo empujas una vez y queda enganchado.</p>
+</div>
+<div class="detail-content" style="margin-top:14px">
+<div class="detail-section">
+<h4>🚗 Aplicaciones en automoción</h4>
+<ul>
+<li><strong>Sistemas de encendido CDI:</strong> Control de la descarga del condensador a la bobina.</li>
+<li><strong>Reguladores de tensión antiguos:</strong> Control de la carga del alternador.</li>
+<li><strong>Convertidores DC/DC:</strong> En sistemas de 48V para híbridos ligeros.</li>
+<li><strong>Protección contra sobretensiones:</strong> Al superar un umbral, conduce y protege el circuito.</li>
+</ul>
+</div>
+</div>
+<div class="info-box warning">
+<h5>⚠️ Variantes modernas</h5>
+<p>Los tiristores modernos (IGBT, MOSFET de potencia) permiten desconexión por la puerta, superando la limitación clásica. Son los semiconductores de potencia de los inversores en vehículos eléctricos.</p>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(9)">← Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(11)">Siguiente →</button>
+</div>
+</div>
 
-  <!-- SLIDE 11: REPASO Y AUTOEVALUACIÓN -->
-  <div class="slide" id="s11">
-    <div class="bh">
-      <div class="blabel b6">Cierre del Módulo</div>
-      <div class="btitle">Repaso y autoevaluación</div>
-      <div class="bdesc">Comprueba lo que has aprendido. Pulsa la opción que creas correcta.</div>
-    </div>
-    <div style="max-width:720px;margin:0 auto;">
-      <div class="quiz-q">
-        <h4>❓ 1. ¿Por qué un fusible de mayor amperaje del especificado es peligroso?</h4>
-        <div class="quiz-opts">
-          <div class="qopt" onclick="ans(this,false)">Porque no protege al fusible</div>
-          <div class="qopt" onclick="ans(this,true)">Porque el cable puede calentarse y causar un incendio antes de que el fusible se funda</div>
-          <div class="qopt" onclick="ans(this,false)">Porque consume más corriente</div>
-        </div>
-      </div>
-      <div class="quiz-q">
-        <h4>❓ 2. Un termistor NTC en un sensor de temperatura de agua marca 2.000 Ω en frío. ¿Qué marcará en caliente?</h4>
-        <div class="quiz-opts">
-          <div class="qopt" onclick="ans(this,false)">Más de 2.000 Ω</div>
-          <div class="qopt" onclick="ans(this,true)">Menos de 2.000 Ω (a más temperatura, menos resistencia)</div>
-          <div class="qopt" onclick="ans(this,false)">Exactamente 2.000 Ω</div>
-        </div>
-      </div>
-      <div class="quiz-q">
-        <h4>❓ 3. ¿Cuál es la función de la base en un transistor NPN?</h4>
-        <div class="quiz-opts">
-          <div class="qopt" onclick="ans(this,false)">Conectar el consumidor a masa</div>
-          <div class="qopt" onclick="ans(this,true)">Recibir la señal de mando que activa o desactiva el paso de corriente entre colector y emisor</div>
-          <div class="qopt" onclick="ans(this,false)">Rectificar la corriente alterna</div>
-        </div>
-      </div>
-      <div class="quiz-q">
-        <h4>❓ 4. Mides un diodo con el polímetro en modo diodo. En ambos sentidos marca OL. ¿Qué significa?</h4>
-        <div class="quiz-opts">
-          <div class="qopt" onclick="ans(this,false)">El diodo funciona correctamente</div>
-          <div class="qopt" onclick="ans(this,false)">El diodo tiene un cortocircuito interno</div>
-          <div class="qopt" onclick="ans(this,true)">El diodo está abierto (circuito abierto), no conduce en ningún sentido → averiado</div>
-        </div>
-      </div>
-      <div class="quiz-q">
-        <h4>❓ 5. ¿Qué diferencia principal hay entre un tiristor y un transistor como interruptor?</h4>
-        <div class="quiz-opts">
-          <div class="qopt" onclick="ans(this,false)">El transistor tiene más terminales</div>
-          <div class="qopt" onclick="ans(this,true)">El tiristor permanece activo aunque se retire la señal de mando; el transistor se desactiva al quitar la señal de base</div>
-          <div class="qopt" onclick="ans(this,false)">El tiristor es más barato</div>
-        </div>
-      </div>
-    </div>
-    <div class="nav-btns">
-      <button class="nbtn" onclick="go(10)">← Anterior</button>
-      <button class="nbtn primary" onclick="go(0)">🏠 Volver al inicio</button>
-    </div>
-  </div>
+<div class="slide" id="slide-11">
+<div class="block-header">
+<div class="block-label b6">Cierre del Módulo</div>
+<h2 class="block-title">12. Repaso y autoevaluación</h2>
+<p class="block-desc">Comprueba lo que has aprendido. Pulsa la opción que creas correcta.</p>
+</div>
+<div class="quiz-container">
+<div class="quiz-question">
+<h4>❓ 1. ¿Por qué un fusible de mayor amperaje del especificado es peligroso?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="ans(this,false)">Porque no protege al fusible</div>
+<div class="quiz-option" onclick="ans(this,true)">Porque el cable puede calentarse y causar un incendio antes de que el fusible se funda</div>
+<div class="quiz-option" onclick="ans(this,false)">Porque consume más corriente</div>
+</div>
+</div>
+<div class="quiz-question">
+<h4>❓ 2. Un termistor NTC en un sensor de temperatura de agua marca 2.000 Ω en frío. ¿Qué marcará en caliente?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="ans(this,false)">Más de 2.000 Ω</div>
+<div class="quiz-option" onclick="ans(this,true)">Menos de 2.000 Ω (a más temperatura, menos resistencia)</div>
+<div class="quiz-option" onclick="ans(this,false)">Exactamente 2.000 Ω</div>
+</div>
+</div>
+<div class="quiz-question">
+<h4>❓ 3. ¿Cuál es la función de la base en un transistor NPN?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="ans(this,false)">Conectar el consumidor a masa</div>
+<div class="quiz-option" onclick="ans(this,true)">Recibir la señal de mando que activa o desactiva el paso de corriente entre colector y emisor</div>
+<div class="quiz-option" onclick="ans(this,false)">Rectificar la corriente alterna</div>
+</div>
+</div>
+<div class="quiz-question">
+<h4>❓ 4. Mides un diodo con el polímetro en modo diodo. En ambos sentidos marca OL. ¿Qué significa?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="ans(this,false)">El diodo funciona correctamente</div>
+<div class="quiz-option" onclick="ans(this,false)">El diodo tiene un cortocircuito interno</div>
+<div class="quiz-option" onclick="ans(this,true)">El diodo está abierto (circuito abierto), no conduce en ningún sentido → averiado</div>
+</div>
+</div>
+<div class="quiz-question">
+<h4>❓ 5. ¿Qué diferencia principal hay entre un tiristor y un transistor como interruptor?</h4>
+<div class="quiz-options">
+<div class="quiz-option" onclick="ans(this,false)">El transistor tiene más terminales</div>
+<div class="quiz-option" onclick="ans(this,true)">El tiristor permanece activo aunque se retire la señal de mando; el transistor se desactiva al quitar la señal de base</div>
+<div class="quiz-option" onclick="ans(this,false)">El tiristor es más barato</div>
+</div>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="nav-btn" onclick="goToSlide(10)">← Anterior</button>
+<button class="nav-btn primary" onclick="goToSlide(0)">🏠 Volver al inicio</button>
+</div>
+</div>
 
 </main>
 
 <script>
-  let cur = 0;
-  const total = 12;
-  const titles = [
-    'Módulo 03 · Componentes Eléctricos',
-    '1. Cables y conductores',
-    '2. Conectores y terminales',
-    '3. Elementos de control',
-    '4. Fusibles y protecciones',
-    '5. Resistencias fijas',
-    '6. Resistencias variables',
-    '7. Relé electromagnético',
-    '8. Diodos semiconductores',
-    '9. Transistores',
-    '10. Tiristores',
-    '11. Repaso y autoevaluación'
-  ];
-
-  function go(n) {
-    document.getElementById('s'+cur).classList.remove('active');
-    document.querySelector('[data-i="'+cur+'"]').classList.remove('active');
-    cur = n;
-    document.getElementById('s'+cur).classList.add('active');
-    document.querySelector('[data-i="'+cur+'"]').classList.add('active');
-    document.getElementById('topTitle').textContent = titles[cur];
-    document.getElementById('progText').textContent = (cur+1)+' / '+total;
-    document.getElementById('progFill').style.width = ((cur+1)/total*100)+'%';
-    document.getElementById('main').scrollTop = 0;
-    if (window.innerWidth < 900) closeSidebar();
-  }
-
-  function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('overlay').classList.toggle('active');
-  }
-  function closeSidebar() {
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('overlay').classList.remove('active');
-  }
-
-  function ans(el, correct) {
-    const opts = el.parentElement.querySelectorAll('.qopt');
-    opts.forEach(o => o.style.pointerEvents = 'none');
-    el.classList.add(correct ? 'correct' : 'wrong');
-    if (!correct) {
-      opts.forEach(o => { if (o !== el) o.style.opacity = '.4'; });
-    }
-  }
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (cur < total-1) go(cur+1); }
-    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { if (cur > 0) go(cur-1); }
-    if (e.key === 'Escape') closeSidebar();
-  });
-
-  let tx = 0;
-  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
-  document.addEventListener('touchend', e => {
-    const d = tx - e.changedTouches[0].clientX;
-    if (Math.abs(d) > 60) { if (d > 0 && cur < total-1) go(cur+1); else if (d < 0 && cur > 0) go(cur-1); }
-  });
+    let currentSlide = 0;
+    const totalSlides = 12;
+    const defaultTitle = 'Módulo 03: Componentes Eléctricos';
+    const slideTitles = [
+        'Módulo 03 · Componentes Eléctricos',
+        '2. Cables y conductores',
+        '3. Conectores y terminales',
+        '4. Elementos de control',
+        '5. Fusibles y protecciones',
+        '6. Resistencias fijas',
+        '7. Resistencias variables',
+        '8. Relé electromagnético',
+        '9. Diodos semiconductores',
+        '10. Transistores',
+        '11. Tiristores',
+        '12. Repaso y autoevaluación'
+    ];
 </script>
+<script src="../../assets/js/presentacion.js"></script>
 </body>
 </html>
