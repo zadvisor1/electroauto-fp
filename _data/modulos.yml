@@ -26,7 +26,6 @@
   disponible: true
   diapositivas: 11
   material_extra: true
-  presentacion_partes: 3
 
 - num: "05"
   slug: "modulo-05"
@@ -45,9 +44,10 @@
 - num: "07"
   slug: "modulo-07"
   nombre: "Sistema de arranque"
-  disponible: false
-  diapositivas: 0
+  disponible: true
+  diapositivas: 33
   material_extra: true
+  presentacion_partes: 2
 
 - num: "08"
   slug: "modulo-08"
