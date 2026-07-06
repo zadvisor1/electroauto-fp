@@ -1,0 +1,1164 @@
+---
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 07 · El Motor de Arranque</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/presentacion.css">
+</head>
+<body>
+{% include presentacion-nav.html current="modulo-07" %}
+{% include presentacion-bg.html %}
+
+<header class="top-bar">
+<div class="left">
+<button class="menu-btn" onclick="toggleSidebar()" aria-label="Menú">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+</button>
+<h1 id="top-title">Módulo 07: Sistema de Arranque · Motor de Arranque</h1>
+</div>
+<div class="right">
+<span class="progress-text" id="progress-text">1 / 17</span>
+<div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width: 5.9%"></div></div>
+</div>
+</header>
+
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<h2>🔧 Módulo 07</h2>
+<p>Sistema de arranque</p>
+</div>
+<div class="nav-section"><div class="nav-section-title">— Presentación 1 · Motor de Arranque —</div></div>
+<div class="nav-section">
+<div class="nav-section-title">Navegación</div>
+<div class="nav-item active" onclick="navItemClick(1,0)" data-part="1" data-slide="0"><span class="num">🏠</span><span>Portada</span></div>
+<div class="nav-item" onclick="navItemClick(1,1)" data-part="1" data-slide="1"><span class="num">1</span><span>Índice</span></div>
+<div class="nav-item" onclick="navItemClick(1,2)" data-part="1" data-slide="2"><span class="num">2</span><span>Objetivos</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Contenidos</div>
+<div class="nav-item" onclick="navItemClick(1,3)" data-part="1" data-slide="3"><span class="num">3</span><span>1. Función del circuito de arranque</span></div>
+<div class="nav-item" onclick="navItemClick(1,4)" data-part="1" data-slide="4"><span class="num">4</span><span>2. El bombín de encendido</span></div>
+<div class="nav-item" onclick="navItemClick(1,5)" data-part="1" data-slide="5"><span class="num">5</span><span>3. Partes del motor de arranque</span></div>
+<div class="nav-item" onclick="navItemClick(1,6)" data-part="1" data-slide="6"><span class="num">6</span><span>4. El contactor / relé</span></div>
+<div class="nav-item" onclick="navItemClick(1,7)" data-part="1" data-slide="7"><span class="num">7</span><span>5. Funcionamiento del contactor</span></div>
+<div class="nav-item" onclick="navItemClick(1,8)" data-part="1" data-slide="8"><span class="num">8</span><span>6. El conjunto piñón</span></div>
+<div class="nav-item" onclick="navItemClick(1,9)" data-part="1" data-slide="9"><span class="num">9</span><span>7. Rueda libre</span></div>
+<div class="nav-item" onclick="navItemClick(1,10)" data-part="1" data-slide="10"><span class="num">10</span><span>8. El motor eléctrico (CC)</span></div>
+<div class="nav-item" onclick="navItemClick(1,11)" data-part="1" data-slide="11"><span class="num">11</span><span>9. Rotor y estator</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Tipos y sistemas</div>
+<div class="nav-item" onclick="navItemClick(1,12)" data-part="1" data-slide="12"><span class="num">12</span><span>10. Tipos de motores de arranque</span></div>
+<div class="nav-item" onclick="navItemClick(1,13)" data-part="1" data-slide="13"><span class="num">13</span><span>11. Motor con reductora</span></div>
+<div class="nav-item" onclick="navItemClick(1,14)" data-part="1" data-slide="14"><span class="num">14</span><span>12. Motor Bendix (inercia)</span></div>
+<div class="nav-item" onclick="navItemClick(1,15)" data-part="1" data-slide="15"><span class="num">15</span><span>13. Sistema START-STOP</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Cierre</div>
+<div class="nav-item" onclick="navItemClick(1,16)" data-part="1" data-slide="16"><span class="num">16</span><span>Resumen</span></div>
+</div>
+<div class="nav-section"><div class="nav-section-title">— Presentación 2 · Comprobaciones —</div></div>
+<div class="nav-section">
+<div class="nav-section-title">Navegación</div>
+<div class="nav-item" onclick="navItemClick(2,0)" data-part="2" data-slide="0"><span class="num">🏠</span><span>Portada</span></div>
+<div class="nav-item" onclick="navItemClick(2,1)" data-part="2" data-slide="1"><span class="num">1</span><span>Índice</span></div>
+<div class="nav-item" onclick="navItemClick(2,2)" data-part="2" data-slide="2"><span class="num">2</span><span>Objetivos</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Desmontaje</div>
+<div class="nav-item" onclick="navItemClick(2,3)" data-part="2" data-slide="3"><span class="num">3</span><span>1. Secuencia de desmontaje</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Análisis de componentes</div>
+<div class="nav-item" onclick="navItemClick(2,4)" data-part="2" data-slide="4"><span class="num">4</span><span>2. Tapa portaescobillas</span></div>
+<div class="nav-item" onclick="navItemClick(2,5)" data-part="2" data-slide="5"><span class="num">5</span><span>3. Escobillas: medición y aislamiento</span></div>
+<div class="nav-item" onclick="navItemClick(2,6)" data-part="2" data-slide="6"><span class="num">6</span><span>4. Estator (bobinas inductoras)</span></div>
+<div class="nav-item" onclick="navItemClick(2,7)" data-part="2" data-slide="7"><span class="num">7</span><span>5. Rotor / Inducido: colector</span></div>
+<div class="nav-item" onclick="navItemClick(2,8)" data-part="2" data-slide="8"><span class="num">8</span><span>6. Rotor / Inducido: bobinas + roncador</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Comprobación del relé</div>
+<div class="nav-item" onclick="navItemClick(2,9)" data-part="2" data-slide="9"><span class="num">9</span><span>7. Verificación contactos del relé</span></div>
+<div class="nav-item" onclick="navItemClick(2,10)" data-part="2" data-slide="10"><span class="num">10</span><span>8. Medición consumo bobinas del relé</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Comprobaciones en vehículo</div>
+<div class="nav-item" onclick="navItemClick(2,11)" data-part="2" data-slide="11"><span class="num">11</span><span>9. Batería: comprobación</span></div>
+<div class="nav-item" onclick="navItemClick(2,12)" data-part="2" data-slide="12"><span class="num">12</span><span>10. Masas: batería y motor arranque</span></div>
+<div class="nav-item" onclick="navItemClick(2,13)" data-part="2" data-slide="13"><span class="num">13</span><span>11. Bombín de encendido</span></div>
+<div class="nav-item" onclick="navItemClick(2,14)" data-part="2" data-slide="14"><span class="num">14</span><span>12. Tensión en terminales 30 y 50</span></div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Cierre</div>
+<div class="nav-item" onclick="navItemClick(2,15)" data-part="2" data-slide="15"><span class="num">15</span><span>Resumen y tabla de comprobaciones</span></div>
+</div>
+</nav>
+
+<main class="main-content has-bottombar" id="main-content">
+<div class="slide active" id="slide-0">
+<div class="slide-card">
+<div class="eyebrow">FP Electromecánica de Maquinaria y Vehículo Industrial</div>
+<h1 class="slide-h">El Motor de Arranque<br/>y el Circuito de Arranque</h1>
+<p style="color:#6b8cae;font-size:.95rem;margin-bottom:28px;max-width:560px;line-height:1.65;">
+          Funcionamiento, componentes y tipos de los sistemas de arranque eléctrico en motores térmicos de automoción y maquinaria industrial.
+        </p>
+<!-- SVG: despiece esquemático motor de arranque -->
+<div class="diagram">
+<svg height="200" viewbox="0 0 680 200" width="680">
+<!-- Batería -->
+<rect fill="#1a2a3a" height="60" rx="6" stroke="#4fc3f7" stroke-width="1.5" width="60" x="10" y="70"></rect>
+<text fill="#4fc3f7" font-size="10" font-weight="bold" text-anchor="middle" x="40" y="95">BAT</text>
+<text fill="#4fc3f7" font-size="10" text-anchor="middle" x="40" y="110">12 V</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="40" y="124">Batería</text>
+<!-- Cable grueso batería → contactor -->
+<line stroke="#ff7043" stroke-width="3.5" x1="70" x2="120" y1="100" y2="100"></line>
+<!-- Bombín -->
+<rect fill="#1a2a3a" height="44" rx="5" stroke="#66bb6a" stroke-width="1.5" width="50" x="120" y="78"></rect>
+<text fill="#66bb6a" font-size="9" font-weight="bold" text-anchor="middle" x="145" y="98">BOMBÍN</text>
+<text fill="#66bb6a" font-size="8" text-anchor="middle" x="145" y="111">Llave/Botón</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="145" y="136">Interruptor</text>
+<!-- Señal control al contactor -->
+<line stroke="#66bb6a" stroke-dasharray="4,3" stroke-width="1.5" x1="170" x2="220" y1="100" y2="100"></line>
+<!-- Contactor / relé -->
+<rect fill="#1a2a3a" height="80" rx="6" stroke="#ff7043" stroke-width="1.8" width="90" x="220" y="60"></rect>
+<text fill="#ff7043" font-size="10" font-weight="bold" text-anchor="middle" x="265" y="82">CONTACTOR</text>
+<!-- Bobinas internas -->
+<rect fill="#0d1520" height="20" rx="3" stroke="#4fc3f7" stroke-width="1" width="30" x="232" y="88"></rect>
+<text fill="#4fc3f7" font-size="7" text-anchor="middle" x="247" y="102">Bob. B</text>
+<rect fill="#0d1520" height="20" rx="3" stroke="#ff7043" stroke-width="1" width="30" x="268" y="88"></rect>
+<text fill="#ff7043" font-size="7" text-anchor="middle" x="283" y="102">Bob. C</text>
+<!-- Placa conductora -->
+<rect fill="#607d8b" height="10" rx="2" width="66" x="232" y="115"></rect>
+<text fill="white" font-size="7" text-anchor="middle" x="265" y="123">Placa E</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="265" y="150">Relé + Horquilla</text>
+<!-- Horquilla indicada -->
+<line stroke="#ff7043" stroke-dasharray="3,2" stroke-width="1" x1="265" x2="265" y1="140" y2="155"></line>
+<!-- Cable directo batería→motor eléctrico via contactor -->
+<line stroke="#ff7043" stroke-width="3.5" x1="310" x2="370" y1="100" y2="100"></line>
+<!-- Motor eléctrico CC -->
+<circle cx="420" cy="100" fill="#1a2a3a" r="50" stroke="#4fc3f7" stroke-width="2"></circle>
+<text fill="#4fc3f7" font-size="11" font-weight="bold" text-anchor="middle" x="420" y="93">MOTOR</text>
+<text fill="#4fc3f7" font-size="10" text-anchor="middle" x="420" y="107">ELÉCTRICO</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="420" y="120">CC · Inducido (rotor)</text>
+<!-- Stator arcs -->
+<path d="M378,75 Q360,60 370,100 Q360,140 378,125" fill="#c0392b" opacity=".6"></path>
+<path d="M462,75 Q480,60 470,100 Q480,140 462,125" fill="#1565c0" opacity=".6"></path>
+<text fill="white" font-size="9" x="366" y="102">N</text>
+<text fill="white" font-size="9" x="466" y="102">S</text>
+<!-- Eje al piñón -->
+<line stroke="#607d8b" stroke-linecap="round" stroke-width="5" x1="470" x2="520" y1="100" y2="100"></line>
+<!-- Rueda libre -->
+<rect fill="#1a2a3a" height="36" rx="4" stroke="#66bb6a" stroke-width="1.5" width="36" x="520" y="82"></rect>
+<text fill="#66bb6a" font-size="8" font-weight="bold" text-anchor="middle" x="538" y="98">RUEDA</text>
+<text fill="#66bb6a" font-size="8" text-anchor="middle" x="538" y="110">LIBRE</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="538" y="130">Desacopla</text>
+<!-- Piñón -->
+<circle cx="600" cy="100" fill="#1a2a3a" r="24" stroke="#ff7043" stroke-width="1.8"></circle>
+<!-- Dientes del piñón -->
+<g fill="#ff7043">
+<rect height="8" rx="1" width="8" x="596" y="74"></rect>
+<rect height="8" rx="1" width="8" x="596" y="118"></rect>
+<rect height="8" rx="1" width="8" x="574" y="96"></rect>
+<rect height="8" rx="1" width="8" x="618" y="96"></rect>
+<rect height="8" rx="1" transform="rotate(45,584,84)" width="8" x="580" y="80"></rect>
+<rect height="8" rx="1" transform="rotate(-45,616,84)" width="8" x="612" y="80"></rect>
+</g>
+<text fill="#ff7043" font-size="9" font-weight="bold" text-anchor="middle" x="600" y="103">PIÑÓN</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="600" y="138">Z ≈ 9 dientes</text>
+<!-- Volante de inercia -->
+<circle cx="660" cy="100" fill="#111d2a" r="30" stroke="#607d8b" stroke-dasharray="5,3" stroke-width="2"></circle>
+<text fill="#607d8b" font-size="8" font-weight="bold" text-anchor="middle" x="660" y="97">VOLANTE</text>
+<text fill="#607d8b" font-size="8" text-anchor="middle" x="660" y="109">INERCIA</text>
+<text fill="#4a6a8a" font-size="8" text-anchor="middle" x="660" y="140">Motor térmico</text>
+<!-- Labels generales -->
+<text fill="#4a6a8a" font-size="9" text-anchor="middle" x="340" y="185">━━ Cable de potencia (alta corriente)   ╌╌ Señal de control (baja corriente)</text>
+</svg>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-1">
+<div class="slide-card">
+<div class="eyebrow">Estructura del tema</div>
+<h2 class="slide-h">Índice de contenidos</h2>
+<div class="sub">Motor de arranque · Circuito de arranque</div>
+<div class="index-grid">
+<div class="index-item" onclick="goToSlide(3)">
+<div class="index-num">1</div>
+<div class="index-text"><strong>Función del circuito de arranque</strong><span>Elementos que lo componen · Misión del sistema</span></div>
+</div>
+<div class="index-item" onclick="goToSlide(4)">
+<div class="index-num">2</div>
+<div class="index-text"><strong>El bombín de encendido</strong><span>Función de interruptor · Tipos de conexión</span></div>
+</div>
+<div class="index-item" onclick="goToSlide(5)">
+<div class="index-num">3</div>
+<div class="index-text"><strong>Partes del motor de arranque</strong><span>Motor eléctrico · Piñón · Contactor</span></div>
+</div>
+<div class="index-item" onclick="goToSlide(6)">
+<div class="index-num">4</div>
+<div class="index-text"><strong>El contactor / relé</strong><span>Componentes · Bobinas de retención y activación</span></div>
+</div>
+<div class="index-item" onclick="goToSlide(8)">
+<div class="index-num">5</div>
+<div class="index-text"><strong>El conjunto piñón</strong><span>Piñón · Rueda libre · Muelle coaxial</span></div>
+</div>
+<div class="index-item" onclick="goToSlide(10)">
+<div class="index-num">6</div>
+<div class="index-text"><strong>El motor eléctrico de CC</strong><span>Principio · Rotor · Estator · Escobillas</span></div>
+</div>
+<div class="index-item" onclick="goToSlide(12)">
+<div class="index-num">7</div>
+<div class="index-text"><strong>Tipos de motores de arranque</strong><span>Contactor+horquilla · Con reductora · Bendix</span></div>
+</div>
+<div class="index-item" onclick="goToSlide(15)">
+<div class="index-num">8</div>
+<div class="index-text"><strong>Sistema START-STOP</strong><span>Funcionamiento · Condiciones · Ventajas</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-2">
+<div class="slide-card">
+<div class="eyebrow">Capacidades terminales</div>
+<h2 class="slide-h">Objetivos de aprendizaje</h2>
+<div class="sub">Al finalizar el tema el alumno será capaz de:</div>
+<div class="obj-list">
+<div class="obj"><div class="obj-n">1</div>Identificar y describir la <strong>función del circuito de arranque</strong> y los elementos que lo componen.</div>
+<div class="obj"><div class="obj-n">2</div>Explicar el <strong>funcionamiento del contactor</strong>: secuencia de activación de bobinas y desplazamiento del núcleo de hierro.</div>
+<div class="obj"><div class="obj-n">3</div>Describir el <strong>conjunto piñón</strong> y justificar la necesidad del mecanismo de rueda libre.</div>
+<div class="obj"><div class="obj-n">4</div>Explicar el <strong>principio de funcionamiento del motor eléctrico de CC</strong>: campo magnético, espiras y fuerza de Lorentz.</div>
+<div class="obj"><div class="obj-n">5</div>Diferenciar los principales <strong>tipos de motores de arranque</strong>: contactor+horquilla, con reductora epicicloidal y por inercia (Bendix).</div>
+<div class="obj"><div class="obj-n">6</div>Comprender la lógica y las condiciones de funcionamiento del <strong>sistema START-STOP</strong> y su relación con la eficiencia energética.</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-3">
+<div class="slide-card">
+<div class="eyebrow">Contenido 1</div>
+<h2 class="slide-h">Función del circuito de arranque</h2>
+<div class="sub">Sistema eléctrico · Motor térmico</div>
+<div class="two-col">
+<div>
+<div class="info-box info-box success">
+              El <strong>circuito de arranque</strong> es el encargado de realizar los <strong>primeros giros del cigüeñal</strong> para que el motor térmico se ponga en funcionamiento.
+            </div>
+<p style="font-size:.87rem;margin-bottom:14px;line-height:1.6;">El sistema está formado por cuatro elementos principales:</p>
+<ul class="kl">
+<li><strong>Batería:</strong> fuente de energía eléctrica (12 V CC)</li>
+<li><strong>Cables de potencia:</strong> conducen la alta corriente al motor eléctrico</li>
+<li><strong>Bombín de encendido:</strong> actúa de interruptor de mando</li>
+<li><strong>Motor de arranque:</strong> transforma energía eléctrica en giro mecánico</li>
+</ul>
+<div class="info-box success" style="margin-top:16px;">
+<strong>RPM necesarias para arrancar:</strong><br/>
+              Motor Otto (gasolina): ≥ 100 rpm en cigüeñal<br/>
+              Motor Diésel: ≥ 200 rpm en cigüeñal
+            </div>
+</div>
+<div>
+<!-- SVG circuito simplificado -->
+<div class="diagram">
+<svg height="250" viewbox="0 0 310 250" width="310">
+<!-- Batería -->
+<rect fill="#1a2a3a" height="70" rx="6" stroke="#4fc3f7" stroke-width="1.8" width="55" x="10" y="90"></rect>
+<text fill="#4fc3f7" font-size="10" font-weight="bold" text-anchor="middle" x="37" y="118">BAT</text>
+<text fill="#4fc3f7" font-size="10" text-anchor="middle" x="37" y="133">12V</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="37" y="175">Batería</text>
+<!-- Cable masa -->
+<line stroke="#607d8b" stroke-width="2" x1="37" x2="37" y1="160" y2="220"></line>
+<line stroke="#607d8b" stroke-width="2" x1="37" x2="200" y1="220" y2="220"></line>
+<!-- Cable positivo a bombín -->
+<line stroke="#ff7043" stroke-width="3" x1="65" x2="105" y1="115" y2="115"></line>
+<!-- Bombín -->
+<rect fill="#1a2a3a" height="34" rx="5" stroke="#66bb6a" stroke-width="1.5" width="60" x="105" y="98"></rect>
+<text fill="#66bb6a" font-size="9" font-weight="bold" text-anchor="middle" x="135" y="115">BOMBÍN</text>
+<text fill="#66bb6a" font-size="8" text-anchor="middle" x="135" y="127">Pos. 50 (START)</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="135" y="145">Interruptor</text>
+<!-- Señal de control -->
+<line stroke="#66bb6a" stroke-dasharray="4,3" stroke-width="1.5" x1="165" x2="200" y1="115" y2="115"></line>
+<!-- Motor arranque -->
+<rect fill="#1a2a3a" height="120" rx="8" stroke="#ff7043" stroke-width="2" width="100" x="200" y="65"></rect>
+<text fill="#ff7043" font-size="10" font-weight="bold" text-anchor="middle" x="250" y="100">MOTOR</text>
+<text fill="#ff7043" font-size="10" text-anchor="middle" x="250" y="114">ARRANQUE</text>
+<!-- Contactor icon inside -->
+<rect fill="#0d1520" height="20" rx="3" stroke="#4fc3f7" stroke-width="1" width="40" x="214" y="120"></rect>
+<text fill="#4fc3f7" font-size="8" text-anchor="middle" x="234" y="133">Contactor</text>
+<!-- Pinion icon -->
+<circle cx="265" cy="148" fill="#0d1520" r="14" stroke="#ff7043" stroke-width="1.2"></circle>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="265" y="152">Piñón</text>
+<!-- Arrow to flywheel -->
+<line marker-end="url(#a1)" stroke="#ff7043" stroke-width="1.5" x1="279" x2="295" y1="148" y2="148"></line>
+<defs><marker id="a1" markerheight="5" markerwidth="5" orient="auto" refx="5" refy="2.5"><path d="M0,0 L5,2.5 L0,5Z" fill="#ff7043"></path></marker></defs>
+<!-- Ground line -->
+<line stroke="#607d8b" stroke-width="2" x1="200" x2="200" y1="185" y2="220"></line>
+<!-- Cable potencia directo bat→motor -->
+<line stroke="#ff7043" stroke-width="3" x1="65" x2="65" y1="90" y2="50"></line>
+<line stroke="#ff7043" stroke-width="3" x1="65" x2="200" y1="50" y2="50"></line>
+<line stroke="#ff7043" stroke-width="3" x1="200" x2="200" y1="50" y2="65"></line>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="132" y="44">Cable potencia (alta I)</text>
+<!-- Volante indicado -->
+<text fill="#607d8b" font-size="8" x="300" y="152">→ VI</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-4">
+<div class="slide-card">
+<div class="eyebrow">Contenido 2</div>
+<h2 class="slide-h">El Bombín de Encendido</h2>
+<div class="sub">Interruptor de mando · Posiciones de llave</div>
+<div class="two-col">
+<div>
+<div class="info-box info-box success">
+              El <strong>bombín de encendido</strong> actúa de interruptor para abrir o cerrar, entre otros circuitos, el circuito de arranque del motor térmico.
+            </div>
+<p style="font-size:.87rem;margin-bottom:12px;color:#aab;">Posiciones estándar de la llave:</p>
+<table class="data-table">
+<tr><th>Posición</th><th>Estado</th><th>Circuito activado</th></tr>
+<tr><td>0 (STOP)</td><td>Abierto</td><td>Ninguno</td></tr>
+<tr><td>I (ACC)</td><td>Cerrado</td><td>Accesorios (radio, etc.)</td></tr>
+<tr><td>II (ON)</td><td>Cerrado</td><td>Encendido + cuadro</td></tr>
+<tr><td>III · 50 (START)</td><td>Cerrado momentáneo</td><td>Circuito de arranque</td></tr>
+</table>
+<div class="info-box success" style="margin-top:14px;">
+<strong>Tendencia actual:</strong> botón de arranque (Start/Stop) sin llave física. El bombín es sustituido por un módulo de control electrónico con tarjeta o fob RFID. La posición lógica "50" equivale a pulsar el botón.
+            </div>
+</div>
+<div>
+<!-- SVG bombín esquema posiciones -->
+<div class="diagram">
+<svg height="240" viewbox="0 0 270 240" width="270">
+<!-- Cuerpo bombín -->
+<circle cx="135" cy="105" fill="#1a2a3a" r="70" stroke="#66bb6a" stroke-width="2"></circle>
+<circle cx="135" cy="105" fill="#0d1520" r="22" stroke="#66bb6a" stroke-width="1.5"></circle>
+<text fill="#66bb6a" font-size="9" font-weight="bold" text-anchor="middle" x="135" y="109">LLAVE</text>
+<!-- Contactos alrededor -->
+<!-- Pos 0 -->
+<rect fill="#1e3048" height="16" rx="3" stroke="#4fc3f7" stroke-width="1.2" width="24" x="135" y="35"></rect>
+<text fill="#4fc3f7" font-size="8" font-weight="bold" text-anchor="middle" x="147" y="47">0</text>
+<text fill="#6b8cae" font-size="7" text-anchor="middle" x="147" y="30">STOP</text>
+<!-- Pos I -->
+<rect fill="#1e3048" height="16" rx="3" stroke="#ff7043" stroke-width="1.2" width="24" x="190" y="55"></rect>
+<text fill="#ff7043" font-size="8" font-weight="bold" text-anchor="middle" x="202" y="67">I</text>
+<text fill="#6b8cae" font-size="7" text-anchor="middle" x="217" y="54">ACC</text>
+<!-- Pos II -->
+<rect fill="#1e3048" height="16" rx="3" stroke="#ff7043" stroke-width="1.2" width="24" x="208" y="105"></rect>
+<text fill="#ff7043" font-size="8" font-weight="bold" text-anchor="middle" x="220" y="117">II</text>
+<text fill="#6b8cae" font-size="7" text-anchor="middle" x="240" y="116">ON</text>
+<!-- Pos 50 START -->
+<rect fill="#66bb6a" height="16" rx="3" stroke="#66bb6a" stroke-width="1.5" width="32" x="188" y="152"></rect>
+<text fill="white" font-size="8" font-weight="bold" text-anchor="middle" x="204" y="164">50</text>
+<text fill="#66bb6a" font-size="7" text-anchor="middle" x="220" y="178">START</text>
+<!-- Key indicator line (pointing to pos II) -->
+<line stroke="#fff" stroke-linecap="round" stroke-width="2.5" x1="135" x2="198" y1="105" y2="105"></line>
+<circle cx="200" cy="105" fill="#fff" r="4"></circle>
+<!-- Label -->
+<text fill="#6b8cae" font-size="9" text-anchor="middle" x="135" y="195">Posición llave → ON (pos. II)</text>
+<!-- Connectors terminal -->
+<text fill="#4fc3f7" font-size="9" font-weight="bold" text-anchor="middle" x="135" y="215">Terminal 50 → activa el arranque</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="135" y="230">Contacto momentáneo · con retorno de muelle</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-5">
+<div class="slide-card">
+<div class="eyebrow">Contenido 3</div>
+<h2 class="slide-h">Partes del Motor de Arranque</h2>
+<div class="sub">Tres conjuntos funcionales principales</div>
+<div class="two-col">
+<div>
+<div class="info-box info-box success">El motor de arranque con desplazamiento por contactor y horquilla consta de tres conjuntos funcionales:</div>
+<div class="mini-card" style="margin-bottom:12px;border-color:rgba(79,195,247,.3);">
+<div class="mini-card-h">E — Motor eléctrico</div>
+<p style="font-size:.83rem;line-height:1.55;">Transforma la <strong>energía eléctrica</strong> de la batería en un <strong>giro mecánico</strong>. Motor de corriente continua (CC).</p>
+</div>
+<div class="mini-card" style="margin-bottom:12px;border-color:rgba(255,112,67,.3);">
+<div class="mini-card-h" style="color:#ff7043;">P — Conjunto piñón</div>
+<p style="font-size:.83rem;line-height:1.55;">Transmite el giro desde el motor eléctrico hasta el <strong>cigüeñal a través del volante de inercia</strong>. Incluye piñón, rueda libre y muelle coaxial.</p>
+</div>
+<div class="mini-card" style="border-color:rgba(102,187,106,.3);">
+<div class="mini-card-h" style="color:#66bb6a;">C — Contactor / Relé</div>
+<p style="font-size:.83rem;line-height:1.55;">Conecta y desconecta el piñón con el volante de inercia, y actúa de <strong>relé de potencia</strong> reduciendo la caída de tensión entre batería y motor eléctrico.</p>
+</div>
+</div>
+<div class="diagram">
+<!-- SVG: despiece motor arranque etiquetado -->
+<svg height="320" viewbox="0 0 330 320" width="330">
+<!-- Contactor (relé) - izquierda -->
+<rect fill="#1a2a3a" height="120" rx="8" stroke="#66bb6a" stroke-width="2" width="70" x="10" y="100"></rect>
+<text fill="#66bb6a" font-size="10" font-weight="bold" text-anchor="middle" x="45" y="125">C</text>
+<text fill="#66bb6a" font-size="8" text-anchor="middle" x="45" y="140">CONTACTOR</text>
+<!-- Núcleo de hierro dentro -->
+<rect fill="#607d8b" height="18" rx="3" width="46" x="22" y="148"></rect>
+<text fill="white" font-size="7" text-anchor="middle" x="45" y="161">Núcleo Fe (N)</text>
+<!-- Horquilla -->
+<path d="M80,160 L110,155 L110,165 L80,160" fill="#ff7043" opacity=".8"></path>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="95" y="180">Horquilla (J)</text>
+<!-- Motor eléctrico - centro -->
+<rect fill="#1a2a3a" height="200" rx="10" stroke="#4fc3f7" stroke-width="2" width="120" x="110" y="60"></rect>
+<text fill="#4fc3f7" font-size="10" font-weight="bold" text-anchor="middle" x="170" y="88">E</text>
+<text fill="#4fc3f7" font-size="8" text-anchor="middle" x="170" y="102">MOTOR ELÉCT.</text>
+<!-- Estator (polos) -->
+<path d="M118,120 Q110,100 118,160" fill="#c0392b" opacity=".7"></path>
+<text fill="#e74c3c" font-size="8" text-anchor="middle" x="107" y="145">N</text>
+<path d="M222,120 Q230,100 222,160" fill="#1565c0" opacity=".7"></path>
+<text fill="#3498db" font-size="8" text-anchor="middle" x="234" y="145">S</text>
+<!-- Inducido (rotor) -->
+<ellipse cx="170" cy="160" fill="#0d1520" rx="35" ry="52" stroke="#ff7043" stroke-width="1.5"></ellipse>
+<text fill="#ff7043" font-size="9" font-weight="bold" text-anchor="middle" x="170" y="155">Rotor</text>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="170" y="168">(inducido)</text>
+<!-- Colector + escobillas -->
+<rect fill="#37474f" height="18" rx="3" width="40" x="150" y="215"></rect>
+<text fill="#b0bec5" font-size="7" text-anchor="middle" x="170" y="228">Colector/Escob.</text>
+<!-- Eje -->
+<line stroke="#90a4ae" stroke-linecap="round" stroke-width="6" x1="170" x2="170" y1="260" y2="285"></line>
+<!-- Conjunto piñón - derecha -->
+<rect fill="#1a2a3a" height="70" rx="7" stroke="#ff7043" stroke-width="2" width="80" x="230" y="150"></rect>
+<text fill="#ff7043" font-size="10" font-weight="bold" text-anchor="middle" x="270" y="170">P</text>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="270" y="183">CONJUNTO</text>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="270" y="195">PIÑÓN</text>
+<!-- Rueda libre -->
+<circle cx="250" cy="200" fill="#0d1520" r="12" stroke="#66bb6a" stroke-width="1.2"></circle>
+<text fill="#66bb6a" font-size="6" text-anchor="middle" x="250" y="204">RL</text>
+<!-- Piñón dientes -->
+<circle cx="290" cy="200" fill="#0d1520" r="14" stroke="#ff7043" stroke-width="1.2"></circle>
+<g fill="#ff7043">
+<rect height="5" rx="1" width="6" x="287" y="185"></rect>
+<rect height="5" rx="1" width="6" x="287" y="210"></rect>
+<rect height="6" rx="1" width="5" x="276" y="197"></rect>
+<rect height="6" rx="1" width="5" x="303" y="197"></rect>
+</g>
+<text fill="#ff7043" font-size="7" text-anchor="middle" x="290" y="204">Piñón</text>
+<!-- Muelle coaxial -->
+<text fill="#6b8cae" font-size="7" text-anchor="middle" x="230" y="236">Muelle coaxial</text>
+<!-- Labels letter badges -->
+<circle cx="45" cy="90" fill="#66bb6a" opacity=".15" r="14" stroke="#66bb6a" stroke-width="1.5"></circle>
+<text fill="#66bb6a" font-size="12" font-weight="bold" text-anchor="middle" x="45" y="95">C</text>
+<circle cx="170" cy="40" fill="#4fc3f7" opacity=".15" r="14" stroke="#4fc3f7" stroke-width="1.5"></circle>
+<text fill="#4fc3f7" font-size="12" font-weight="bold" text-anchor="middle" x="170" y="45">E</text>
+<circle cx="270" cy="130" fill="#ff7043" opacity=".15" r="14" stroke="#ff7043" stroke-width="1.5"></circle>
+<text fill="#ff7043" font-size="12" font-weight="bold" text-anchor="middle" x="270" y="135">P</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-6">
+<div class="slide-card">
+<div class="eyebrow">Contenido 4</div>
+<h2 class="slide-h">El Contactor / Relé de Potencia</h2>
+<div class="sub">Componentes internos · Dos funciones simultáneas</div>
+<div class="two-col">
+<div>
+<div class="info-box info-box success">El contactor realiza <strong>dos funciones simultáneas</strong>:<br/>
+              1. Conecta/desconecta el piñón con el volante de inercia (vía horquilla).<br/>
+              2. Actúa de relé cerrando el circuito directo batería → motor eléctrico.
+            </div>
+<p style="font-size:.87rem;margin-bottom:10px;font-weight:600;color:#aab;">Componentes internos:</p>
+<ul class="kl">
+<li><strong>Bobina B (retención):</strong> mantiene el núcleo desplazado una vez cerrado el circuito de potencia</li>
+<li><strong>Bobina C (activación):</strong> inicia el desplazamiento del núcleo al recibir la señal de la llave</li>
+<li><strong>Núcleo de hierro N:</strong> se desplaza por el campo magnético combinado de B y C</li>
+<li><strong>Placa conductora E:</strong> une los terminales F y G al desplazarse → cierra circuito de potencia</li>
+<li><strong>Anclaje D:</strong> arrastra la horquilla que mueve el piñón</li>
+<li><strong>Muelle H:</strong> retorna el núcleo a posición de reposo al soltar la llave</li>
+</ul>
+</div>
+<div class="diagram">
+<svg height="280" viewbox="0 0 300 280" width="300">
+<!-- Carcasa contactor -->
+<rect fill="#0d1520" height="240" rx="10" stroke="#66bb6a" stroke-width="2" width="260" x="20" y="20"></rect>
+<text fill="#66bb6a" font-size="10" font-weight="bold" text-anchor="middle" x="150" y="15">CONTACTOR</text>
+<!-- Bobina B (retención) -->
+<rect fill="#1a2a3a" height="50" rx="5" stroke="#4fc3f7" stroke-width="1.5" width="90" x="35" y="40"></rect>
+<text fill="#4fc3f7" font-size="9" font-weight="bold" text-anchor="middle" x="80" y="62">Bobina B</text>
+<text fill="#4fc3f7" font-size="8" text-anchor="middle" x="80" y="76">Retención</text>
+<!-- Bobina C (activación) -->
+<rect fill="#1a2a3a" height="50" rx="5" stroke="#ff7043" stroke-width="1.5" width="90" x="175" y="40"></rect>
+<text fill="#ff7043" font-size="9" font-weight="bold" text-anchor="middle" x="220" y="62">Bobina C</text>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="220" y="76">Activación</text>
+<!-- Núcleo de hierro N -->
+<rect fill="#607d8b" height="30" rx="4" width="200" x="35" y="110"></rect>
+<text fill="white" font-size="10" font-weight="bold" text-anchor="middle" x="135" y="130">Núcleo Fe (N)</text>
+<!-- Desplazamiento arrow -->
+<line marker-end="url(#b1)" stroke="#66bb6a" stroke-width="2" x1="235" x2="258" y1="125" y2="125"></line>
+<defs><marker id="b1" markerheight="5" markerwidth="5" orient="auto" refx="5" refy="2.5"><path d="M0,0 L5,2.5 L0,5Z" fill="#66bb6a"></path></marker></defs>
+<text fill="#66bb6a" font-size="7" x="248" y="115">→</text>
+<!-- Placa conductora E -->
+<rect fill="#ff8f00" height="18" rx="3" width="70" x="35" y="160"></rect>
+<text fill="white" font-size="8" font-weight="bold" text-anchor="middle" x="70" y="173">Placa E</text>
+<!-- Terminales F y G -->
+<circle cx="35" cy="169" fill="#1a2a3a" r="8" stroke="#ff7043" stroke-width="1.5"></circle>
+<text fill="#ff7043" font-size="7" text-anchor="middle" x="35" y="173">F</text>
+<circle cx="105" cy="169" fill="#1a2a3a" r="8" stroke="#ff7043" stroke-width="1.5"></circle>
+<text fill="#ff7043" font-size="7" text-anchor="middle" x="105" y="173">G</text>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="70" y="197">BAT → Motor eléctr.</text>
+<!-- Muelle H -->
+<path d="M245,110 Q252,110 249,125 Q252,125 249,140 Q252,140 245,140" fill="none" stroke="#aaa" stroke-width="2"></path>
+<text fill="#6b8cae" font-size="8" x="265" y="128">Muelle H</text>
+<!-- Anclaje D + Horquilla -->
+<rect fill="#1a2a3a" height="30" rx="3" stroke="#66bb6a" stroke-width="1" width="40" x="35" y="200"></rect>
+<text fill="#66bb6a" font-size="7" text-anchor="middle" x="55" y="218">Anclaje D</text>
+<line stroke="#ff7043" stroke-width="2" x1="55" x2="55" y1="230" y2="258"></line>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="55" y="268">→ Horquilla J</text>
+<!-- Terminales entrada -->
+<text fill="#4fc3f7" font-size="8" text-anchor="middle" x="220" y="265">Term. 50 (señal llave)</text>
+<line marker-end="url(#b2)" stroke="#4fc3f7" stroke-width="1.5" x1="220" x2="220" y1="268" y2="255"></line>
+<defs><marker id="b2" markerheight="5" markerwidth="5" orient="auto" refx="2.5" refy="5"><path d="M0,5 L5,5 L2.5,0Z" fill="#4fc3f7"></path></marker></defs>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-7">
+<div class="slide-card">
+<div class="eyebrow">Contenido 4 · Funcionamiento</div>
+<h2 class="slide-h">Secuencia de funcionamiento del contactor</h2>
+<div class="sub">Tres fases de operación</div>
+<ol class="kl" style="gap:14px;">
+<li>
+<div>
+<strong style="color:#4fc3f7;">Fase 1 — Activación (llave en pos. 50):</strong><br/>
+<span style="font-size:.83rem;line-height:1.6;">La corriente llega a las dos bobinas B y C. Ambas crean campo magnético en el <strong>mismo sentido</strong>, sus fuerzas se suman. El núcleo N se desplaza y:<br/>
+              · Un extremo arrastra la <strong>horquilla J</strong> → empuja el piñón hacia el volante de inercia.<br/>
+              · El otro extremo, la <strong>placa E</strong>, une los terminales F y G → circuito directo BAT→motor eléctrico cerrado → el motor eléctrico <strong>comienza a girar</strong>.</span>
+</div>
+</li>
+<li>
+<div>
+<strong style="color:#ff7043;">Fase 2 — Mantenimiento (piñón engranado, motor girando):</strong><br/>
+<span style="font-size:.83rem;line-height:1.6;">La bobina C queda en paralelo con F-G → queda <strong>cortocircuitada</strong> (no circula corriente por ella). Solo trabaja la bobina B (retención), con campo suficiente para mantener el núcleo desplazado. El motor eléctrico gira normalmente.</span>
+</div>
+</li>
+<li>
+<div>
+<strong style="color:#66bb6a;">Fase 3 — Reposo (conductor suelta la llave):</strong><br/>
+<span style="font-size:.83rem;line-height:1.6;">Se abre el contacto A. Desaparece el campo en la bobina B. El <strong>muelle H</strong> devuelve el núcleo a la posición inicial. La placa E se separa → se abre el circuito de potencia. La horquilla J retira el piñón del volante de inercia.</span>
+</div>
+</li>
+</ol>
+<div class="info-box warning" style="margin-top:20px;">
+<strong>Importante:</strong> si el motor térmico ya está en marcha cuando se suelta la llave, la rueda libre evita que el volante de inercia (girando a alta velocidad) arrastre y destruya el inducido del motor eléctrico.
+        </div>
+</div>
+</div>
+<div class="slide" id="slide-8">
+<div class="slide-card">
+<div class="eyebrow">Contenido 5</div>
+<h2 class="slide-h">El Conjunto Piñón</h2>
+<div class="sub">Transmisión de giro al volante de inercia</div>
+<div class="two-col">
+<div>
+<div class="info-box info-box success">El conjunto piñón agrupa todos los elementos que acompañan al piñón en su desplazamiento hacia el volante de inercia.</div>
+<p style="font-size:.87rem;margin-bottom:10px;font-weight:600;color:#aab;">Componentes:</p>
+<ul class="kl">
+<li><strong>Piñón:</strong> dientes achaflanados en su extremo para facilitar el engrane con la corona del volante de inercia</li>
+<li><strong>Rueda libre:</strong> transmite el giro solo del motor eléctrico al motor térmico; nunca al revés</li>
+<li><strong>Muelle coaxial (M):</strong> permite que el motor eléctrico inicie el giro aunque los dientes choquen de frente</li>
+<li><strong>Acoplamiento para la horquilla (D):</strong> disco circular donde la horquilla hace palanca para desplazar el conjunto</li>
+</ul>
+<div class="info-box success" style="margin-top:12px;">
+<strong>Relación de transmisión piñón / volante:</strong><br/>
+              Ejemplo típico: piñón ≈ 9 dientes · Corona ≈ 119 dientes<br/>
+              Relación ≈ 13,2:1 → a 900 rpm del motor térmico, el inducido giraría a ~11.900 rpm
+            </div>
+</div>
+<div class="diagram">
+<svg height="270" viewbox="0 0 300 270" width="300">
+<!-- Eje inducido -->
+<line stroke="#90a4ae" stroke-linecap="round" stroke-width="7" x1="20" x2="260" y1="135" y2="135"></line>
+<text fill="#90a4ae" font-size="8" text-anchor="middle" x="140" y="120">Eje inducido (rotor)</text>
+<!-- Muelle coaxial M -->
+<rect fill="#1a2a3a" height="34" rx="3" stroke="#aaa" stroke-width="1.5" width="50" x="20" y="118"></rect>
+<!-- Muelle visual -->
+<path d="M22,128 Q28,123 34,128 Q40,133 46,128 Q52,123 58,128 Q64,133 68,128" fill="none" stroke="#aaa" stroke-width="1.8"></path>
+<text fill="#aaa" font-size="8" text-anchor="middle" x="45" y="163">Muelle M</text>
+<!-- Acoplamiento D -->
+<rect fill="#1a2a3a" height="34" rx="4" stroke="#4fc3f7" stroke-width="1.5" width="28" x="80" y="118"></rect>
+<text fill="#4fc3f7" font-size="7" text-anchor="middle" x="94" y="140">D</text>
+<text fill="#4fc3f7" font-size="7" text-anchor="middle" x="94" y="163">Acoplam.</text>
+<!-- Horquilla -->
+<path d="M94,118 L80,95 L108,95 Z" fill="#ff7043" opacity=".6"></path>
+<text fill="#ff7043" font-size="7" text-anchor="middle" x="94" y="88">Horquilla J</text>
+<!-- Rueda libre RL -->
+<rect fill="#1a2a3a" height="50" rx="6" stroke="#66bb6a" stroke-width="1.8" width="55" x="120" y="110"></rect>
+<text fill="#66bb6a" font-size="9" font-weight="bold" text-anchor="middle" x="147" y="132">Rueda</text>
+<text fill="#66bb6a" font-size="9" font-weight="bold" text-anchor="middle" x="147" y="145">Libre</text>
+<text fill="#6b8cae" font-size="7" text-anchor="middle" x="147" y="173">Rodillos + rampas</text>
+<!-- Arrow one-way -->
+<text fill="#66bb6a" font-size="9" text-anchor="middle" x="147" y="100">→ solo este sentido</text>
+<line marker-end="url(#c1)" stroke="#66bb6a" stroke-width="1.5" x1="110" x2="184" y1="103" y2="103"></line>
+<defs>
+<marker id="c1" markerheight="5" markerwidth="5" orient="auto" refx="5" refy="2.5"><path d="M0,0 L5,2.5 L0,5Z" fill="#66bb6a"></path></marker>
+</defs>
+<!-- Piñón -->
+<circle cx="215" cy="135" fill="#1a2a3a" r="30" stroke="#ff7043" stroke-width="2"></circle>
+<!-- Dientes piñón -->
+<g fill="#ff7043">
+<rect height="8" rx="1" width="8" x="211" y="103"></rect>
+<rect height="8" rx="1" width="8" x="211" y="160"></rect>
+<rect height="8" rx="1" width="8" x="183" y="131"></rect>
+<rect height="8" rx="1" width="8" x="239" y="131"></rect>
+<rect height="7" rx="1" transform="rotate(45 193 114)" width="7" x="190" y="110"></rect>
+<rect height="7" rx="1" transform="rotate(-45 238 114)" width="7" x="234" y="110"></rect>
+<rect height="7" rx="1" transform="rotate(-45 193 156)" width="7" x="190" y="152"></rect>
+<rect height="7" rx="1" transform="rotate(45 238 156)" width="7" x="234" y="152"></rect>
+</g>
+<text fill="#ff7043" font-size="9" font-weight="bold" text-anchor="middle" x="215" y="139">Piñón</text>
+<text fill="#6b8cae" font-size="7" text-anchor="middle" x="215" y="178">≈ 9 dientes</text>
+<!-- Chamfer label -->
+<line stroke="#ff7043" stroke-dasharray="3,2" stroke-width="1" x1="240" x2="260" y1="104" y2="90"></line>
+<text fill="#ff7043" font-size="7" x="260" y="86">Dientes achaflanados</text>
+<!-- Volante inercia (parcial) -->
+<path d="M250,95 A60,60 0 0,1 250,175" fill="none" stroke="#607d8b" stroke-dasharray="5,3" stroke-width="3"></path>
+<text fill="#607d8b" font-size="8" x="263" y="138">Volante</text>
+<text fill="#607d8b" font-size="8" x="263" y="148">inercia</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-9">
+<div class="slide-card">
+<div class="eyebrow">Contenido 5 · Detalle</div>
+<h2 class="slide-h">La Rueda Libre</h2>
+<div class="sub">Mecanismo unidireccional de protección del motor eléctrico</div>
+<div class="two-col">
+<div>
+<div class="info-box info-box success">
+              La rueda libre transmite el giro <strong>solo en un sentido</strong>: del motor eléctrico al motor térmico. Nunca al revés.
+            </div>
+<p style="font-size:.87rem;margin-bottom:10px;color:#aab;font-weight:600;">Componentes:</p>
+<ul class="kl">
+<li><strong>Corona circular</strong> exterior</li>
+<li><strong>Rodillos</strong> que se desplazan entre corona y rampa</li>
+<li><strong>Muelles</strong> que empujan los rodillos hacia la zona estrecha</li>
+<li><strong>Rampas</strong> de perfil variable (ancha ↔ estrecha)</li>
+</ul>
+<table class="data-table" style="margin-top:14px;">
+<tr><th>Situación</th><th>Posición rodillo</th><th>Resultado</th></tr>
+<tr><td>Motor eléctr. &gt; motor térmico</td><td>Zona estrecha → cuña</td><td>Arrastra el volante (ENCLAVA)</td></tr>
+<tr><td>Motor térmico &gt; motor eléctr.</td><td>Zona ancha → libre</td><td>Gira sin transmitir (DESLIZA)</td></tr>
+</table>
+<div class="info-box warning" style="margin-top:14px;">
+<strong>Sin rueda libre:</strong> al arrancar el motor térmico (3.500 rpm), el volante arrastraría el inducido a ≈ 46.000 rpm → destrucción inmediata del motor eléctrico.
+            </div>
+</div>
+<div class="diagram">
+<svg height="270" viewbox="0 0 290 270" width="290">
+<!-- Corona exterior -->
+<circle cx="145" cy="130" fill="none" r="100" stroke="#607d8b" stroke-width="10"></circle>
+<text fill="#607d8b" font-size="9" text-anchor="middle" x="145" y="20">Corona circular exterior</text>
+<!-- Eje interior (parte del piñón) -->
+<circle cx="145" cy="130" fill="#1a2a3a" r="40" stroke="#ff7043" stroke-width="2"></circle>
+<text fill="#ff7043" font-size="9" font-weight="bold" text-anchor="middle" x="145" y="127">Eje</text>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="145" y="140">(piñón)</text>
+<!-- Rampas en 4 posiciones -->
+<g fill="#37474f" stroke="#607d8b" stroke-width="1">
+<!-- Top rampa -->
+<path d="M130,90 L160,90 L162,60 L128,60 Z"></path>
+<!-- Bottom rampa -->
+<path d="M130,170 L160,170 L162,200 L128,200 Z"></path>
+<!-- Left rampa -->
+<path d="M85,115 L85,145 L55,147 L55,113 Z"></path>
+<!-- Right rampa -->
+<path d="M205,115 L205,145 L235,147 L235,113 Z"></path>
+</g>
+<text fill="#607d8b" font-size="7" text-anchor="middle" x="145" y="44">Rampa</text>
+<!-- Rodillos en cada rampa -->
+<circle class="pulse" cx="145" cy="73" fill="#66bb6a" r="9"></circle>
+<circle class="pulse" cx="145" cy="187" fill="#66bb6a" r="9"></circle>
+<circle class="pulse" cx="68" cy="130" fill="#66bb6a" r="9"></circle>
+<circle class="pulse" cx="222" cy="130" fill="#66bb6a" r="9"></circle>
+<!-- Labels -->
+<text fill="#66bb6a" font-size="8" x="170" y="73">Rodillo</text>
+<text fill="#66bb6a" font-size="8" text-anchor="middle" x="145" y="240">Rodillos + muelles</text>
+<!-- One-way arrow -->
+<path d="M145,130 A50,50 0 0,1 195,130" fill="none" marker-end="url(#d1)" stroke="#4fc3f7" stroke-width="2"></path>
+<defs><marker id="d1" markerheight="5" markerwidth="5" orient="auto" refx="5" refy="2.5"><path d="M0,0 L5,2.5 L0,5Z" fill="#4fc3f7"></path></marker></defs>
+<text fill="#4fc3f7" font-size="8" x="175" y="118">sentido libre</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-10">
+<div class="slide-card">
+<div class="eyebrow">Contenido 6</div>
+<h2 class="slide-h">El Motor Eléctrico de Corriente Continua</h2>
+<div class="sub">Principio de funcionamiento · Fuerza de Lorentz</div>
+<div class="two-col">
+<div>
+<div class="info-box info-box success">El motor eléctrico de CC transforma la <strong>energía eléctrica</strong> de la batería en <strong>energía mecánica de giro</strong>. Se basa en la interacción entre dos campos magnéticos.</div>
+<p style="font-size:.87rem;margin-bottom:10px;color:#aab;font-weight:600;">Principio de funcionamiento:</p>
+<ol class="kl">
+<li>Un <strong>campo magnético exterior</strong> (estator/inductor) fijo.</li>
+<li>Al circular corriente por las espiras interiores (inducido/rotor) se crea un <strong>segundo campo magnético</strong>.</li>
+<li>La interacción entre ambos campos crea <strong>fuerzas de atracción y repulsión</strong> (Ley de Lorentz: F = B·I·L).</li>
+<li>Estas fuerzas provocan el giro del rotor.</li>
+</ol>
+<div class="info-box success" style="margin-top:14px;">
+<strong>Colector de delgas + escobillas:</strong> sistema mecánico que invierte la corriente en cada media vuelta para que el giro sea continuo en el mismo sentido. Sin él, la espira llegaría a 90° y se detendría.
+            </div>
+<div class="info-box success" style="margin-top:10px;">
+<strong>Suavidad de giro:</strong> cuantas más bobinas (espiras) desfasadas, más suave y continuo es el giro del rotor.
+            </div>
+</div>
+<div class="diagram">
+<svg height="270" viewbox="0 0 290 270" width="290">
+<!-- Campo magnético exterior (estator) -->
+<rect fill="#c0392b" height="150" opacity=".8" rx="6" width="40" x="10" y="60"></rect>
+<text fill="white" font-size="14" font-weight="bold" text-anchor="middle" x="30" y="140">N</text>
+<rect fill="#1565c0" height="150" opacity=".8" rx="6" width="40" x="240" y="60"></rect>
+<text fill="white" font-size="14" font-weight="bold" text-anchor="middle" x="260" y="140">S</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="145" y="30">Estator (inductor) · Campo magnético exterior</text>
+<!-- Líneas de campo -->
+<line opacity=".5" stroke="#4fc3f7" stroke-width="1.2" x1="50" x2="240" y1="115" y2="115"></line>
+<line opacity=".8" stroke="#4fc3f7" stroke-width="1.8" x1="50" x2="240" y1="135" y2="135"></line>
+<line opacity=".5" stroke="#4fc3f7" stroke-width="1.2" x1="50" x2="240" y1="155" y2="155"></line>
+<polygon fill="#4fc3f7" opacity=".8" points="160,133 150,130 150,138"></polygon>
+<!-- Espira (rotor simplificado) - vista frontal -->
+<rect fill="none" height="110" rx="4" stroke="#ff7043" stroke-width="3" width="70" x="110" y="80"></rect>
+<text fill="#ff7043" font-size="9" font-weight="bold" text-anchor="middle" x="145" y="128">Espira</text>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="145" y="142">(inducido)</text>
+<!-- Fuerza sobre conductores -->
+<!-- Conductor izq: corriente entra (⊗) → fuerza hacia abajo -->
+<circle cx="113" cy="135" fill="#0d1520" r="8" stroke="#39c0ed" stroke-width="1.5"></circle>
+<line stroke="#39c0ed" stroke-width="2" x1="108" x2="118" y1="130" y2="140"></line>
+<line stroke="#39c0ed" stroke-width="2" x1="118" x2="108" y1="130" y2="140"></line>
+<line marker-end="url(#e1)" stroke="#ff7043" stroke-width="2" x1="113" x2="113" y1="143" y2="158"></line>
+<defs><marker id="e1" markerheight="5" markerwidth="5" orient="auto" refx="2.5" refy="5"><path d="M0,0 L5,0 L2.5,5Z" fill="#ff7043"></path></marker></defs>
+<!-- Conductor der: corriente sale (⊙) → fuerza hacia arriba -->
+<circle cx="177" cy="135" fill="#0d1520" r="8" stroke="#39c0ed" stroke-width="1.5"></circle>
+<circle cx="177" cy="135" fill="#39c0ed" r="3"></circle>
+<line marker-end="url(#e2)" stroke="#ff7043" stroke-width="2" x1="177" x2="177" y1="118" y2="128"></line>
+<defs><marker id="e2" markerheight="5" markerwidth="5" orient="auto" refx="2.5" refy="0"><path d="M0,5 L5,5 L2.5,0Z" fill="#ff7043"></path></marker></defs>
+<!-- Labels fuerza -->
+<text fill="#ff7043" font-size="7" x="96" y="157">F↓</text>
+<text fill="#ff7043" font-size="7" x="182" y="117">F↑</text>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="145" y="218">Par de fuerzas → giro horario</text>
+<!-- Colector + escobillas abajo -->
+<rect fill="#37474f" height="20" rx="3" width="40" x="125" y="195"></rect>
+<rect fill="#ff8f00" height="12" rx="2" width="7" x="118" y="198"></rect>
+<rect fill="#ff8f00" height="12" rx="2" width="7" x="165" y="198"></rect>
+<text fill="#b0bec5" font-size="7" text-anchor="middle" x="145" y="208">Colector (delgas)</text>
+<text fill="#ff8f00" font-size="7" x="110" y="220">Esc.</text>
+<text fill="#ff8f00" font-size="7" x="168" y="220">Esc.</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="145" y="240">Escobillas + colector → corriente continua de giro</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-11">
+<div class="slide-card">
+<div class="eyebrow">Contenido 6 · Partes del motor eléctrico</div>
+<h2 class="slide-h">Rotor (Inducido) y Estator (Inductor)</h2>
+<div class="sub">Componentes del motor eléctrico de CC</div>
+<div class="two-col">
+<div>
+<div class="mini-card" style="margin-bottom:14px;border-color:rgba(255,112,67,.3);">
+<div class="mini-card-h" style="color:#ff7043;">Rotor / Inducido (parte móvil)</div>
+<ul class="kl" style="margin-top:6px;">
+<li>Conjunto de <strong>bobinas inducidas</strong> (espiras) desfasadas entre sí</li>
+<li>Enrolladas en núcleos de hierro laminado (para reducir corrientes de Foucault)</li>
+<li>Conectadas al <strong>colector de delgas</strong></li>
+<li>Gira en el interior del campo magnético del estator</li>
+</ul>
+</div>
+<div class="mini-card" style="border-color:rgba(79,195,247,.3);">
+<div class="mini-card-h">Estator / Inductor (parte fija)</div>
+<ul class="kl" style="margin-top:6px;">
+<li>Genera el <strong>campo magnético exterior</strong> fijo</li>
+<li>Puede ser de <strong>imanes permanentes</strong> o de <strong>electroimanes</strong> (bobinas inductoras)</li>
+<li>Si es de electroimanes: bobinas enrolladas en núcleos de hierro fijados a la carcasa</li>
+<li>Generalmente 2 o 4 polos (N-S alternados)</li>
+<li>También llamado <strong>masas polares</strong></li>
+</ul>
+</div>
+</div>
+<div class="diagram">
+<svg height="260" viewbox="0 0 280 260" width="280">
+<!-- Carcasa exterior -->
+<circle cx="140" cy="130" fill="none" r="120" stroke="#1e3048" stroke-width="8"></circle>
+<!-- Polos estator (4 polos) -->
+<path d="M100,20 Q140,10 180,20 L170,55 Q140,48 110,55 Z" fill="#c0392b" opacity=".8"></path>
+<text fill="white" font-size="9" font-weight="bold" text-anchor="middle" x="140" y="40">N</text>
+<path d="M240,100 Q250,140 240,180 L205,170 Q210,140 205,110 Z" fill="#1565c0" opacity=".8"></path>
+<text fill="white" font-size="9" font-weight="bold" text-anchor="middle" x="232" y="145">S</text>
+<path d="M100,240 Q140,250 180,240 L170,205 Q140,212 110,205 Z" fill="#c0392b" opacity=".8"></path>
+<text fill="white" font-size="9" font-weight="bold" text-anchor="middle" x="140" y="230">N</text>
+<path d="M40,100 Q30,140 40,180 L75,170 Q70,140 75,110 Z" fill="#1565c0" opacity=".8"></path>
+<text fill="white" font-size="9" font-weight="bold" text-anchor="middle" x="48" y="145">S</text>
+<!-- Etiqueta estator -->
+<text fill="#4fc3f7" font-size="8" text-anchor="middle" x="140" y="8">ESTATOR (inductor) · 4 polos</text>
+<!-- Rotor central -->
+<circle cx="140" cy="130" fill="#1a2a3a" r="55" stroke="#ff7043" stroke-width="2"></circle>
+<!-- Bobinas del rotor (simplificadas) -->
+<ellipse cx="140" cy="130" fill="none" rx="40" ry="15" stroke="#ff7043" stroke-width="1.5" transform="rotate(0 140 130)"></ellipse>
+<ellipse cx="140" cy="130" fill="none" rx="40" ry="15" stroke="#ff7043" stroke-width="1.5" transform="rotate(45 140 130)"></ellipse>
+<ellipse cx="140" cy="130" fill="none" rx="40" ry="15" stroke="#ff7043" stroke-width="1.5" transform="rotate(90 140 130)"></ellipse>
+<ellipse cx="140" cy="130" fill="none" rx="40" ry="15" stroke="#ff7043" stroke-width="1.5" transform="rotate(135 140 130)"></ellipse>
+<text fill="#ff7043" font-size="9" font-weight="bold" text-anchor="middle" x="140" y="134">ROTOR</text>
+<text fill="#6b8cae" font-size="7" text-anchor="middle" x="140" y="148">(inducido)</text>
+<!-- Eje central -->
+<circle cx="140" cy="130" fill="#607d8b" r="8"></circle>
+<!-- Colector abajo del rotor -->
+<rect fill="#37474f" height="15" rx="3" width="40" x="120" y="185"></rect>
+<text fill="#b0bec5" font-size="7" text-anchor="middle" x="140" y="196">Colector delgas</text>
+<!-- Escobillas -->
+<rect fill="#ff8f00" height="10" rx="1" width="10" x="108" y="188"></rect>
+<rect fill="#ff8f00" height="10" rx="1" width="10" x="162" y="188"></rect>
+<text fill="#ff8f00" font-size="7" text-anchor="middle" x="96" y="198">Escob.</text>
+<text fill="#ff8f00" font-size="7" text-anchor="middle" x="184" y="198">Escob.</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="140" y="252">Vista de sección transversal</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-12">
+<div class="slide-card">
+<div class="eyebrow">Contenido 7</div>
+<h2 class="slide-h">Tipos de Motores de Arranque</h2>
+<div class="sub">Tres variantes principales según aplicación</div>
+<div class="three-col" style="margin-top:10px;">
+<div class="mini-card" style="border-color:rgba(79,195,247,.3);">
+<div class="mini-card-h">1. Contactor + Horquilla</div>
+<p style="font-size:.8rem;line-height:1.6;margin-bottom:10px;">El tipo <strong>más extendido</strong>. Descrito en detalle en las diapositivas anteriores. Contactor mueve la horquilla que desplaza el piñón.</p>
+<ul class="kl" style="gap:6px;">
+<li style="font-size:.78rem;">Sin reductora</li>
+<li style="font-size:.78rem;">Turismo y vehículo ligero</li>
+<li style="font-size:.78rem;">Motor Otto y Diésel ligero</li>
+</ul>
+</div>
+<div class="mini-card" style="border-color:rgba(255,112,67,.3);">
+<div class="mini-card-h" style="color:#ff7043;">2. Contactor + Horquilla + Reductora</div>
+<p style="font-size:.8rem;line-height:1.6;margin-bottom:10px;">Incorpora un <strong>tren epicicloidal</strong> que reduce RPM y multiplica el par (fuerza de giro). Mismo tamaño, mayor par o menor tamaño para igual par.</p>
+<ul class="kl" style="gap:6px;">
+<li style="font-size:.78rem;">Motores Diésel de potencia media-alta</li>
+<li style="font-size:.78rem;"><strong>Vehículos industriales y maquinaria</strong></li>
+<li style="font-size:.78rem;">Cuando se necesita gran par de arranque</li>
+</ul>
+</div>
+<div class="mini-card" style="border-color:rgba(102,187,106,.3);">
+<div class="mini-card-h" style="color:#66bb6a;">3. Por Inercia (Bendix)</div>
+<p style="font-size:.8rem;line-height:1.6;margin-bottom:10px;">El piñón se desplaza por <strong>inercia propia</strong> al girar el inducido. Sin contactor, sin horquilla. Sencillez y pequeño tamaño.</p>
+<ul class="kl" style="gap:6px;">
+<li style="font-size:.78rem;">Motocicletas y pequeños motores</li>
+<li style="font-size:.78rem;">Menor coste y mantenimiento</li>
+<li style="font-size:.78rem;">Reductora de 2 engranajes</li>
+</ul>
+</div>
+</div>
+<table class="data-table" style="margin-top:18px;">
+<tr><th>Tipo</th><th>Piñón se mueve mediante</th><th>Reductora</th><th>Aplicación típica</th></tr>
+<tr><td>Contactor + Horquilla</td><td>Horquilla mecánica (solenoide)</td><td>No</td><td>Turismo, vehículo ligero</td></tr>
+<tr><td>Contactor + Horquilla + Reductora</td><td>Horquilla mecánica (solenoide)</td><td>Sí (epicicloidal)</td><td>Industrial, Diésel pesado</td></tr>
+<tr><td>Inercia / Bendix</td><td>Inercia del propio piñón</td><td>Sí (2 engranajes)</td><td>Moto, pequeños motores</td></tr>
+</table>
+</div>
+</div>
+<div class="slide" id="slide-13">
+<div class="slide-card">
+<div class="eyebrow">Contenido 7 · Detalle</div>
+<h2 class="slide-h">Motor con Reductora Epicicloidal</h2>
+<div class="sub">Tren planetario · Mayor par · Uso en maquinaria industrial</div>
+<div class="two-col">
+<div>
+<div class="info-box info-box success">
+              La <strong>reductora epicicloidal (tren planetario)</strong> se sitúa sobre el eje del inducido y reduce las revoluciones transmitidas al piñón, multiplicando el par de giro.
+            </div>
+<p style="font-size:.87rem;margin-bottom:10px;color:#aab;font-weight:600;">Componentes del tren epicicloidal:</p>
+<ul class="kl">
+<li><strong>Piñón solar (4):</strong> recibe el giro del inducido del motor eléctrico</li>
+<li><strong>Satélites (2):</strong> engranajes que giran sobre sí mismos y se desplazan alrededor del solar</li>
+<li><strong>Portasatélites (3):</strong> une los satélites; su eje es la salida reducida hacia el piñón de arranque</li>
+<li><strong>Corona exterior (1):</strong> corona dentada interior, <strong>fija a la carcasa</strong></li>
+</ul>
+<div class="info-box success" style="margin-top:14px;">
+<strong>Principio:</strong> el solar gira → los satélites ruedan sobre la corona fija → el portasatélites gira a una velocidad mucho <strong>menor</strong> que el solar, con un par <strong>mayor</strong>.<br/><br/>
+              Relación de reducción típica: 3:1 a 5:1
+            </div>
+</div>
+<div class="diagram">
+<svg height="280" viewbox="0 0 290 280" width="290">
+<!-- Corona exterior (1) fija -->
+<circle cx="145" cy="135" fill="none" r="110" stroke="#607d8b" stroke-width="12"></circle>
+<!-- Dientes interiores corona -->
+<g fill="#607d8b">
+<rect height="10" rx="1" width="8" x="141" y="23"></rect>
+<rect height="10" rx="1" width="8" x="141" y="237"></rect>
+<rect height="8" rx="1" width="10" x="23" y="131"></rect>
+<rect height="8" rx="1" width="10" x="257" y="131"></rect>
+</g>
+<text fill="#607d8b" font-size="9" font-weight="bold" text-anchor="middle" x="145" y="10">1 · Corona exterior (fija a carcasa)</text>
+<!-- Satélites (2) - 3 satélites a 120° -->
+<circle cx="145" cy="70" fill="#1a2a3a" r="22" stroke="#ff7043" stroke-width="2"></circle>
+<text fill="#ff7043" font-size="8" font-weight="bold" text-anchor="middle" x="145" y="67">2</text>
+<text fill="#ff7043" font-size="7" text-anchor="middle" x="145" y="79">Satélite</text>
+<circle cx="75" cy="183" fill="#1a2a3a" r="22" stroke="#ff7043" stroke-width="2"></circle>
+<text fill="#ff7043" font-size="8" font-weight="bold" text-anchor="middle" x="75" y="180">2</text>
+<text fill="#ff7043" font-size="7" text-anchor="middle" x="75" y="192">Satélite</text>
+<circle cx="215" cy="183" fill="#1a2a3a" r="22" stroke="#ff7043" stroke-width="2"></circle>
+<text fill="#ff7043" font-size="8" font-weight="bold" text-anchor="middle" x="215" y="180">2</text>
+<text fill="#ff7043" font-size="7" text-anchor="middle" x="215" y="192">Satélite</text>
+<!-- Portasatélites (3) -->
+<g fill="none" stroke="#66bb6a" stroke-dasharray="4,2" stroke-width="1.5">
+<line x1="145" x2="145" y1="92" y2="115"></line>
+<line x1="75" x2="120" y1="161" y2="140"></line>
+<line x1="215" x2="170" y1="161" y2="140"></line>
+</g>
+<text fill="#66bb6a" font-size="8" text-anchor="middle" x="145" y="268">3 · Portasatélites → salida reducida</text>
+<!-- Piñón solar central (4) -->
+<circle cx="145" cy="135" fill="#152030" r="28" stroke="#4fc3f7" stroke-width="2"></circle>
+<text fill="#4fc3f7" font-size="10" font-weight="bold" text-anchor="middle" x="145" y="131">4</text>
+<text fill="#4fc3f7" font-size="8" text-anchor="middle" x="145" y="145">Solar</text>
+<text fill="#4fc3f7" font-size="7" text-anchor="middle" x="145" y="157">entrada</text>
+<!-- Arrows rotación solar -->
+<path d="M145,107 A28,28 0 0,1 173,135" fill="none" marker-end="url(#f1)" stroke="#4fc3f7" stroke-width="2"></path>
+<defs><marker id="f1" markerheight="5" markerwidth="5" orient="auto" refx="5" refy="2.5"><path d="M0,0 L5,2.5 L0,5Z" fill="#4fc3f7"></path></marker></defs>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-14">
+<div class="slide-card">
+<div class="eyebrow">Contenido 7 · Tipo 3</div>
+<h2 class="slide-h">Motor de Arranque por Inercia (Bendix)</h2>
+<div class="sub">Motocicletas y pequeños motores · Sencillez mecánica</div>
+<div class="two-col">
+<div>
+<div class="info-box info-box success">
+              El <strong>Bendix</strong> aprovecha la <strong>inercia del propio piñón</strong> para hacer el engrane: cuando el inducido arranca bruscamente, el piñón (por resistencia inercial) se desplaza en rosca por el eje hasta engranar con la corona.
+            </div>
+<p style="font-size:.87rem;margin-bottom:10px;color:#aab;font-weight:600;">Partes:</p>
+<ul class="kl">
+<li><strong>Motor eléctrico CC</strong> con inductor de imanes permanentes</li>
+<li><strong>Reductora:</strong> piñón motor + engranaje de salida (gran relación)</li>
+<li><strong>Conjunto piñón:</strong> piñón con rosca interior igual a la del eje</li>
+<li><strong>Muelle de retención:</strong> mantiene el piñón en posición de reposo durante la marcha</li>
+</ul>
+<div class="info-box warning" style="margin-top:14px;">
+<strong>Riesgo:</strong> si el muelle de retención falla, el piñón puede desplazarse durante la marcha y chocar con la corona giratoria → ruido metálico + posible destrucción de dientes.
+            </div>
+<table class="data-table" style="margin-top:14px;">
+<tr><th></th><th>Bendix</th><th>Contactor + Horquilla</th></tr>
+<tr><td>Engrane</td><td>Por inercia</td><td>Por horquilla (solenoide)</td></tr>
+<tr><td>Complejidad</td><td>Simple</td><td>Media</td></tr>
+<tr><td>Uso</td><td>Motos</td><td>Vehículo industrial</td></tr>
+</table>
+</div>
+<div class="diagram">
+<svg height="280" viewbox="0 0 290 280" width="290">
+<!-- Motor eléctrico -->
+<circle cx="80" cy="100" fill="#1a2a3a" r="55" stroke="#4fc3f7" stroke-width="2"></circle>
+<text fill="#4fc3f7" font-size="10" font-weight="bold" text-anchor="middle" x="80" y="95">MOTOR</text>
+<text fill="#4fc3f7" font-size="9" text-anchor="middle" x="80" y="109">ELÉCT. CC</text>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="80" y="122">Imanes perm.</text>
+<!-- Reductora (2 engranajes) -->
+<circle cx="150" cy="100" fill="#1a2a3a" r="18" stroke="#ff7043" stroke-width="1.5"></circle>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="150" y="104">z₁</text>
+<circle cx="195" cy="100" fill="#1a2a3a" r="32" stroke="#ff7043" stroke-width="1.5"></circle>
+<text fill="#ff7043" font-size="8" font-weight="bold" text-anchor="middle" x="195" y="97">z₂</text>
+<text fill="#ff7043" font-size="7" text-anchor="middle" x="195" y="109">(grande)</text>
+<text fill="#ff7043" font-size="8" text-anchor="middle" x="172" y="150">Reductora</text>
+<text fill="#6b8cae" font-size="7" text-anchor="middle" x="172" y="162">2 engranajes</text>
+<!-- Eje con rosca -->
+<line stroke="#90a4ae" stroke-linecap="round" stroke-width="7" x1="195" x2="195" y1="132" y2="220"></line>
+<!-- Rosca visual -->
+<g fill="none" stroke="#607d8b" stroke-width="1.2">
+<line x1="188" x2="202" y1="145" y2="145"></line>
+<line x1="188" x2="202" y1="155" y2="155"></line>
+<line x1="188" x2="202" y1="165" y2="165"></line>
+<line x1="188" x2="202" y1="175" y2="175"></line>
+<line x1="188" x2="202" y1="185" y2="185"></line>
+</g>
+<text fill="#6b8cae" font-size="7" x="215" y="168">Rosca</text>
+<!-- Piñón deslizante -->
+<circle cx="195" cy="210" fill="#1a2a3a" r="20" stroke="#66bb6a" stroke-width="2"></circle>
+<g fill="#66bb6a">
+<rect height="6" rx="1" width="8" x="191" y="189"></rect>
+<rect height="6" rx="1" width="8" x="191" y="225"></rect>
+<rect height="8" rx="1" width="6" x="174" y="206"></rect>
+<rect height="8" rx="1" width="6" x="211" y="206"></rect>
+</g>
+<text fill="#66bb6a" font-size="8" font-weight="bold" text-anchor="middle" x="195" y="214">Piñón</text>
+<text fill="#66bb6a" font-size="8" text-anchor="middle" x="195" y="245">Desplazamiento por inercia</text>
+<!-- Muelle retención -->
+<path d="M215,200 Q222,200 219,210 Q222,210 219,220 Q222,220 215,220" fill="none" stroke="#aaa" stroke-width="2"></path>
+<text fill="#6b8cae" font-size="7" x="240" y="212">Muelle</text>
+<text fill="#6b8cae" font-size="7" x="240" y="222">retención</text>
+<!-- Eje inducido -->
+<line stroke="#90a4ae" stroke-width="4" x1="135" x2="132" y1="100" y2="100"></line>
+<text fill="#6b8cae" font-size="8" text-anchor="middle" x="80" y="168">Motor CC · Imanes permanentes</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-15">
+<div class="slide-card">
+<div class="eyebrow">Contenido 8</div>
+<h2 class="slide-h">Sistema START-STOP</h2>
+<div class="sub">Eficiencia energética en ciclo urbano</div>
+<div class="two-col">
+<div>
+<div class="info-box info-box success">
+              El sistema <strong>START-STOP</strong> detiene automáticamente el motor térmico cuando el vehículo está parado y lo rearrancan al reemprender la marcha, reduciendo consumo y emisiones en ciclo urbano.
+            </div>
+<p style="font-size:.87rem;margin-bottom:8px;color:#aab;font-weight:600;">Condiciones para que el motor SE DETENGA:</p>
+<ul class="kl" style="gap:6px;">
+<li>Vehículo completamente parado</li>
+<li>Puerta conductor y capó cerrados</li>
+<li>Cinturón de seguridad abrochado</li>
+<li>Sin acción sobre pedal embrague ni acelerador</li>
+<li>Motor a temperatura ≥ 60 °C y velocidad de ralentí</li>
+<li>Batería con carga suficiente para garantizar el próximo arranque</li>
+</ul>
+<p style="font-size:.87rem;margin:12px 0 8px;color:#aab;font-weight:600;">Condiciones para que el motor SE REACTIVE:</p>
+<ul class="kl" style="gap:6px;">
+<li>Conductor pisa el embrague o el acelerador</li>
+<li>El vehículo no está completamente frenado</li>
+<li>Se abre alguna puerta o el capó</li>
+</ul>
+</div>
+<div>
+<div class="mini-card" style="border-color:rgba(102,187,106,.3);margin-bottom:12px;">
+<div class="mini-card-h" style="color:#66bb6a;">Ventajas del sistema START-STOP</div>
+<ul class="kl" style="gap:6px;">
+<li style="font-size:.8rem;">Reducción de consumo de combustible (≈ 5-15% en ciclo urbano)</li>
+<li style="font-size:.8rem;">Reducción de emisiones de CO₂ y NOx</li>
+<li style="font-size:.8rem;">Menor desgaste del motor en ralentí prolongado</li>
+</ul>
+</div>
+<div class="info-box warning">
+<strong>Exigencias técnicas del START-STOP:</strong><br/>
+              El motor de arranque debe soportar <strong>muchos más ciclos</strong> de arranque/parada que en un sistema convencional (de ≈ 50.000 arranques a &gt; 500.000). Se requieren:<br/>
+              · Batería reforzada (AGM o EFB)<br/>
+              · Motor de arranque reforzado<br/>
+              · Alternador de mayor capacidad
+            </div>
+<div class="diagram" style="margin-top:14px;">
+<svg height="80" viewbox="0 0 260 80" width="260">
+<!-- Ciclo urbano simplificado -->
+<text fill="#4fc3f7" font-size="9" font-weight="bold" text-anchor="middle" x="130" y="12">Ciclo urbano: motor ON / OFF</text>
+<line stroke="#333" stroke-width="1" x1="10" x2="250" y1="55" y2="55"></line>
+<!-- Motor ON periodos -->
+<rect fill="#66bb6a" height="25" opacity=".7" rx="2" width="35" x="10" y="30"></rect>
+<rect fill="#66bb6a" height="25" opacity=".7" rx="2" width="25" x="60" y="30"></rect>
+<rect fill="#66bb6a" height="25" opacity=".7" rx="2" width="40" x="105" y="30"></rect>
+<rect fill="#66bb6a" height="25" opacity=".7" rx="2" width="30" x="165" y="30"></rect>
+<rect fill="#66bb6a" height="25" opacity=".7" rx="2" width="35" x="215" y="30"></rect>
+<!-- STOP periodos -->
+<rect fill="#e74c3c" height="15" opacity=".7" rx="2" width="15" x="45" y="40"></rect>
+<rect fill="#e74c3c" height="15" opacity=".7" rx="2" width="20" x="85" y="40"></rect>
+<rect fill="#e74c3c" height="15" opacity=".7" rx="2" width="20" x="145" y="40"></rect>
+<rect fill="#e74c3c" height="15" opacity=".7" rx="2" width="20" x="195" y="40"></rect>
+<text fill="#66bb6a" font-size="7" text-anchor="middle" x="40" y="75">ON</text>
+<text fill="#e74c3c" font-size="7" text-anchor="middle" x="52" y="75">STOP</text>
+<text fill="#66bb6a" font-size="7" text-anchor="middle" x="72" y="75">ON</text>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide" id="slide-16">
+<div class="slide-card">
+<div class="eyebrow">Cierre del tema</div>
+<h2 class="slide-h">Resumen</h2>
+<div class="sub">Puntos clave del Motor y Circuito de Arranque</div>
+<div class="sum-grid">
+<div class="sum-card">
+<div class="sc-h">Circuito de arranque</div>
+<p>Batería + cables + bombín + motor de arranque. Objetivo: dar los primeros giros al cigüeñal (≥100 rpm Otto, ≥200 rpm Diésel).</p>
+</div>
+<div class="sum-card">
+<div class="sc-h">3 partes del motor arranque</div>
+<p><strong>E</strong> Motor eléctrico CC · <strong>P</strong> Conjunto piñón (piñón + rueda libre + muelle coaxial) · <strong>C</strong> Contactor/relé (bobinas B y C + placa E + horquilla J).</p>
+</div>
+<div class="sum-card">
+<div class="sc-h">Contactor: 3 fases</div>
+<p>1. Activación: bobinas B+C suman fuerzas → núcleo desplaza horquilla + cierra circuito potencia.<br/>2. Mantenimiento: solo bobina B retiene.<br/>3. Reposo: muelle H devuelve núcleo.</p>
+</div>
+<div class="sum-card">
+<div class="sc-h">Rueda libre</div>
+<p>Transmite giro motor eléctr. → motor térmico. NUNCA al revés. Protege el inducido de velocidades destructivas cuando el motor térmico arranca (&gt;11.000 rpm del inducido).</p>
+</div>
+<div class="sum-card">
+<div class="sc-h">Motor eléctrico CC</div>
+<p>Rotor (inducido): bobinas desfasadas + colector de delgas + escobillas. Estator (inductor): imanes permanentes o electroimanes (masas polares). Principio: F = B·I·L.</p>
+</div>
+<div class="sum-card">
+<div class="sc-h">Tipos de motores</div>
+<p><strong>Contactor+horquilla:</strong> turismo y vehículo ligero.<br/><strong>Con reductora epicicloidal:</strong> industrial, Diésel pesado.<br/><strong>Bendix/inercia:</strong> motos y pequeños motores.</p>
+</div>
+<div class="sum-card">
+<div class="sc-h">Reductora epicicloidal</div>
+<p>Tren planetario: solar (4) + satélites (2) + portasatélites (3) + corona fija (1). Reduce RPM y multiplica par. Relación típica 3:1 a 5:1. Imprescindible en maquinaria industrial.</p>
+</div>
+<div class="sum-card">
+<div class="sc-h">Sistema START-STOP</div>
+<p>Para el motor térmico en paradas urbanas. Condiciones: parado + T°≥60°C + batería OK. Reactiva al pisar embrague o acelerador. Requiere batería AGM y motor arranque reforzado.</p>
+</div>
+<div class="sum-card">
+<div class="sc-h">Muelle coaxial</div>
+<p>Resuelve el choque diente-diente al engranar el piñón. Se comprime si los dientes no coinciden; cuando el rotor gira ligeramente, el muelle fuerza el engrane en el primer hueco libre.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+<div id="bottombar">
+<button class="nav-btn" id="prevBtn" onclick="bottomPrev()">← Anterior</button>
+<button class="nav-btn primary" id="nextBtn" onclick="bottomNext()">Siguiente →</button>
+</div>
+
+
+<script>
+    let currentSlide = 0;
+    const totalSlides = 17;
+    const defaultTitle = 'Módulo 07: Sistema de Arranque · Motor de Arranque';
+    const slideTitles = ["Portada", "Índice", "Objetivos", "1. Función del circuito de arranque", "2. El bombín de encendido", "3. Partes del motor de arranque", "4. El contactor / relé", "5. Funcionamiento del contactor", "6. El conjunto piñón", "7. Rueda libre", "8. El motor eléctrico (CC)", "9. Rotor y estator", "10. Tipos de motores de arranque", "11. Motor con reductora", "12. Motor Bendix (inercia)", "13. Sistema START-STOP", "Resumen"];
+    const CURRENT_PART = 1;
+    const PART_FILES = { 1: "presentacion.html", 2: "presentacion-2.html" };
+</script>
+<script src="../../assets/js/presentacion.js"></script>
+
+<script>
+    function updateBottomBar() {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        prevBtn.disabled = (currentSlide === 0 && true);
+        nextBtn.disabled = (currentSlide === totalSlides - 1 && false);
+    }
+    function bottomPrev() {
+        if (currentSlide > 0) { goToSlide(currentSlide - 1); }
+        else { window.location.href = 'presentacion-2.html#slide-last'; }
+        updateBottomBar();
+    }
+    function bottomNext() {
+        if (currentSlide < totalSlides - 1) { goToSlide(currentSlide + 1); }
+        else { window.location.href = 'presentacion-2.html'; }
+        updateBottomBar();
+    }
+    const _origGoToSlide = goToSlide;
+    goToSlide = function(n) { _origGoToSlide(n); updateBottomBar(); };
+    document.addEventListener('DOMContentLoaded', updateBottomBar);
+</script>
+
+</body>
+</html>
