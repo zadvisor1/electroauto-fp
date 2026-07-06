@@ -1,0 +1,87 @@
+---
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 07 · Sistema de Arranque</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/curso.css">
+</head>
+<body>
+{% include nav.html %}
+
+<div class="page-header">
+<div class="header-num">07</div>
+<div class="breadcrumb">
+<a href="../../index.html">Inicio</a><span>›</span>
+<a href="../index.html">Curso</a><span>›</span>
+<span>Módulo 07</span>
+</div>
+<div class="header-badge">
+<span class="badge-num">MÓDULO 07</span>
+<span class="badge-estado">✓ Disponible</span>
+</div>
+<h1>Sistema de <em>Arranque</em></h1>
+<p>El motor de arranque del automóvil: constitución, funcionamiento y comprobaciones prácticas de sus componentes.</p>
+<div class="header-meta">
+<div class="meta-item">📊 <strong>33 diapositivas · 2 partes</strong></div>
+<div class="meta-item">⏱️ <strong>~70 minutos</strong></div>
+<div class="meta-item">📱 <strong>Funciona en cualquier dispositivo</strong></div>
+</div>
+</div>
+
+<div class="main-content">
+<div class="col-main">
+<div class="section-block reveal">
+<div class="block-label">Descripción</div>
+<h2 class="block-title">¿Qué vas a aprender?</h2>
+<p class="block-body">Este módulo se divide en dos partes: primero conocerás la constitución y el funcionamiento del motor de arranque — desde el bombín de encendido hasta el conjunto piñón, el contactor y los distintos tipos de motores (con reductora, Bendix, sistemas Start-Stop). Después, en la segunda parte, aprenderás a desmontarlo y comprobarlo pieza por pieza con el polímetro.</p>
+<p class="block-body" style="margin-top:0.75rem">Es un módulo muy orientado al taller: cada componente se explica junto con su comprobación práctica correspondiente.</p>
+</div>
+<div class="section-block reveal">
+<div class="block-label">Contenidos</div>
+<h2 class="block-title">Temario del módulo</h2>
+<ul class="contenidos-lista">
+<li><span class="ico">🔑</span><span class="tema">Función del circuito de arranque y el bombín de encendido</span><span class="subtema">PARTE 1</span></li>
+<li><span class="ico">⚙️</span><span class="tema">Partes del motor de arranque — Contactor, piñón, rueda libre</span><span class="subtema">PARTE 1</span></li>
+<li><span class="ico">🔌</span><span class="tema">El motor eléctrico de CC — Rotor y estator</span><span class="subtema">PARTE 1</span></li>
+<li><span class="ico">🔀</span><span class="tema">Tipos de motores — Reductora, Bendix (inercia), Start-Stop</span><span class="subtema">PARTE 1</span></li>
+<li><span class="ico">🔧</span><span class="tema">Desmontaje y comprobación de escobillas y colector</span><span class="subtema">PARTE 2</span></li>
+<li><span class="ico">📏</span><span class="tema">Comprobación del estator, rotor y roncador</span><span class="subtema">PARTE 2</span></li>
+<li><span class="ico">🛡️</span><span class="tema">Verificación de contactos y consumo del relé</span><span class="subtema">PARTE 2</span></li>
+<li><span class="ico">🔋</span><span class="tema">Comprobaciones en vehículo — Batería, masas, tensión en terminales</span><span class="subtema">PARTE 2</span></li>
+</ul>
+</div>
+<div class="section-block reveal">
+<div class="block-label">Conceptos clave</div>
+<h2 class="block-title">Lo esencial del módulo</h2>
+<div class="conceptos-grid">
+<div class="concepto"><span class="concepto-sym">⚙️</span><h4>Contactor</h4><p>Introduce el piñón en la corona del volante motor y cierra el circuito de potencia hacia el motor eléctrico.</p></div>
+<div class="concepto"><span class="concepto-sym">🔄</span><h4>Rueda libre</h4><p>Desacopla el piñón del motor una vez arrancado el vehículo, evitando que el motor de arranque gire a excesiva velocidad.</p></div>
+<div class="concepto"><span class="concepto-sym">🧲</span><h4>Colector</h4><p>Superficie por la que las escobillas alimentan las bobinas del rotor. Se comprueba visualmente y con el polímetro.</p></div>
+<div class="concepto"><span class="concepto-sym">🔁</span><h4>Start-Stop</h4><p>Motor de arranque reforzado, preparado para cientos de miles de ciclos de arranque adicionales.</p></div>
+</div>
+</div>
+</div>
+
+<div class="col-sidebar">
+{% include sidebar-material.html current="modulo-07" %}
+<div class="sidebar-card">
+<div class="sidebar-card-header">Todos los módulos</div>
+<div class="sidebar-card-body" style="padding:0">
+{% include modulos-nav.html current="modulo-07" %}
+</div>
+</div>
+</div>
+</div>
+
+{% include mod-nav-prevnext.html current="modulo-07" %}
+
+{% include footer.html current="modulo-07" %}
+
+<script src="../../assets/js/curso.js"></script>
+</body>
+</html>
