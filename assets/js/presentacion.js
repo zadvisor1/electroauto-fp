@@ -45,14 +45,25 @@ function ans(el, correct) {
     }
 }
 
-// Navegación por gesto táctil (swipe izquierda/derecha) en móvil
+// Navegación por gesto táctil (swipe izquierda/derecha) en móvil/tablet
+// Umbral alto y comprobación de que el movimiento es claramente horizontal,
+// para no confundir un swipe de cambio de diapositiva con un scroll vertical del contenido
 let touchStartX = 0;
-document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+let touchStartY = 0;
+document.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+});
 document.addEventListener('touchend', e => {
-    const delta = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(delta) > 60) {
-        if (delta > 0 && currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
-        else if (delta < 0 && currentSlide > 0) goToSlide(currentSlide - 1);
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+    // Solo activa si el movimiento horizontal es amplio (110px) Y claramente
+    // más horizontal que vertical (al menos el doble), para ignorar scrolls
+    if (absDx > 110 && absDx > absDy * 2) {
+        if (dx > 0 && currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+        else if (dx < 0 && currentSlide > 0) goToSlide(currentSlide - 1);
     }
 });
 
