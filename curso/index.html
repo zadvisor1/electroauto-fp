@@ -1,539 +1,327 @@
+---
+---
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curso — Circuitos Eléctricos, Electrónicos y de Confortabilidad</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --negro:    #0D0D0D;
-      --antracita:#141428;
-      --panel:    #1C1C3A;
-      --voltaje:  #FFD600;
-      --blanco:   #F0F0F0;
-      --rojo:     #E63946;
-      --gris:     #8A8AAA;
-      --borde:    rgba(255,214,0,0.15);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--negro);
-      color: var(--blanco);
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem;
-      height: 60px;
-      background: rgba(13,13,13,0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--borde);
-    }
-
-    .nav-logo {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.3rem; font-weight: 700;
-      color: var(--voltaje); letter-spacing: 0.05em;
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--blanco); }
-
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      color: var(--gris); text-decoration: none;
-      font-size: 0.875rem; font-weight: 500;
-      letter-spacing: 0.03em; transition: color 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--voltaje); }
-
-    .nav-burger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 4px;
-    }
-    .nav-burger span { display: block; width: 24px; height: 2px; background: var(--blanco); }
-
-    /* ── HEADER DE SECCIÓN ── */
-    .page-header {
-      padding: 100px 2rem 4rem;
-      background: var(--antracita);
-      border-bottom: 1px solid var(--borde);
-      position: relative; overflow: hidden;
-    }
-
-    .page-header::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--voltaje), transparent);
-    }
-
-    .breadcrumb {
-      font-size: 0.78rem; color: var(--gris);
-      margin-bottom: 1.5rem; display: flex; gap: 0.5rem; align-items: center;
-    }
-    .breadcrumb a { color: var(--gris); text-decoration: none; transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--voltaje); }
-    .breadcrumb span { color: var(--voltaje); }
-
-    .page-eyebrow {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--voltaje); margin-bottom: 0.75rem;
-    }
-
-    .page-header h1 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: clamp(1.8rem, 5vw, 3rem);
-      font-weight: 700; line-height: 1.1;
-      max-width: 700px; margin-bottom: 1rem;
-    }
-
-    .page-header p {
-      color: var(--gris); font-size: 0.95rem;
-      max-width: 560px; font-weight: 300;
-    }
-
-    .header-meta {
-      display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;
-    }
-    .meta-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-size: 0.82rem; color: var(--gris);
-    }
-    .meta-item strong { color: var(--blanco); font-weight: 500; }
-
-    /* ── PROGRESO ── */
-    .progreso-bar {
-      margin: 2rem 2rem 0;
-      padding: 1.25rem 1.5rem;
-      background: var(--panel);
-      border: 1px solid var(--borde);
-      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
-    }
-    .progreso-label {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.8rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--gris); white-space: nowrap;
-    }
-    .progreso-track {
-      flex: 1; min-width: 120px;
-      height: 4px; background: rgba(255,255,255,0.08);
-      position: relative;
-    }
-    .progreso-fill {
-      position: absolute; top: 0; left: 0; height: 100%;
-      background: var(--voltaje);
-      width: 50%; /* 5 de 10 disponibles */
-    }
-    .progreso-num {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1rem; font-weight: 700;
-      color: var(--voltaje); white-space: nowrap;
-    }
-
-    /* ── MÓDULOS ── */
-    .modulos-container {
-      padding: 3rem 2rem 5rem;
-    }
-
-    .modulos-list {
-      display: flex; flex-direction: column; gap: 1.5px;
-      background: var(--borde);
-      border: 1px solid var(--borde);
-    }
-
-    .modulo-item {
-      background: var(--panel);
-      display: grid;
-      grid-template-columns: 64px 1fr auto;
-      align-items: center;
-      gap: 0;
-      text-decoration: none;
-      color: inherit;
-      transition: background 0.2s;
-      position: relative;
-    }
-
-    .modulo-item.disponible:hover { background: #22224A; cursor: pointer; }
-    .modulo-item.disponible:hover .modulo-arrow { transform: translateX(4px); }
-    .modulo-item.proximo { opacity: 0.55; cursor: default; }
-
-    .modulo-num-col {
-      display: flex; align-items: center; justify-content: center;
-      height: 100%; min-height: 90px;
-      border-right: 1px solid var(--borde);
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.75rem; font-weight: 700;
-      color: var(--voltaje); letter-spacing: 0.1em;
-    }
-
-    .modulo-body {
-      padding: 1.5rem 1.75rem;
-    }
-
-    .modulo-body h3 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.15rem; font-weight: 700;
-      margin-bottom: 0.3rem; line-height: 1.2;
-    }
-
-    .modulo-body p {
-      font-size: 0.82rem; color: var(--gris);
-      line-height: 1.5;
-    }
-
-    .modulo-tags {
-      display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 0.15rem 0.55rem;
-      font-size: 0.65rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-    }
-    .tag-disponible {
-      background: rgba(255,214,0,0.1);
-      color: var(--voltaje);
-      border-left: 2px solid var(--voltaje);
-    }
-    .tag-proximo {
-      background: rgba(138,138,170,0.08);
-      color: var(--gris);
-      border-left: 2px solid rgba(138,138,170,0.3);
-    }
-    .tag-tipo {
-      border: 1px solid var(--borde);
-      color: var(--gris);
-    }
-
-    .modulo-action {
-      padding: 1.5rem;
-      display: flex; align-items: center;
-    }
-
-    .modulo-arrow {
-      color: var(--voltaje); font-size: 1.2rem;
-      transition: transform 0.2s;
-    }
-
-    .modulo-lock { color: var(--gris); font-size: 1rem; }
-
-    /* ── LEYENDA ── */
-    .leyenda {
-      display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;
-    }
-    .leyenda-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-size: 0.78rem; color: var(--gris);
-    }
-    .leyenda-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-    }
-    .leyenda-dot.v { background: var(--voltaje); }
-    .leyenda-dot.g { background: var(--gris); opacity: 0.4; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--antracita);
-      border-top: 1px solid var(--borde);
-      padding: 2.5rem 2rem;
-      display: flex; justify-content: space-between;
-      align-items: center; flex-wrap: wrap; gap: 1rem;
-    }
-    .footer-logo {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.1rem; font-weight: 700; color: var(--voltaje);
-    }
-    .footer-logo span { color: var(--gris); }
-    footer p { font-size: 0.8rem; color: var(--gris); }
-    .footer-links { display: flex; gap: 1.5rem; list-style: none; }
-    .footer-links a {
-      font-size: 0.8rem; color: var(--gris);
-      text-decoration: none; transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--voltaje); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .nav-links.open {
-        display: flex; flex-direction: column;
-        position: fixed; top: 60px; left: 0; right: 0;
-        background: var(--negro);
-        padding: 1.5rem 2rem;
-        border-bottom: 1px solid var(--borde);
-        gap: 1.2rem;
-      }
-      .nav-burger { display: flex; }
-
-      .page-header { padding: 90px 1.25rem 2.5rem; }
-      .progreso-bar { margin: 1.5rem 1.25rem 0; }
-      .modulos-container { padding: 2rem 1.25rem 4rem; }
-
-      .modulo-item { grid-template-columns: 48px 1fr auto; }
-      .modulo-num-col { min-height: 80px; font-size: 0.65rem; }
-      .modulo-body { padding: 1.25rem 1rem; }
-      .modulo-body h3 { font-size: 1rem; }
-      .modulo-action { padding: 1rem; }
-
-      footer { flex-direction: column; align-items: flex-start; }
-    }
-
-    @media (max-width: 480px) {
-      .header-meta { gap: 1rem; }
-      .modulo-item { grid-template-columns: 40px 1fr auto; }
-    }
-
-    /* ── REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
-    .reveal.visible { opacity: 1; transform: none; }
-    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso — Circuitos Eléctricos, Electrónicos y de Confortabilidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--negro:    #0D0D0D;
+--antracita:#141428;
+--panel:    #1C1C3A;
+--voltaje:  #FFD600;
+--blanco:   #F0F0F0;
+--rojo:     #E63946;
+--gris:     #8A8AAA;
+--borde:    rgba(255,214,0,0.15);
+}
+html { scroll-behavior: smooth; }
+body {
+background: var(--negro);
+color: var(--blanco);
+font-family: 'Inter', sans-serif;
+font-size: 16px;
+line-height: 1.6;
+overflow-x: hidden;
+}
+nav {
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+display: flex; align-items: center; justify-content: space-between;
+padding: 0 2rem;
+height: 60px;
+background: rgba(13,13,13,0.92);
+backdrop-filter: blur(8px);
+border-bottom: 1px solid var(--borde);
+}
+.nav-logo {
+font-family: 'Rajdhani', sans-serif;
+font-size: 1.3rem; font-weight: 700;
+color: var(--voltaje); letter-spacing: 0.05em;
+text-decoration: none;
+}
+.nav-logo span { color: var(--blanco); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+color: var(--gris); text-decoration: none;
+font-size: 0.875rem; font-weight: 500;
+letter-spacing: 0.03em; transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--voltaje); }
+.nav-burger {
+display: none; flex-direction: column; gap: 5px;
+cursor: pointer; background: none; border: none; padding: 4px;
+}
+.nav-burger span { display: block; width: 24px; height: 2px; background: var(--blanco); }
+.page-header {
+padding: 100px 2rem 4rem;
+background: var(--antracita);
+border-bottom: 1px solid var(--borde);
+position: relative; overflow: hidden;
+}
+.page-header::before {
+content: '';
+position: absolute; top: 0; left: 0; right: 0; height: 2px;
+background: linear-gradient(90deg, transparent, var(--voltaje), transparent);
+}
+.breadcrumb {
+font-size: 0.78rem; color: var(--gris);
+margin-bottom: 1.5rem; display: flex; gap: 0.5rem; align-items: center;
+}
+.breadcrumb a { color: var(--gris); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--voltaje); }
+.breadcrumb span { color: var(--voltaje); }
+.page-eyebrow {
+font-family: 'Rajdhani', sans-serif;
+font-size: 0.75rem; font-weight: 600;
+letter-spacing: 0.2em; text-transform: uppercase;
+color: var(--voltaje); margin-bottom: 0.75rem;
+}
+.page-header h1 {
+font-family: 'Rajdhani', sans-serif;
+font-size: clamp(1.8rem, 5vw, 3rem);
+font-weight: 700; line-height: 1.1;
+max-width: 700px; margin-bottom: 1rem;
+}
+.page-header p {
+color: var(--gris); font-size: 0.95rem;
+max-width: 560px; font-weight: 300;
+}
+.header-meta {
+display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;
+}
+.meta-item {
+display: flex; align-items: center; gap: 0.5rem;
+font-size: 0.82rem; color: var(--gris);
+}
+.meta-item strong { color: var(--blanco); font-weight: 500; }
+.progreso-bar {
+margin: 2rem 2rem 0;
+padding: 1.25rem 1.5rem;
+background: var(--panel);
+border: 1px solid var(--borde);
+display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+}
+.progreso-label {
+font-family: 'Rajdhani', sans-serif;
+font-size: 0.8rem; font-weight: 600;
+letter-spacing: 0.1em; text-transform: uppercase;
+color: var(--gris); white-space: nowrap;
+}
+.progreso-track {
+flex: 1; min-width: 120px;
+height: 4px; background: rgba(255,255,255,0.08);
+position: relative;
+}
+.progreso-fill {
+position: absolute; top: 0; left: 0; height: 100%;
+background: var(--voltaje);
+}
+.progreso-num {
+font-family: 'Rajdhani', sans-serif;
+font-size: 1rem; font-weight: 700;
+color: var(--voltaje); white-space: nowrap;
+}
+.modulos-container { padding: 3rem 2rem 5rem; }
+.modulos-list {
+display: flex; flex-direction: column; gap: 1.5px;
+background: var(--borde);
+border: 1px solid var(--borde);
+}
+.modulo-item {
+background: var(--panel);
+display: grid;
+grid-template-columns: 64px 1fr auto;
+align-items: center;
+gap: 0;
+text-decoration: none;
+color: inherit;
+transition: background 0.2s;
+position: relative;
+}
+.modulo-item.disponible:hover { background: #22224A; cursor: pointer; }
+.modulo-item.disponible:hover .modulo-arrow { transform: translateX(4px); }
+.modulo-item.proximo { opacity: 0.55; cursor: default; }
+.modulo-num-col {
+display: flex; align-items: center; justify-content: center;
+height: 100%; min-height: 90px;
+border-right: 1px solid var(--borde);
+font-family: 'Rajdhani', sans-serif;
+font-size: 0.75rem; font-weight: 700;
+color: var(--voltaje); letter-spacing: 0.1em;
+}
+.modulo-body { padding: 1.5rem 1.75rem; }
+.modulo-body h3 {
+font-family: 'Rajdhani', sans-serif;
+font-size: 1.15rem; font-weight: 700;
+margin-bottom: 0.3rem; line-height: 1.2;
+}
+.modulo-body p { font-size: 0.82rem; color: var(--gris); line-height: 1.5; }
+.modulo-tags { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+.tag {
+display: inline-block;
+padding: 0.15rem 0.55rem;
+font-size: 0.65rem; font-weight: 600;
+letter-spacing: 0.1em; text-transform: uppercase;
+}
+.tag-disponible { background: rgba(255,214,0,0.1); color: var(--voltaje); border-left: 2px solid var(--voltaje); }
+.tag-proximo { background: rgba(138,138,170,0.08); color: var(--gris); border-left: 2px solid rgba(138,138,170,0.3); }
+.tag-tipo { border: 1px solid var(--borde); color: var(--gris); }
+.modulo-action { padding: 1.5rem; display: flex; align-items: center; }
+.modulo-arrow { color: var(--voltaje); font-size: 1.2rem; transition: transform 0.2s; }
+.modulo-lock { color: var(--gris); font-size: 1rem; }
+footer {
+background: var(--antracita);
+border-top: 1px solid var(--borde);
+padding: 2.5rem 2rem;
+display: flex; justify-content: space-between;
+align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--voltaje); }
+.footer-logo span { color: var(--gris); }
+footer p { font-size: 0.8rem; color: var(--gris); }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; }
+.footer-links a { font-size: 0.8rem; color: var(--gris); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--voltaje); }
+@media (max-width: 768px) {
+.nav-links { display: none; }
+.nav-links.open {
+display: flex; flex-direction: column;
+position: fixed; top: 60px; left: 0; right: 0;
+background: var(--negro);
+padding: 1.5rem 2rem;
+border-bottom: 1px solid var(--borde);
+gap: 1.2rem;
+}
+.nav-burger { display: flex; }
+.page-header { padding: 90px 1.25rem 2.5rem; }
+.progreso-bar { margin: 1.5rem 1.25rem 0; }
+.modulos-container { padding: 2rem 1.25rem 4rem; }
+.modulo-item { grid-template-columns: 48px 1fr auto; }
+.modulo-num-col { min-height: 80px; font-size: 0.65rem; }
+.modulo-body { padding: 1.25rem 1rem; }
+.modulo-body h3 { font-size: 1rem; }
+.modulo-action { padding: 1rem; }
+footer { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 480px) {
+.header-meta { gap: 1rem; }
+.modulo-item { grid-template-columns: 40px 1fr auto; }
+}
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
+.reveal.visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
 <nav>
-  <a class="nav-logo" href="../index.html"><span>Electro</span>Auto<span> FP</span></a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="index.html" class="active">Curso</a></li>
-    <li><a href="../simuladores/index.html">Simuladores</a></li>
-    <li><a href="../index.html#como-funciona">¿Cómo funciona?</a></li>
-    <li><a href="../index.html#contacto">Contacto</a></li>
-  </ul>
-  <button class="nav-burger" id="burger" aria-label="Menú">
-    <span></span><span></span><span></span>
-  </button>
+<a class="nav-logo" href="../index.html"><span>Electro</span>Auto<span> FP</span></a>
+<ul class="nav-links" id="navLinks">
+<li><a href="index.html" class="active">Curso</a></li>
+<li><a href="../simuladores/index.html">Simuladores</a></li>
+<li><a href="../index.html#como-funciona">¿Cómo funciona?</a></li>
+<li><a href="../index.html#contacto">Contacto</a></li>
+</ul>
+<button class="nav-burger" id="burger" aria-label="Menú">
+<span></span><span></span><span></span>
+</button>
 </nav>
 
-<!-- ── HEADER ── -->
 <div class="page-header">
-  <div class="breadcrumb">
-    <a href="../index.html">Inicio</a>
-    <span>›</span>
-    <span>Curso</span>
-  </div>
-  <p class="page-eyebrow">Módulo formativo</p>
-  <h1>Circuitos Eléctricos, Electrónicos y de Confortabilidad</h1>
-  <p>Formación Profesional · Electromecánica de Maquinaria. Del fundamento eléctrico al diagnóstico de sistemas modernos del automóvil.</p>
-
-  <div class="header-meta">
-    <div class="meta-item">⚡ <strong>10 módulos</strong></div>
-    <div class="meta-item">🔧 <strong>Simuladores incluidos</strong></div>
-    <div class="meta-item">📱 <strong>Accesible desde cualquier dispositivo</strong></div>
-  </div>
+<div class="breadcrumb">
+<a href="../index.html">Inicio</a>
+<span>›</span>
+<span>Curso</span>
+</div>
+<p class="page-eyebrow">Módulo formativo</p>
+<h1>Circuitos Eléctricos, Electrónicos y de Confortabilidad</h1>
+<p>Formación Profesional · Electromecánica de Maquinaria. Del fundamento eléctrico al diagnóstico de sistemas modernos del automóvil.</p>
+<div class="header-meta">
+<div class="meta-item">⚡ <strong>{{ site.data.modulos.size }} módulos</strong></div>
+<div class="meta-item">🔧 <strong>Simuladores incluidos</strong></div>
+<div class="meta-item">📱 <strong>Accesible desde cualquier dispositivo</strong></div>
+</div>
 </div>
 
-<!-- ── BARRA DE PROGRESO ── -->
+{% assign disponibles = site.data.modulos | where: "disponible", true %}
+{% assign total = site.data.modulos.size %}
+{% assign pct = disponibles.size | times: 100 | divided_by: total %}
 <div class="progreso-bar">
-  <span class="progreso-label">Contenido disponible</span>
-  <div class="progreso-track">
-    <div class="progreso-fill"></div>
-  </div>
-  <span class="progreso-num">5 / 10 módulos</span>
+<span class="progreso-label">Contenido disponible</span>
+<div class="progreso-track">
+<div class="progreso-fill" style="width: {{ pct }}%"></div>
+</div>
+<span class="progreso-num">{{ disponibles.size }} / {{ total }} módulos</span>
 </div>
 
-<!-- ── LISTA DE MÓDULOS ── -->
 <div class="modulos-container">
-  <div class="modulos-list reveal">
-
-    <!-- MÓDULO 01 -->
-    <a class="modulo-item disponible" href="modulo-01/index.html">
-      <div class="modulo-num-col">01</div>
-      <div class="modulo-body">
-        <h3>Fundamentos de electricidad</h3>
-        <p>Magnitudes eléctricas, ley de Ohm, potencia y energía eléctrica aplicada al vehículo.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-disponible">✓ Disponible</span>
-          <span class="tag tag-tipo">Presentación</span>
-          <span class="tag tag-tipo">Simulador</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-arrow">→</span></div>
-    </a>
-
-    <!-- MÓDULO 02 -->
-    <a class="modulo-item disponible" href="modulo-02/index.html">
-      <div class="modulo-num-col">02</div>
-      <div class="modulo-body">
-        <h3>Generación de electricidad</h3>
-        <p>Batería, alternador, regulador de tensión y nuevas tecnologías de generación.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-disponible">✓ Disponible</span>
-          <span class="tag tag-tipo">Presentación</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-arrow">→</span></div>
-    </a>
-
-    <!-- MÓDULO 03 -->
-    <a class="modulo-item disponible" href="modulo-03/index.html">
-      <div class="modulo-num-col">03</div>
-      <div class="modulo-body">
-        <h3>Componentes eléctricos</h3>
-        <p>Resistencias, condensadores, bobinas, diodos y transistores en el contexto del automóvil.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-disponible">✓ Disponible</span>
-          <span class="tag tag-tipo">Presentación</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-arrow">→</span></div>
-    </a>
-
-    <!-- MÓDULO 04 -->
-    <a class="modulo-item disponible" href="modulo-04/index.html">
-      <div class="modulo-num-col">04</div>
-      <div class="modulo-body">
-        <h3>Electrónica digital</h3>
-        <p>Sistemas digitales, puertas lógicas, señales PWM y su aplicación en la electrónica del automóvil.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-disponible">✓ Disponible</span>
-          <span class="tag tag-tipo">Presentación</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-arrow">→</span></div>
-    </a>
-
-    <!-- MÓDULO 05 -->
-    <a class="modulo-item disponible" href="modulo-05/index.html">
-      <div class="modulo-num-col">05</div>
-      <div class="modulo-body">
-        <h3>Circuitos eléctricos</h3>
-        <p>Circuitos serie, paralelo y mixtos. Análisis y cálculo aplicado a instalaciones del vehículo.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-disponible">✓ Disponible</span>
-          <span class="tag tag-tipo">Presentación</span>
-          <span class="tag tag-tipo">Simulador</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-arrow">→</span></div>
-    </a>
-
-    <!-- MÓDULO 06 -->
-    <div class="modulo-item proximo">
-      <div class="modulo-num-col">06</div>
-      <div class="modulo-body">
-        <h3>Sistema de arranque</h3>
-        <p>Motor de arranque, circuito de mando, diagnóstico de averías y comprobaciones con polímetro.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-proximo">Próximamente</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-lock">🔒</span></div>
-    </div>
-
-    <!-- MÓDULO 07 -->
-    <div class="modulo-item proximo">
-      <div class="modulo-num-col">07</div>
-      <div class="modulo-body">
-        <h3>Sistema de carga</h3>
-        <p>Alternador, regulador de tensión, diagnóstico del circuito de carga y averías frecuentes.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-proximo">Próximamente</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-lock">🔒</span></div>
-    </div>
-
-    <!-- MÓDULO 08 -->
-    <div class="modulo-item proximo">
-      <div class="modulo-num-col">08</div>
-      <div class="modulo-body">
-        <h3>Esquemas eléctricos</h3>
-        <p>Lectura e interpretación de esquemas, simbología normalizada y trazado de circuitos reales.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-proximo">Próximamente</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-lock">🔒</span></div>
-    </div>
-
-    <!-- MÓDULO 09 -->
-    <div class="modulo-item proximo">
-      <div class="modulo-num-col">09</div>
-      <div class="modulo-body">
-        <h3>Sistemas de iluminación</h3>
-        <p>Tecnología halógena, xenón y LED. Circuitos de alumbrado, faros adaptativos y normativa.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-proximo">Próximamente</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-lock">🔒</span></div>
-    </div>
-
-    <!-- MÓDULO 10 -->
-    <div class="modulo-item proximo">
-      <div class="modulo-num-col">10</div>
-      <div class="modulo-body">
-        <h3>Sistemas auxiliares</h3>
-        <p>Climatización, elevalunas, cierre centralizado, alarmas y sistemas de confortabilidad.</p>
-        <div class="modulo-tags">
-          <span class="tag tag-proximo">Próximamente</span>
-        </div>
-      </div>
-      <div class="modulo-action"><span class="modulo-lock">🔒</span></div>
-    </div>
-
-  </div>
-
-  <!-- LEYENDA -->
-  <div class="leyenda">
-    <div class="leyenda-item">
-      <div class="leyenda-dot v"></div>
-      Módulo disponible — acceso completo
-    </div>
-    <div class="leyenda-item">
-      <div class="leyenda-dot g"></div>
-      En desarrollo — disponible próximamente
-    </div>
-  </div>
+<div class="modulos-list reveal">
+{% for mod in site.data.modulos %}
+{% if mod.disponible %}
+<a class="modulo-item disponible" href="{{ mod.slug }}/index.html">
+<div class="modulo-num-col">{{ mod.num }}</div>
+<div class="modulo-body">
+<h3>{{ mod.nombre }}</h3>
+<div class="modulo-tags">
+<span class="tag tag-disponible">✓ Disponible</span>
+{% if mod.presentacion_partes and mod.presentacion_partes > 1 %}
+<span class="tag tag-tipo">Presentación ×{{ mod.presentacion_partes }}</span>
+{% else %}
+<span class="tag tag-tipo">Presentación</span>
+{% endif %}
+{% if mod.material_extra %}
+<span class="tag tag-tipo">Material extra</span>
+{% endif %}
+</div>
+</div>
+<div class="modulo-action"><span class="modulo-arrow">→</span></div>
+</a>
+{% else %}
+<div class="modulo-item proximo">
+<div class="modulo-num-col">{{ mod.num }}</div>
+<div class="modulo-body">
+<h3>{{ mod.nombre }}</h3>
+<div class="modulo-tags">
+<span class="tag tag-proximo">Próximamente</span>
+</div>
+</div>
+<div class="modulo-action"><span class="modulo-lock">🔒</span></div>
+</div>
+{% endif %}
+{% endfor %}
+</div>
 </div>
 
-<!-- ── FOOTER ── -->
 <footer id="contacto">
-  <div>
-    <div class="footer-logo">Electro<span>Auto FP</span></div>
-    <p style="margin-top:0.4rem">Circuitos Eléctricos, Electrónicos y de Confortabilidad · FP Electromecánica</p>
-  </div>
-  <ul class="footer-links">
-    <li><a href="../index.html">Inicio</a></li>
-    <li><a href="../simuladores/index.html">Simuladores</a></li>
-    <li><a href="../index.html#contacto">Contacto</a></li>
-  </ul>
-  <p style="color:var(--gris); font-size:0.75rem">© 2025 ElectroAuto FP</p>
+<div>
+<div class="footer-logo">Electro<span>Auto FP</span></div>
+<p style="margin-top:0.5rem">Circuitos Eléctricos, Electrónicos y de Confortabilidad</p>
+</div>
+<ul class="footer-links">
+<li><a href="../index.html#curso">Módulos</a></li>
+<li><a href="../simuladores/index.html">Simuladores</a></li>
+<li><a href="mailto:info@electroautofp.es">Contacto</a></li>
+</ul>
+<p style="color:var(--gris); font-size:0.75rem">© 2025 ElectroAuto FP</p>
 </footer>
 
 <script>
-  // Burger
-  const burger = document.getElementById('burger');
-  const navLinks = document.getElementById('navLinks');
-  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a =>
-    a.addEventListener('click', () => navLinks.classList.remove('open'))
-  );
-
-  // Scroll reveal
-  const revealEls = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.05 });
-  revealEls.forEach(el => observer.observe(el));
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a =>
+a.addEventListener('click', () => navLinks.classList.remove('open'))
+);
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>
