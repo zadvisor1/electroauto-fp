@@ -1,6 +1,7 @@
 - num: "01"
   slug: "modulo-01"
   nombre: "Fundamentos de electricidad"
+  descripcion: "Magnitudes eléctricas, Ley de Ohm y Potencia aplicada al automóvil."
   disponible: true
   diapositivas: 15
   material_extra: true
@@ -8,6 +9,7 @@
 - num: "02"
   slug: "modulo-02"
   nombre: "Generación de electricidad"
+  descripcion: "Batería, alternador, regulador de tensión y nuevas tecnologías de generación."
   disponible: true
   diapositivas: 14
   material_extra: true
@@ -16,6 +18,7 @@
 - num: "03"
   slug: "modulo-03"
   nombre: "Componentes eléctricos"
+  descripcion: "Resistencias, condensadores, bobinas, diodos y transistores en el automóvil."
   disponible: true
   diapositivas: 12
   material_extra: true
@@ -23,6 +26,7 @@
 - num: "04"
   slug: "modulo-04"
   nombre: "Electrónica digital"
+  descripcion: "Sistemas digitales, puertas lógicas y señales PWM en el automóvil."
   disponible: true
   diapositivas: 11
   material_extra: true
@@ -30,6 +34,7 @@
 - num: "05"
   slug: "modulo-05"
   nombre: "Introducción a Circuitos eléctricos en automoción"
+  descripcion: "Circuitos serie, paralelo y mixtos. Análisis y cálculo aplicado al vehículo."
   disponible: true
   diapositivas: 0
   material_extra: true
@@ -37,42 +42,54 @@
 - num: "06"
   slug: "modulo-06"
   nombre: "Batería"
+  descripcion: "Constitución, tipos y comprobación de la batería del automóvil."
   disponible: false
   diapositivas: 0
   material_extra: true
+  icono: "🔋"
 
 - num: "07"
   slug: "modulo-07"
   nombre: "Sistema de arranque"
+  descripcion: "Motor de arranque, circuito de mando y comprobaciones prácticas."
   disponible: true
   diapositivas: 33
   material_extra: true
   presentacion_partes: 2
+  icono: "🔑"
 
 - num: "08"
   slug: "modulo-08"
   nombre: "Sistema de carga"
+  descripcion: "Alternador, regulador de tensión y diagnóstico del circuito de carga."
   disponible: true
   diapositivas: 0
   material_extra: true
+  icono: "⚙️"
 
 - num: "09"
   slug: "modulo-09"
   nombre: "Esquemas eléctricos"
+  descripcion: "Lectura e interpretación de esquemas y simbología normalizada."
   disponible: false
   diapositivas: 10
   material_extra: true
+  icono: "📋"
 
 - num: "10"
   slug: "modulo-10"
   nombre: "Sistemas de iluminación"
+  descripcion: "Tecnología halógena, xenón y LED. Circuitos y normativa."
   disponible: false
   diapositivas: 0
   material_extra: true
+  icono: "💡"
 
 - num: "11"
   slug: "modulo-11"
   nombre: "Sistemas auxiliares"
+  descripcion: "Climatización, elevalunas, cierre centralizado y confortabilidad."
   disponible: false
   diapositivas: 0
   material_extra: true
+  icono: "🚗"
