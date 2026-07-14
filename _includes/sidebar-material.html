@@ -1,5 +1,11 @@
 {% assign mod = site.data.modulos | where: "slug", include.current | first %}
-{% assign extra = site.data.material_extra[include.current] %}
+{% assign extra = false %}
+
+{% for material in site.data.material_extra %}
+  {% if material[0] == include.current %}
+    {% assign extra = material[1] %}
+  {% endif %}
+{% endfor %}
 
 <div class="sidebar-card">
   <div class="sidebar-card-header">Material del módulo</div>
@@ -28,7 +34,7 @@
     {% endif %}
 
     {% if extra %}
-      <a href="../material-extra.html?modulo={{ include.current | uri_escape }}"
+      <a href="../material-extra.html?modulo={{ include.current }}"
          class="btn-simulador">
         📚 Material extra
       </a>
