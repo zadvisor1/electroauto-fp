@@ -22,7 +22,7 @@ modulo-01:
         - type: "Simulador"
           title: "Simulador de circuito eléctrico básico"
           description: "Ajusta V, I y R en un circuito virtual y observa cómo cambia el resultado."
-          url: "https://simularcircuitos.com/simulador/"
+          url: "https://simularcircuitos.com/simulador/#simulador"
           icon: "🔧"
     - title: "Apoyo visual"
       label: "Imágenes"
