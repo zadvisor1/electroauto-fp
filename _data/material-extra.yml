@@ -48,8 +48,8 @@ modulo-01:
         - type: "Vídeo · YouTube"
           title: "Diagnóstico del motor de arranque"
           description: "Comprobaciones básicas de alimentación, masa y solenoide."
-          url: "https://www.youtube.com/watch?v=VIDEO_ID"
-          image: "https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg"
+          url: "https://www.youtube.com/watch?v=ba4k5SlI_Wk&pp=ygURbW90b3IgZGUgYXJyYW5xdWU%3D"
+          image: "https://www.google.com/imgres?q=motor%20de%20arranque&imgurl=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D1266645101483754&imgrefurl=https%3A%2F%2Fwww.facebook.com%2Fmecanicadiag%2Fposts%2Fel-motor-de-arranque-es-un-componente-clave-en-el-sistema-de-encendido-del-veh%25C3%25ADc%2F1266645144817083%2F&docid=zWFa8BeCOA25HM&tbnid=5QlG9-KQhc7FoM&vet=12ahUKEwiF_YPm-9GVAxXdK_sDHbFuLb0QnPAOegQIeBAA..i&w=1288&h=1920&hcb=2&ved=2ahUKEwiF_YPm-9GVAxXdK_sDHbFuLb0QnPAOegQIeBAA"
 
     - label: "Documentación"
       title: "Material de apoyo"
