@@ -37,3 +37,25 @@ modulo-01:
           description: "Esquema anotado con V, I, R y P en sus puntos principales."
           url: "#"
           icon: "🖼️"
+
+  modulo-07:
+  intro: "Recursos para practicar el sistema de arranque."
+
+  sections:
+    - label: "Vídeos"
+      title: "Contenido audiovisual"
+      items:
+        - type: "Vídeo · YouTube"
+          title: "Diagnóstico del motor de arranque"
+          description: "Comprobaciones básicas de alimentación, masa y solenoide."
+          url: "https://www.youtube.com/watch?v=VIDEO_ID"
+          image: "https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg"
+
+    - label: "Documentación"
+      title: "Material de apoyo"
+      items:
+        - type: "Documento"
+          title: "Esquema básico de arranque"
+          description: "Diagrama para estudiar el circuito de mando y potencia."
+          url: "https://example.com/esquema.pdf"
+          icon: "📄"
