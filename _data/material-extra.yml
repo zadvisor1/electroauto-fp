@@ -22,7 +22,7 @@ modulo-01:
         - type: "Simulador"
           title: "Simulador de circuito eléctrico básico"
           description: "Ajusta V, I y R en un circuito virtual y observa cómo cambia el resultado."
-          url: "../simuladores/index.html"
+          url: "https://simularcircuitos.com/simulador/engine/circuitjs.html?ctz=DwYwlgTgBAZgvAIgIwKgFwM6IAwDpsEECsqYIiSeATAVQOx0DM2AHFQGwCcndqIARoiLZUAB0EJhqAG4QhqALaYhAUwC0SFAD4AUFCjBpUAB4UkVKPQuaLVKgBZU8BCKgB3Z64UBDY9MScCAD0uvrA0KYIDthQSHTsUIw0sfFOOKhyyITBoQYRiIzsLCkJ9vbFcexpLhmINAQ5enkmiOUxlVBEZSXVrpnMDSFNwG4tkt0dXfaJhb2NYRhjHR1205VzQ2GjkasllvbtqbDpmwaiY+zTu5eWdFTVjIoq6VAY5DVQEM9ZhNmnIxcrg5YuZLA4NrkAZEbGC1qD1scav9togblYQbY7hDhijkKD0TDGLNESJ-ucdgdYt0ku0yg8ni83i8vhRfn9IbjolSrpSEZ55gZcTTuYlknyThyxoUKtSij0SQKoQU5R1heKkZDycqZdMyjr6VAFN9XEyPiyfmzFVqEG0RVNuQajYz3n1vpQ2aTJZE9SKferPTixn74lBbf7FbiwyGw3SFcixvakN1E0d+fHIowWNMiQlCcS016ClmZgl7TnsWEAIIKI1oFT5PHWEPLVMFBkfU0B4BBcAQXRAA"
           icon: "🔧"
     - title: "Apoyo visual"
       label: "Imágenes"
