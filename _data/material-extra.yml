@@ -1,0 +1,39 @@
+# Add one top-level entry per module. Once an entry exists, the course and
+# module pages automatically show a “Material extra” link for that module.
+modulo-01:
+  intro: "Vídeos, simuladores interactivos e imágenes de apoyo para reforzar los conceptos de Fundamentos de Electricidad."
+  sections:
+    - title: "Contenido audiovisual"
+      label: "Vídeos"
+      items:
+        - type: "Vídeo · YouTube"
+          title: "Ley de Ohm explicada"
+          description: "Los fundamentos de la teoría de circuitos: cómo se relacionan voltaje, intensidad y resistencia."
+          url: "https://youtu.be/_ZICyi2lOd8"
+          image: "https://img.youtube.com/vi/_ZICyi2lOd8/hqdefault.jpg"
+        - type: "Vídeo · 8 min"
+          title: "Voltaje, intensidad y resistencia explicados con agua"
+          description: "Una analogía visual del circuito eléctrico usando el flujo de un fluido."
+          url: "#"
+          icon: "▶"
+    - title: "Práctica interactiva"
+      label: "Simuladores"
+      items:
+        - type: "Simulador"
+          title: "Simulador de circuito eléctrico básico"
+          description: "Ajusta V, I y R en un circuito virtual y observa cómo cambia el resultado."
+          url: "../simuladores/index.html"
+          icon: "🔧"
+    - title: "Apoyo visual"
+      label: "Imágenes"
+      items:
+        - type: "Imagen"
+          title: "Triángulo de la Ley de Ohm"
+          description: "Diagrama para despejar V, I o R según lo que necesites calcular."
+          url: "#"
+          icon: "🖼️"
+        - type: "Imagen"
+          title: "Circuito de la batería del automóvil"
+          description: "Esquema anotado con V, I, R y P en sus puntos principales."
+          url: "#"
+          icon: "🖼️"
