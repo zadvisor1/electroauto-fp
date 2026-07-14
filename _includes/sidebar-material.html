@@ -1,30 +1,37 @@
 {% assign mod = site.data.modulos | where: "slug", include.current | first %}
+{% assign extra = site.data.material_extra[include.current] %}
+
 <div class="sidebar-card">
-<div class="sidebar-card-header">Material del módulo</div>
-<div class="sidebar-card-body">
-{% if mod.presentacion_partes and mod.presentacion_partes > 1 %}
-{% for i in (1..mod.presentacion_partes) %}
-<a href="{% if i == 1 %}presentacion.html{% else %}presentacion-{{ i }}.html{% endif %}" class="btn-presentacion"{% if forloop.first == false %} style="margin-top:0.6rem;"{% endif %}>
-<span class="icon">▶</span>
-<span class="text">
-Presentación {{ i }}
-<small>Parte {{ i }} de {{ mod.presentacion_partes }} · Navegable con teclado</small>
-</span>
-</a>
-{% endfor %}
-{% else %}
-<a href="presentacion.html" class="btn-presentacion">
-<span class="icon">▶</span>
-<span class="text">
-Ver presentación
-<small>{{ mod.diapositivas }} diapositivas · Navegable con teclado</small>
-</span>
-</a>
-{% endif %}
-{% if mod.material_extra %}
-<a href="material-extra.html" class="btn-simulador">
-📚 Material extra
-</a>
-{% endif %}
-</div>
+  <div class="sidebar-card-header">Material del módulo</div>
+
+  <div class="sidebar-card-body">
+    {% if mod.presentacion_partes and mod.presentacion_partes > 1 %}
+      {% for i in (1..mod.presentacion_partes) %}
+        <a href="{% if i == 1 %}presentacion.html{% else %}presentacion-{{ i }}.html{% endif %}"
+           class="btn-presentacion"
+           {% unless forloop.first %}style="margin-top:0.6rem;"{% endunless %}>
+          <span class="icon">▶</span>
+          <span class="text">
+            Presentación {{ i }}
+            <small>Parte {{ i }} de {{ mod.presentacion_partes }} · Navegable con teclado</small>
+          </span>
+        </a>
+      {% endfor %}
+    {% else %}
+      <a href="presentacion.html" class="btn-presentacion">
+        <span class="icon">▶</span>
+        <span class="text">
+          Ver presentación
+          <small>{{ mod.diapositivas }} diapositivas · Navegable con teclado</small>
+        </span>
+      </a>
+    {% endif %}
+
+    {% if extra %}
+      <a href="../material-extra.html?modulo={{ include.current | uri_escape }}"
+         class="btn-simulador">
+        📚 Material extra
+      </a>
+    {% endif %}
+  </div>
 </div>
