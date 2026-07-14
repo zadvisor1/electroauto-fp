@@ -1,0 +1,106 @@
+---
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Material extra · ElectroAuto FP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/curso.css">
+<style>
+.extra-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--borde);border:1px solid var(--borde);margin-top:1rem}.extra-item{background:var(--panel);color:inherit;display:block;overflow:hidden;text-decoration:none;transition:background .2s}.extra-item:hover{background:#22224A}.extra-thumb{align-items:center;aspect-ratio:16/9;background:var(--antracita);color:var(--voltaje);display:flex;font-size:2rem;justify-content:center;overflow:hidden}.extra-thumb img{height:100%;object-fit:cover;width:100%}.extra-body{padding:1rem 1.1rem}.extra-tag{color:var(--voltaje);display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;letter-spacing:.1em;margin-bottom:.5rem;text-transform:uppercase}.extra-body h4{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem}.extra-body p{color:var(--gris);font-size:.8rem;line-height:1.5}.back-link{align-items:center;color:var(--gris);display:inline-flex;font-size:.85rem;gap:.4rem;margin-bottom:2rem;text-decoration:none}.back-link:hover{color:var(--voltaje)}.empty-state{background:var(--panel);border:1px solid var(--borde);color:var(--gris);padding:1.5rem}.empty-state strong{color:var(--blanco)}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="../index.html"><span>Electro</span>Auto<span> FP</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html" class="active">Curso</a></li>
+    <li><a href="../simuladores/index.html">Simuladores</a></li>
+    <li><a href="../index.html#como-funciona">¿Cómo funciona?</a></li>
+    <li><a href="../index.html#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-header">
+  <div class="header-num" id="headerNumber"></div>
+  <div class="breadcrumb"><a href="../index.html">Inicio</a><span>›</span><a href="index.html">Curso</a><span>›</span><span>Material extra</span></div>
+  <div class="header-badge"><span class="badge-num" id="moduleBadge">MÓDULO</span><span class="badge-estado">✓ Disponible</span></div>
+  <h1>Material <em>extra</em></h1>
+  <p id="intro">Recursos de apoyo del módulo.</p>
+</div>
+
+<main class="main-content" style="grid-template-columns:1fr;max-width:1100px">
+  <div class="col-main" style="padding-right:0">
+    <a class="back-link" id="backLink" href="index.html">← Volver al curso</a>
+    <div id="sections"></div>
+  </div>
+</main>
+
+<script>
+const allMaterials = {{ site.data.material_extra | jsonify }};
+const allModules = {{ site.data.modulos | jsonify }};
+const requestedSlug = new URLSearchParams(window.location.search).get('modulo');
+const activeSlug = allMaterials[requestedSlug] ? requestedSlug : Object.keys(allMaterials)[0];
+const activeModule = allModules.find(module => module.slug === activeSlug);
+const material = allMaterials[activeSlug];
+const sectionsElement = document.getElementById('sections');
+
+function element(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text) node.textContent = text;
+  return node;
+}
+
+if (activeModule && material) {
+  document.title = `Material extra · Módulo ${activeModule.num}`;
+  document.getElementById('headerNumber').textContent = activeModule.num;
+  document.getElementById('moduleBadge').textContent = `MÓDULO ${activeModule.num}`;
+  document.getElementById('intro').textContent = material.intro || `Recursos de apoyo para ${activeModule.nombre}.`;
+  document.getElementById('backLink').href = `${activeModule.slug}/index.html`;
+  document.getElementById('backLink').textContent = `← Volver al módulo ${activeModule.num}`;
+
+  (material.sections || []).forEach(section => {
+    const sectionElement = element('section', 'section-block reveal visible');
+    sectionElement.append(element('div', 'block-label', section.label || 'Recursos'));
+    sectionElement.append(element('h2', 'block-title', section.title));
+    const grid = element('div', 'extra-grid');
+
+    (section.items || []).forEach(item => {
+      const card = element('a', 'extra-item');
+      card.href = item.url || '#';
+      if (/^https?:\/\//.test(card.href)) { card.target = '_blank'; card.rel = 'noopener'; }
+      const thumb = element('div', 'extra-thumb');
+      if (item.image) {
+        const image = document.createElement('img');
+        image.src = item.image;
+        image.alt = item.title || '';
+        thumb.append(image);
+      } else thumb.textContent = item.icon || '↗';
+      const body = element('div', 'extra-body');
+      body.append(element('span', 'extra-tag', item.type || 'Recurso'));
+      body.append(element('h4', '', item.title));
+      body.append(element('p', '', item.description));
+      card.append(thumb, body);
+      grid.append(card);
+    });
+    sectionElement.append(grid);
+    sectionsElement.append(sectionElement);
+  });
+} else {
+  const empty = element('p', 'empty-state');
+  empty.append(element('strong', '', 'No hay material extra disponible todavía. '));
+  empty.append(document.createTextNode('Añade una entrada para este módulo en _data/material-extra.yml.'));
+  sectionsElement.append(empty);
+}
+
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+</script>
+</body>
+</html>
