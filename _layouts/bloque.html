@@ -1,0 +1,45 @@
+---
+layout: default
+---
+<article class="bloque">
+  <header class="bloque-header">
+    <p class="bloque-eyebrow">BLOQUE {{ page.numero }} · {{ page.horas }}H</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.subtitulo %}<p class="bloque-subtitulo">{{ page.subtitulo }}</p>{% endif %}
+  </header>
+
+  <div class="bloque-actions">
+    {% if page.presentacion %}
+      <a href="{{ page.presentacion | relative_url }}" class="btn btn-primary" target="_blank">▶ Ver presentación</a>
+    {% endif %}
+  </div>
+
+  <div class="bloque-contenido">
+    {{ content }}
+  </div>
+
+  {% if page.crosswalk %}
+  <aside class="bloque-crosswalk">
+    <h3>Crosswalk normativo (Comunidad de Madrid)</h3>
+    <ul>
+      {% for item in page.crosswalk %}
+        <li><strong>{{ item.modulo }}</strong> · {{ item.ra }} — {{ item.detalle }}</li>
+      {% endfor %}
+    </ul>
+  </aside>
+  {% endif %}
+
+  <nav class="bloque-nav">
+    {% assign bloques = site.bloques | sort: "numero" %}
+    {% for b in bloques %}
+      {% assign anterior = page.numero | minus: 1 %}
+      {% assign siguiente = page.numero | plus: 1 %}
+      {% if b.numero == anterior %}
+        <a href="{{ b.url | relative_url }}" class="nav-prev">← Bloque {{ b.numero }}: {{ b.title }}</a>
+      {% endif %}
+      {% if b.numero == siguiente %}
+        <a href="{{ b.url | relative_url }}" class="nav-next">Bloque {{ b.numero }}: {{ b.title }} →</a>
+      {% endif %}
+    {% endfor %}
+  </nav>
+</article>
