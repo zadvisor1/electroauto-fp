@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Bloque 10 · Proyecto integrador de taller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg: #16181c; --panel: #202329; --hv-orange: #ff6a00; --safety-yellow: #f4c430; --text: #edeef0; --muted: #8b93a1; --line: #34383f; }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%; background:var(--bg); color:var(--text); font-family:'Inter', sans-serif; overflow:hidden; -webkit-tap-highlight-color: transparent;}
+  .deck{position:relative; width:100%; height:100vh; height:100dvh;}
+  .slide{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; padding: 7vh 8vw; opacity:0; transform: translateX(30px); transition: opacity .45s ease, transform .45s ease; pointer-events:none;}
+  .slide.active{opacity:1; transform: translateX(0); pointer-events:auto;}
+  .slide.prev{transform: translateX(-30px);}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size: clamp(11px, 1.3vw, 14px); letter-spacing: .18em; color: var(--hv-orange); text-transform: uppercase; margin-bottom: 12px; display:flex; align-items:center; gap:10px;}
+  .eyebrow .code{background: rgba(255,106,0,.12); border:1px solid rgba(255,106,0,.4); padding: 2px 8px; border-radius:3px;}
+  h1{font-family:'Barlow Condensed', sans-serif; font-weight:800; text-transform:uppercase; letter-spacing: .01em; line-height: .96; font-size: clamp(32px, 5.5vw, 70px); color: var(--text);}
+  h1 span{ color: var(--hv-orange); }
+  h2{font-family:'Barlow Condensed', sans-serif; font-weight:700; text-transform:uppercase; font-size: clamp(24px, 3.6vw, 42px); line-height:1.02; margin-bottom: 6px;}
+  .subtitle{font-size: clamp(13px, 1.5vw, 18px); color: var(--muted); margin-top: 14px; max-width: 640px; line-height:1.5;}
+  .hazard{height: 10px; width: 110px; margin: 18px 0 0 0; background: repeating-linear-gradient(-45deg, var(--hv-orange) 0 14px, #17181b 14px 28px); border-radius: 2px;}
+  .content-grid{display:flex; flex-direction:column; gap: 10px; max-width: 900px; margin-top: 6px;}
+  .concept{display:flex; align-items:flex-start; gap: 14px; background: var(--panel); border:1px solid var(--line); border-left: 3px solid var(--hv-orange); border-radius: 6px; padding: 12px 18px;}
+  .concept.warn{ border-left-color: var(--safety-yellow); }
+  .concept .mark{font-family:'IBM Plex Mono', monospace; color: var(--hv-orange); font-size:13px; font-weight:600; margin-top:2px; min-width: 20px;}
+  .concept.warn .mark{ color: var(--safety-yellow); }
+  .concept p{font-size: clamp(13px, 1.5vw, 16px); line-height:1.4; color: var(--text);}
+  .concept strong{ color: var(--hv-orange); font-weight:600; }
+  .concept.warn strong{ color: var(--safety-yellow); }
+
+  .role-grid{ display:flex; flex-direction:column; gap:10px; max-width:900px; margin-top:8px; }
+  .role-card{ display:flex; gap:16px; background: var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px 18px; align-items:flex-start; }
+  .role-card .rname{ font-family:'Barlow Condensed', sans-serif; font-weight:700; text-transform:uppercase; color: var(--hv-orange); font-size:16px; min-width:230px; }
+  .role-card p{ font-size:12.5px; color:var(--muted); line-height:1.4; }
+  .role-card .blk{ font-family:'IBM Plex Mono', monospace; font-size:10px; color: var(--safety-yellow); }
+
+  .sequence{display:flex; flex-direction:column; gap:7px; max-width: 780px; margin-top:8px;}
+  .seq-step{display:flex; align-items:center; gap:14px; padding: 9px 15px; background: var(--panel); border:1px solid var(--line); border-radius: 6px;}
+  .seq-num{font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:20px; color: var(--bg); background: var(--hv-orange); width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .seq-step p{ font-size: clamp(11.5px,1.3vw,14px); line-height:1.3; }
+  .seq-step .blk-tag{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; color: var(--muted); white-space:nowrap; }
+
+  table.compare{ border-collapse: collapse; margin-top: 10px; font-size: clamp(10.5px, 1.1vw, 12.5px); width:100%; max-width:900px; }
+  table.compare th, table.compare td{ border:1px solid var(--line); padding: 8px 12px; text-align:left; }
+  table.compare th{ font-family:'IBM Plex Mono', monospace; color: var(--hv-orange); text-transform:uppercase; font-size: 10px; letter-spacing:.05em; background: var(--panel); }
+  table.compare td{ color: var(--text); }
+  table.compare tr:nth-child(even) td{ background: rgba(255,255,255,.02); }
+
+  .note-box{margin-top: 18px; padding: 12px 16px; background: rgba(255,106,0,.08); border:1px solid rgba(255,106,0,.3); border-radius:6px; font-size: 12.5px; color: var(--muted); max-width: 640px; line-height:1.5;}
+
+  .footer{position:absolute; bottom: 20px; left: 8vw; right: 8vw; display:flex; justify-content:space-between; align-items:center; font-family:'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing:.05em;}
+  .footer .prog{display:flex; gap:4px;}
+  .footer .dot{width: 15px; height:3px; background: var(--line); border-radius:2px; transition: background .3s;}
+  .footer .dot.on{ background: var(--hv-orange); }
+  .nav-hint{position:absolute; top:22px; right:8vw; font-family:'IBM Plex Mono', monospace; font-size:11px; color: var(--muted);}
+  .tap-zone{position:absolute; top:0; bottom:0; width:50%; z-index:5;}
+  .tap-zone.left{ left:0; } .tap-zone.right{ right:0; }
+  @media (max-width:640px){ .nav-hint{ display:none; } .role-card{ flex-direction:column; } .role-card .rname{ min-width:auto; } }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- 1 Portada -->
+  <section class="slide active">
+    <div class="eyebrow"><span class="code">BLOQUE 10</span> · 80H · CIERRE DEL CURSO</div>
+    <h1>Proyecto<br>integrador de <span>taller</span></h1>
+    <div class="hazard"></div>
+    <p class="subtitle">No es un examen académico: es el ensayo más fiel posible de un día de trabajo real en un concesionario o taller VHE.</p>
+  </section>
+
+  <!-- 2 Por qué distinto -->
+  <section class="slide">
+    <div class="eyebrow">POR QUÉ ESTE BLOQUE ES DISTINTO</div>
+    <h2>Nadie te pregunta por un sistema aislado</h2>
+    <div class="content-grid">
+      <div class="concept"><span class="mark">→</span><p>En el taller real, llega un <strong>síntoma</strong>, no una pregunta de examen sobre un sistema concreto.</p></div>
+      <div class="concept warn"><span class="mark">⚠</span><p>El objetivo no es demostrar que sabes mucho de un sistema: es demostrar que <strong>sabes trabajar como se trabaja de verdad</strong>.</p></div>
+      <div class="concept"><span class="mark">→</span><p>Tiempo limitado, cliente esperando, y la responsabilidad de no equivocarte en alto voltaje.</p></div>
+    </div>
+  </section>
+
+  <!-- 3 Roles divider -->
+  <section class="slide">
+    <div class="eyebrow">EL TALLER REAL NO ES UNA SOLA PERSONA</div>
+    <h2>Los cinco roles de un concesionario VHE</h2>
+    <div class="role-grid">
+      <div class="role-card"><div class="rname">Asesor de servicio</div><p>Recibe cliente y vehículo. Identifica arquitectura, aplica recepción y acordonamiento, comunica con el cliente.</p><span class="blk">BLOQUES 0 · 2</span></div>
+      <div class="role-card"><div class="rname">Técnico de diagnosis</div><p>Conecta el equipo de diagnosis, interpreta códigos, determina el sistema implicado. Visión de conjunto.</p><span class="blk">BLOQUES 1 · 3</span></div>
+      <div class="role-card"><div class="rname">Especialista en AT y batería</div><p>El perfil de mayor especialización: circuitos AT, reparación de módulos, recarga. Mayor valor en posventa.</p><span class="blk">BLOQUES 4 · 5 · 6</span></div>
+      <div class="role-card"><div class="rname">Técnico de mecánica VHE</div><p>Transmisión, frenos regenerativos y control térmico: mecánica tradicional combinada con electrónica.</p><span class="blk">BLOQUES 7 · 8</span></div>
+      <div class="role-card"><div class="rname">Jefe de taller / supervisor</div><p>Auditoría PRL/ambiental transversal, revisión de documentación, visto bueno final antes de la entrega.</p><span class="blk">BLOQUE 9</span></div>
+    </div>
+  </section>
+
+  <!-- 4 Para el mercado laboral -->
+  <section class="slide">
+    <div class="eyebrow">PARA TU FUTURO PROFESIONAL</div>
+    <h2>Conocer todos los roles te hace más valioso</h2>
+    <div class="content-grid">
+      <div class="concept warn"><span class="mark">⚠</span><p>Aunque tu especialización futura sea una sola, entender el <strong>proceso completo</strong> te diferencia de quien solo sabe hacer una tarea.</p></div>
+    </div>
+  </section>
+
+  <!-- 5 El caso -->
+  <section class="slide">
+    <div class="eyebrow">PUNTO DE PARTIDA</div>
+    <h2>Un síntoma ambiguo, como en la realidad</h2>
+    <div class="content-grid">
+      <div class="concept"><span class="mark">→</span><p>"Pérdida de autonomía", "no carga correctamente", "ruido anómalo al frenar", "el A/A no enfría"...</p></div>
+      <div class="concept"><span class="mark">→</span><p>El síntoma <strong>no apunta de forma obvia</strong> a un único sistema — deliberadamente, como en la realidad.</p></div>
+    </div>
+  </section>
+
+  <!-- 6 Fases del proyecto -->
+  <section class="slide">
+    <div class="eyebrow">LAS SIETE FASES</div>
+    <h2>De la recepción a la entrega</h2>
+    <div class="sequence">
+      <div class="seq-step"><span class="seq-num">1</span><p>Recepción y prediagnóstico</p><span class="blk-tag">BLOQUES 0·2</span></div>
+      <div class="seq-step"><span class="seq-num">2</span><p>Puesta en seguridad</p><span class="blk-tag">BLOQUE 2</span></div>
+      <div class="seq-step"><span class="seq-num">3</span><p>Diagnosis</p><span class="blk-tag">BLOQUES 1·3·4</span></div>
+      <div class="seq-step"><span class="seq-num">4</span><p>Intervención en 2-3 sistemas</p><span class="blk-tag">BLOQUES 5·6·7·8</span></div>
+      <div class="seq-step"><span class="seq-num">5</span><p>Pruebas finales y verificación</p><span class="blk-tag">TRANSVERSAL</span></div>
+      <div class="seq-step"><span class="seq-num">6</span><p>Documentación y auditoría PRL/ambiental</p><span class="blk-tag">BLOQUE 9</span></div>
+      <div class="seq-step"><span class="seq-num">7</span><p>Entrega al cliente</p><span class="blk-tag">COMUNICACIÓN</span></div>
+    </div>
+  </section>
+
+  <!-- 7 Variantes de caso -->
+  <section class="slide">
+    <div class="eyebrow">CINCO PUNTOS DE PARTIDA POSIBLES</div>
+    <h2>Variantes de caso sugeridas</h2>
+    <table class="compare">
+      <tr><th>Síntoma inicial</th><th>Sistemas probablemente implicados</th></tr>
+      <tr><td>Pérdida de autonomía progresiva</td><td>Baterías (5) + Control térmico (8)</td></tr>
+      <tr><td>No carga en recarga rápida</td><td>Recarga externa (6) + Circuitos AT (4)</td></tr>
+      <tr><td>Ruido y vibración al frenar</td><td>Transmisión y frenos (7)</td></tr>
+      <tr><td>El A/A no enfría en verano</td><td>Control térmico (8)</td></tr>
+      <tr><td>Testigo intermitente sin síntoma claro</td><td>Fundamentos eléctricos (1) + Circuitos AT (4)</td></tr>
+    </table>
+  </section>
+
+  <!-- 8 Rúbrica -->
+  <section class="slide">
+    <div class="eyebrow">CÓMO SE EVALÚA</div>
+    <h2>Rúbrica orientativa</h2>
+    <table class="compare">
+      <tr><th>Criterio</th><th>Qué se valora</th></tr>
+      <tr><td>Seguridad</td><td>Protocolo del Bloque 2 aplicado sin atajos, en cualquier fase</td></tr>
+      <tr><td>Diagnóstico</td><td>Acotar el sistema implicado a partir de un síntoma ambiguo</td></tr>
+      <tr><td>Ejecución técnica</td><td>Corrección del procedimiento en los sistemas intervenidos</td></tr>
+      <tr><td>Documentación</td><td>Completitud y claridad de la orden de trabajo</td></tr>
+      <tr><td>Comunicación</td><td>Explicar la intervención en términos comprensibles al cliente</td></tr>
+      <tr><td>Trabajo en equipo</td><td>Coordinación entre roles, si se hace en grupo</td></tr>
+    </table>
+  </section>
+
+  <!-- 9 Por qué importa -->
+  <section class="slide">
+    <div class="eyebrow">LA CLAVE DE TODO EL BLOQUE</div>
+    <h2>Nadie contrata "saber mucho" en abstracto</h2>
+    <div class="content-grid">
+      <div class="concept warn"><span class="mark">⚠</span><p>Un concesionario contrata a alguien capaz de <strong>resolver un caso real</strong>, con seguridad, tiempo limitado y un cliente esperando.</p></div>
+      <div class="concept"><span class="mark">→</span><p>Este proyecto es el ensayo de esa situación: la que determina si estás listo para el sector.</p></div>
+    </div>
+  </section>
+
+  <!-- 10 Cierre curso -->
+  <section class="slide">
+    <div class="eyebrow"><span class="code">BLOQUE 10</span> · FIN DEL CURSO</div>
+    <h1>Proyecto<br>integrador — <span>curso completado</span></h1>
+    <div class="hazard"></div>
+    <p class="subtitle">ElectroAuto FP · 11 bloques, 650h — de las arquitecturas de VHE a un profesional listo para un concesionario o taller especializado.</p>
+  </section>
+
+</div>
+
+<div class="nav-hint">← → NAVEGAR · ESC ÍNDICE</div>
+<div class="tap-zone left" onclick="go(-1)"></div>
+<div class="tap-zone right" onclick="go(1)"></div>
+<div class="footer">
+  <span id="counter">01 / 10</span>
+  <div class="prog" id="prog"></div>
+</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+  const progWrap = document.getElementById('prog');
+  slides.forEach((_,i)=>{ const d = document.createElement('div'); d.className = 'dot' + (i===0 ? ' on':''); progWrap.appendChild(d); });
+  const dots = document.querySelectorAll('.dot');
+  function render(){
+    slides.forEach((s,i)=>{ s.classList.remove('active','prev'); if(i === current) s.classList.add('active'); if(i === current-1) s.classList.add('prev'); });
+    dots.forEach((d,i)=> d.classList.toggle('on', i===current));
+    document.getElementById('counter').textContent = String(current+1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+  }
+  window.go = function(dir){ current = Math.min(Math.max(current+dir, 0), total-1); render(); };
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight' || e.key === ' ') go(1);
+    if(e.key === 'ArrowLeft') go(-1);
+    if(e.key === 'Home') { current=0; render(); }
+    if(e.key === 'End') { current=total-1; render(); }
+  });
+  let touchX = null;
+  document.addEventListener('touchstart', (e)=>{ touchX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e)=>{
+    if(touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+    touchX = null;
+  });
+  render();
+})();
+</script>
+
+</body>
+</html>
