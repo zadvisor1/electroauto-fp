@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ElectroAuto FP — Electricidad del Automóvil</title>
+  <title>ElectroAuto FP — Formación Profesional del Automóvil</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -233,14 +233,6 @@
       line-height: 1;
     }
 
-    /* SVG icons */
-    .modulo-icon-svg {
-      display: block;
-      margin-bottom: 1rem;
-      width: 48px;
-      height: 40px;
-    }
-
     .modulo-card h3 {
       font-family: 'Rajdhani', sans-serif;
       font-size: 1.2rem; font-weight: 700;
@@ -449,9 +441,10 @@
 <nav>
   <a class="nav-logo" href="#"><span>Electro</span>Auto<span> FP</span></a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#curso">Curso</a></li>
+    <li><a href="#cursos">Cursos</a></li>
+    <li><a href="curso/index.html">Electricidad</a></li>
+    <li><a href="hibridos-electricos/index.html">Híbridos y Eléctricos</a></li>
     <li><a href="#simuladores">Simuladores</a></li>
-    <li><a href="#como-funciona">¿Cómo funciona?</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
   <button class="nav-burger" id="burger" aria-label="Menú">
@@ -465,31 +458,71 @@
 
   <p class="hero-eyebrow">FP · Electromecánica de Maquinaria</p>
 
-  <h1>Domina la <em>electricidad</em> del automóvil</h1>
+  <h1>Formación técnica<br>del <em>automóvil</em></h1>
 
   <p class="hero-sub">
-    Curso completo con presentaciones, simuladores interactivos y recursos prácticos.
-    Aprende desde cualquier dispositivo, a tu ritmo.
+    Dos cursos completos con presentaciones y simuladores interactivos.
+    Electricidad del automóvil y Vehículos Híbridos y Eléctricos.
+    Accesible desde cualquier dispositivo, sin instalar nada.
   </p>
 
   <div class="hero-ctas">
-    <a href="#curso" class="btn-primary">⚡ Ver el curso</a>
+    <a href="#cursos" class="btn-primary">⚡ Ver cursos</a>
     <a href="#simuladores" class="btn-outline">🔧 Simuladores</a>
   </div>
 
   <div class="hero-stats">
     <div class="stat">
-      <span class="stat-num">11</span>
-      <span class="stat-label">Módulos</span>
+      <span class="stat-num">2</span>
+      <span class="stat-label">Cursos</span>
     </div>
     <div class="stat">
-      <span class="stat-num">12+</span>
-      <span class="stat-label">Simuladores</span>
+      <span class="stat-num">21</span>
+      <span class="stat-label">Módulos</span>
     </div>
     <div class="stat">
       <span class="stat-num">100%</span>
       <span class="stat-label">Gratuito</span>
     </div>
+  </div>
+</section>
+
+<!-- ── SELECCIÓN DE CURSOS ── -->
+<section id="cursos" style="background: var(--negro); padding: 5rem 2rem;">
+  <p class="section-label">Formación disponible</p>
+  <h2 class="section-title">Elige tu curso</h2>
+  <p class="section-sub">Dos itinerarios formativos completos, diseñados para FP Electromecánica de Maquinaria.</p>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5px; background: var(--borde); border: 1px solid var(--borde);" class="reveal">
+
+    <!-- CURSO ELECTRICIDAD -->
+    <a href="curso/index.html" style="background:var(--panel); padding:2.5rem; text-decoration:none; color:inherit; display:block; transition:background 0.2s; position:relative; overflow:hidden;" onmouseover="this.style.background='#22224A'" onmouseout="this.style.background='var(--panel)'">
+      <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, #FFD600, transparent);"></div>
+      <div style="font-size:3rem; margin-bottom:1.5rem; display:block;">⚡</div>
+      <div style="font-family:'Rajdhani',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:var(--voltaje); margin-bottom:0.5rem; text-transform:uppercase;">Curso 1</div>
+      <h3 style="font-family:'Rajdhani',sans-serif; font-size:1.6rem; font-weight:700; margin-bottom:0.75rem; line-height:1.1;">Circuitos Eléctricos,<br>Electrónicos y de Confortabilidad</h3>
+      <p style="font-size:0.88rem; color:var(--gris); line-height:1.6; margin-bottom:1.5rem;">Del fundamento eléctrico al diagnóstico de sistemas modernos. 10 módulos con presentaciones y simuladores interactivos.</p>
+      <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+        <span style="font-family:'Rajdhani',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; background:rgba(255,214,0,0.1); color:var(--voltaje); border-left:2px solid var(--voltaje); padding:0.2rem 0.6rem;">10 MÓDULOS</span>
+        <span style="font-family:'Rajdhani',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; background:rgba(105,240,174,0.1); color:#69F0AE; border-left:2px solid #69F0AE; padding:0.2rem 0.6rem;">✓ 5 DISPONIBLES</span>
+      </div>
+      <span style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.95rem; color:var(--voltaje); letter-spacing:0.05em;">Ver curso →</span>
+    </a>
+
+    <!-- CURSO HÍBRIDOS -->
+    <a href="hibridos-electricos/index.html" style="background:var(--panel); padding:2.5rem; text-decoration:none; color:inherit; display:block; transition:background 0.2s; position:relative; overflow:hidden;" onmouseover="this.style.background='#22221A'" onmouseout="this.style.background='var(--panel)'">
+      <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, #FF6B00, transparent);"></div>
+      <div style="font-size:3rem; margin-bottom:1.5rem; display:block;">🔋</div>
+      <div style="font-family:'Rajdhani',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.15em; color:#FF6B00; margin-bottom:0.5rem; text-transform:uppercase;">Curso 2</div>
+      <h3 style="font-family:'Rajdhani',sans-serif; font-size:1.6rem; font-weight:700; margin-bottom:0.75rem; line-height:1.1;">Vehículos Híbridos<br>y Eléctricos</h3>
+      <p style="font-size:0.88rem; color:var(--gris); line-height:1.6; margin-bottom:1.5rem;">630 horas organizadas en 11 bloques sin contenidos repetidos. Del fundamento eléctrico al proyecto integrador de taller.</p>
+      <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+        <span style="font-family:'Rajdhani',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; background:rgba(255,107,0,0.1); color:#FF6B00; border-left:2px solid #FF6B00; padding:0.2rem 0.6rem;">11 BLOQUES · 630H</span>
+        <span style="font-family:'Rajdhani',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; background:rgba(230,57,70,0.1); color:#E63946; border-left:2px solid #E63946; padding:0.2rem 0.6rem;">⚡ ALTO VOLTAJE</span>
+      </div>
+      <span style="font-family:'Rajdhani',sans-serif; font-weight:700; font-size:0.95rem; color:#FF6B00; letter-spacing:0.05em;">Ver curso →</span>
+    </a>
+
   </div>
 </section>
 
@@ -500,64 +533,92 @@
   <p class="section-sub">De los fundamentos eléctricos al diagnóstico de sistemas modernos. Cada módulo incluye presentación y simulador.</p>
 
   <div class="modulos-grid reveal">
-{% for mod in site.data.modulos %}
-{% assign tag_open = '<div class="modulo-card" style="cursor:default; opacity:0.5">' %}
-{% if mod.disponible %}
-<a class="modulo-card" href="curso/{{ mod.slug }}/index.html">
-{% else %}
-<div class="modulo-card" style="cursor:default; opacity:0.5">
-{% endif %}
-<span class="modulo-num">MÓDULO {{ mod.num }}</span>
-{% case mod.slug %}
-{% when "modulo-01" %}
-<span class="modulo-icon">⚡</span>
-{% when "modulo-02" %}
-<svg class="modulo-icon-svg" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<line x1="0" y1="20" x2="8" y2="20" stroke="#FFD600" stroke-width="2.2" stroke-linecap="round"/>
-<path d="M8 20 Q12 8 16 20 Q20 32 24 20 Q28 8 32 20 Q36 32 40 20 Q44 8 48 20 Q52 32 56 20" stroke="#FFD600" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-<line x1="56" y1="20" x2="64" y2="20" stroke="#FFD600" stroke-width="2.2" stroke-linecap="round"/>
-<line x1="12" y1="28" x2="52" y2="28" stroke="#FFD600" stroke-width="1" stroke-dasharray="3 2" opacity="0.5"/>
-<line x1="12" y1="32" x2="52" y2="32" stroke="#FFD600" stroke-width="1" stroke-dasharray="3 2" opacity="0.3"/>
-</svg>
-{% when "modulo-03" %}
-<svg class="modulo-icon-svg" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<line x1="0" y1="20" x2="16" y2="20" stroke="#FFD600" stroke-width="2.2" stroke-linecap="round"/>
-<rect x="16" y="11" width="32" height="18" rx="2" stroke="#FFD600" stroke-width="2.2"/>
-<line x1="48" y1="20" x2="64" y2="20" stroke="#FFD600" stroke-width="2.2" stroke-linecap="round"/>
-</svg>
-{% when "modulo-04" %}
-<svg class="modulo-icon-svg" viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<line x1="2" y1="24" x2="22" y2="24" stroke="#FFD600" stroke-width="2.2" stroke-linecap="round"/>
-<line x1="22" y1="12" x2="22" y2="36" stroke="#FFD600" stroke-width="2.8" stroke-linecap="round"/>
-<line x1="22" y1="16" x2="48" y2="6" stroke="#FFD600" stroke-width="2.2" stroke-linecap="round"/>
-<line x1="22" y1="32" x2="48" y2="42" stroke="#FFD600" stroke-width="2.2" stroke-linecap="round"/>
-<polygon points="40,37 48,42 42,44" fill="#FFD600"/>
-<text x="50" y="10" font-size="8" fill="#FFD600" font-family="Rajdhani,sans-serif" font-weight="700">C</text>
-<text x="4"  y="22" font-size="8" fill="#FFD600" font-family="Rajdhani,sans-serif" font-weight="700">B</text>
-<text x="50" y="46" font-size="8" fill="#FFD600" font-family="Rajdhani,sans-serif" font-weight="700">E</text>
-</svg>
-{% when "modulo-05" %}
-<svg class="modulo-icon-svg" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<line x1="0" y1="28" x2="16" y2="28" stroke="#FFD600" stroke-width="2.2" stroke-linecap="round"/>
-<circle cx="16" cy="28" r="2.5" fill="#FFD600"/>
-<line x1="16" y1="28" x2="44" y2="10" stroke="#FFD600" stroke-width="2.2" stroke-linecap="round"/>
-<circle cx="48" cy="28" r="2.5" fill="#FFD600"/>
-<line x1="48" y1="28" x2="64" y2="28" stroke="#FFD600" stroke-width="2.2" stroke-linecap="round"/>
-</svg>
-{% else %}
-<span class="modulo-icon">{{ mod.icono | default: "🔧" }}</span>
-{% endcase %}
-<h3>{{ mod.nombre }}</h3>
-<p>{{ mod.descripcion }}</p>
-{% if mod.disponible %}
-<span class="modulo-tag disponible">Disponible</span>
-<span class="modulo-arrow">→</span>
-</a>
-{% else %}
-<span class="modulo-tag proximo">Próximamente</span>
-</div>
-{% endif %}
-{% endfor %}
+
+    <a class="modulo-card" href="curso/modulo-01/index.html">
+      <span class="modulo-num">MÓDULO 01</span>
+      <span class="modulo-icon">⚡</span>
+      <h3>Fundamentos de electricidad</h3>
+      <p>Magnitudes eléctricas, Ley de Ohm y Potencia aplicada al automóvil.</p>
+      <span class="modulo-tag disponible">Disponible</span>
+      <span class="modulo-arrow">→</span>
+    </a>
+
+    <a class="modulo-card" href="curso/modulo-02/index.html">
+      <span class="modulo-num">MÓDULO 02</span>
+      <span class="modulo-icon">🔋</span>
+      <h3>Generación de electricidad</h3>
+      <p>Batería, alternador, regulador de tensión y nuevas tecnologías de generación.</p>
+      <span class="modulo-tag disponible">Disponible</span>
+      <span class="modulo-arrow">→</span>
+    </a>
+
+    <a class="modulo-card" href="curso/modulo-03/index.html">
+      <span class="modulo-num">MÓDULO 03</span>
+      <span class="modulo-icon">🔩</span>
+      <h3>Componentes eléctricos</h3>
+      <p>Resistencias, condensadores, bobinas, diodos y transistores en el automóvil.</p>
+      <span class="modulo-tag disponible">Disponible</span>
+      <span class="modulo-arrow">→</span>
+    </a>
+
+    <a class="modulo-card" href="curso/modulo-04/index.html">
+      <span class="modulo-num">MÓDULO 04</span>
+      <span class="modulo-icon">🔗</span>
+      <h3>Circuitos eléctricos</h3>
+      <p>Circuitos serie, paralelo y mixtos. Análisis y cálculo aplicado al vehículo.</p>
+      <span class="modulo-tag disponible">Disponible</span>
+      <span class="modulo-arrow">→</span>
+    </a>
+
+    <a class="modulo-card" href="curso/modulo-05/index.html">
+      <span class="modulo-num">MÓDULO 05</span>
+      <span class="modulo-icon">🖥️</span>
+      <h3>Electrónica digital</h3>
+      <p>Sistemas digitales, puertas lógicas y señales PWM en el automóvil.</p>
+      <span class="modulo-tag disponible">Disponible</span>
+      <span class="modulo-arrow">→</span>
+    </a>
+
+    <div class="modulo-card" style="cursor:default; opacity:0.5">
+      <span class="modulo-num">MÓDULO 06</span>
+      <span class="modulo-icon">🔑</span>
+      <h3>Sistema de arranque</h3>
+      <p>Motor de arranque, circuito de mando y diagnóstico de averías.</p>
+      <span class="modulo-tag proximo">Próximamente</span>
+    </div>
+
+    <div class="modulo-card" style="cursor:default; opacity:0.5">
+      <span class="modulo-num">MÓDULO 07</span>
+      <span class="modulo-icon">⚙️</span>
+      <h3>Sistema de carga</h3>
+      <p>Alternador, regulador de tensión y diagnóstico del circuito de carga.</p>
+      <span class="modulo-tag proximo">Próximamente</span>
+    </div>
+
+    <div class="modulo-card" style="cursor:default; opacity:0.5">
+      <span class="modulo-num">MÓDULO 08</span>
+      <span class="modulo-icon">📋</span>
+      <h3>Esquemas eléctricos</h3>
+      <p>Lectura e interpretación de esquemas y simbología normalizada.</p>
+      <span class="modulo-tag proximo">Próximamente</span>
+    </div>
+
+    <div class="modulo-card" style="cursor:default; opacity:0.5">
+      <span class="modulo-num">MÓDULO 09</span>
+      <span class="modulo-icon">💡</span>
+      <h3>Sistemas de iluminación</h3>
+      <p>Tecnología halógena, xenón y LED. Circuitos y normativa.</p>
+      <span class="modulo-tag proximo">Próximamente</span>
+    </div>
+
+    <div class="modulo-card" style="cursor:default; opacity:0.5">
+      <span class="modulo-num">MÓDULO 10</span>
+      <span class="modulo-icon">🚗</span>
+      <h3>Sistemas auxiliares</h3>
+      <p>Climatización, elevalunas, cierre centralizado y confortabilidad.</p>
+      <span class="modulo-tag proximo">Próximamente</span>
+    </div>
+
   </div>
 </section>
 
@@ -640,10 +701,11 @@
 <footer id="contacto">
   <div>
     <div class="footer-logo">Electro<span>Auto FP</span></div>
-    <p style="margin-top:0.5rem">Electricidad del Automóvil · FP Electromecánica de Maquinaria</p>
+    <p style="margin-top:0.5rem">Formación Profesional · Electromecánica de Maquinaria</p>
   </div>
   <ul class="footer-links">
-    <li><a href="#curso">Curso</a></li>
+    <li><a href="curso/index.html">Electricidad</a></li>
+    <li><a href="hibridos-electricos/index.html">Híbridos y Eléctricos</a></li>
     <li><a href="#simuladores">Simuladores</a></li>
     <li><a href="mailto:info@electroautofp.es">Contacto</a></li>
   </ul>
@@ -651,6 +713,7 @@
 </footer>
 
 <script>
+  // ── BURGER MENU ──
   const burger = document.getElementById('burger');
   const navLinks = document.getElementById('navLinks');
   burger.addEventListener('click', () => navLinks.classList.toggle('open'));
@@ -658,6 +721,7 @@
     a.addEventListener('click', () => navLinks.classList.remove('open'))
   );
 
+  // ── OSCILOSCOPIO ANIMADO ──
   const canvas = document.getElementById('oscCanvas');
   const ctx = canvas.getContext('2d');
   let t = 0;
@@ -673,6 +737,7 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const W = canvas.width, H = canvas.height;
 
+    // Grid lines
     ctx.strokeStyle = 'rgba(255,214,0,0.08)';
     ctx.lineWidth = 1;
     for (let x = 0; x < W; x += 60) {
@@ -682,6 +747,7 @@
       ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
     }
 
+    // Señal principal (onda sinusoidal + ruido)
     ctx.beginPath();
     ctx.strokeStyle = 'rgba(255,214,0,0.9)';
     ctx.lineWidth = 2;
@@ -695,6 +761,7 @@
     }
     ctx.stroke();
 
+    // Señal secundaria (CAN Bus)
     ctx.beginPath();
     ctx.strokeStyle = 'rgba(230,57,70,0.5)';
     ctx.lineWidth = 1.5;
@@ -710,10 +777,12 @@
     requestAnimationFrame(drawOsc);
   }
 
+  // Respeta prefers-reduced-motion
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     drawOsc();
   }
 
+  // ── SCROLL REVEAL ──
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
