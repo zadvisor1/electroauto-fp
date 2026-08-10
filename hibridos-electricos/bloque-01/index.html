@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloque 01 · Fundamentos eléctricos · ElectroAuto FP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --negro:#0A0A0A;--antracita:#121218;--panel:#1A1A22;
+      --av:#FF6B00;--av-glow:rgba(255,107,0,0.15);
+      --rojo:#E63946;--verde:#69F0AE;
+      --blanco:#F0F0F0;--gris:#8A8AAA;--borde:rgba(255,107,0,0.15);
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--negro);color:var(--blanco);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden;}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;background:rgba(10,10,10,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--borde);}
+    .nav-logo{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;color:var(--av);text-decoration:none;letter-spacing:0.05em;}
+    .nav-logo span{color:var(--blanco);}
+    .nav-links{display:flex;gap:2rem;list-style:none;}
+    .nav-links a{color:var(--gris);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--av);}
+    .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .nav-burger span{display:block;width:24px;height:2px;background:var(--blanco);}
+
+    .page-header{padding:100px 2rem 3rem;background:var(--antracita);border-bottom:1px solid var(--borde);position:relative;overflow:hidden;}
+    .page-header::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--av),transparent);}
+    .header-num{position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-family:'Rajdhani',sans-serif;font-size:clamp(6rem,15vw,12rem);font-weight:700;color:rgba(255,107,0,0.04);line-height:1;pointer-events:none;user-select:none;}
+
+    .breadcrumb{font-size:0.78rem;color:var(--gris);margin-bottom:1.5rem;display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;}
+    .breadcrumb a{color:var(--gris);text-decoration:none;transition:color 0.2s;}
+    .breadcrumb a:hover{color:var(--av);}
+    .breadcrumb span{color:var(--av);}
+
+    .header-badge{display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;}
+    .badge-num{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;background:var(--av);color:var(--negro);padding:0.2rem 0.6rem;letter-spacing:0.05em;}
+    .badge-horas{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;background:var(--av-glow);color:var(--av);border:1px solid rgba(255,107,0,0.3);padding:0.2rem 0.6rem;letter-spacing:0.05em;}
+    .badge-estado{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;border:1px solid rgba(105,240,174,0.4);color:var(--verde);padding:0.2rem 0.6rem;letter-spacing:0.05em;}
+
+    .page-header h1{font-family:'Rajdhani',sans-serif;font-size:clamp(1.8rem,5vw,3.2rem);font-weight:700;line-height:1.05;margin-bottom:1rem;position:relative;}
+    .page-header h1 em{font-style:normal;color:var(--av);}
+    .page-header p{color:var(--gris);font-size:0.95rem;max-width:580px;font-weight:300;position:relative;}
+    .header-meta{display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap;}
+    .meta-item{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--gris);}
+    .meta-item strong{color:var(--blanco);font-weight:500;}
+
+    .main-content{display:grid;grid-template-columns:1fr 320px;gap:0;max-width:1200px;margin:0 auto;padding:3rem 2rem 5rem;align-items:start;}
+    .col-main{padding-right:3rem;}
+    .section-block{margin-bottom:3rem;}
+    .block-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--av);margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
+    .block-label::after{content:'';flex:1;height:1px;background:var(--borde);}
+    .block-title{font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:0.75rem;}
+    .block-body{font-size:0.9rem;color:rgba(240,240,240,0.8);line-height:1.7;font-weight:300;}
+
+    .contenidos-lista{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;}
+    .contenidos-lista li{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 0.75rem;background:var(--panel);border:1px solid transparent;font-size:0.88rem;transition:border-color 0.2s;}
+    .contenidos-lista li:hover{border-color:var(--borde);}
+    .contenidos-lista .ico{font-size:1rem;flex-shrink:0;}
+    .contenidos-lista .tema{flex:1;color:rgba(240,240,240,0.85);}
+    .contenidos-lista .subtema{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--gris);}
+
+    .conceptos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--borde);border:1px solid var(--borde);margin-top:1rem;}
+    .concepto{background:var(--panel);padding:1.25rem;}
+    .concepto-sym{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:700;color:var(--av);display:block;margin-bottom:0.4rem;line-height:1;}
+    .concepto h4{font-family:'Rajdhani',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:0.2rem;}
+    .concepto p{font-size:0.78rem;color:var(--gris);}
+
+    .sidebar-card{background:var(--panel);border:1px solid var(--borde);margin-bottom:1.5rem;overflow:hidden;}
+    .sidebar-card-header{padding:1rem 1.25rem;border-bottom:1px solid var(--borde);font-family:'Rajdhani',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gris);}
+    .sidebar-card-body{padding:1.25rem;}
+
+    .btn-presentacion{display:flex;align-items:center;gap:0.75rem;background:var(--av);color:var(--negro);padding:1rem 1.25rem;text-decoration:none;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.05em;width:100%;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));transition:background 0.15s;border:none;cursor:pointer;}
+    .btn-presentacion:hover{background:#FF8533;}
+    .btn-presentacion .icon{font-size:1.3rem;flex-shrink:0;}
+    .btn-presentacion .text{flex:1;}
+    .btn-presentacion .text small{display:block;font-size:0.7rem;font-weight:400;opacity:0.7;margin-top:0.1rem;font-family:'Inter',sans-serif;}
+
+    .bloques-nav{list-style:none;display:flex;flex-direction:column;gap:1px;background:var(--borde);}
+    .bloques-nav li a,.bloques-nav li span{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 0.75rem;background:var(--panel);font-size:0.8rem;text-decoration:none;color:var(--gris);transition:all 0.2s;}
+    .bloques-nav li a:hover{color:var(--av);background:#22222E;}
+    .bloques-nav li.current a,.bloques-nav li.current span{color:var(--av);border-left:2px solid var(--av);}
+    .blq-num{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:inherit;flex-shrink:0;min-width:28px;}
+    .lock{font-size:0.7rem;margin-left:auto;opacity:0.4;}
+
+    .mod-nav{border-top:1px solid var(--borde);display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--borde);}
+    .mod-nav-item{background:var(--antracita);padding:1.5rem 2rem;text-decoration:none;color:inherit;transition:background 0.2s;display:flex;flex-direction:column;gap:0.25rem;}
+    .mod-nav-item:hover{background:var(--panel);}
+    .mod-nav-item.next{text-align:right;}
+    .mod-nav-item .dir{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--gris);letter-spacing:0.15em;text-transform:uppercase;}
+    .mod-nav-item .nombre{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--av);}
+
+    footer{background:var(--antracita);border-top:1px solid var(--borde);padding:2.5rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+    .footer-logo{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--av);}
+    .footer-logo span{color:var(--gris);}
+    footer p{font-size:0.8rem;color:var(--gris);}
+
+    @media(max-width:900px){.main-content{grid-template-columns:1fr;padding:2rem 1.25rem 4rem;}.col-main{padding-right:0;margin-bottom:2rem;}.header-num{display:none;}}
+    @media(max-width:768px){.nav-links{display:none;}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:var(--negro);padding:1.5rem 2rem;border-bottom:1px solid var(--borde);gap:1.2rem;}.nav-burger{display:flex;}.page-header{padding:90px 1.25rem 2.5rem;}.conceptos-grid{grid-template-columns:1fr;}.mod-nav{grid-template-columns:1fr;}footer{flex-direction:column;align-items:flex-start;}}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s,transform 0.5s;}
+    .reveal.visible{opacity:1;transform:none;}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="../../index.html"><span>Electro</span>Auto<span> FP</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="../../curso/index.html">Electricidad</a></li>
+    <li><a href="../index.html" class="active">Híbridos y Eléctricos</a></li>
+    <li><a href="../../simuladores/index.html">Simuladores</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-header">
+  <div class="header-num">01</div>
+  <div class="breadcrumb">
+    <a href="../../index.html">Inicio</a><span>›</span>
+    <a href="../index.html">Híbridos y Eléctricos</a><span>›</span>
+    <span>Bloque 01</span>
+  </div>
+  <div class="header-badge">
+    <span class="badge-num">BLOQUE 01</span>
+    <span class="badge-horas">⏱ 20h</span>
+    <span class="badge-estado">✓ Disponible</span>
+  </div>
+  <h1>Fundamentos <em>eléctricos</em><br>comunes</h1>
+  <p>El lenguaje que necesitas dominar antes de entrar en seguridad, propulsión, baterías o recarga. Se enseña una sola vez, aquí, para no repetirlo en cada bloque técnico posterior.</p>
+  <div class="header-meta">
+    <div class="meta-item">📊 <strong>Presentación incluida</strong></div>
+    <div class="meta-item">⏱️ <strong>20 horas</strong></div>
+    <div class="meta-item">📱 <strong>Cualquier dispositivo</strong></div>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="col-main">
+
+    <div class="section-block reveal">
+      <div class="block-label">Descripción</div>
+      <h2 class="block-title">¿Qué vas a aprender?</h2>
+      <p class="block-body">Propulsión, baterías, recarga y frenos regenerativos se explican con el mismo lenguaje eléctrico y electrónico de base. Este bloque no trata todavía sobre el alto voltaje en sí —eso es el Bloque 02—, sino sobre los conceptos y el lenguaje que necesitas para entender cualquier esquema, cualquier magnitud y cualquier mensaje de un equipo de diagnosis.</p>
+      <p class="block-body" style="margin-top:0.75rem">Dominarlo aquí, una sola vez, evita tener que "reaprenderlo" fragmentado en cada bloque técnico posterior.</p>
+    </div>
+
+    <div class="section-block reveal">
+      <div class="block-label">Contenidos</div>
+      <h2 class="block-title">Temario del bloque</h2>
+      <ul class="contenidos-lista">
+        <li><span class="ico">📐</span><span class="tema">Magnitudes eléctricas: tensión, intensidad, resistencia, potencia</span><span class="subtema">FUNDAMENTOS</span></li>
+        <li><span class="ico">🧮</span><span class="tema">Ley de Ohm: V = I × R aplicada al diagnóstico real</span><span class="subtema">LEY BASE</span></li>
+        <li><span class="ico">🔄</span><span class="tema">Corriente continua (CC) y corriente alterna (CA)</span><span class="subtema">CONVERSIÓN</span></li>
+        <li><span class="ico">📊</span><span class="tema">Diagramas de potencia: leer el flujo de energía sin medir</span><span class="subtema">LECTURA</span></li>
+        <li><span class="ico">🗺️</span><span class="tema">Simbología de esquemas eléctricos y electrónicos</span><span class="subtema">DOCUMENTACIÓN</span></li>
+        <li><span class="ico">📡</span><span class="tema">Redes de comunicación: CAN y LIN</span><span class="subtema">COMUNICACIÓN</span></li>
+      </ul>
+    </div>
+
+    <div class="section-block reveal">
+      <div class="block-label">Conceptos clave</div>
+      <h2 class="block-title">Lo esencial del bloque</h2>
+      <div class="conceptos-grid">
+        <div class="concepto">
+          <span class="concepto-sym">V=I×R</span>
+          <h4>Ley de Ohm</h4>
+          <p>La herramienta de razonamiento más usada en cualquier diagnóstico eléctrico.</p>
+        </div>
+        <div class="concepto">
+          <span class="concepto-sym">CC</span>
+          <h4>Corriente continua</h4>
+          <p>Fluye siempre en el mismo sentido. Es la que almacena la batería de alto voltaje.</p>
+        </div>
+        <div class="concepto">
+          <span class="concepto-sym">CA</span>
+          <h4>Corriente alterna</h4>
+          <p>Cambia de sentido periódicamente. La que necesita el motor eléctrico para girar.</p>
+        </div>
+        <div class="concepto">
+          <span class="concepto-sym">CAN</span>
+          <h4>Red de comunicación</h4>
+          <p>Conecta las unidades de control críticas. Un fallo aquí puede simular una avería física.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sidebar" style="position:sticky;top:80px;">
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Material del bloque</div>
+      <div class="sidebar-card-body">
+        <a href="presentacion.html" class="btn-presentacion">
+          <span class="icon">▶</span>
+          <span class="text">Ver presentación<small>Navegable · Teclado y swipe</small></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Todos los bloques</div>
+      <div class="sidebar-card-body" style="padding:0">
+        <ul class="bloques-nav">
+          <li><a href="../bloque-00/index.html"><span class="blq-num">00</span>Arquitecturas VHE</a></li>
+          <li class="current"><span><span class="blq-num">01</span>Fundamentos eléctricos</span></li>
+          <li><a href="../bloque-02/index.html"><span class="blq-num">02</span>Seguridad HV</a></li>
+          <li><a href="../bloque-03/index.html"><span class="blq-num">03</span>Diagnosis y mantenimiento</a></li>
+          <li><a href="../bloque-04/index.html"><span class="blq-num">04</span>Circuitos de HV</a></li>
+          <li><a href="../bloque-05/index.html"><span class="blq-num">05</span>Baterías de tracción</a></li>
+          <li><a href="../bloque-06/index.html"><span class="blq-num">06</span>Recarga externa</a></li>
+          <li><a href="../bloque-07/index.html"><span class="blq-num">07</span>Transmisión y frenos</a></li>
+          <li><a href="../bloque-08/index.html"><span class="blq-num">08</span>Control térmico</a></li>
+          <li><a href="../bloque-09/index.html"><span class="blq-num">09</span>PRL y ambiental</a></li>
+          <li><a href="../bloque-10/index.html"><span class="blq-num">10</span>Proyecto integrador</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mod-nav">
+  <a class="mod-nav-item" href="../bloque-00/index.html">
+    <span class="dir">← Bloque anterior</span>
+    <span class="nombre">Arquitecturas VHE</span>
+  </a>
+  <a class="mod-nav-item next" href="../bloque-02/index.html">
+    <span class="dir">Bloque siguiente →</span>
+    <span class="nombre">Seguridad HV</span>
+  </a>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-logo">Electro<span>Auto FP</span></div>
+    <p style="margin-top:0.4rem">Bloque 01 · Fundamentos eléctricos · Híbridos y Eléctricos</p>
+  </div>
+  <p style="color:var(--gris);font-size:0.75rem">© 2025 ElectroAuto FP</p>
+</footer>
+
+<script>
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.05 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
