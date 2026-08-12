@@ -1,0 +1,18 @@
+title: ElectroAuto FP
+description: Formación Profesional del Automóvil — Electromecánica de Maquinaria
+baseurl: "/electroauto-fp"
+url: "https://zadvisor1.github.io"
+
+# Colecciones
+collections:
+  bloques:
+    output: true
+    permalink: /hibridos-electricos/:slug/
+
+# Valores por defecto
+defaults:
+  - scope:
+      path: ""
+      type: "bloques"
+    values:
+      layout: "bloque"
