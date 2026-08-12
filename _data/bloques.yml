@@ -1,0 +1,132 @@
+- num: "00"
+  slug: "bloque-00"
+  nombre: "Arquitecturas de vehículos híbridos y eléctricos"
+  subtitulo: "Qué tipos existen, en qué se diferencian y por qué eso determina cómo se trabaja con ellos en el taller"
+  descripcion: "Tipos de vehículo (BEV, HEV, PHEV, FCEV), configuraciones de powertrain y principios de funcionamiento."
+  disponible: true
+  horas: 20
+  diapositivas: 0
+  material_extra: true
+  alto_voltaje: false
+  icono: "🔋"
+  presentacion: "/presentaciones/bloque-00.html"
+
+- num: "01"
+  slug: "bloque-01"
+  nombre: "Fundamentos eléctricos comunes"
+  subtitulo: "Magnitudes, circuitos y herramientas de medida aplicadas al vehículo electrificado"
+  descripcion: "Repaso de magnitudes, circuitos, componentes y herramientas de medida aplicados al vehículo electrificado."
+  disponible: false
+  horas: 20
+  diapositivas: 0
+  material_extra: false
+  alto_voltaje: false
+  icono: "⚡"
+
+- num: "02"
+  slug: "bloque-02"
+  nombre: "Seguridad integral en alto voltaje"
+  subtitulo: "Protocolos, EPIs y procedimientos antes de tocar cualquier componente HV"
+  descripcion: "Protocolos HV, EPIs, procedimientos de descondensación, normativa y gestión de emergencias con VHE."
+  disponible: false
+  horas: 80
+  diapositivas: 0
+  material_extra: false
+  alto_voltaje: true
+  icono: "🛡️"
+
+- num: "03"
+  slug: "bloque-03"
+  nombre: "Diagnosis y mantenimiento por arquitectura"
+  subtitulo: "Metodología de diagnóstico adaptada a cada tipo de vehículo electrificado"
+  descripcion: "Metodología de diagnóstico, lectura de DTCs, osciloscopio en HV, mantenimiento preventivo según arquitectura."
+  disponible: false
+  horas: 110
+  diapositivas: 0
+  material_extra: false
+  alto_voltaje: true
+  icono: "🔍"
+
+- num: "04"
+  slug: "bloque-04"
+  nombre: "Circuitos y componentes de alto voltaje"
+  subtitulo: "Inversores, convertidores, contactores y cableado naranja"
+  descripcion: "Inversores, convertidores DC/DC, OBC, contactores, precargas y cableado naranja de alto voltaje."
+  disponible: false
+  horas: 55
+  diapositivas: 0
+  material_extra: false
+  alto_voltaje: true
+  icono: "🔌"
+
+- num: "05"
+  slug: "bloque-05"
+  nombre: "Baterías de tracción"
+  subtitulo: "Tecnologías de celda, BMS y diagnosis de packs de tracción"
+  descripcion: "Tecnologías de celda, BMS, gestión del SOC/SOH, diagnosis de packs de tracción y normativa de residuos."
+  disponible: false
+  horas: 75
+  diapositivas: 0
+  material_extra: false
+  alto_voltaje: true
+  icono: "🔋"
+
+- num: "06"
+  slug: "bloque-06"
+  nombre: "Recarga externa"
+  subtitulo: "Modos de carga, conectores y comunicación vehículo-cargador"
+  descripcion: "Modos de carga (1-4), conectores AC/DC, EVSE, comunicación entre vehículo y cargador (IEC 61851, ISO 15118)."
+  disponible: false
+  horas: 35
+  diapositivas: 0
+  material_extra: false
+  alto_voltaje: false
+  icono: "🔌"
+
+- num: "07"
+  slug: "bloque-07"
+  nombre: "Transmisión y frenos regenerativos"
+  subtitulo: "Motores de tracción, reductoras y recuperación de energía en frenada"
+  descripcion: "Motores eléctricos de tracción, reductoras, freno regenerativo, blend braking y recuperación de energía."
+  disponible: false
+  horas: 60
+  diapositivas: 0
+  material_extra: false
+  alto_voltaje: false
+  icono: "⚙️"
+
+- num: "08"
+  slug: "bloque-08"
+  nombre: "Control térmico"
+  subtitulo: "Gestión térmica de batería, motor y habitáculo"
+  descripcion: "Gestión térmica de batería, motor eléctrico y habitáculo. Bombas de calor, refrigeración y calefacción eléctrica."
+  disponible: false
+  horas: 50
+  diapositivas: 0
+  material_extra: false
+  alto_voltaje: false
+  icono: "🌡️"
+
+- num: "09"
+  slug: "bloque-09"
+  nombre: "PRL y ambiental transversal"
+  subtitulo: "Prevención de riesgos y gestión medioambiental específica de HV"
+  descripcion: "Prevención de riesgos laborales específicos de HV, gestión medioambiental, residuos de baterías y normativa."
+  disponible: false
+  horas: 45
+  diapositivas: 0
+  material_extra: false
+  alto_voltaje: false
+  icono: "📋"
+
+- num: "10"
+  slug: "bloque-10"
+  nombre: "Proyecto integrador de taller"
+  subtitulo: "Diagnóstico completo de un vehículo electrificado real"
+  descripcion: "Diagnóstico completo de un vehículo eléctrico o híbrido real. Informe técnico, presupuesto y exposición."
+  disponible: false
+  horas: 80
+  diapositivas: 0
+  material_extra: false
+  alto_voltaje: false
+  icono: "🏆"
