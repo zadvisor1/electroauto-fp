@@ -1,30 +1,165 @@
 ---
+layout: default
+title: Vehículos Híbridos y Eléctricos
 ---
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vehículos Híbridos y Eléctricos · ElectroAuto FP</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}:root{--bg:#0A0A0A;--surface:#121218;--panel:#1A1A22;--accent:#FF6B00;--text:#F0F0F0;--muted:#8A8AAA;--border:rgba(255,107,0,.18);--green:#69F0AE}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.6}nav{height:60px;display:flex;justify-content:space-between;align-items:center;padding:0 2rem;position:fixed;inset:0 0 auto;z-index:10;background:rgba(10,10,10,.95);border-bottom:1px solid var(--border)}.logo{color:var(--accent);font:700 1.3rem Rajdhani,sans-serif;text-decoration:none}.logo span{color:var(--text)}.links{display:flex;gap:2rem;list-style:none}.links a{color:var(--muted);font-size:.85rem;text-decoration:none}.links a:hover,.links .active{color:var(--accent)}.hero{padding:130px 2rem 4rem;background:linear-gradient(135deg,#121218,#0A0A0A);border-bottom:1px solid var(--border)}.eyebrow,.label{color:var(--accent);font:700 .7rem 'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase}.hero h1{font:700 clamp(2.5rem,7vw,5.3rem)/1 Rajdhani,sans-serif;margin:1rem 0}.hero h1 em{color:var(--accent);font-style:normal}.hero p{color:var(--muted);max-width:630px}.stats{display:flex;gap:2rem;margin-top:2rem}.stats strong{display:block;color:var(--accent);font:700 2rem Rajdhani,sans-serif}.stats span{color:var(--muted);font-size:.7rem;text-transform:uppercase}.notice{margin:2rem;max-width:1200px;padding:1rem 1.25rem;border-left:4px solid var(--accent);background:rgba(255,107,0,.08);color:#ddd}.wrap{max-width:1200px;margin:auto;padding:3rem 2rem 5rem}.wrap h2{font:700 clamp(1.8rem,4vw,2.8rem) Rajdhani,sans-serif;margin:.5rem 0}.intro{color:var(--muted);max-width:680px;margin-bottom:2rem}.list{border:1px solid var(--border);background:var(--border);display:flex;flex-direction:column;gap:1px}.block{background:var(--panel);color:inherit;display:grid;grid-template-columns:72px 1fr auto;text-decoration:none}.block.available:hover{background:#24242F}.block.locked{opacity:.55}.number{align-items:center;border-right:1px solid var(--border);color:var(--accent);display:flex;font:700 .75rem 'JetBrains Mono',monospace;justify-content:center}.body{padding:1.4rem 1.6rem}.body h3{font:700 1.2rem Rajdhani,sans-serif}.body p{color:var(--muted);font-size:.84rem}.tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem}.tag{border-left:2px solid var(--accent);color:var(--accent);background:rgba(255,107,0,.1);font-size:.62rem;font-weight:700;letter-spacing:.08em;padding:.12rem .45rem;text-transform:uppercase}.tag.ready{border-color:var(--green);color:var(--green)}.tag.hv{border-color:#E63946;color:#ff8994}.arrow{align-self:center;color:var(--accent);font-size:1.25rem;padding:1.5rem}footer{border-top:1px solid var(--border);color:var(--muted);padding:2rem;text-align:center;font-size:.8rem}@media(max-width:700px){nav{padding:0 1.2rem}.links{gap:1rem}.links li:first-child{display:none}.hero,.wrap{padding-left:1.25rem;padding-right:1.25rem}.block{grid-template-columns:48px 1fr auto}.body{padding:1.1rem .9rem}.stats{gap:1.2rem}}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --negro:#0A0A0A; --antracita:#121218; --panel:#1A1A22;
+  --av:#FF6B00; --av-glow:rgba(255,107,0,0.15);
+  --rojo:#E63946; --verde:#69F0AE;
+  --blanco:#F0F0F0; --gris:#8A8AAA; --borde:rgba(255,107,0,0.15);
+}
+html { scroll-behavior:smooth; }
+body { background:var(--negro); color:var(--blanco); font-family:'Inter',sans-serif; line-height:1.6; overflow-x:hidden; }
+.hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:100px 2rem 4rem; position:relative; overflow:hidden; }
+.hero-canvas { position:absolute; top:0; left:0; width:100%; height:100%; opacity:0.15; pointer-events:none; }
+.hero-eyebrow { font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700; letter-spacing:0.2em; color:var(--av); text-transform:uppercase; margin-bottom:1rem; }
+.hero h1 { font-family:'Rajdhani',sans-serif; font-size:clamp(2.5rem,7vw,5.5rem); font-weight:700; line-height:1; margin-bottom:1.5rem; }
+.hero h1 em { font-style:normal; color:var(--av); }
+.hero-sub { font-size:1.05rem; color:var(--gris); max-width:560px; margin-bottom:2.5rem; font-weight:300; }
+.hero-ctas { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:3rem; }
+.btn-primary { display:inline-flex; align-items:center; gap:0.5rem; background:var(--av); color:var(--negro); padding:0.75rem 1.75rem; font-family:'Rajdhani',sans-serif; font-weight:700; font-size:1rem; letter-spacing:0.05em; text-decoration:none; border:none; cursor:pointer; clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px)); transition:background 0.2s,transform 0.15s; }
+.btn-primary:hover { background:#FF8533; transform:translateY(-2px); }
+.btn-outline { display:inline-flex; align-items:center; gap:0.5rem; background:transparent; color:var(--blanco); padding:0.75rem 1.75rem; font-family:'Rajdhani',sans-serif; font-weight:600; font-size:1rem; letter-spacing:0.05em; text-decoration:none; border:1px solid rgba(240,240,240,0.25); clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px)); transition:border-color 0.2s,color 0.2s; }
+.btn-outline:hover { border-color:var(--av); color:var(--av); }
+.hero-stats { display:flex; gap:2.5rem; flex-wrap:wrap; }
+.stat-num { font-family:'Rajdhani',sans-serif; font-size:2rem; font-weight:700; color:var(--av); display:block; }
+.stat-label { font-size:0.72rem; color:var(--gris); letter-spacing:0.08em; text-transform:uppercase; }
+.av-alert { background:rgba(255,107,0,0.08); border:1px solid rgba(255,107,0,0.3); border-left:4px solid var(--av); padding:1rem 1.5rem; margin:0 2rem; display:flex; gap:1rem; align-items:center; font-size:0.88rem; color:rgba(240,240,240,0.85); }
+.av-alert .icon { font-size:1.5rem; flex-shrink:0; }
+section { padding:5rem 2rem; }
+.section-label { font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--av); margin-bottom:0.5rem; }
+.section-title { font-family:'Rajdhani',sans-serif; font-size:clamp(1.8rem,4vw,2.8rem); font-weight:700; line-height:1.1; margin-bottom:1rem; }
+.section-sub { color:var(--gris); font-size:0.95rem; max-width:560px; margin-bottom:3rem; }
+#temario { background:var(--antracita); }
+.bloques-list { display:flex; flex-direction:column; gap:1.5px; background:var(--borde); border:1px solid var(--borde); }
+.bloque-item { background:var(--panel); display:grid; grid-template-columns:72px 1fr auto; align-items:center; text-decoration:none; color:inherit; transition:background 0.2s; }
+.bloque-item.disponible:hover { background:#22222E; }
+.bloque-item.disponible:hover .bloque-arrow { transform:translateX(4px); }
+.bloque-item.proximo { opacity:0.5; cursor:default; }
+.bloque-num-col { display:flex; align-items:center; justify-content:center; height:100%; min-height:90px; border-right:1px solid var(--borde); font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700; color:var(--av); }
+.bloque-body { padding:1.5rem 1.75rem; }
+.bloque-body h3 { font-family:'Rajdhani',sans-serif; font-size:1.15rem; font-weight:700; margin-bottom:0.3rem; line-height:1.2; }
+.bloque-body p { font-size:0.82rem; color:var(--gris); line-height:1.5; }
+.bloque-tags { display:flex; gap:0.5rem; margin-top:0.75rem; flex-wrap:wrap; }
+.btag { display:inline-block; padding:0.15rem 0.55rem; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; }
+.btag-horas { background:var(--av-glow); color:var(--av); border-left:2px solid var(--av); }
+.btag-disponible { background:rgba(105,240,174,0.1); color:var(--verde); border-left:2px solid var(--verde); }
+.btag-proximo { background:rgba(138,138,170,0.08); color:var(--gris); border-left:2px solid rgba(138,138,170,0.3); }
+.btag-av { background:rgba(230,57,70,0.1); color:var(--rojo); border-left:2px solid var(--rojo); }
+.bloque-action { padding:1.5rem; display:flex; align-items:center; }
+.bloque-arrow { color:var(--av); font-size:1.2rem; transition:transform 0.2s; }
+.bloque-lock { color:var(--gris); font-size:1rem; }
+#sobre { background:var(--negro); }
+.sobre-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1.5px; background:var(--borde); border:1px solid var(--borde); }
+.sobre-card { background:var(--panel); padding:2rem; }
+.sobre-card .ico { font-size:2rem; margin-bottom:1rem; display:block; }
+.sobre-card h3 { font-family:'Rajdhani',sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:0.5rem; }
+.sobre-card p { font-size:0.85rem; color:var(--gris); line-height:1.6; }
+.reveal { opacity:0; transform:translateY(20px); transition:opacity 0.5s,transform 0.5s; }
+.reveal.visible { opacity:1; transform:none; }
+@media(max-width:768px) {
+  .hero { padding:90px 1.25rem 120px; }
+  .av-alert { margin:0 1.25rem; }
+  section { padding:3.5rem 1.25rem; }
+  .bloque-item { grid-template-columns:48px 1fr auto; }
+  .bloque-num-col { font-size:0.62rem; }
+  .bloque-body { padding:1.25rem 1rem; }
+  .bloque-body h3 { font-size:1rem; }
+}
 </style>
-</head>
-<body>
-<nav><a class="logo" href="../index.html"><span>Electro</span>Auto<span> FP</span></a><ul class="links"><li><a href="../curso/index.html">Electricidad</a></li><li><a class="active" href="index.html">Híbridos y Eléctricos</a></li><li><a href="../simuladores/index.html">Simuladores</a></li></ul></nav>
-{% assign disponibles = site.data.hibridos-bloques | where: "disponible", true %}
-{% assign horas = 0 %}{% for bloque in site.data.hibridos-bloques %}{% assign horas = horas | plus: bloque.horas %}{% endfor %}
-<header class="hero"><p class="eyebrow">⚡ Alto voltaje · FP Electromecánica de Maquinaria</p><h1>Vehículos <em>Híbridos</em><br>y <em>Eléctricos</em></h1><p>Formación organizada por la lógica del taller: arquitectura, seguridad, diagnosis y reparación de vehículos electrificados.</p><div class="stats"><div><strong>{{ site.data.hibridos-bloques.size }}</strong><span>Bloques</span></div><div><strong>{{ horas }}h</strong><span>Total</span></div><div><strong>HV</strong><span>Alto voltaje</span></div></div></header>
-<p class="notice">⚠️ Este curso trata sistemas de alto voltaje. Sigue siempre los procedimientos de seguridad y los protocolos de tu centro antes de intervenir.</p>
-<main class="wrap" id="temario"><p class="label">Temario completo</p><h2>Los bloques del curso</h2><p class="intro">El contenido, disponibilidad y horas se gestionan desde <code>_data/hibridos-bloques.yml</code>.</p><div class="list">
-{% for bloque in site.data.hibridos-bloques %}
-{% if bloque.disponible %}<a class="block available" href="{{ bloque.slug }}/index.html">{% else %}<div class="block locked">{% endif %}
-<div class="number">{{ bloque.num }}</div><div class="body"><h3>{{ bloque.nombre }}</h3><p>{{ bloque.descripcion }}</p><div class="tags"><span class="tag">{{ bloque.horas }}h</span>{% if bloque.alto_voltaje %}<span class="tag hv">⚡ Alto voltaje</span>{% endif %}{% if bloque.disponible %}<span class="tag ready">✓ Disponible</span>{% else %}<span class="tag">Próximamente</span>{% endif %}</div></div><div class="arrow">{% if bloque.disponible %}→{% else %}🔒{% endif %}</div>
-{% if bloque.disponible %}</a>{% else %}</div>{% endif %}
-{% endfor %}
-</div></main>
-<footer>© 2026 ElectroAuto FP · Vehículos Híbridos y Eléctricos</footer>
-</body></html>
 
+<section class="hero" id="inicio">
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <p class="hero-eyebrow">⚡ Alto Voltaje · FP Electromecánica de Maquinaria</p>
+  <h1>Vehículos <em>Híbridos</em><br>y <em>Eléctricos</em></h1>
+  <p class="hero-sub">630 horas de formación organizada en 11 bloques temáticos. Del fundamento eléctrico al proyecto integrador de taller. Sin contenidos repetidos, con lógica de concesionario real.</p>
+  <div class="hero-ctas">
+    <a href="#temario" class="btn-primary">⚡ Ver temario</a>
+    <a href="{{ '/curso/' | relative_url }}" class="btn-outline">← Curso de electricidad</a>
+  </div>
+  <div class="hero-stats">
+    <div><span class="stat-num">11</span><span class="stat-label">Bloques</span></div>
+    <div><span class="stat-num">630h</span><span class="stat-label">Total</span></div>
+    <div><span class="stat-num">HV</span><span class="stat-label">Alto Voltaje</span></div>
+  </div>
+</section>
+
+<div class="av-alert">
+  <span class="icon">⚠️</span>
+  <span>Este curso incluye trabajo con sistemas de <strong>alto voltaje (HV)</strong>. Algunos bloques requieren formación previa en seguridad eléctrica. Sigue siempre los protocolos de tu centro antes de intervenir en vehículos eléctricos o híbridos.</span>
+</div>
+
+<section id="temario">
+  <p class="section-label">Temario completo</p>
+  <h2 class="section-title">Los 11 bloques del curso</h2>
+  <p class="section-sub">Organizados por lógica técnica de taller, no por fragmentación administrativa. Cada bloque cubre un área completa sin solapamientos.</p>
+  <div class="bloques-list reveal">
+    {% for bloque in site.data.bloques %}
+      {% if bloque.disponible %}
+        <a class="bloque-item disponible" href="{{ site.baseurl }}/hibridos-electricos/{{ bloque.slug }}/">
+      {% else %}
+        <div class="bloque-item proximo">
+      {% endif %}
+        <div class="bloque-num-col">{{ bloque.num }}</div>
+        <div class="bloque-body">
+          <h3>{{ bloque.nombre }}</h3>
+          <p>{{ bloque.descripcion }}</p>
+          <div class="bloque-tags">
+            <span class="btag btag-horas">{{ bloque.horas }}h</span>
+            {% if bloque.alto_voltaje %}<span class="btag btag-av">⚡ Alto Voltaje</span>{% endif %}
+            {% if bloque.disponible %}
+              <span class="btag btag-disponible">✓ Disponible</span>
+            {% else %}
+              <span class="btag btag-proximo">Próximamente</span>
+            {% endif %}
+          </div>
+        </div>
+        <div class="bloque-action">
+          {% if bloque.disponible %}<span class="bloque-arrow">→</span>
+          {% else %}<span class="bloque-lock">🔒</span>{% endif %}
+        </div>
+      {% if bloque.disponible %}</a>{% else %}</div>{% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<section id="sobre">
+  <p class="section-label">¿Por qué este curso?</p>
+  <h2 class="section-title">Diseñado para el taller real</h2>
+  <p class="section-sub">No es el currículo oficial reorganizado. Es la misma formación pensada desde la lógica del técnico de concesionario.</p>
+  <div class="sobre-grid reveal">
+    <div class="sobre-card"><span class="ico">🔋</span><h3>Sin repeticiones</h3><p>Los 4 módulos oficiales del RD 109/2022 repiten conceptos entre sí. Aquí cada tema aparece una sola vez, en el bloque donde más sentido tiene.</p></div>
+    <div class="sobre-card"><span class="ico">⚡</span><h3>Lógica de taller</h3><p>El orden sigue el flujo de trabajo real: primero entiendes la arquitectura, luego la seguridad, luego diagnosticas. Como en un concesionario.</p></div>
+    <div class="sobre-card"><span class="ico">📋</span><h3>Compatible con FP oficial</h3><p>Cada bloque incluye un crosswalk a los Resultados de Aprendizaje de los módulos 5076–5079, por si en algún momento quieres certificar la formación oficial en paralelo.</p></div>
+    <div class="sobre-card"><span class="ico">📱</span><h3>Accesible desde cualquier dispositivo</h3><p>Presentaciones navegables desde el móvil, tablet o proyector del aula. Sin instalar nada, sin necesidad de Office.</p></div>
+  </div>
+</section>
+
+<script>
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let t = 0;
+  function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+  resize(); window.addEventListener('resize', resize);
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const W = canvas.width, H = canvas.height;
+    ctx.strokeStyle = 'rgba(255,107,0,0.07)'; ctx.lineWidth = 1;
+    for (let x = 0; x < W; x += 60) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+    for (let y = 0; y < H; y += 60) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+    ctx.beginPath(); ctx.strokeStyle = 'rgba(255,107,0,0.85)'; ctx.lineWidth = 2;
+    for (let x = 0; x < W; x++) {
+      const y = H*0.38 + Math.sin((x*0.011)+t)*H*0.14 + Math.sin((x*0.034)+t*1.4)*H*0.03;
+      x === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.stroke(); t += 0.022; requestAnimationFrame(draw);
+  }
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) draw();
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
