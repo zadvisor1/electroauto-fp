@@ -3,7 +3,7 @@ numero: 1
 title: "Fundamentos eléctricos comunes"
 subtitulo: "El lenguaje que necesitas dominar antes de entrar en seguridad, propulsión, baterías o recarga"
 horas: 20
-presentacion: /presentaciones/bloque-01.html
+presentacion: /electroauto-fp/hibridos-electricos/bloque-01/presentacion.html
 crosswalk:
   - modulo: "5077"
     ra: "RA1"
