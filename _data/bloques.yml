@@ -9,7 +9,7 @@
   material_extra: true
   alto_voltaje: false
   icono: "🔋"
-  presentacion: "/electroauto-fp/hibridos-electricos/bloque-00/presentacion.html"
+  presentacion: "/hibridos-electricos/bloque-00/presentacion.html"
 
 - num: "01"
   slug: "bloque-01"
@@ -22,7 +22,7 @@
   material_extra: true
   alto_voltaje: false
   icono: "⚡"
-  presentacion: "/electroauto-fp/hibridos-electricos/bloque-01/presentacion.html"
+  presentacion: "/hibridos-electricos/bloque-01/presentacion.html"
 
 - num: "02"
   slug: "bloque-02"
@@ -35,7 +35,7 @@
   material_extra: false
   alto_voltaje: true
   icono: "🛡️"
-  presentacion: "/electroauto-fp/hibridos-electricos/bloque-02/presentacion.html"
+  presentacion: "/hibridos-electricos/bloque-02/presentacion.html"
 
 - num: "03"
   slug: "bloque-03"
@@ -48,7 +48,7 @@
   material_extra: false
   alto_voltaje: true
   icono: "🔍"
-  presentacion: "/electroauto-fp/hibridos-electricos/bloque-03/presentacion.html"
+  presentacion: "/hibridos-electricos/bloque-03/presentacion.html"
 
 - num: "04"
   slug: "bloque-04"
@@ -61,7 +61,7 @@
   material_extra: false
   alto_voltaje: true
   icono: "🔌"
-  presentacion: "/electroauto-fp/hibridos-electricos/bloque-04/presentacion.html"
+  presentacion: "/hibridos-electricos/bloque-04/presentacion.html"
 
 - num: "05"
   slug: "bloque-05"
@@ -74,7 +74,7 @@
   material_extra: false
   alto_voltaje: true
   icono: "🔋"
-  presentacion: "/electroauto-fp/hibridos-electricos/bloque-05/presentacion.html"
+  presentacion: "/hibridos-electricos/bloque-05/presentacion.html"
 
 - num: "06"
   slug: "bloque-06"
@@ -87,7 +87,7 @@
   material_extra: false
   alto_voltaje: false
   icono: "🔌"
-  presentacion: "/electroauto-fp/hibridos-electricos/bloque-06/presentacion.html"
+  presentacion: "/hibridos-electricos/bloque-06/presentacion.html"
 
 - num: "07"
   slug: "bloque-07"
@@ -100,7 +100,7 @@
   material_extra: false
   alto_voltaje: false
   icono: "⚙️"
-  presentacion: "/electroauto-fp/hibridos-electricos/bloque-07/presentacion.html"
+  presentacion: "/hibridos-electricos/bloque-07/presentacion.html"
 
 - num: "08"
   slug: "bloque-08"
@@ -113,7 +113,7 @@
   material_extra: false
   alto_voltaje: false
   icono: "🌡️"
-  presentacion: "/electroauto-fp/hibridos-electricos/bloque-08/presentacion.html"
+  presentacion: "/hibridos-electricos/bloque-08/presentacion.html"
 
 - num: "09"
   slug: "bloque-09"
@@ -126,7 +126,7 @@
   material_extra: false
   alto_voltaje: false
   icono: "📋"
-  presentacion: "/electroauto-fp/hibridos-electricos/bloque-09/presentacion.html"
+  presentacion: "/hibridos-electricos/bloque-09/presentacion.html"
 
 - num: "10"
   slug: "bloque-10"
@@ -139,4 +139,4 @@
   material_extra: false
   alto_voltaje: false
   icono: "🏆"
-  presentacion: "/electroauto-fp/hibridos-electricos/bloque-10/presentacion.html"
+  presentacion: "/hibridos-electricos/bloque-10/presentacion.html"
