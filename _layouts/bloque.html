@@ -171,10 +171,33 @@ layout: default
     <div class="sidebar-card">
       <div class="sidebar-card-header">Material del bloque</div>
       <div class="sidebar-card-body">
+        {% assign bloque_actual = site.data.bloques | where: "slug", page.slug | first %}
         {% if page.presentacion %}
-          <a href="{{ site.baseurl }}{{ page.presentacion }}" class="btn-presentacion" target="_blank">
-            <span class="icon">▶</span>
-            <span class="text">Ver presentación<small>Navegable · Teclado y swipe</small></span>
+          {% assign tipo = bloque_actual.presentacion_tipo | default: "html" %}
+          {% if tipo == "canva" %}
+            {% assign btn_icon = "🎨" %}
+            {% assign btn_texto = "Ver en Canva" %}
+            {% assign btn_sub = "Se abre en Canva · Nueva pestaña" %}
+            {% assign btn_url = page.presentacion %}
+          {% elsif tipo == "slides" %}
+            {% assign btn_icon = "📊" %}
+            {% assign btn_texto = "Ver en Google Slides" %}
+            {% assign btn_sub = "Se abre en Google Slides · Nueva pestaña" %}
+            {% assign btn_url = page.presentacion %}
+          {% elsif tipo == "pptx" %}
+            {% assign btn_icon = "📥" %}
+            {% assign btn_texto = "Descargar presentación" %}
+            {% assign btn_sub = "Formato PowerPoint · .pptx" %}
+            {% assign btn_url = page.presentacion %}
+          {% else %}
+            {% assign btn_icon = "▶" %}
+            {% assign btn_texto = "Ver presentación" %}
+            {% assign btn_sub = "Navegable · Teclado y swipe" %}
+            {% assign btn_url = site.baseurl | append: page.presentacion %}
+          {% endif %}
+          <a href="{{ btn_url }}" class="btn-presentacion" target="_blank">
+            <span class="icon">{{ btn_icon }}</span>
+            <span class="text">{{ btn_texto }}<small>{{ btn_sub }}</small></span>
           </a>
         {% else %}
           <div class="btn-proximamente">
