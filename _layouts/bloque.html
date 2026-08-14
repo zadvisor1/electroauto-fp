@@ -1,45 +1,258 @@
 ---
 layout: default
 ---
-<article class="bloque">
-  <header class="bloque-header">
-    <p class="bloque-eyebrow">BLOQUE {{ page.numero }} · {{ page.horas }}H</p>
-    <h1>{{ page.title }}</h1>
-    {% if page.subtitulo %}<p class="bloque-subtitulo">{{ page.subtitulo }}</p>{% endif %}
-  </header>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --negro:#0A0A0A; --antracita:#121218; --panel:#1A1A22;
+    --av:#FF6B00; --av-glow:rgba(255,107,0,0.15);
+    --rojo:#E63946; --verde:#69F0AE;
+    --blanco:#F0F0F0; --gris:#8A8AAA; --borde:rgba(255,107,0,0.15);
+  }
+  body { background:var(--negro); color:var(--blanco); font-family:'Inter',sans-serif; line-height:1.6; overflow-x:hidden; }
 
-  <div class="bloque-actions">
-    {% if page.presentacion %}
-      <a href="{{ page.presentacion | relative_url }}" class="btn btn-primary" target="_blank">▶ Ver presentación</a>
+  .page-header { padding:100px 2rem 3rem; background:var(--antracita); border-bottom:1px solid var(--borde); position:relative; overflow:hidden; }
+  .page-header::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--av),transparent); }
+  .header-num { position:absolute; right:2rem; top:50%; transform:translateY(-50%); font-family:'Rajdhani',sans-serif; font-size:clamp(6rem,15vw,12rem); font-weight:700; color:rgba(255,107,0,0.04); line-height:1; pointer-events:none; user-select:none; }
+
+  .breadcrumb { font-size:0.78rem; color:var(--gris); margin-bottom:1.5rem; display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
+  .breadcrumb a { color:var(--gris); text-decoration:none; transition:color 0.2s; }
+  .breadcrumb a:hover { color:var(--av); }
+  .breadcrumb span { color:var(--av); }
+
+  .header-badge { display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap; }
+  .badge-num { font-family:'JetBrains Mono',monospace; font-size:0.65rem; font-weight:700; background:var(--av); color:var(--negro); padding:0.2rem 0.6rem; letter-spacing:0.05em; }
+  .badge-horas { font-family:'JetBrains Mono',monospace; font-size:0.65rem; font-weight:700; background:var(--av-glow); color:var(--av); border:1px solid rgba(255,107,0,0.3); padding:0.2rem 0.6rem; }
+  .badge-estado { font-family:'JetBrains Mono',monospace; font-size:0.65rem; font-weight:700; border:1px solid rgba(105,240,174,0.4); color:var(--verde); padding:0.2rem 0.6rem; }
+  .badge-av { font-family:'JetBrains Mono',monospace; font-size:0.65rem; font-weight:700; background:rgba(230,57,70,0.1); color:var(--rojo); border:1px solid rgba(230,57,70,0.3); padding:0.2rem 0.6rem; }
+
+  .page-header h1 { font-family:'Rajdhani',sans-serif; font-size:clamp(1.8rem,5vw,3.2rem); font-weight:700; line-height:1.05; margin-bottom:1rem; }
+  .page-header h1 em { font-style:normal; color:var(--av); }
+  .page-header .subtitulo { color:var(--gris); font-size:0.95rem; max-width:580px; font-weight:300; }
+  .header-meta { display:flex; gap:2rem; margin-top:2rem; flex-wrap:wrap; }
+  .meta-item { display:flex; align-items:center; gap:0.5rem; font-size:0.82rem; color:var(--gris); }
+  .meta-item strong { color:var(--blanco); font-weight:500; }
+
+  .main-content { display:grid; grid-template-columns:1fr 320px; gap:0; max-width:1200px; margin:0 auto; padding:3rem 2rem 5rem; align-items:start; }
+  .col-main { padding-right:3rem; }
+  .section-block { margin-bottom:3rem; }
+  .block-label { font-family:'JetBrains Mono',monospace; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--av); margin-bottom:1rem; display:flex; align-items:center; gap:0.75rem; }
+  .block-label::after { content:''; flex:1; height:1px; background:var(--borde); }
+  .block-title { font-family:'Rajdhani',sans-serif; font-size:1.4rem; font-weight:700; margin-bottom:0.75rem; }
+
+  /* Contenido markdown renderizado */
+  .bloque-contenido { font-size:0.9rem; color:rgba(240,240,240,0.8); line-height:1.7; font-weight:300; }
+  .bloque-contenido h2 { font-family:'Rajdhani',sans-serif; font-size:1.2rem; font-weight:700; color:var(--blanco); margin:1.5rem 0 0.75rem; }
+  .bloque-contenido h3 { font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; color:var(--av); margin:1.25rem 0 0.5rem; }
+  .bloque-contenido ul { list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem; margin-top:0.5rem; }
+  .bloque-contenido ul li { display:flex; align-items:flex-start; gap:0.75rem; padding:0.65rem 0.75rem; background:var(--panel); border:1px solid transparent; font-size:0.88rem; transition:border-color 0.2s; }
+  .bloque-contenido ul li:hover { border-color:var(--borde); }
+  .bloque-contenido ul li::before { content:'→'; color:var(--av); font-family:'JetBrains Mono',monospace; font-size:0.75rem; margin-top:0.15rem; flex-shrink:0; }
+  .bloque-contenido p { margin-bottom:0.75rem; }
+  .bloque-contenido strong { color:var(--blanco); font-weight:600; }
+
+  /* Crosswalk */
+  .bloque-crosswalk { margin-top:2rem; background:var(--panel); border:1px solid var(--borde); padding:1.5rem; }
+  .bloque-crosswalk h3 { font-family:'Rajdhani',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--gris); margin-bottom:1rem; }
+  .bloque-crosswalk ul { list-style:none; padding:0; display:flex; flex-direction:column; gap:0.5rem; }
+  .bloque-crosswalk ul li { font-size:0.82rem; color:var(--gris); padding:0.5rem 0; border-bottom:1px solid rgba(255,107,0,0.07); }
+  .bloque-crosswalk ul li:last-child { border-bottom:none; }
+  .bloque-crosswalk ul li strong { color:var(--av); }
+
+  /* SIDEBAR */
+  .col-sidebar { position:sticky; top:80px; }
+  .sidebar-card { background:var(--panel); border:1px solid var(--borde); margin-bottom:1.5rem; overflow:hidden; }
+  .sidebar-card-header { padding:1rem 1.25rem; border-bottom:1px solid var(--borde); font-family:'Rajdhani',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--gris); }
+  .sidebar-card-body { padding:1.25rem; }
+
+  .btn-presentacion { display:flex; align-items:center; gap:0.75rem; background:var(--av); color:var(--negro); padding:1rem 1.25rem; text-decoration:none; font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; letter-spacing:0.05em; width:100%; clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px)); transition:background 0.15s; border:none; cursor:pointer; }
+  .btn-presentacion:hover { background:#FF8533; }
+  .btn-presentacion .icon { font-size:1.3rem; flex-shrink:0; }
+  .btn-presentacion .text { flex:1; }
+  .btn-presentacion .text small { display:block; font-size:0.7rem; font-weight:400; opacity:0.7; margin-top:0.1rem; font-family:'Inter',sans-serif; }
+
+  .btn-proximamente { display:flex; align-items:center; gap:0.75rem; background:rgba(138,138,170,0.1); color:var(--gris); padding:1rem 1.25rem; font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; letter-spacing:0.05em; width:100%; border:1px solid rgba(138,138,170,0.2); cursor:default; }
+
+  .bloques-nav { list-style:none; display:flex; flex-direction:column; gap:1px; background:var(--borde); }
+  .bloques-nav li a, .bloques-nav li span { display:flex; align-items:center; gap:0.75rem; padding:0.65rem 0.75rem; background:var(--panel); font-size:0.8rem; text-decoration:none; color:var(--gris); transition:all 0.2s; }
+  .bloques-nav li a:hover { color:var(--av); background:#22222E; }
+  .bloques-nav li.current a, .bloques-nav li.current span { color:var(--av); border-left:2px solid var(--av); }
+  .blq-num { font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:inherit; flex-shrink:0; min-width:28px; }
+  .lock { font-size:0.7rem; margin-left:auto; opacity:0.4; }
+
+  /* Nav anterior/siguiente */
+  .mod-nav { border-top:1px solid var(--borde); display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--borde); }
+  .mod-nav-item { background:var(--antracita); padding:1.5rem 2rem; text-decoration:none; color:inherit; transition:background 0.2s; display:flex; flex-direction:column; gap:0.25rem; }
+  .mod-nav-item:hover { background:var(--panel); }
+  .mod-nav-item.next { text-align:right; }
+  .mod-nav-item .dir { font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:var(--gris); letter-spacing:0.15em; text-transform:uppercase; }
+  .mod-nav-item .nombre { font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; color:var(--av); }
+  .mod-nav-item.disabled { opacity:0.3; cursor:default; pointer-events:none; }
+
+  @media(max-width:900px) { .main-content { grid-template-columns:1fr; padding:2rem 1.25rem 4rem; } .col-main { padding-right:0; margin-bottom:2rem; } .header-num { display:none; } }
+  @media(max-width:768px) { .page-header { padding:90px 1.25rem 2.5rem; } .mod-nav { grid-template-columns:1fr; } }
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.5s,transform 0.5s; }
+  .reveal.visible { opacity:1; transform:none; }
+</style>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="header-num">{{ page.numero | prepend: '0' | slice: -2, 2 }}</div>
+  <div class="breadcrumb">
+    <a href="{{ '/' | relative_url }}">Inicio</a><span>›</span>
+    <a href="{{ '/hibridos-electricos/' | relative_url }}">Híbridos y Eléctricos</a><span>›</span>
+    <span>Bloque {{ page.numero | prepend: '0' | slice: -2, 2 }}</span>
+  </div>
+  <div class="header-badge">
+    <span class="badge-num">BLOQUE {{ page.numero | prepend: '0' | slice: -2, 2 }}</span>
+    <span class="badge-horas">⏱ {{ page.horas }}h</span>
+    <span class="badge-estado">✓ Disponible</span>
+    {% assign bloque_data = site.data.bloques | where: "num", page.numero | first %}
+    {% if bloque_data.alto_voltaje %}<span class="badge-av">⚡ Alto Voltaje</span>{% endif %}
+  </div>
+  <h1>{{ page.title }}</h1>
+  {% if page.subtitulo %}<p class="subtitulo">{{ page.subtitulo }}</p>{% endif %}
+  <div class="header-meta">
+    {% if page.diapositivas and page.diapositivas > 0 %}
+    <div class="meta-item">📊 <strong>{{ page.diapositivas }} diapositivas</strong></div>
     {% endif %}
+    <div class="meta-item">⏱️ <strong>{{ page.horas }} horas</strong></div>
+    <div class="meta-item">📱 <strong>Cualquier dispositivo</strong></div>
   </div>
+</div>
 
-  <div class="bloque-contenido">
-    {{ content }}
-  </div>
+<!-- CONTENIDO PRINCIPAL -->
+<div class="main-content">
+  <div class="col-main reveal">
 
-  {% if page.crosswalk %}
-  <aside class="bloque-crosswalk">
-    <h3>Crosswalk normativo (Comunidad de Madrid)</h3>
-    <ul>
-      {% for item in page.crosswalk %}
-        <li><strong>{{ item.modulo }}</strong> · {{ item.ra }} — {{ item.detalle }}</li>
-      {% endfor %}
-    </ul>
-  </aside>
+    <!-- DESCRIPCIÓN -->
+    {% assign bloque_data = site.data.bloques | where: "num", page.numero | first %}
+    {% if bloque_data %}
+    <div class="section-block">
+      <div class="block-label">Descripción</div>
+      <h2 class="block-title">¿Qué vas a aprender?</h2>
+      <div class="bloque-contenido">
+        <p>{{ bloque_data.descripcion }}</p>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- CONTENIDO DEL MARKDOWN -->
+    {% if content and content != "" %}
+    <div class="section-block">
+      <div class="block-label">Contenidos</div>
+      <h2 class="block-title">Temario del bloque</h2>
+      <div class="bloque-contenido">
+        {{ content }}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- CROSSWALK -->
+    {% if page.crosswalk %}
+    <div class="section-block">
+      <div class="block-label">Normativa</div>
+      <h2 class="block-title">Crosswalk normativo · Comunidad de Madrid</h2>
+      <aside class="bloque-crosswalk">
+        <ul>
+          {% for item in page.crosswalk %}
+            <li><strong>Módulo {{ item.modulo }}</strong> · {{ item.ra }} — {{ item.detalle }}</li>
+          {% endfor %}
+        </ul>
+      </aside>
+    </div>
+    {% endif %}
+
+  </div><!-- /col-main -->
+
+  <!-- SIDEBAR -->
+  <div class="col-sidebar">
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Material del bloque</div>
+      <div class="sidebar-card-body">
+        {% if page.presentacion %}
+          <a href="{{ page.presentacion }}" class="btn-presentacion" target="_blank">
+            <span class="icon">▶</span>
+            <span class="text">Ver presentación<small>Navegable · Teclado y swipe</small></span>
+          </a>
+        {% else %}
+          <div class="btn-proximamente">
+            <span class="icon">🕐</span>
+            <span class="text">Presentación en preparación<small>Disponible próximamente</small></span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Todos los bloques</div>
+      <div class="sidebar-card-body" style="padding:0">
+        <ul class="bloques-nav">
+          {% for bloque in site.data.bloques %}
+            {% assign es_actual = false %}
+            {% if bloque.num == page.numero %}{% assign es_actual = true %}{% endif %}
+            {% assign num_int = bloque.num | plus: 0 %}
+            {% assign page_num_int = page.numero | plus: 0 %}
+            {% if num_int == page_num_int %}{% assign es_actual = true %}{% endif %}
+            {% if es_actual %}
+              <li class="current"><span><span class="blq-num">{{ bloque.num }}</span>{{ bloque.nombre }}</span></li>
+            {% elsif bloque.disponible %}
+              <li><a href="{{ site.baseurl }}/hibridos-electricos/{{ bloque.slug }}/"><span class="blq-num">{{ bloque.num }}</span>{{ bloque.nombre }}</a></li>
+            {% else %}
+              <li><span style="opacity:0.4;cursor:default"><span class="blq-num">{{ bloque.num }}</span>{{ bloque.nombre }}<span class="lock">🔒</span></span></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /col-sidebar -->
+</div>
+
+<!-- NAV ANTERIOR / SIGUIENTE -->
+{% assign bloques_ordenados = site.data.bloques %}
+{% assign num_actual = page.numero | plus: 0 %}
+{% assign num_anterior = num_actual | minus: 1 %}
+{% assign num_siguiente = num_actual | plus: 1 %}
+{% assign bloque_anterior = nil %}
+{% assign bloque_siguiente = nil %}
+{% for b in bloques_ordenados %}
+  {% assign b_num = b.num | plus: 0 %}
+  {% if b_num == num_anterior %}{% assign bloque_anterior = b %}{% endif %}
+  {% if b_num == num_siguiente %}{% assign bloque_siguiente = b %}{% endif %}
+{% endfor %}
+
+<div class="mod-nav">
+  {% if bloque_anterior %}
+    <a class="mod-nav-item" href="{{ site.baseurl }}/hibridos-electricos/{{ bloque_anterior.slug }}/">
+      <span class="dir">← Bloque anterior</span>
+      <span class="nombre">{{ bloque_anterior.nombre }}</span>
+    </a>
+  {% else %}
+    <div class="mod-nav-item disabled">
+      <span class="dir">← Bloque anterior</span>
+      <span class="nombre">—</span>
+    </div>
   {% endif %}
 
-  <nav class="bloque-nav">
-    {% assign bloques = site.bloques | sort: "numero" %}
-    {% for b in bloques %}
-      {% assign anterior = page.numero | minus: 1 %}
-      {% assign siguiente = page.numero | plus: 1 %}
-      {% if b.numero == anterior %}
-        <a href="{{ b.url | relative_url }}" class="nav-prev">← Bloque {{ b.numero }}: {{ b.title }}</a>
-      {% endif %}
-      {% if b.numero == siguiente %}
-        <a href="{{ b.url | relative_url }}" class="nav-next">Bloque {{ b.numero }}: {{ b.title }} →</a>
-      {% endif %}
-    {% endfor %}
-  </nav>
-</article>
+  {% if bloque_siguiente %}
+    <a class="mod-nav-item next" href="{{ site.baseurl }}/hibridos-electricos/{{ bloque_siguiente.slug }}/">
+      <span class="dir">Bloque siguiente →</span>
+      <span class="nombre">{{ bloque_siguiente.nombre }}</span>
+    </a>
+  {% else %}
+    <div class="mod-nav-item next disabled">
+      <span class="dir">Bloque siguiente →</span>
+      <span class="nombre">—</span>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.05 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
