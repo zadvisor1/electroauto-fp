@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentación · ElectroAuto FP</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #16181c;
+      --panel: #202329;
+      --orange: #ff6a00;
+      --yellow: #f4c430;
+      --text: #edeef0;
+      --muted: #8b93a1;
+      --line: #34383f;
+    }
+
+    html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'IBM Plex Mono', monospace; }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; height: 48px; z-index: 100;
+      background: rgba(22,24,28,0.97); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem; gap: 1rem;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .back-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: none; border: 1px solid var(--line);
+      color: var(--muted); padding: 0.3rem 0.75rem;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+      text-decoration: none;
+    }
+    .back-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .topbar-badge {
+      font-size: 0.65rem; font-weight: 600;
+      background: var(--orange); color: #000;
+      padding: 0.2rem 0.6rem; letter-spacing: 0.05em;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .topbar-title {
+      font-size: 0.78rem; color: var(--muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .topbar-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .tipo-badge {
+      font-size: 0.62rem; padding: 0.15rem 0.5rem;
+      border-radius: 3px; letter-spacing: 0.05em;
+    }
+    .tipo-html { background: rgba(255,106,0,0.12); color: var(--orange); border: 1px solid rgba(255,106,0,0.3); }
+    .tipo-canva { background: rgba(117,94,255,0.12); color: #9b8aff; border: 1px solid rgba(117,94,255,0.3); }
+    .tipo-slides { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+    .tipo-pptx { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .open-btn {
+      display: flex; align-items: center; gap: 5px;
+      background: none; border: 1px solid var(--line);
+      color: var(--muted); padding: 0.3rem 0.75rem;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+      white-space: nowrap;
+    }
+    .open-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* ── ÁREA PRINCIPAL ── */
+    .viewer-area {
+      position: fixed; top: 48px; left: 0; right: 0; bottom: 56px;
+    }
+
+    /* HTML local — iframe */
+    .viewer-area iframe {
+      width: 100%; height: 100%; border: none;
+      background: var(--bg);
+    }
+
+    /* Canva / Slides / externo — iframe embebido */
+    .viewer-area .embed-frame {
+      width: 100%; height: 100%; border: none;
+    }
+
+    /* Pantalla de PPTX — no embebible */
+    .pptx-screen {
+      display: none;
+      width: 100%; height: 100%;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 1.5rem; text-align: center; padding: 2rem;
+    }
+    .pptx-screen.active { display: flex; }
+    .pptx-icon { font-size: 4rem; }
+    .pptx-screen h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.6rem; font-weight: 700; color: var(--text);
+    }
+    .pptx-screen p { font-size: 0.85rem; color: var(--muted); max-width: 420px; line-height: 1.6; }
+    .pptx-download {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--orange); color: #000;
+      padding: 0.75rem 1.75rem;
+      font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem;
+      text-decoration: none; letter-spacing: 0.05em;
+      clip-path: polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
+      transition: background 0.2s;
+    }
+    .pptx-download:hover { background: #FF8533; }
+
+    /* Canva no embebible */
+    .canva-screen {
+      display: none;
+      width: 100%; height: 100%;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 1.5rem; text-align: center; padding: 2rem;
+    }
+    .canva-screen.active { display: flex; }
+
+    /* ── BOTTOMBAR ── */
+    .bottombar {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 56px; z-index: 100;
+      background: rgba(22,24,28,0.97); backdrop-filter: blur(10px);
+      border-top: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem; gap: 1rem;
+    }
+
+    /* Navegación HTML */
+    .nav-html { display: flex; align-items: center; width: 100%; gap: 1rem; }
+    .nav-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: none; border: 1px solid var(--line);
+      color: var(--text); padding: 0.4rem 1rem;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap; letter-spacing: 0.05em;
+    }
+    .nav-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .nav-btn:disabled { opacity: 0.25; cursor: default; }
+    .nav-btn.primary { background: var(--orange); border-color: var(--orange); color: #000; }
+    .nav-btn.primary:hover { background: #FF8533; }
+
+    .prog-wrap { display: flex; gap: 5px; align-items: center; flex: 1; justify-content: center; flex-wrap: wrap; }
+    .dot { width: 20px; height: 4px; background: var(--line); border-radius: 2px; transition: background 0.3s; cursor: pointer; }
+    .dot.on { background: var(--orange); }
+    .dot:hover { background: rgba(255,106,0,0.5); }
+    .slide-counter { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+    .slide-counter span { color: var(--orange); }
+
+    /* Navegación externa (Canva/Slides) */
+    .nav-external {
+      display: none; align-items: center; justify-content: center;
+      width: 100%; gap: 1rem;
+    }
+    .nav-external p { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .topbar-title { display: none; }
+      .nav-btn span { display: none; }
+      .nav-btn { padding: 0.4rem 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-left">
+    <a class="back-btn" id="backBtn" href="#">← Volver</a>
+    <span class="topbar-badge" id="topBadge">BLOQUE 00</span>
+    <span class="topbar-title" id="topTitle">Cargando...</span>
+  </div>
+  <div class="topbar-right">
+    <span class="tipo-badge" id="tipoBadge">HTML</span>
+    <a class="open-btn" id="openExternal" href="#" target="_blank" style="display:none">↗ Abrir</a>
+  </div>
+</header>
+
+<!-- ÁREA DE VISUALIZACIÓN -->
+<div class="viewer-area" id="viewerArea">
+
+  <!-- HTML LOCAL -->
+  <iframe id="iframeLocal" src="" style="display:none"></iframe>
+
+  <!-- CANVA / SLIDES EMBED -->
+  <iframe id="iframeEmbed" class="embed-frame" src="" allowfullscreen style="display:none"></iframe>
+
+  <!-- PANTALLA PPTX -->
+  <div class="pptx-screen" id="pptxScreen">
+    <div class="pptx-icon">📊</div>
+    <h2 id="pptxTitle">Presentación PowerPoint</h2>
+    <p>Esta presentación está en formato PowerPoint. Descárgala para verla en tu dispositivo o ábrela en Google Slides.</p>
+    <a class="pptx-download" id="pptxDownload" href="#">📥 Descargar .pptx</a>
+  </div>
+
+  <!-- PANTALLA CANVA NO EMBED -->
+  <div class="canva-screen" id="canvaScreen">
+    <div style="font-size:3rem">🎨</div>
+    <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.6rem;font-weight:700">Presentación en Canva</h2>
+    <p style="font-size:0.85rem;color:var(--muted);max-width:420px;line-height:1.6">Esta presentación está alojada en Canva. Se abrirá en una nueva pestaña.</p>
+    <a class="pptx-download" id="canvaLink" href="#" target="_blank">🎨 Abrir en Canva</a>
+  </div>
+
+</div>
+
+<!-- BOTTOMBAR -->
+<footer class="bottombar">
+
+  <!-- NAVEGACIÓN HTML (puntos + botones) -->
+  <div class="nav-html" id="navHtml" style="display:none">
+    <button class="nav-btn" id="btnPrev" onclick="navSlide(-1)" disabled>← Anterior</button>
+    <div class="prog-wrap" id="progWrap"></div>
+    <span class="slide-counter"><span id="slideNum">1</span> / <span id="slideTotal">1</span></span>
+    <button class="nav-btn primary" id="btnNext" onclick="navSlide(1)">Siguiente →</button>
+  </div>
+
+  <!-- NAVEGACIÓN EXTERNA -->
+  <div class="nav-external" id="navExternal">
+    <p id="navExternalMsg">Usa los controles de la presentación para navegar</p>
+  </div>
+
+</footer>
+
+<script>
+// ── CONFIGURACIÓN ──
+// Leer parámetros de la URL
+// Uso: viewer.html?tipo=html&url=presentacion.html&bloque=00&titulo=Arquitecturas
+// Uso: viewer.html?tipo=canva&url=https://canva.com/view/xxx&bloque=01&titulo=Fundamentos
+// Uso: viewer.html?tipo=pptx&url=archivo.pptx&bloque=02&titulo=Seguridad
+// Uso: viewer.html?tipo=slides&url=https://docs.google.com/...&bloque=03&titulo=Diagnosis
+
+const params = new URLSearchParams(window.location.search);
+const tipo   = params.get('tipo')   || 'html';
+const url    = params.get('url')    || '';
+const bloque = params.get('bloque') || '00';
+const titulo = params.get('titulo') || 'Presentación';
+const back   = params.get('back')   || '../';
+
+// Configurar topbar
+document.getElementById('topBadge').textContent  = 'BLOQUE ' + bloque;
+document.getElementById('topTitle').textContent  = titulo;
+document.getElementById('backBtn').href          = back;
+
+// Tipo badge
+const tipoBadge = document.getElementById('tipoBadge');
+const tipoMap = {
+  html:   { label: 'HTML',         cls: 'tipo-html' },
+  canva:  { label: 'CANVA',        cls: 'tipo-canva' },
+  slides: { label: 'GOOGLE SLIDES',cls: 'tipo-slides' },
+  pptx:   { label: 'PPTX',         cls: 'tipo-pptx' },
+};
+const tipoInfo = tipoMap[tipo] || tipoMap.html;
+tipoBadge.textContent = tipoInfo.label;
+tipoBadge.className   = 'tipo-badge ' + tipoInfo.cls;
+
+// ── CARGAR SEGÚN TIPO ──
+if (tipo === 'html') {
+  // ── HTML LOCAL — iframe + control de navegación ──
+  const iframe = document.getElementById('iframeLocal');
+  iframe.style.display = 'block';
+  iframe.src = url;
+
+  const navHtml = document.getElementById('navHtml');
+  navHtml.style.display = 'flex';
+
+  let slides = [], current = 0, total = 0;
+  let iframeReady = false;
+
+  iframe.addEventListener('load', () => {
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      slides = Array.from(doc.querySelectorAll('.slide'));
+      total  = slides.length;
+
+      if (total === 0) {
+        // Sin slides detectables → solo mostrar iframe
+        document.getElementById('navHtml').style.display = 'none';
+        return;
+      }
+
+      iframeReady = true;
+
+      // Generar dots
+      const progWrap = document.getElementById('progWrap');
+      progWrap.innerHTML = '';
+      slides.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'dot' + (i === 0 ? ' on' : '');
+        d.addEventListener('click', () => goTo(i));
+        progWrap.appendChild(d);
+      });
+
+      render();
+    } catch(e) {
+      // Si no podemos acceder al iframe (cross-origin), ocultamos controles
+      document.getElementById('navHtml').style.display = 'none';
+    }
+  });
+
+  function render() {
+    if (!iframeReady) return;
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      const allSlides = doc.querySelectorAll('.slide');
+      allSlides.forEach((s, i) => {
+        s.classList.remove('active', 'prev');
+        if (i === current)     s.classList.add('active');
+        if (i === current - 1) s.classList.add('prev');
+      });
+      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === current));
+      document.getElementById('slideNum').textContent   = current + 1;
+      document.getElementById('slideTotal').textContent = total;
+      document.getElementById('btnPrev').disabled = current === 0;
+      const btnNext = document.getElementById('btnNext');
+      if (current === total - 1) { btnNext.textContent = '✓ Fin'; btnNext.disabled = true; }
+      else { btnNext.textContent = 'Siguiente →'; btnNext.disabled = false; }
+
+      // Actualizar título en topbar
+      const activeSlide = slides[current];
+      if (activeSlide) {
+        const h = activeSlide.querySelector('h1, h2');
+        if (h) document.getElementById('topTitle').textContent = h.textContent.trim().substring(0, 60);
+      }
+    } catch(e) {}
+  }
+
+  window.navSlide = function(dir) {
+    current = Math.min(Math.max(current + dir, 0), total - 1);
+    render();
+  };
+
+  window.goTo = function(i) { current = i; render(); };
+
+  // Teclado
+  document.addEventListener('keydown', e => {
+    if (!iframeReady) return;
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); navSlide(1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); navSlide(-1); }
+  });
+
+  // Swipe en el iframe
+  let touchX = null;
+  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) navSlide(dx < 0 ? 1 : -1);
+    touchX = null;
+  });
+
+} else if (tipo === 'canva') {
+  // ── CANVA ──
+  // Canva permite embed con /view/ URLs → convertir a embed
+  let embedUrl = url;
+  if (url.includes('canva.com') && url.includes('/view/')) {
+    embedUrl = url + '?embed';
+  }
+
+  const iframeEmbed = document.getElementById('iframeEmbed');
+
+  // Intentar embed
+  iframeEmbed.style.display = 'block';
+  iframeEmbed.src = embedUrl;
+  iframeEmbed.setAttribute('allowfullscreen', '');
+
+  // Botón abrir externo
+  const openBtn = document.getElementById('openExternal');
+  openBtn.style.display = 'flex';
+  openBtn.href = url;
+  openBtn.textContent = '↗ Abrir en Canva';
+
+  // Nav externa
+  document.getElementById('navExternal').style.display = 'flex';
+  document.getElementById('navExternalMsg').textContent = 'Usa los controles de Canva para navegar';
+
+  // Si el embed falla, mostrar pantalla alternativa
+  iframeEmbed.addEventListener('error', () => {
+    iframeEmbed.style.display = 'none';
+    const screen = document.getElementById('canvaScreen');
+    screen.classList.add('active');
+    document.getElementById('canvaLink').href = url;
+  });
+
+} else if (tipo === 'slides') {
+  // ── GOOGLE SLIDES ──
+  let embedUrl = url;
+  // Convertir URL de edición a URL de embed
+  if (url.includes('docs.google.com/presentation')) {
+    embedUrl = url.replace('/edit', '/embed').replace('/pub', '/embed');
+    if (!embedUrl.includes('?')) embedUrl += '?';
+    embedUrl += '&start=false&loop=false&delayms=0';
+  }
+
+  const iframeEmbed = document.getElementById('iframeEmbed');
+  iframeEmbed.style.display = 'block';
+  iframeEmbed.src = embedUrl;
+
+  const openBtn = document.getElementById('openExternal');
+  openBtn.style.display = 'flex';
+  openBtn.href = url;
+  openBtn.textContent = '↗ Abrir en Slides';
+
+  document.getElementById('navExternal').style.display = 'flex';
+  document.getElementById('navExternalMsg').textContent = 'Usa las flechas de Google Slides para navegar';
+
+} else if (tipo === 'pptx') {
+  // ── PPTX — no embebible, pantalla de descarga ──
+  document.getElementById('pptxScreen').classList.add('active');
+  document.getElementById('pptxTitle').textContent = titulo;
+  document.getElementById('pptxDownload').href = url;
+
+  const openBtn = document.getElementById('openExternal');
+  openBtn.style.display = 'flex';
+  openBtn.href = url;
+  openBtn.textContent = '↗ Descargar';
+
+  document.getElementById('navExternal').style.display = 'flex';
+  document.getElementById('navExternalMsg').textContent = 'Descarga el archivo para verlo en PowerPoint o Google Slides';
+}
+</script>
+
+</body>
+</html>
