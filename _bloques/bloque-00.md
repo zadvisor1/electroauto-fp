@@ -3,7 +3,7 @@ numero: 0
 title: "Arquitecturas de vehículos híbridos y eléctricos"
 subtitulo: "Qué tipos existen, en qué se diferencian y por qué eso determina cómo se trabaja con ellos en el taller"
 horas: 20
-presentacion: /hibridos-electricos/bloque-00/presentacion.html
+presentacion: https://canva.link/rrhbd93k7hzfhi1
 crosswalk:
   - modulo: "5077"
     ra: "RA1"
