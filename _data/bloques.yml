@@ -9,8 +9,8 @@
   material_extra: true
   alto_voltaje: false
   icono: "🔋"
-  presentacion: "/hibridos-electricos/bloque-00/presentacion.html"
-  presentacion_tipo: "html"
+  presentacion: "https://canva.link/rrhbd93k7hzfhi1"
+  presentacion_tipo: "canva"
 
 - num: "01"
   slug: "bloque-01"
