@@ -58,7 +58,20 @@ body { display:flex; flex-direction:column; height:100vh; overflow:hidden; margi
 .ea-btn.primary:hover { background:#FF8533; }
 
 /* ── OCULTAR NAV ORIGINAL ── */
-.footer, .nav-hint, .tap-zone { display:none !important; }
+/* Usamos body como prefijo para ganar especificidad al CSS interno */
+body .footer,
+body .nav-hint,
+body .tap-zone,
+.footer,
+.nav-hint,
+.tap-zone {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
 
 /* ── RESPONSIVE ── */
 @media(max-width:600px) {
