@@ -197,8 +197,12 @@ layout: default
             {% assign btn_icon = "▶" %}
             {% assign btn_sub = "Navegable · Teclado y swipe" %}
           {% endif %}
-          {% assign viewer_url = viewer_base | append: "?tipo=" | append: tipo | append: "&url=" | append: pres_url | append: "&bloque=" | append: page.numero | append: "&titulo=" | append: page.title | append: "&back=" | append: back_url %}
-          <a href="{{ viewer_url }}" class="btn-presentacion">
+          {% if tipo == "html" %}
+            <a href="{{ pres_url }}" class="btn-presentacion">
+          {% else %}
+            {% assign viewer_url = viewer_base | append: "?tipo=" | append: tipo | append: "&url=" | append: pres_url | append: "&bloque=" | append: page.numero | append: "&titulo=" | append: page.title | append: "&back=" | append: back_url %}
+            <a href="{{ viewer_url }}" class="btn-presentacion" target="_blank">
+          {% endif %}
             <span class="icon">{{ btn_icon }}</span>
             <span class="text">Ver presentación<small>{{ btn_sub }}</small></span>
           </a>
