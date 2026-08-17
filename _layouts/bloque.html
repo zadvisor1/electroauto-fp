@@ -171,41 +171,19 @@ layout: default
     <div class="sidebar-card">
       <div class="sidebar-card-header">Material del bloque</div>
       <div class="sidebar-card-body">
-        {% assign bloque_actual = site.data.bloques | where: "slug", page.slug | first %}
-        {% assign tipo = bloque_actual.presentacion_tipo | default: "html" %}
         {% if page.presentacion %}
-          {% assign viewer_base = site.baseurl | append: "/assets/viewer.html" %}
-          {% assign back_url = site.baseurl | append: "/hibridos-electricos/" | append: page.slug | append: "/" %}
-          {% if tipo == "html" %}
-            {% assign pres_url = site.baseurl | append: page.presentacion %}
-            {% assign btn_icon = "▶" %}
-            {% assign btn_sub = "Navegable · Teclado y swipe" %}
-          {% elsif tipo == "canva" %}
-            {% assign pres_url = page.presentacion %}
-            {% assign btn_icon = "🎨" %}
-            {% assign btn_sub = "Se abre en Canva" %}
-          {% elsif tipo == "slides" %}
-            {% assign pres_url = page.presentacion %}
-            {% assign btn_icon = "📊" %}
-            {% assign btn_sub = "Google Slides" %}
-          {% elsif tipo == "pptx" %}
-            {% assign pres_url = site.baseurl | append: page.presentacion %}
-            {% assign btn_icon = "📥" %}
-            {% assign btn_sub = "Formato PowerPoint" %}
+          {% assign es_externa = page.presentacion | slice: 0, 4 %}
+          {% if es_externa == "http" %}
+            <a href="{{ page.presentacion }}" class="btn-presentacion" target="_blank">
+              <span class="icon">🎨</span>
+              <span class="text">Ver presentación<small>Se abre en nueva pestaña</small></span>
+            </a>
           {% else %}
-            {% assign pres_url = site.baseurl | append: page.presentacion %}
-            {% assign btn_icon = "▶" %}
-            {% assign btn_sub = "Navegable · Teclado y swipe" %}
+            <a href="{{ site.baseurl }}{{ page.presentacion }}" class="btn-presentacion">
+              <span class="icon">▶</span>
+              <span class="text">Ver presentación<small>Navegable · Teclado y swipe</small></span>
+            </a>
           {% endif %}
-          {% if tipo == "html" %}
-            <a href="{{ pres_url }}" class="btn-presentacion">
-          {% else %}
-            {% assign viewer_url = viewer_base | append: "?tipo=" | append: tipo | append: "&url=" | append: pres_url | append: "&bloque=" | append: page.numero | append: "&titulo=" | append: page.title | append: "&back=" | append: back_url %}
-            <a href="{{ viewer_url }}" class="btn-presentacion" target="_blank">
-          {% endif %}
-            <span class="icon">{{ btn_icon }}</span>
-            <span class="text">Ver presentación<small>{{ btn_sub }}</small></span>
-          </a>
         {% else %}
           <div class="btn-proximamente">
             <span class="icon">🕐</span>
@@ -286,4 +264,3 @@ layout: default
   }, { threshold: 0.05 });
   revealEls.forEach(el => observer.observe(el));
 </script>
-
