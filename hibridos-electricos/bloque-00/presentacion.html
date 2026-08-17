@@ -65,9 +65,47 @@
   
    
   @media (max-width:640px){ .divider .num{ font-size: 30vw; right:2vw; opacity:.5;} .divider .content{ max-width:100%; }  .diagram-wrap{ flex-direction:column; } }
+
+  /* ── NAVEGACIÓN ELECTROAUTO ── */
+  html, body { height:100%; overflow:hidden; margin:0; }
+  body { display:flex; flex-direction:column; }
+  .deck { flex:1; position:relative; overflow:hidden; }
+  .ea-topbar {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 1.5rem; height:48px; flex-shrink:0;
+    background:rgba(22,24,28,0.97); border-bottom:1px solid #34383f; gap:1rem;
+  }
+  .ea-topbar .ea-left { display:flex; align-items:center; gap:1rem; min-width:0; }
+  .ea-badge { font-family:'IBM Plex Mono',monospace; font-size:0.65rem; font-weight:700; color:#000; background:#ff6a00; padding:0.2rem 0.6rem; letter-spacing:0.05em; white-space:nowrap; }
+  .ea-slide-title { font-family:'IBM Plex Mono',monospace; font-size:0.85rem; color:#8b93a1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ea-counter { font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:#8b93a1; white-space:nowrap; flex-shrink:0; }
+  .ea-counter span { color:#ff6a00; }
+  .ea-bottombar {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 1.5rem; height:56px; flex-shrink:0;
+    background:rgba(22,24,28,0.97); border-top:1px solid #34383f; gap:1rem;
+  }
+  .ea-dots { display:flex; gap:6px; align-items:center; flex-wrap:wrap; flex:1; justify-content:center; }
+  .ea-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.15); cursor:pointer; transition:all 0.2s; }
+  .ea-dot.active { background:#ff6a00; transform:scale(1.4); }
+  .ea-dot.visited { background:rgba(255,106,0,0.35); }
+  .ea-btn { display:flex; align-items:center; gap:0.5rem; background:none; border:1px solid #34383f; color:#edeef0; padding:0.4rem 1rem; font-family:'IBM Plex Mono',monospace; font-size:0.85rem; font-weight:600; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
+  .ea-btn:hover { border-color:#ff6a00; color:#ff6a00; }
+  .ea-btn:disabled { opacity:0.25; cursor:default; }
+  .ea-btn.primary { background:#ff6a00; border-color:#ff6a00; color:#000; }
+  .ea-btn.primary:hover { background:#FF8533; }
+  @media(max-width:600px) { .ea-slide-title { display:none; } .ea-btn { padding:0.4rem 0.6rem; } }
 </style>
 </head>
 <body>
+<div class="ea-topbar">
+  <div class="ea-left">
+    <span class="ea-badge">BLOQUE 00</span>
+    <span class="ea-slide-title" id="eaTitle"></span>
+  </div>
+  <span class="ea-counter"><span id="eaCurrent">1</span> / <span id="eaTotal">?</span></span>
+</div>
+
 
 <div class="deck" id="deck">
 
@@ -387,6 +425,76 @@
   data-bloque="01"
   data-titulo="Fundamentos Eléctricos Comunes">
 </script>
+<div class="ea-bottombar">
+  <button class="ea-btn" id="eaPrev" disabled>← Anterior</button>
+  <div class="ea-dots" id="eaDots"></div>
+  <button class="ea-btn primary" id="eaNext">Siguiente →</button>
+</div>
 
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('section.slide, div.slide'));
+  const total = slides.length;
+  let cur = 0;
+  const visited = new Set([0]);
+
+  document.getElementById('eaTotal').textContent = total;
+
+  const dotsEl = document.getElementById('eaDots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'ea-dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  document.getElementById('eaPrev').addEventListener('click', () => change(-1));
+  document.getElementById('eaNext').addEventListener('click', () => change(1));
+
+  function goTo(i) {
+    slides[cur].classList.remove('active','prev');
+    cur = i;
+    slides[cur].classList.add('active');
+    visited.add(cur);
+    updateUI();
+  }
+
+  function change(dir) {
+    const next = cur + dir;
+    if (next < 0 || next >= total) return;
+    slides[cur].classList.add('prev');
+    goTo(next);
+  }
+
+  function updateUI() {
+    document.getElementById('eaCurrent').textContent = cur + 1;
+    document.getElementById('eaPrev').disabled = cur === 0;
+    const btn = document.getElementById('eaNext');
+    if (cur === total - 1) { btn.textContent = '✓ Fin'; btn.disabled = true; }
+    else { btn.textContent = 'Siguiente →'; btn.disabled = false; }
+    document.querySelectorAll('.ea-dot').forEach((d,i) => {
+      d.className = 'ea-dot';
+      if (i === cur) d.classList.add('active');
+      else if (visited.has(i)) d.classList.add('visited');
+    });
+    const h = slides[cur].querySelector('h1,h2');
+    if (h) document.getElementById('eaTitle').textContent = h.textContent.trim().substring(0,60);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); change(1); }
+    if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); change(-1); }
+  });
+
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', e => {
+    const d = tx - e.changedTouches[0].clientX;
+    if (Math.abs(d) > 50) change(d > 0 ? 1 : -1);
+  });
+
+  updateUI();
+})();
+</script>
 </body>
 </html>
