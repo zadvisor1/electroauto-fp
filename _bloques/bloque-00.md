@@ -3,7 +3,7 @@ numero: 0
 title: "Arquitecturas de vehículos híbridos y eléctricos"
 subtitulo: "Qué tipos existen, en qué se diferencian y por qué eso determina cómo se trabaja con ellos en el taller"
 horas: 20
-presentacion: presentacion: "https://www.canva.com/design/DAHR-LlMoo0/4jOTd4qdlw_qd6b-OI3b4w/view"
+presentacion: "https://www.canva.com/design/DAHR-LlMoo0/4jOTd4qdlw_qd6b-OI3b4w/view"
 embed: "https://www.canva.com/design/DAHR-LlMoo0/4jOTd4qdlw_qd6b-OI3b4w/view?embed"
 crosswalk:
   - modulo: "5077"
